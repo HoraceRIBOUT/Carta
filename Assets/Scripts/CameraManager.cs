@@ -47,7 +47,10 @@ public class CameraManager : MonoBehaviour
 
     public void GlobalPlacement()
     {
-        this.transform.position = this.transform.position * (1 - clampSpeed) + target.transform.position * (clampSpeed);
+        float timedClampSpeed = clampSpeed * Time.deltaTime * staticValue.defaultFramerate;
+        this.transform.position = target.transform.position;
+                                 //  (1 - timedClampSpeed ) * this.transform.position 
+                                 //+ (timedClampSpeed     ) * target.transform.position;
     }
 
     public void InputManagement()
@@ -105,7 +108,7 @@ public class CameraManager : MonoBehaviour
             secondCam = cameraVirtuals[2];
             yAxis = -yAxis;
         }
-//        Debug.Log("yAxis = " + yAxis);
+        //        Debug.Log("yAxis = " + yAxis);
         mainCamera.transform.position = Vector3.Lerp(cameraVirtuals[1].position, secondCam.position, yAxis);
         mainCamera.transform.rotation = Quaternion.Lerp(cameraVirtuals[1].rotation, secondCam.rotation, yAxis);
     }

@@ -32,6 +32,11 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetAll();
+        }
+
         //Both jump and movement
         MovementManagement();
     }
@@ -105,7 +110,16 @@ public class PlayerMove : MonoBehaviour
 
     #endregion
 
+    //Debug
 
+    public void ResetAll()
+    {
+        this.transform.position = Vector3.up;
+        acceleration = Vector3.zero;
+        _rgbd.velocity = Vector3.zero;
+        lastSpeed = Vector3.zero;
+        canJump = false;
+    }
 
 
 
