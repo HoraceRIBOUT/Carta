@@ -6,8 +6,8 @@ public class CameraManager : MonoBehaviour
 {
     public Camera mainCamera;
     public Transform target = null;
-    [Range(0, 1)]
-    public float clampSpeed = 0.9f;
+    //[Range(0, 1)]
+    //public float clampSpeed = 0.9f;
 
     public Vector2 rotationSpeed = Vector2.one;
 
@@ -47,7 +47,7 @@ public class CameraManager : MonoBehaviour
 
     public void GlobalPlacement()
     {
-        float timedClampSpeed = clampSpeed * Time.deltaTime * staticValue.defaultFramerate;
+        //float timedClampSpeed = clampSpeed * Time.deltaTime * staticValue.defaultFramerate;
         this.transform.position = target.transform.position;
                                  //  (1 - timedClampSpeed ) * this.transform.position 
                                  //+ (timedClampSpeed     ) * target.transform.position;
@@ -55,19 +55,6 @@ public class CameraManager : MonoBehaviour
 
     public void InputManagement()
     {
-        //if (Input.anyKeyDown)
-        //{
-        //    foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
-        //    {
-        //        if (Input.GetKeyDown(vKey))
-        //        {
-        //            //your code here
-        //            Debug.Log("GetKey : " + vKey);
-        //        }
-        //    }
-        //}
-
-
 //        Debug.Log("Pitch = "+ Input.GetAxis("Mouse X") + " Rool == "+ Input.GetAxis("Mouse Y"));
         if (Cursor.lockState == CursorLockMode.Locked)
         {
@@ -102,10 +89,10 @@ public class CameraManager : MonoBehaviour
         {
             trans.localRotation = Quaternion.Euler(0, 360 * xAxis, 0);
         }
-        Transform secondCam = cameraVirtuals[0];
+        Transform secondCam = cameraVirtuals[2];
         if (yAxis < 0)//mean that we are going between midCam and downCam and also need to take the inverse.
         {
-            secondCam = cameraVirtuals[2];
+            secondCam = cameraVirtuals[0];
             yAxis = -yAxis;
         }
         //        Debug.Log("yAxis = " + yAxis);

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    private Transform cameraTr;
+
     [Header("Mouvement")]
     [Tooltip("The higher the quickier we reach full speed")]
     public float groundGain = 1f;
@@ -27,6 +29,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         _rgbd.drag = drag;
+        cameraTr = GameManager.instance.cameraMng.mainCamera.transform;
     }
 
     // Update is called once per frame
@@ -54,8 +57,8 @@ public class PlayerMove : MonoBehaviour
         lastSpeed = _rgbd.velocity;
         if (inputDirection != Vector2.zero)
         {
-            Vector3 forwardDir = Vector3.forward;
-            Vector3 rightDir = Vector3.right;
+            Vector3 forwardDir = cameraTr.forward;
+            Vector3 rightDir = cameraTr.right;
 
             acceleration = inputDirection.x * rightDir;
             acceleration += inputDirection.y * forwardDir;
@@ -83,6 +86,7 @@ public class PlayerMove : MonoBehaviour
             if (canJump)
             {
                 _rgbd.velocity = HorizontalOnly(_rgbd.velocity);
+                lastSpeed = _rgbd.velocity;
                 //Will have to "incline" the jump toward : the koystock direction + the normal of the ground
                 _rgbd.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
                 canJump = false;
@@ -125,7 +129,7 @@ public class PlayerMove : MonoBehaviour
 
     public static Vector3 HorizontalOnly(Vector3 vec)
     {
-        vec.z = 0;
+        vec.y = 0;
         return vec;
     }
     public static float HorizontalMagnitude(Vector3 vec)
