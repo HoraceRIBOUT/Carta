@@ -31,8 +31,6 @@ public class CameraManager : MonoBehaviour
     public float lastXAxisValue = 0.5f;
     [Range(-1, 1)]
     public float lastYAxisValue = 0;
-    
-
 
 
     // Start is called before the first frame update

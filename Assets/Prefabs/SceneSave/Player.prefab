@@ -47,14 +47,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d91c3ca336399479864f8a11d1f59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rgbd: {fileID: 6459757362387403776}
   groundGain: 20
   groundSpeed: 3
   drag: 2
-  jumpForce: 4
-  canJump: 1
   lastSpeed: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  _rgbd: {fileID: 6459757362387403776}
+  jumpForce: 4
+  canJump: 1
+  currentNormal: {x: 0, y: 1, z: 0}
+  tagName: Decor
 --- !u!54 &6459757362387403776
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 983049942717837341}
   m_Layer: 0
   m_Name: Int-Cote-Baton2
-  m_TagString: Untagged
+  m_TagString: Decor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 4973791884539487353}
   - {fileID: 4973791883451179667}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &276918289479583336
 PrefabInstance:
@@ -48,6 +48,10 @@ PrefabInstance:
     - target: {fileID: 8974201847925069018, guid: 287a0f256e958fc4b933c820bfc71e62, type: 3}
       propertyPath: m_Name
       value: Sol
+      objectReference: {fileID: 0}
+    - target: {fileID: 8974201847925069018, guid: 287a0f256e958fc4b933c820bfc71e62, type: 3}
+      propertyPath: m_TagString
+      value: Decor
       objectReference: {fileID: 0}
     - target: {fileID: 8974201847925069022, guid: 287a0f256e958fc4b933c820bfc71e62, type: 3}
       propertyPath: m_RootOrder
@@ -112,6 +116,10 @@ PrefabInstance:
     - target: {fileID: 4205095289423651637, guid: 3b241ee4e741f8240a23c992a5fb7ce5, type: 3}
       propertyPath: m_Name
       value: Baton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205095289423651637, guid: 3b241ee4e741f8240a23c992a5fb7ce5, type: 3}
+      propertyPath: m_TagString
+      value: Decor
       objectReference: {fileID: 0}
     - target: {fileID: 4205095289423651641, guid: 3b241ee4e741f8240a23c992a5fb7ce5, type: 3}
       propertyPath: m_RootOrder
@@ -221,6 +229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mur
       objectReference: {fileID: 0}
+    - target: {fileID: 3567082610725502622, guid: 5266f80546a32b546bf0fca7be45c51e, type: 3}
+      propertyPath: m_TagString
+      value: Decor
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5266f80546a32b546bf0fca7be45c51e, type: 3}
@@ -284,6 +296,10 @@ PrefabInstance:
     - target: {fileID: 1182007036709997884, guid: 3b2b3a307c46b7f41a2461db71344695, type: 3}
       propertyPath: m_Name
       value: Toit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182007036709997884, guid: 3b2b3a307c46b7f41a2461db71344695, type: 3}
+      propertyPath: m_TagString
+      value: Decor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
