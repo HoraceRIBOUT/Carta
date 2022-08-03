@@ -21,6 +21,11 @@ public class CameraManager : MonoBehaviour
     public List<Transform> circles;
     public List<Transform> cameraVirtuals;
 
+    [Header("Transition")]
+    public AnimationCurve transitionXCurve = AnimationCurve.Linear(0, 0, 1, 1);
+    public AnimationCurve transitionYCurve = AnimationCurve.Linear(-1, -1, 1, 1);
+    public AnimationCurve transitionRotCurve = AnimationCurve.Linear(-1, -1, 1, 1);
+
 
     [Range(0, 1)]
     public float lastXAxisValue = 0.5f;
@@ -96,8 +101,11 @@ public class CameraManager : MonoBehaviour
             yAxis = -yAxis;
         }
         //        Debug.Log("yAxis = " + yAxis);
-        mainCamera.transform.position = Vector3.Lerp(cameraVirtuals[1].position, secondCam.position, yAxis);
-        mainCamera.transform.rotation = Quaternion.Lerp(cameraVirtuals[1].rotation, secondCam.rotation, yAxis);
+        Vector3 transitionPos;
+        transitionPos = Vector3.Lerp(cameraVirtuals[1].position, secondCam.position, transitionXCurve.Evaluate(yAxis));
+        transitionPos.y = Vector3.Lerp(cameraVirtuals[1].position, secondCam.position, transitionYCurve.Evaluate(yAxis)).y;
+        mainCamera.transform.position = transitionPos;
+        mainCamera.transform.rotation = Quaternion.Lerp(cameraVirtuals[1].rotation, secondCam.rotation, transitionRotCurve.Evaluate(yAxis));
     }
 
     public void ReplaceCameraFromRadius()
