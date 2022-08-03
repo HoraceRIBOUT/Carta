@@ -29,6 +29,7 @@ public class PlayerMove : MonoBehaviour
     [Header("Wall and ground")]
     public List<wallAndGround_Info> wallAndGround = new List<wallAndGround_Info>();
 
+    [System.Serializable]
     public class wallAndGround_Info
     {
         public int id;
@@ -96,8 +97,9 @@ public class PlayerMove : MonoBehaviour
         lastSpeed = _rgbd.velocity;
         if (inputDirection != Vector2.zero)
         {
-            Vector3 forwardDir = cameraTr.forward;
-            Vector3 rightDir = cameraTr.right;
+            Vector3 forwardDir = Vector3.ProjectOnPlane(cameraTr.forward, currentNormal).normalized;
+            Vector3 rightDir = Vector3.Cross(currentNormal, forwardDir);
+            Debug.DrawRay(this.transform.position, rightDir, Color.red);
 
             acceleration = inputDirection.x * rightDir;
             acceleration += inputDirection.y * forwardDir;
@@ -136,13 +138,14 @@ public class PlayerMove : MonoBehaviour
 
     #region Collision and so
 
-    public string tagName = "Decor";
+    public int layerOnCollision = 0;
     public float offset = 0.3f;
     public float size = 0.2f;
+    public LayerMask layerMask;
+    public float raycastDist = 0.15f;
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Touch : " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag(tagName))
+        if (collision.gameObject.layer == (layerOnCollision))
         {
             if (collision.contactCount > 0)
             {
@@ -151,20 +154,21 @@ public class PlayerMove : MonoBehaviour
                 {
                     if (!WallAlreadyTouching(collision.gameObject))
                     {
-                        //Verify if the collision is cool : else, correct it 
-                        Vector3 pointToStartFrom = collision.contacts[0].point + impactNormal * size;
-                        Vector3 dirRight = Vector3.Cross(impactNormal, Vector3.right);//a random perpendicular vector
-                        Vector3 dirUp    = Vector3.Cross(impactNormal, dirRight);
-                        Vector3 pointToStartFromRIGHT   = pointToStartFrom + dirRight * offset;
-                        Vector3 pointToStartFromLEFT    = pointToStartFrom - dirRight * offset;
-                        Vector3 pointToStartFromUP      = pointToStartFrom + dirUp * offset;
-                        Vector3 pointToStartFromDOWN    = pointToStartFrom - dirUp * offset;
-                        Debug.DrawRay(pointToStartFromRIGHT , -impactNormal, Color.blue, 1f);
-                        Debug.DrawRay(pointToStartFromLEFT  , -impactNormal, Color.blue, 1f);
-                        Debug.DrawRay(pointToStartFromUP    , -impactNormal, Color.blue, 1f);
-                        Debug.DrawRay(pointToStartFromDOWN  , -impactNormal, Color.blue, 1f);
-                        //take each one of these and see if they return also the "same-ish" normal
+                        ////Verify if the collision is cool : else, correct it 
+                        //Vector3 pointToStartFrom = collision.contacts[0].point + impactNormal * size;
+                        //Vector3 dirRight = Vector3.Cross(impactNormal, Vector3.right);//a random perpendicular vector
+                        //Vector3 dirUp    = Vector3.Cross(impactNormal, dirRight);
+                        //Vector3 pointToStartFromRIGHT   = pointToStartFrom + dirRight * offset;
+                        //Vector3 pointToStartFromLEFT    = pointToStartFrom - dirRight * offset;
+                        //Vector3 pointToStartFromUP      = pointToStartFrom + dirUp * offset;
+                        //Vector3 pointToStartFromDOWN    = pointToStartFrom - dirUp * offset;
+                        //Debug.DrawRay(pointToStartFromRIGHT , -impactNormal, Color.blue, 1f);
+                        //Debug.DrawRay(pointToStartFromLEFT  , -impactNormal, Color.blue, 1f);
+                        //Debug.DrawRay(pointToStartFromUP    , -impactNormal, Color.blue, 1f);
+                        //Debug.DrawRay(pointToStartFromDOWN  , -impactNormal, Color.blue, 1f);
+                        ////take each one of these and see if they return also the "same-ish" normal
 
+                        CheckGround();//??
 
                         AddWall(collision.gameObject, impactNormal);
 
@@ -201,7 +205,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void AddWall(GameObject obj, Vector3 normal)
     {
-        Debug.Log("Gain : " + obj.name);
+        Debug.Log("Gain : " + obj.name + " with a normal of " + normal);
         wallAndGround_Info newWall = new wallAndGround_Info(obj, normal);
         wallAndGround.Add(newWall);
     }
@@ -237,9 +241,16 @@ public class PlayerMove : MonoBehaviour
 
     private void CheckGround()
     {
-        if ()
+        RaycastHit info;
+        if (Physics.Raycast(this.transform.position, -currentNormal, out info, raycastDist, layerMask.value))
         {
-
+            currentNormal = info.normal;
+            Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, Color.red);
+        }
+        else
+        {
+            RecalculateNormal();
+            Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, new Color(1, 0, 1));
         }
     }
 
