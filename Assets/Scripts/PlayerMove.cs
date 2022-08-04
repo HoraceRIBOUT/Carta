@@ -58,7 +58,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         _rgbd.drag = drag;
-        cameraTr = GameManager.instance.cameraMng.mainCamera.transform;
+        cameraTr = GameManager.instance.cameraMng.falseCamera.transform;
     }
 
     // Update is called once per frame
@@ -97,17 +97,17 @@ public class PlayerMove : MonoBehaviour
         lastSpeed = _rgbd.velocity;
         if (inputDirection != Vector2.zero)
         {
-            Vector3 forwardDir = Vector3.ProjectOnPlane(cameraTr.forward, currentNormal).normalized;
-            Vector3 rightDir = Vector3.Cross(currentNormal, forwardDir);
-            Debug.DrawRay(this.transform.position, rightDir, Color.red);
+            Vector3 groundAcc = GetGroundMove(inputDirection);
+            Vector3 wallAcc = GetWallMove(inputDirection);
 
-            acceleration = inputDirection.x * rightDir;
-            acceleration += inputDirection.y * forwardDir;
-            acceleration = groundGain * inputDirection.magnitude * acceleration.normalized;
+            float dotNormalToUp = Vector3.Dot(currentNormal, Vector3.up); //cannot be under 1 normaly 
+
+            acceleration =  groundAcc * dotNormalToUp + wallAcc * (1 - dotNormalToUp);
+            //Debug.Log("acceleration "+ acceleration + " = " + dotNormalToUp + " + " + (1 - dotNormalToUp) + " . "+ wallAcc + "/"+groundAcc);
 
             lastSpeed += acceleration * Time.deltaTime;
 
-            if(HorizontalMagnitude(lastSpeed) > groundSpeed)
+            if (HorizontalMagnitude(lastSpeed) > groundSpeed)
             {
                 lastSpeed = HorizontalClamp(lastSpeed, groundSpeed);
             }
@@ -119,6 +119,49 @@ public class PlayerMove : MonoBehaviour
 
         JumpManagement();
     }
+
+    private Vector3 GetGroundMove(Vector2 inputDirection)
+    {
+        Vector3 forwardDir = Vector3.ProjectOnPlane(cameraTr.forward, currentNormal).normalized;
+        Vector3 rightDir = Vector3.Cross(currentNormal, forwardDir);
+        Debug.DrawRay(this.transform.position, rightDir, Color.red);
+
+        Vector3 res;
+        res = inputDirection.x * rightDir;
+        res += inputDirection.y * forwardDir;
+        res = groundGain * inputDirection.magnitude * res.normalized;
+
+
+        return res;
+    }
+    private Vector3 GetWallMove(Vector2 inputDirection)
+    {
+        //In this case, we project the cam forward onto a horizontal plane
+        //to avoid having to look up to go up. 
+        //Creation of this horizontal-ish plane :
+        Vector3 upOnPlane = Vector3.ProjectOnPlane(Vector3.up, currentNormal).normalized;
+        Vector3 rightOnPlane = Vector3.Cross(currentNormal, upOnPlane).normalized;
+        Debug.DrawRay(this.transform.position, rightOnPlane, Color.yellow);
+
+        //Project the cam on it
+        Vector3 camProj = Vector3.ProjectOnPlane(cameraTr.forward, upOnPlane).normalized;
+        //Transform this vector at horizontal into the same vector but in the surface plane
+        float dotForward = Vector3.Dot(camProj, -currentNormal);
+        float dotRight = Vector3.Dot(camProj, rightOnPlane);
+
+        //We return back to same calcul as in groundMove()
+        Vector3 forwardDir = upOnPlane * dotForward + rightOnPlane * dotRight;
+        Vector3 rightDir = Vector3.Cross(currentNormal, forwardDir);
+
+        Vector3 res;
+        res = inputDirection.x * rightDir;
+        res += inputDirection.y * forwardDir;
+        res = groundGain * inputDirection.magnitude * res.normalized;
+
+        return res;
+    }
+
+
 
     private void JumpManagement()
     {

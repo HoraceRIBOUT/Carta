@@ -20,11 +20,13 @@ public class CameraManager : MonoBehaviour
     public Vector3 camRot = new Vector3(-20, -5, 30);
     public List<Transform> circles;
     public List<Transform> cameraVirtuals;
+    public Transform falseCamera;
 
     [Header("Transition")]
     public AnimationCurve transitionXCurve = AnimationCurve.Linear(0, 0, 1, 1);
     public AnimationCurve transitionYCurve = AnimationCurve.Linear(-1, -1, 1, 1);
     public AnimationCurve transitionRotCurve = AnimationCurve.Linear(-1, -1, 1, 1);
+    public AnimationCurve transitionFalseCamRotCurve = AnimationCurve.Linear(-1, -1, 1, 1);
 
 
     [Range(0, 1)]
@@ -104,6 +106,10 @@ public class CameraManager : MonoBehaviour
         transitionPos.y = Vector3.Lerp(cameraVirtuals[1].position, secondCam.position, transitionYCurve.Evaluate(yAxis)).y;
         mainCamera.transform.position = transitionPos;
         mainCamera.transform.rotation = Quaternion.Lerp(cameraVirtuals[1].rotation, secondCam.rotation, transitionRotCurve.Evaluate(yAxis));
+
+        //falseCamera.transform.position = mainCamera.transform.position;
+        //the camera need to be rotate a little higher than the true one, to avoid some wall problem  (if this fix work)
+        //falseCamera.transform.rotation = ;
     }
 
     public void ReplaceCameraFromRadius()
