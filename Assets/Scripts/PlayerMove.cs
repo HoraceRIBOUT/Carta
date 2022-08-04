@@ -12,6 +12,7 @@ public class PlayerMove : MonoBehaviour
     public float groundGain = 1f;
     [Tooltip("Max horizontal speed")]
     public float groundSpeed = 1f;
+    public float wallSpeed = 0.5f;
     [Tooltip("The higher the quickier we stop")]
     [Range(0, 3)]
     public float drag = 2;
@@ -102,13 +103,18 @@ public class PlayerMove : MonoBehaviour
             Vector3 groundAcc = GetGroundMove(inputDirection);
             Vector3 wallAcc = GetWallMove(inputDirection);
 
-            float dotNormalToUp = Vector3.Dot(currentNormal, Vector3.up); //cannot be under 1 normaly 
+            float dotNormalToUp = Mathf.Clamp01(Vector3.Dot(currentNormal, Vector3.up)); 
 
             acceleration =  groundAcc * dotNormalToUp + wallAcc * (1 - dotNormalToUp);
             //Debug.Log("acceleration "+ acceleration + " = " + dotNormalToUp + " + " + (1 - dotNormalToUp) + " . "+ wallAcc + "/"+groundAcc);
 
             lastSpeed += acceleration * Time.deltaTime;
 
+            //if (dotNormalToUp)
+            {
+                Vector3 speedAtWallMagnitude = (lastSpeed.magnitude > wallSpeed ? lastSpeed.normalized * wallSpeed : lastSpeed);
+                lastSpeed = Vector3.Lerp(speedAtWallMagnitude, lastSpeed, dotNormalToUp);
+            }
             if (HorizontalMagnitude(lastSpeed) > groundSpeed)
             {
                 lastSpeed = HorizontalClamp(lastSpeed, groundSpeed);
@@ -187,17 +193,19 @@ public class PlayerMove : MonoBehaviour
         GravityManagement();
     }
 
+    [Header("Gravity")]
     [Range(0,1)]
     public float gravityMultiplier = 1f;
     public float gravityDefault = 9.81f;
     public float gravityOnFalling = 18.1f;
+    public float surfaceAttraction = 2f;
 
     public void GravityManagement()
     {
-        //gravityMultiplier = Vector3.Dot(currentNormal, Vector3.up);
-        //gravityMultiplier *= 2;
+        gravityMultiplier = Vector3.Dot(currentNormal, Vector3.up) * 2 - 1;
+        gravityMultiplier = Mathf.Clamp01(gravityMultiplier);
 
-        _rgbd.velocity -= currentNormal * 0.5f * Time.fixedDeltaTime;
+        _rgbd.velocity -= currentNormal * surfaceAttraction * Time.fixedDeltaTime;
 
         if (gravityMultiplier <= 0)
             return;
@@ -231,7 +239,7 @@ public class PlayerMove : MonoBehaviour
             if (collision.contactCount > 0)
             {
                 Vector3 impactNormal = collision.contacts[0].normal;
-                if (Vector3.Dot(Vector3.down, impactNormal) <= 0)
+                //if (Vector3.Dot(Vector3.down, impactNormal) <= 0)//So, we can move in the plafond
                 {
                     if (!WallAlreadyTouching(collision.gameObject))
                     {
@@ -280,7 +288,7 @@ public class PlayerMove : MonoBehaviour
         foreach(wallAndGround_Info wall in wallAndGround)
         {
             if (wall.id == obj.GetInstanceID())
-                return true;
+                return true; 
         }
         return false;
     }
@@ -289,6 +297,11 @@ public class PlayerMove : MonoBehaviour
         Debug.Log("Gain : " + obj.name + " with a normal of " + normal);
         wallAndGround_Info newWall = new wallAndGround_Info(obj, normal);
         wallAndGround.Add(newWall);
+
+        //Ok, just to test it out : 
+        _rgbd.velocity = Vector3.ProjectOnPlane(_rgbd.velocity, currentNormal);
+        lastSpeed = _rgbd.velocity;
+
     }
     private void RemoveWall(GameObject obj)
     {
@@ -316,6 +329,8 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
+            //if(normal dot vectorUp < 0 then don't count this). Or like, gravity is back 
+            //also : if input direction : take that direction to know which surface to use
             currentNormal = wallAndGround[wallAndGround.Count - 1].lastNormal;
         }
     }

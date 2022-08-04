@@ -54,9 +54,19 @@ MonoBehaviour:
   lastSpeed: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
   jumpForce: 4
+  verticalBonusForHorizontalJump: 0.3
   canJump: 1
+  wallAndGround: []
   currentNormal: {x: 0, y: 1, z: 0}
-  tagName: Decor
+  gravityMultiplier: 1
+  gravityDefault: 9.81
+  gravityOnFalling: 18.1
+  surfaceAttraction: 2
+  layerOnCollision: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  raycastDist: 0.3
 --- !u!54 &6459757362387403776
 Rigidbody:
   m_ObjectHideFlags: 0
