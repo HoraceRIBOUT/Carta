@@ -21,6 +21,7 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Jump")]
     public float jumpForce = 10f;
+    public float verticalBonusForHorizontalJump = 0.3f;
     public bool canJump = true;
 
 
@@ -28,6 +29,7 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Wall and ground")]
     public List<wallAndGround_Info> wallAndGround = new List<wallAndGround_Info>();
+    public Vector3 currentNormal = Vector3.up;
 
     [System.Serializable]
     public class wallAndGround_Info
@@ -52,11 +54,11 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public Vector3 currentNormal = Vector3.up;
 
     // Start is called before the first frame update
     void Start()
     {
+        _rgbd.useGravity = false;
         _rgbd.drag = drag;
         cameraTr = GameManager.instance.cameraMng.falseCamera.transform;
     }
@@ -162,7 +164,6 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-
     private void JumpManagement()
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
@@ -171,19 +172,56 @@ public class PlayerMove : MonoBehaviour
             {
                 _rgbd.velocity = HorizontalOnly(_rgbd.velocity);
                 lastSpeed = _rgbd.velocity;
+                Vector3 higherThanNormal = currentNormal + Vector3.up * verticalBonusForHorizontalJump;
+                Vector3 jumpDirection = Vector3.Lerp(higherThanNormal.normalized, Vector3.up, Vector3.Dot(currentNormal, Vector3.up));
                 //Will have to "incline" the jump toward : the koystock direction + the normal of the ground
-                _rgbd.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
+                _rgbd.AddForce(jumpForce * jumpDirection, ForceMode.Impulse);
                 canJump = false;
             }
         }
     }
 
 
+    private void FixedUpdate()
+    {
+        GravityManagement();
+    }
+
+    [Range(0,1)]
+    public float gravityMultiplier = 1f;
+    public float gravityDefault = 9.81f;
+    public float gravityOnFalling = 18.1f;
+
+    public void GravityManagement()
+    {
+        //gravityMultiplier = Vector3.Dot(currentNormal, Vector3.up);
+        //gravityMultiplier *= 2;
+
+        _rgbd.velocity -= currentNormal * 0.5f * Time.fixedDeltaTime;
+
+        if (gravityMultiplier <= 0)
+            return;
+        
+        
+        if(wallAndGround.Count == 0 && _rgbd.velocity.y < 0)
+        {
+            _rgbd.velocity += Vector3.down * gravityOnFalling * Time.fixedDeltaTime;
+        }
+        else
+        {
+            _rgbd.velocity += Vector3.down * gravityDefault * gravityMultiplier * Time.fixedDeltaTime;
+        }
+
+    }
+
+
+
     #region Collision and so
 
+    [Header("Collision and so")]
     public int layerOnCollision = 0;
-    public float offset = 0.3f;
-    public float size = 0.2f;
+    //public float offset = 0.3f;
+    //public float size = 0.2f;
     public LayerMask layerMask;
     public float raycastDist = 0.15f;
     public void OnCollisionEnter(Collision collision)
