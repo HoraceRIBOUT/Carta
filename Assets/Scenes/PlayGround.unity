@@ -7902,6 +7902,18 @@ PrefabInstance:
       propertyPath: offset
       value: 0.075
       objectReference: {fileID: 0}
+    - target: {fileID: 6459757362387403777, guid: 146813b2df37f844a975f737e092b56e, type: 3}
+      propertyPath: jumpForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6459757362387403777, guid: 146813b2df37f844a975f737e092b56e, type: 3}
+      propertyPath: wallSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6459757362387403777, guid: 146813b2df37f844a975f737e092b56e, type: 3}
+      propertyPath: verticalBonusForHorizontalJump
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6459757362387403806, guid: 146813b2df37f844a975f737e092b56e, type: 3}
       propertyPath: m_Name
       value: Player
