@@ -10,9 +10,9 @@ public class LDTools : MonoBehaviour
     public List<GameObject> prefabsListTest_01 = new List<GameObject>();
 
 
-    [MenuItem("OrangeLetter/TryReplaceLeft %UP")]
+    [MenuItem("OrangeLetter/TryReplaceLeft #Z")]
     public static void TryReplaceLeft()    {        TryReplace(true);    }
-    [MenuItem("OrangeLetter/TryReplaceRight %DOWN")]
+    [MenuItem("OrangeLetter/TryReplaceRight #S")]
     public static void TryReplaceRight()    {       TryReplace(false);    }
 
     public static void TryReplace(bool left)
@@ -74,9 +74,9 @@ public class LDTools : MonoBehaviour
     }
 
 
-    [MenuItem("OrangeLetter/TryRotateLeft %LEFT")]
+    [MenuItem("OrangeLetter/TryRotateLeft #Q")]
     public static void TryRotateLeft() { TryRotate(true); }
-    [MenuItem("OrangeLetter/TryRotateRight %RIGHT")]
+    [MenuItem("OrangeLetter/TryRotateRight #D")]
     public static void TryRotateRight() { TryRotate(false); }
 
     public static void TryRotate(bool left)
