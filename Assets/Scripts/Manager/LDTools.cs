@@ -3,11 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-
+[ExecuteAlways]
 public class LDTools : MonoBehaviour
 {
 #if UNITY_EDITOR
     public List<GameObject> prefabsListTest_01 = new List<GameObject>();
+
+    //To change the selection afterward
+    private GameObject[] newSelection = new GameObject[0];
+
+    public void LateUpdate()
+    {
+        if(newSelection.Length > 0)
+        {
+            Selection.objects = newSelection;
+            Debug.Log("Selection : "+ Selection.objects.Length);
+            newSelection = new GameObject[0];
+        }
+    }
 
 
     [MenuItem("OrangeLetter/TryReplaceLeft #Z")]
@@ -30,21 +43,26 @@ public class LDTools : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < Selection.gameObjects.Length; i++)
+        myLDTools.newSelection = Selection.gameObjects;
+        for (int i = 0; i < myLDTools.newSelection.Length; i++)
         {
-            if (TryReplaceOneElement(i, myLDTools.prefabsListTest_01, left)) break;
+            GameObject gO = myLDTools.newSelection[i];
+
+            GameObject newObj = TryReplaceOneElement(gO, myLDTools.prefabsListTest_01, left);
+            if (newObj != null) { myLDTools.newSelection[i] = newObj; continue; }
+            //else, item stay the same in selection
         }
+
     }
 
-    public static bool TryReplaceOneElement(int selectionIndex, List<GameObject> replaceList, bool left)
+    public static GameObject TryReplaceOneElement(GameObject gO, List<GameObject> replaceList, bool left)
     {
-        GameObject gO = Selection.gameObjects[selectionIndex];
         if (replaceList.Count == 0)
-            return false;
+            return null;
 
         GameObject prefab = PrefabUtility.GetCorrespondingObjectFromSource(gO);
         if (prefab == null)
-            return false;
+            return null;
 
         int index = replaceList.IndexOf(prefab);
         if (index >= 0)
@@ -64,13 +82,12 @@ public class LDTools : MonoBehaviour
             newObject.transform.SetSiblingIndex(  gO.transform.GetSiblingIndex());
 
             Debug.Log("Change " + gO.name + " to " + gO.name + "(" + index + ")");
-            Selection.activeGameObject = newObject;
 
             Undo.DestroyObjectImmediate(gO);
-            return true;
+            return newObject;
         }
 
-        return false;
+        return null;
     }
 
 
