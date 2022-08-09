@@ -194,7 +194,7 @@ public class PlayerMove : MonoBehaviour
     }
 
     [Header("Gravity")]
-    [Range(0,1)]
+    [Range(-1,1)]
     public float gravityMultiplier = 1f;
     public float gravityDefault = 9.81f;
     public float gravityOnFalling = 18.1f;
@@ -202,11 +202,11 @@ public class PlayerMove : MonoBehaviour
 
     public void GravityManagement()
     {
-        gravityMultiplier = Vector3.Dot(currentNormal, Vector3.up) * 2 - 1;
-        gravityMultiplier = Mathf.Clamp01(gravityMultiplier);
+        gravityMultiplier = Vector3.Dot(currentNormal, Vector3.up);
 
-        _rgbd.velocity -= currentNormal * surfaceAttraction * Time.fixedDeltaTime;
+        _rgbd.velocity -= currentNormal * gravityMultiplier * surfaceAttraction * Time.fixedDeltaTime;
 
+        gravityMultiplier = Mathf.Abs(gravityMultiplier);
         if (gravityMultiplier <= 0)
             return;
         
@@ -243,20 +243,6 @@ public class PlayerMove : MonoBehaviour
                 {
                     if (!WallAlreadyTouching(collision.gameObject))
                     {
-                        ////Verify if the collision is cool : else, correct it 
-                        //Vector3 pointToStartFrom = collision.contacts[0].point + impactNormal * size;
-                        //Vector3 dirRight = Vector3.Cross(impactNormal, Vector3.right);//a random perpendicular vector
-                        //Vector3 dirUp    = Vector3.Cross(impactNormal, dirRight);
-                        //Vector3 pointToStartFromRIGHT   = pointToStartFrom + dirRight * offset;
-                        //Vector3 pointToStartFromLEFT    = pointToStartFrom - dirRight * offset;
-                        //Vector3 pointToStartFromUP      = pointToStartFrom + dirUp * offset;
-                        //Vector3 pointToStartFromDOWN    = pointToStartFrom - dirUp * offset;
-                        //Debug.DrawRay(pointToStartFromRIGHT , -impactNormal, Color.blue, 1f);
-                        //Debug.DrawRay(pointToStartFromLEFT  , -impactNormal, Color.blue, 1f);
-                        //Debug.DrawRay(pointToStartFromUP    , -impactNormal, Color.blue, 1f);
-                        //Debug.DrawRay(pointToStartFromDOWN  , -impactNormal, Color.blue, 1f);
-                        ////take each one of these and see if they return also the "same-ish" normal
-
                         CheckGround();//??
 
                         AddWall(collision.gameObject, impactNormal);
@@ -264,7 +250,10 @@ public class PlayerMove : MonoBehaviour
 
                         RecalculateNormal();
                     }
-                    canJump = true;
+
+                    //Reset Jump
+                    if(Vector3.Dot(Vector3.down, impactNormal) <= 0)
+                        canJump = true;
                 }
             }
         }
