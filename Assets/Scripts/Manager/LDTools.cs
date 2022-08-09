@@ -51,6 +51,7 @@ public class LDTools : MonoBehaviour
             GameObject newObj = TryReplaceOneElement(gO, myLDTools.prefabsListTest_01, left);
             if (newObj != null) { myLDTools.newSelection[i] = newObj; continue; }
             //else, item stay the same in selection
+            Debug.LogWarning("Did not change " + myLDTools.newSelection[i].name + " : was not a prefab in any list.");
         }
 
     }
@@ -111,6 +112,7 @@ public class LDTools : MonoBehaviour
 
         for (int i = 0; i < Selection.gameObjects.Length; i++)
         {
+            Undo.RegisterCompleteObjectUndo(Selection.gameObjects[i], "Rotate game object via Shortcut");
             Selection.gameObjects[i].transform.Rotate((left ? 90 : -90) * Vector3.up);
         }
 
