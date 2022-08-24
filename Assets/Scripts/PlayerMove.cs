@@ -72,8 +72,6 @@ public class PlayerMove : MonoBehaviour
             ResetAll();
         }
 
-        CheckGround();
-
         //Both jump and movement
         MovementManagement();
 
@@ -93,6 +91,8 @@ public class PlayerMove : MonoBehaviour
             Input.GetAxis("Horizontal"),
             Input.GetAxis("Vertical")
             );
+
+        CheckGround(inputDirection);
 
 #if UNITY_EDITOR
         _rgbd.drag = drag;
@@ -124,6 +124,17 @@ public class PlayerMove : MonoBehaviour
         //will also handle wall sticking
 
         _rgbd.velocity = lastSpeed;
+
+        //Only for visual aid
+        ////9s
+        //GetComponent<TrailRenderer>().material.color = Color.green - Color.black * Mathf.Clamp01(10 - Time.timeSinceLevelLoad);   
+        ////6s
+        //Debug.DrawLine(this.transform.position, this.transform.position+lastSpeed/4, Color.red - Color.black * Mathf.Clamp01(7 - Time.timeSinceLevelLoad));
+        ////4s
+        //Debug.DrawLine(this.transform.position + lastSpeed / 4, this.transform.position + lastSpeed /4 + acceleration / 32, Color.blue - Color.black * Mathf.Clamp01(5 - Time.timeSinceLevelLoad));
+        //Vector3 pos = new Vector3(-2.5f, 2f, -5f);
+        ////1s
+        //Debug.DrawLine(pos, pos + Vector3.right * inputDirection.x/2 + Vector3.forward * inputDirection.y/2, Color.magenta - Color.black * Mathf.Clamp01(2 - Time.timeSinceLevelLoad));
 
         JumpManagement();
     }
@@ -243,8 +254,6 @@ public class PlayerMove : MonoBehaviour
                 {
                     if (!WallAlreadyTouching(collision.gameObject))
                     {
-                        CheckGround();//??
-
                         AddWall(collision.gameObject, impactNormal);
 
 
@@ -324,7 +333,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void CheckGround()
+    private void CheckGround(Vector2 inputDirection = new Vector2())
     {
         RaycastHit info;
         if (Physics.Raycast(this.transform.position, -currentNormal, out info, raycastDist, layerMask.value))
