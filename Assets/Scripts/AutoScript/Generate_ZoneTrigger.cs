@@ -9,13 +9,27 @@ public class Generate_ZoneTrigger : MonoBehaviour
     public static string DETECT_ENTER = "public void Enter";
     public static string DETECT_EXIT = "public void Exit";
     public static string NEW_SCRIPT_PATH = "Assets/Scripts/AutoScript/";
+    public static string SOURCE_SCRIPT_NAME = "ZoneTrigger";
     public static string NEW_SCRIPT_NAME = "ZoneTrigger_AutoGeneratePart";
 
 
-    public static void ReadTheFile(TextAsset textAsset)
+    public static void ReadTheFile()
     {
-        string[] eachLineOfTheFiles = textAsset.text.Split('\n');
+        string readPath = NEW_SCRIPT_PATH + SOURCE_SCRIPT_NAME + ".cs";
+        Debug.Log("Reading Classfile: " + readPath);
+        List<string> eachLineOfTheFiles = new List<string>();
 
+        using (StreamReader infile =
+            new StreamReader(readPath))
+        {
+            string line;
+            while ((line = infile.ReadLine()) != null)
+            {
+                eachLineOfTheFiles.Add(line);
+            }
+        }
+
+        //Treat the read lines
         List<string> importantLine = new List<string>();
         List<string> importantLine_Enter = new List<string>();
         List<string> importantLine_Exit = new List<string>();
@@ -130,8 +144,7 @@ public class Generate_ZoneTrigger : MonoBehaviour
 
         //end of writing
 
+
         AssetDatabase.Refresh();
-
-
     }
 }

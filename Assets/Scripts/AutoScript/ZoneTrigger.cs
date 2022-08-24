@@ -19,7 +19,7 @@ public class ZoneTrigger : MonoBehaviour
     {
         if (regenerate)
         {
-            Generate_ZoneTrigger.ReadTheFile(script);
+            Generate_ZoneTrigger.ReadTheFile();
             regenerate = false;
         }
     }
@@ -50,5 +50,14 @@ public class ZoneTrigger : MonoBehaviour
     public void ExitRestaurant()
     {
         Debug.Log("No more restauran.");
+    }
+
+    public void EnterFlowerShop()
+    {
+        Debug.Log("Flower? Flower !");
+    }
+    public void ExitFlowerShop()
+    {
+        Debug.Log("No more flower ! What have we done");
     }
 }
