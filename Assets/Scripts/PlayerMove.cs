@@ -31,6 +31,7 @@ public class PlayerMove : MonoBehaviour
     [Header("Wall and ground")]
     public List<wallAndGround_Info> wallAndGround = new List<wallAndGround_Info>();
     public Vector3 currentNormal = Vector3.up;
+    public float checkGroundDistance=0.2f;
 
     [System.Serializable]
     public class wallAndGround_Info
@@ -82,7 +83,7 @@ public class PlayerMove : MonoBehaviour
 
     public void DebugMethod()
     {
-        Debug.DrawRay(this.transform.position, currentNormal, Color.red);
+        //Debug.DrawRay(this.transform.position, currentNormal, Color.red);
     }
 
     private void MovementManagement()
@@ -143,7 +144,7 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 forwardDir = Vector3.ProjectOnPlane(cameraTr.forward, currentNormal).normalized;
         Vector3 rightDir = Vector3.Cross(currentNormal, forwardDir);
-        Debug.DrawRay(this.transform.position, rightDir, Color.red);
+        //Debug.DrawRay(this.transform.position, rightDir, Color.red);
 
         Vector3 res;
         res = inputDirection.x * rightDir;
@@ -160,7 +161,7 @@ public class PlayerMove : MonoBehaviour
         //Creation of this horizontal-ish plane :
         Vector3 upOnPlane = Vector3.ProjectOnPlane(Vector3.up, currentNormal).normalized;
         Vector3 rightOnPlane = Vector3.Cross(currentNormal, upOnPlane).normalized;
-        Debug.DrawRay(this.transform.position, rightOnPlane, Color.yellow);
+        //Debug.DrawRay(this.transform.position, rightOnPlane, Color.yellow);
 
         //Project the cam on it
         Vector3 camProj = Vector3.ProjectOnPlane(cameraTr.forward, upOnPlane).normalized;
@@ -333,6 +334,22 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    private void ChooseMostVerticalWall()
+    {
+        currentNormal = Vector3.up;
+        float maxDotValue = -1;
+        foreach (wallAndGround_Info wallAndGround in wallAndGround)
+        {
+            float dotVal = Vector3.Dot(Vector3.up, wallAndGround.lastNormal);
+            if (maxDotValue < dotVal)
+            {
+                currentNormal = wallAndGround.lastNormal;
+                maxDotValue = dotVal;
+            }
+        }
+    }
+
+
     private void CheckGround(Vector2 inputDirection = new Vector2())
     {
         RaycastHit info;
@@ -343,7 +360,8 @@ public class PlayerMove : MonoBehaviour
             Vector3 forwardDir = Vector3.ProjectOnPlane(cameraTr.forward, Vector3.up).normalized;
             Vector3 rightDir = Vector3.Cross(currentNormal, forwardDir);
 
-            ray = forwardDir * inputDirection.x + rightDir * inputDirection.y;
+            ray = forwardDir * inputDirection.y + rightDir * inputDirection.x;
+            ray = ray.normalized * checkGroundDistance;
         }
 
         Debug.DrawRay(this.transform.position, ray, (inputDirection != Vector2.zero) ? Color.green : Color.blue);
@@ -354,7 +372,7 @@ public class PlayerMove : MonoBehaviour
             if (WallAlreadyTouching(info.collider.gameObject))
             {
                 currentNormal = info.normal;
-                Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, Color.red);
+                //Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, Color.red);
                 return;
             }
             //else : the wall we touch is not touch actually. Consider  it too far away from us. Ignore it.
@@ -364,8 +382,8 @@ public class PlayerMove : MonoBehaviour
         //else
 
         //I hurt nothing ? Then, let see what wall have the most UpVector and choose it 
-        RecalculateNormal();
-        Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, new Color(1, 0, 1));
+        ChooseMostVerticalWall();
+        //Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, new Color(1, 0, 1));
         
     }
 
