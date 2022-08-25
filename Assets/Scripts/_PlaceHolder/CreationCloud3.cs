@@ -5,7 +5,7 @@ using UnityEngine;
 [ExecuteAlways]
 public class CreationCloud3 : MonoBehaviour
 {
-    public List<Vector3> pointInSpace;
+    public List<List<List<Vector3>>> pointInSpace;
     public MeshRenderer thePlane;
 
 
@@ -38,6 +38,7 @@ public class CreationCloud3 : MonoBehaviour
             GeneratePoint();
 
             generatePoint = false;
+            UpdateSurface();
         }
 
         if (updateSurface || depht_mem != depht)
@@ -52,21 +53,33 @@ public class CreationCloud3 : MonoBehaviour
 
     public void GeneratePoint()
     {
-        pointInSpace = new List<Vector3>();
+        pointInSpace = new List<List<List<Vector3>>>();
+
+        float zoneSize = 1f / (float)numberOfSubsection;
+
+        int totalNumb = 0;
         Vector3 randNumb;
         Debug.Log("Generate : ");
         for (int i = 0; i < numberOfSubsection; i++)
         {
+            List<List<Vector3>> row = new List<List<Vector3>>();
             for (int j = 0; j < numberOfSubsection; j++)
             {
+                List<Vector3> colomn = new List<Vector3>();
                 for (int k = 0; k < numberOfSubsection; k++)
                 {
-                    randNumb = new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-                    pointInSpace.Add(randNumb);
+                    randNumb = new Vector3(
+                        zoneSize * (i + Random.Range(0f, 1f)),
+                        zoneSize * (j + Random.Range(0f, 1f)),
+                        zoneSize * (k + Random.Range(0f, 1f)));
+                    colomn.Add(randNumb);
+                    totalNumb++;
                 }
+                row.Add(colomn);
             }
+            pointInSpace.Add(row);
         }
-        Debug.Log("Generated : " + pointInSpace.Count);
+        Debug.Log("Generated : " + totalNumb);
 
     }
 
@@ -122,7 +135,11 @@ public class CreationCloud3 : MonoBehaviour
                     (float)j / (float)pixelResolution,
                     depht
                     );
-                foreach(Vector3 point in pointInSpace)
+
+                List<Vector3> neighPoint = GetNeighboorPoint(i, j, depht);
+
+
+                foreach(Vector3 point in neighPoint)
                 {
                     float dist = (point - pointPos).magnitude;
                     if(distanceMin > dist)
@@ -142,6 +159,29 @@ public class CreationCloud3 : MonoBehaviour
             for (int j = 0; j < pixelResolution; j++)
                 res[i][j] = res[i][j] / maxDistance;
         
+        return res;
+    }
+
+    public List<Vector3> GetNeighboorPoint(int x, int y, float depht)
+    {
+        List<Vector3> res = new List<Vector3>();
+        float zoneSize = 1f / (float)numberOfSubsection;
+
+        for (int i = -1; i < 2; i++)
+        {
+            for (int j = -1; j < 2; j++)
+            {
+                for (int k = -1; k < 2; k++)
+                {
+                    int valX = (int)(((float)x / (float)pixelResolution ) / zoneSize);
+                    int valY = (int)(((float)y / (float)pixelResolution ) / zoneSize);
+                    int valZ = (int)(((float)depht                      ) / zoneSize);
+                    //Debug.Log("Point ("+x + "," + y + ") = [" + valX + "][" + valY + "][" + valZ + "]");
+                    res.Add(pointInSpace[valX][valY][valZ]);
+                }
+            }
+        }
+
         return res;
     }
 
@@ -175,10 +215,40 @@ public class CreationCloud3 : MonoBehaviour
         Debug.DrawLine(pointInWorld(point111), pointInWorld(point101), Color.gray);
         Debug.DrawLine(pointInWorld(point101), pointInWorld(point001), Color.gray);
 
-        if(dbg_pointInSpace == null)
-            dbg_pointInSpace = new List<GameObject>();
 
-        if (dbg_pointInSpace.Count != pointInSpace.Count)
+
+        //float zoneSize = 1f / (float)numberOfSubsection;
+        //for (int i = 0; i < numberOfSubsection; i++)
+        //{
+        //    Debug.DrawLine(pointInWorld(point001 - Vector3.forward * i * zoneSize), pointInWorld(point011 - Vector3.forward * i * zoneSize), Color.gray);
+        //    Debug.DrawLine(pointInWorld(point011 - Vector3.forward * i * zoneSize), pointInWorld(point111 - Vector3.forward * i * zoneSize), Color.gray);
+        //    Debug.DrawLine(pointInWorld(point111 - Vector3.forward * i * zoneSize), pointInWorld(point101 - Vector3.forward * i * zoneSize), Color.gray);
+        //    Debug.DrawLine(pointInWorld(point101 - Vector3.forward * i * zoneSize), pointInWorld(point001 - Vector3.forward * i * zoneSize), Color.gray);
+        //}
+        //for (int i = 0; i < numberOfSubsection; i++)
+        //{
+        //    Debug.DrawLine(pointInWorld(point010 - Vector3.up * i * zoneSize), pointInWorld(point011 - Vector3.up * i * zoneSize), Color.gray);
+        //    Debug.DrawLine(pointInWorld(point011 - Vector3.up * i * zoneSize), pointInWorld(point111 - Vector3.up * i * zoneSize), Color.gray);
+        //    Debug.DrawLine(pointInWorld(point111 - Vector3.up * i * zoneSize), pointInWorld(point110 - Vector3.up * i * zoneSize), Color.gray);
+        //    Debug.DrawLine(pointInWorld(point110 - Vector3.up * i * zoneSize), pointInWorld(point010 - Vector3.up * i * zoneSize), Color.gray);
+        //}
+        //for (int i = 0; i < numberOfSubsection; i++)
+        //{
+        //    Debug.DrawLine(pointInWorld(point100 - Vector3.right * i * zoneSize), pointInWorld(point110 - Vector3.right * i * zoneSize), Color.gray);
+        //    Debug.DrawLine(pointInWorld(point110 - Vector3.right * i * zoneSize), pointInWorld(point111 - Vector3.right * i * zoneSize), Color.gray);
+        //    Debug.DrawLine(pointInWorld(point111 - Vector3.right * i * zoneSize), pointInWorld(point101 - Vector3.right * i * zoneSize), Color.gray);
+        //    Debug.DrawLine(pointInWorld(point101 - Vector3.right * i * zoneSize), pointInWorld(point100 - Vector3.right * i * zoneSize), Color.gray);
+        //}
+
+
+        if (dbg_pointInSpace == null)
+            dbg_pointInSpace = new List<GameObject>();
+        if (pointInSpace == null)
+            pointInSpace = new List<List<List<Vector3>>>();
+
+        int totalNumber = pointInSpace.Count * pointInSpace.Count * pointInSpace.Count;
+
+        if (dbg_pointInSpace.Count != totalNumber)
         {
             //Delete previous bach
             foreach (GameObject gO in dbg_pointInSpace)
@@ -195,21 +265,26 @@ public class CreationCloud3 : MonoBehaviour
 
             //Create the point
             for (int i = 0; i < pointInSpace.Count; i++)
-            {
-                GameObject gO = Instantiate(spherePoint, this.transform);
-                gO.name = "Point (" + i + "," + i + "," + i + ")";
+                for (int j = 0; j < pointInSpace[i].Count; j++)
+                    for (int k = 0; k < pointInSpace[i][j].Count; k++)
+                    {
+                        GameObject gO = Instantiate(spherePoint, this.transform);
+                        gO.name = "Point (" + i + "," + j + "," + k + ")";
 
-                dbg_pointInSpace.Add(gO);
-            }
+                        dbg_pointInSpace.Add(gO);
+                    }
 
         }
         else
         {
             for (int i = 0; i < pointInSpace.Count; i++)
-            {
-                Vector3 pos = pointInSpace[i] - Vector3.one / 2f;
-                dbg_pointInSpace[i].transform.localPosition = pos;
-            }
+                for (int j = 0; j < pointInSpace[i].Count; j++)
+                    for (int k = 0; k < pointInSpace[i][j].Count; k++)
+                    {
+                        Vector3 pos = pointInSpace[i][j][k] - Vector3.one / 2f;
+
+                        dbg_pointInSpace[i * pointInSpace.Count * pointInSpace.Count + j * pointInSpace.Count + k ].transform.localPosition = pos;
+                    }
         }
 
 
