@@ -336,16 +336,37 @@ public class PlayerMove : MonoBehaviour
     private void CheckGround(Vector2 inputDirection = new Vector2())
     {
         RaycastHit info;
-        if (Physics.Raycast(this.transform.position, -currentNormal, out info, raycastDist, layerMask.value))
+
+        Vector3 ray = -currentNormal;
+        if(inputDirection != Vector2.zero)
         {
-            currentNormal = info.normal;
-            Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, Color.red);
+            Vector3 forwardDir = Vector3.ProjectOnPlane(cameraTr.forward, Vector3.up).normalized;
+            Vector3 rightDir = Vector3.Cross(currentNormal, forwardDir);
+
+            ray = forwardDir * inputDirection.x + rightDir * inputDirection.y;
         }
-        else
+
+        Debug.DrawRay(this.transform.position, ray, (inputDirection != Vector2.zero) ? Color.green : Color.blue);
+        if (Physics.Raycast(this.transform.position, ray, out info, raycastDist, layerMask.value))
         {
-            RecalculateNormal();
-            Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, new Color(1, 0, 1));
+            //what did I hurt ?
+            //ok, then, I should follow that think !
+            if (WallAlreadyTouching(info.collider.gameObject))
+            {
+                currentNormal = info.normal;
+                Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, Color.red);
+                return;
+            }
+            //else : the wall we touch is not touch actually. Consider  it too far away from us. Ignore it.
+            //Might create trouble later.
+
         }
+        //else
+
+        //I hurt nothing ? Then, let see what wall have the most UpVector and choose it 
+        RecalculateNormal();
+        Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, new Color(1, 0, 1));
+        
     }
 
     #endregion
