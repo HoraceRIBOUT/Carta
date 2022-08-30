@@ -255,14 +255,14 @@ public class PlayerMove : MonoBehaviour
     #region Collision and so
 
     [Header("Collision and so")]
-    public int layerOnCollision = 0;
+    public List<int> layerOnCollision;
     //public float offset = 0.3f;
     //public float size = 0.2f;
     public LayerMask layerMask;
     public float raycastDist = 0.15f;
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == (layerOnCollision))
+        if (ObjectOnLayer(collision.gameObject))
         {
             if (collision.contactCount > 0)
             {
@@ -276,7 +276,6 @@ public class PlayerMove : MonoBehaviour
                         Debug.DrawRay(this.transform.position, ray, Color.yellow, 5f);
                         if (Physics.Raycast(this.transform.position, ray, out info, raycastDist, layerMask.value))
                         {
-                            Debug.LogWarning("TOUCHED !!");
                             impactNormal = info.normal;
                         }
 
@@ -296,6 +295,16 @@ public class PlayerMove : MonoBehaviour
         //if object is part of decor 
         //if normal of collision is not too sharp
         
+    }
+
+    public bool ObjectOnLayer(GameObject gameObject)
+    {
+        foreach(int layerValue in layerOnCollision)
+        {
+            if (gameObject.layer == (layerValue))
+                return true;
+        }
+        return false;
     }
     public void OnCollisionExit(Collision collision)
     {

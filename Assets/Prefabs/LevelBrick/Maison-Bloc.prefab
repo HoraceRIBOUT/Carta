@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5367670059221409462}
   - component: {fileID: 5367670059221409463}
   - component: {fileID: 5367670059221409460}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Maison-Bloc
   m_TagString: Decor
   m_Icon: {fileID: 0}
