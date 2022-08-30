@@ -67,6 +67,7 @@ public class CameraManager : MonoBehaviour
                 Input.GetAxis("Mouse X"),
                 -Input.GetAxis("Mouse Y")
             );
+            //Probably need to add a lerp to help if use by joystick. So might use two separate term
 
             lastXAxisValue += rotationSpeed.x * joystickMove.x;
             lastXAxisValue = lastXAxisValue % 1;

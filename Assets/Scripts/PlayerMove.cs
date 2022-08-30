@@ -31,7 +31,12 @@ public class PlayerMove : MonoBehaviour
     [Header("Wall and ground")]
     public List<wallAndGround_Info> wallAndGround = new List<wallAndGround_Info>();
     public Vector3 currentNormal = Vector3.up;
-    public float checkGroundDistance=0.2f;
+    private Vector3 lastNormal = Vector3.up;
+    public float checkGroundDistance = 0.2f;
+
+    public float coyoteTiming = 0.2f;
+    private float coyoteTimer = 0f;
+
 
     [System.Serializable]
     public class wallAndGround_Info
@@ -83,7 +88,12 @@ public class PlayerMove : MonoBehaviour
 
     public void DebugMethod()
     {
-        //Debug.DrawRay(this.transform.position, currentNormal, Color.red);
+        if ((lastNormal - currentNormal).magnitude > 0.01f)
+        {
+            //Debug.DrawRay(this.transform.position, currentNormal, Color.red, 2f);
+            //Debug.Log("Become " + currentNormal);
+            lastNormal = currentNormal;
+        }
     }
 
     private void MovementManagement()
@@ -92,6 +102,11 @@ public class PlayerMove : MonoBehaviour
             Input.GetAxis("Horizontal"),
             Input.GetAxis("Vertical")
             );
+
+        if(coyoteTimer > 0)
+        {
+            coyoteTimer -= Time.deltaTime;
+        }
 
         CheckGround(inputDirection);
 
@@ -216,7 +231,8 @@ public class PlayerMove : MonoBehaviour
     {
         gravityMultiplier = Vector3.Dot(currentNormal, Vector3.up);
 
-        _rgbd.velocity -= currentNormal * gravityMultiplier * surfaceAttraction * Time.fixedDeltaTime;
+        _rgbd.velocity -= currentNormal * (1 - gravityMultiplier) * surfaceAttraction * Time.fixedDeltaTime;
+        //Debug.DrawRay(this.transform.position, -currentNormal * surfaceAttraction, Color.green, Time.fixedDeltaTime);
 
         gravityMultiplier = Mathf.Abs(gravityMultiplier);
         if (gravityMultiplier <= 0)
@@ -255,6 +271,15 @@ public class PlayerMove : MonoBehaviour
                 {
                     if (!WallAlreadyTouching(collision.gameObject))
                     {
+                        Vector3 ray = -impactNormal;
+                        RaycastHit info;
+                        Debug.DrawRay(this.transform.position, ray, Color.yellow, 5f);
+                        if (Physics.Raycast(this.transform.position, ray, out info, raycastDist, layerMask.value))
+                        {
+                            Debug.LogWarning("TOUCHED !!");
+                            impactNormal = info.normal;
+                        }
+
                         AddWall(collision.gameObject, impactNormal);
 
 
@@ -291,8 +316,20 @@ public class PlayerMove : MonoBehaviour
         }
         return false;
     }
+    private int WallIndex(GameObject obj)
+    {
+        for (int i = 0; i < wallAndGround.Count; i++)
+        {
+            wallAndGround_Info wall = wallAndGround[i];
+            if (wall.id == obj.GetInstanceID())
+                return i;
+        }
+        return -1;
+    }
     private void AddWall(GameObject obj, Vector3 normal)
     {
+        coyoteTimer = 0;
+
         Debug.Log("Gain : " + obj.name + " with a normal of " + normal);
         wallAndGround_Info newWall = new wallAndGround_Info(obj, normal);
         wallAndGround.Add(newWall);
@@ -316,26 +353,40 @@ public class PlayerMove : MonoBehaviour
             }
         }
         wallAndGround.RemoveAt(index);
+
+        if(wallAndGround.Count == 0)
+        {
+            coyoteTimer = coyoteTiming;
+        }
     }
 
     private void RecalculateNormal()
     {
+        if (coyoteTimer > 0)
+            return;
+
         if (wallAndGround.Count == 0)
+        {
             currentNormal = Vector3.up;
+        }
         else if (wallAndGround.Count == 1)
         {
             currentNormal = wallAndGround[0].lastNormal;
         }
         else
         {
-            //if(normal dot vectorUp < 0 then don't count this). Or like, gravity is back 
-            //also : if input direction : take that direction to know which surface to use
-            currentNormal = wallAndGround[wallAndGround.Count - 1].lastNormal;
+            ChooseMostVerticalWall();
         }
     }
 
     private void ChooseMostVerticalWall()
     {
+        if(coyoteTimer > 0)
+        {
+            //keep last current Normal
+            return;
+        }
+
         currentNormal = Vector3.up;
         float maxDotValue = -1;
         foreach (wallAndGround_Info wallAndGround in wallAndGround)
@@ -358,7 +409,7 @@ public class PlayerMove : MonoBehaviour
         if(inputDirection != Vector2.zero)
         {
             Vector3 forwardDir = Vector3.ProjectOnPlane(cameraTr.forward, Vector3.up).normalized;
-            Vector3 rightDir = Vector3.Cross(currentNormal, forwardDir);
+            Vector3 rightDir = Vector3.Cross(Vector3.up, forwardDir);
 
             ray = forwardDir * inputDirection.y + rightDir * inputDirection.x;
             ray = ray.normalized * checkGroundDistance;
@@ -369,8 +420,10 @@ public class PlayerMove : MonoBehaviour
         {
             //what did I hurt ?
             //ok, then, I should follow that think !
-            if (WallAlreadyTouching(info.collider.gameObject))
+            int wallIndex = WallIndex(info.collider.gameObject);
+            if (wallIndex != -1)
             {
+                wallAndGround[wallIndex].lastNormal = info.normal;
                 currentNormal = info.normal;
                 //Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, Color.red);
                 return;
@@ -380,7 +433,6 @@ public class PlayerMove : MonoBehaviour
 
         }
         //else
-
         //I hurt nothing ? Then, let see what wall have the most UpVector and choose it 
         ChooseMostVerticalWall();
         //Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, new Color(1, 0, 1));
