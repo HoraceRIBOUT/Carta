@@ -71,6 +71,7 @@ Material:
     - _Cutoff: 0.5
     - _CutoutSize: 0.4
     - _DetailNormalMapScale: 1
+    - _Detail_Zoom: 200
     - _DstBlend: 0
     - _FalloffSize: 0.3
     - _GlossMapScale: 1
@@ -83,13 +84,17 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpeedMain: 0.001
+    - _SpeedMain_2: 0.001
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.5283019, g: 0.34267306, b: 0.16696332, a: 1}
     - _CutoutPosition: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Detail_SmoothStep: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SmoothStepMain: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5268680345410627518
 MonoBehaviour:
