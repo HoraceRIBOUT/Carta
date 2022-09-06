@@ -28,6 +28,9 @@ public class CameraManager : MonoBehaviour
     public bool onSecondary = false;
     [Range(0,1)]
     public float lerpSecondaryTarget = 0;
+    public float lerpSecondaryTargetSpeed_In = 2;
+    public float lerpSecondaryTargetSpeed_Out = 4;
+    public AnimationCurve lerpCurve;
     public Transform currentSecondaryTarget;
     public Transform secondCamPoint;
 
@@ -140,14 +143,14 @@ public class CameraManager : MonoBehaviour
         if (onSecondary)
         {
             if (lerpSecondaryTarget < 1)
-                lerpSecondaryTarget += Time.deltaTime;
+                lerpSecondaryTarget += Time.deltaTime * lerpSecondaryTargetSpeed_In;
             else
                 lerpSecondaryTarget = 1;
         }
         else
         {
             if (lerpSecondaryTarget > 0)
-                lerpSecondaryTarget -= Time.deltaTime;
+                lerpSecondaryTarget -= Time.deltaTime * lerpSecondaryTargetSpeed_Out;
             else
                 lerpSecondaryTarget = 0;
         }
@@ -174,8 +177,14 @@ public class CameraManager : MonoBehaviour
 
     public void UpdateCamPosition()
     {
-        mainCamera.transform.position =    Vector3.Lerp(playerCamPoint.transform.position, playerCamPoint.transform.position, lerpSecondaryTarget);
-        mainCamera.transform.rotation = Quaternion.Lerp(playerCamPoint.transform.rotation, playerCamPoint.transform.rotation, lerpSecondaryTarget);
+        if(currentSecondaryTarget == null)
+        {
+            mainCamera.transform.position = playerCamPoint.transform.position;
+            mainCamera.transform.rotation = playerCamPoint.transform.rotation;
+            return;
+        }
+        mainCamera.transform.position =    Vector3.Lerp(playerCamPoint.transform.position, currentSecondaryTarget.transform.position, lerpCurve.Evaluate(lerpSecondaryTarget));
+        mainCamera.transform.rotation = Quaternion.Lerp(playerCamPoint.transform.rotation, currentSecondaryTarget.transform.rotation, lerpCurve.Evaluate(lerpSecondaryTarget));
     }
 
 

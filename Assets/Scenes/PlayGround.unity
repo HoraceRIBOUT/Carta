@@ -5348,6 +5348,81 @@ Transform:
   m_Father: {fileID: 971361828}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1690020805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1690020806}
+  - component: {fileID: 1690020808}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1690020806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690020805}
+  m_LocalRotation: {x: -0.09229599, y: -0.7010574, z: -0.09229599, w: 0.7010574}
+  m_LocalPosition: {x: 2.03, y: -0.22, z: -0.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1967541512}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: -15, y: -90, z: 0}
+--- !u!20 &1690020808
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690020805}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &1731337282
 GameObject:
   m_ObjectHideFlags: 0
@@ -6144,6 +6219,7 @@ Transform:
   m_Children:
   - {fileID: 1971510417}
   - {fileID: 344923474}
+  - {fileID: 1690020806}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6160,6 +6236,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerOnReach: 0
+  dialog: Hello I'm the first PNJ ever !
+  cameraPoint: {fileID: 1690020806}
 --- !u!1 &1971510416
 GameObject:
   m_ObjectHideFlags: 0
@@ -7870,6 +7948,26 @@ PrefabInstance:
       propertyPath: playerCamPoint
       value: 
       objectReference: {fileID: 994933550}
+    - target: {fileID: 4957181889182490616, guid: de518723b5655dd4da384d747edb7ef8, type: 3}
+      propertyPath: lerpSecondaryTargetSpeed_In
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957181889182490616, guid: de518723b5655dd4da384d747edb7ef8, type: 3}
+      propertyPath: lerpCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957181889182490616, guid: de518723b5655dd4da384d747edb7ef8, type: 3}
+      propertyPath: lerpSecondaryTargetSpeed_Out
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957181889182490616, guid: de518723b5655dd4da384d747edb7ef8, type: 3}
+      propertyPath: lerpCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957181889182490616, guid: de518723b5655dd4da384d747edb7ef8, type: 3}
+      propertyPath: lerpCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4957181889182490617, guid: de518723b5655dd4da384d747edb7ef8, type: 3}
       propertyPath: simulateCamPlacement
       value: 1

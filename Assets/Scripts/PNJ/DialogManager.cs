@@ -12,7 +12,7 @@ public class DialogManager : MonoBehaviour
         if (!inDialog)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             //KeepGoing();
             FinishDialog();
@@ -34,6 +34,7 @@ public class DialogManager : MonoBehaviour
     public IEnumerator CloseDialog()
     {
         inDialog = false;
+        GameManager.instance.cameraMng.UnSetSecondaryTarget();
         yield return new WaitForSeconds(0.1f);
         GameManager.instance.playerMove.FinishTalk();
     }
