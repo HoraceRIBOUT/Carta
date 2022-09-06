@@ -20,5 +20,6 @@ public class GameManager : MonoBehaviour
 
     public PlayerMove playerMove;
     public CameraManager cameraMng;
+    public DialogManager dialogMng;
 
 }

@@ -28,7 +28,7 @@ public class CameraVisual : MonoBehaviour
         //cameraMng.UpdateHouseCutout(charaMng);
 
         if (simulateCamPlacement)
-            cameraMng.UpdateCamPosition(cameraMng.lastXAxisValue, cameraMng.lastYAxisValue);
+            cameraMng.UpdatePlayerCamPosition(cameraMng.lastXAxisValue, cameraMng.lastYAxisValue);
     }
 
 

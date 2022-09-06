@@ -14,6 +14,7 @@ public class CameraManager : MonoBehaviour
     public bool blockXRotation = false;
 
     [Header("CameraPlacement")]
+    [Header("   PlayerCam")]
     [Tooltip("X = up / Y = Mid / Z = down")]
     public Vector3 camRadius = new Vector3(-5, -10, -6);
     public Vector3 camHeight = new Vector3(4, 0, -3);
@@ -21,6 +22,14 @@ public class CameraManager : MonoBehaviour
     public List<Transform> circles;
     public List<Transform> cameraVirtuals;
     public Transform falseCamera;
+    public Transform playerCamPoint;
+
+    [Header("   Secondary cam")]
+    public bool onSecondary = false;
+    [Range(0,1)]
+    public float lerpSecondaryTarget = 0;
+    public Transform currentSecondaryTarget;
+    public Transform secondCamPoint;
 
     [Header("Transition")]
     public AnimationCurve transitionXCurve = AnimationCurve.Linear(0, 0, 1, 1);
@@ -39,6 +48,12 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         ReplaceCameraFromRadius();
+
+        if(playerCamPoint == null)
+        {
+            playerCamPoint = Instantiate(new GameObject(), this.transform).transform;
+            playerCamPoint.name = "PlayerCam Point";
+        }
     }
 
     // Update is called once per frame
@@ -48,6 +63,8 @@ public class CameraManager : MonoBehaviour
 
 
         InputManagement();
+        SecondaryManagement();
+        UpdateCamPosition();
     }
 
     public void GlobalPlacement()
@@ -64,18 +81,23 @@ public class CameraManager : MonoBehaviour
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             Vector2 joystickMove = new Vector2(
+                Input.GetAxis("Joystick X"),
+                -Input.GetAxis("Joystick Y")
+            );
+            Vector2 mouseMove = new Vector2(
                 Input.GetAxis("Mouse X"),
                 -Input.GetAxis("Mouse Y")
             );
-            //Probably need to add a lerp to help if use by joystick. So might use two separate term
+            //TO DO : Probably need to add a lerp to help if use by joystick. So might use two separate term
+            //joystickMove
 
-            lastXAxisValue += rotationSpeed.x * joystickMove.x;
+            lastXAxisValue += rotationSpeed.x * mouseMove.x;
             lastXAxisValue = lastXAxisValue % 1;
-            lastYAxisValue += rotationSpeed.y * joystickMove.y;
+            lastYAxisValue += rotationSpeed.y * mouseMove.y;
             lastYAxisValue = Mathf.Clamp(lastYAxisValue, -1, 1);
 
             //ok value inputed, rotate it
-            UpdateCamPosition(lastXAxisValue, lastYAxisValue);
+            UpdatePlayerCamPosition(lastXAxisValue, lastYAxisValue);
         }
 
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Joystick1Button2))
@@ -87,7 +109,7 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void UpdateCamPosition(float xAxis, float yAxis)
+    public void UpdatePlayerCamPosition(float xAxis, float yAxis)
     {
         xAxis = xAxis % 1;//to overcome overflow 
         xAxis -= 0.5f;
@@ -105,13 +127,57 @@ public class CameraManager : MonoBehaviour
         Vector3 transitionPos;
         transitionPos = Vector3.Lerp(cameraVirtuals[1].position, secondCam.position, transitionXCurve.Evaluate(yAxis));
         transitionPos.y = Vector3.Lerp(cameraVirtuals[1].position, secondCam.position, transitionYCurve.Evaluate(yAxis)).y;
-        mainCamera.transform.position = transitionPos;
-        mainCamera.transform.rotation = Quaternion.Lerp(cameraVirtuals[1].rotation, secondCam.rotation, transitionRotCurve.Evaluate(yAxis));
+        playerCamPoint.transform.position = transitionPos;
+        playerCamPoint.transform.rotation = Quaternion.Lerp(cameraVirtuals[1].rotation, secondCam.rotation, transitionRotCurve.Evaluate(yAxis));
 
         //falseCamera.transform.position = mainCamera.transform.position;
         //the camera need to be rotate a little higher than the true one, to avoid some wall problem  (if this fix work)
         //falseCamera.transform.rotation = ;
     }
+
+    public void SecondaryManagement()
+    {
+        if (onSecondary)
+        {
+            if (lerpSecondaryTarget < 1)
+                lerpSecondaryTarget += Time.deltaTime;
+            else
+                lerpSecondaryTarget = 1;
+        }
+        else
+        {
+            if (lerpSecondaryTarget > 0)
+                lerpSecondaryTarget -= Time.deltaTime;
+            else
+                lerpSecondaryTarget = 0;
+        }
+    }
+
+    public void SetSecondaryTarget(Transform secondaryPoint)
+    {
+        /*
+        if(currentSecondaryTarget != null)
+        {
+            secondCamPoint.transform.position = mainCamera.transform.position;
+            secondCamPoint.transform.rotation = mainCamera.transform.rotation;
+              n
+        }*/
+
+        currentSecondaryTarget = secondaryPoint;
+        onSecondary = true;
+    }
+    public void UnSetSecondaryTarget()
+    {
+        onSecondary = false;
+    }
+
+
+    public void UpdateCamPosition()
+    {
+        mainCamera.transform.position =    Vector3.Lerp(playerCamPoint.transform.position, playerCamPoint.transform.position, lerpSecondaryTarget);
+        mainCamera.transform.rotation = Quaternion.Lerp(playerCamPoint.transform.rotation, playerCamPoint.transform.rotation, lerpSecondaryTarget);
+    }
+
 
     public void ReplaceCameraFromRadius()
     {

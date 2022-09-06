@@ -37,6 +37,9 @@ public class PlayerMove : MonoBehaviour
     public float coyoteTiming = 0.2f;
     private float coyoteTimer = 0f;
 
+    [Header("Talk")]
+    public bool talking = false;
+    public Vector3 speedWhenInterupt;
 
     [System.Serializable]
     public class wallAndGround_Info
@@ -77,6 +80,9 @@ public class PlayerMove : MonoBehaviour
         {
             ResetAll();
         }
+
+        if (talking)
+            return;
 
         //Both jump and movement
         MovementManagement();
@@ -217,6 +223,9 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (talking)
+            return;
+
         GravityManagement();
     }
 
@@ -450,6 +459,20 @@ public class PlayerMove : MonoBehaviour
 
     #endregion
 
+
+    public void Talk()
+    {
+        talking = true; 
+        speedWhenInterupt = _rgbd.velocity;
+        _rgbd.velocity = Vector3.zero;
+        _rgbd.isKinematic = true;
+    }
+    public void FinishTalk()
+    {
+        talking = false;
+        _rgbd.isKinematic = false;
+        _rgbd.velocity = speedWhenInterupt;
+    }
     //Debug
 
     public void ResetAll()
