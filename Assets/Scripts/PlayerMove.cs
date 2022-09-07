@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     private Transform cameraTr;
     public Rigidbody _rgbd;
+    public CapsuleCollider _capsule;
 
     [Header("Mouvement")]
     [Tooltip("The higher the quickier we reach full speed")]
@@ -87,7 +88,7 @@ public class PlayerMove : MonoBehaviour
         //Both jump and movement
         MovementManagement();
 
-
+        CrouchManagement();
 
         DebugMethod();
     }
@@ -220,6 +221,41 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    [Header("Crouching")]
+    public bool crouching = false;
+    public float crouchDefaultSize = 1f;
+    public float crouchGravity = 10f;
+    public GameObject crouch_CrGO;
+    public GameObject crouch_UpGO;
+
+    public void CrouchManagement()
+    {
+        if(Input.GetKey(KeyCode.Joystick1Button3) 
+            || Input.GetKey(KeyCode.LeftShift)
+            || Input.GetKey(KeyCode.RightShift))
+        {
+            if (!crouching)
+            {
+                _capsule.height = 1;
+                _capsule.center = Vector3.down * (crouchDefaultSize - 1f) * 0.5f;
+                crouch_CrGO.SetActive(true);
+                crouch_UpGO.SetActive(false);
+            }
+
+            lastSpeed += Vector3.down * crouchGravity * Time.deltaTime;
+            _rgbd.velocity = lastSpeed;
+
+            crouching = true; //for the Quit Wall --> reverse speed
+        }
+        else if(crouching)
+        {
+            _capsule.height = crouchDefaultSize;
+            _capsule.center = Vector3.zero;
+            crouch_CrGO.SetActive(false);
+            crouch_UpGO.SetActive(true);
+            crouching = false;
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -322,6 +358,11 @@ public class PlayerMove : MonoBehaviour
         {
             RemoveWall(collision.gameObject);
             RecalculateNormal();
+
+            if (crouching)
+            {
+                //Test to get back 
+            }
         }
     }
 
