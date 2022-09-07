@@ -35,7 +35,7 @@ public class pnj : MonoBehaviour
 
     public void Talk()
     {
-        GameManager.instance.dialogMng.StartDialog();
+        GameManager.instance.dialogMng.StartDialog(dialog);
 
         if(cameraPoint != null)
             GameManager.instance.cameraMng.SetSecondaryTarget(cameraPoint);

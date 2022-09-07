@@ -9,6 +9,10 @@ public class DialogManager : MonoBehaviour
 
     public List<pnj> allPNJ = new List<pnj>();
 
+    [Header("UI")]
+    public TMPro.TMP_Text dialogText;
+    public Animator dialogAnimator;
+
     public void Start()
     {
         if(allPNJ == null || allPNJ.Count == 0)
@@ -46,10 +50,16 @@ public class DialogManager : MonoBehaviour
     }
 
 
-    public void StartDialog()
+    public void StartDialog(string text)
     {
+        //TO DO : add two text. When one sentence is finish, fade away the previous sentence. Then, open the second one, letter by letter
+        dialogText.text = text;
         GameManager.instance.playerMove.Talk();
+        dialogAnimator.SetBool("Open", true);
         inDialog = true;
+
+        //en vrai, need a delay before you can act/type, so you don't pass the text by accident ! 
+        //and when it show the full text, can't be pass before X seconds
     }
 
     public void FinishDialog()
@@ -60,6 +70,7 @@ public class DialogManager : MonoBehaviour
     public IEnumerator CloseDialog()
     {
         inDialog = false;
+        dialogAnimator.SetBool("Open", false);
         GameManager.instance.cameraMng.UnSetSecondaryTarget();
         yield return new WaitForSeconds(0.1f);
         GameManager.instance.playerMove.FinishTalk();
