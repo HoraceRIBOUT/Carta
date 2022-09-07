@@ -5,12 +5,38 @@ using UnityEngine;
 //Deal with the UI
 public class DialogManager : MonoBehaviour
 {
-    public bool inDialog = false; 
+    public bool inDialog = false;
+
+    public List<pnj> allPNJ = new List<pnj>();
+
+    public void Start()
+    {
+        if(allPNJ == null || allPNJ.Count == 0)
+        {
+            FillAllPNJ();
+        }
+    }
+
+
+    public void FillAllPNJ()
+    {
+        foreach (pnj interac in FindObjectsOfType<pnj>())
+        {
+            allPNJ.Add(interac);
+        }
+    }
 
     public void Update()
     {
         if (!inDialog)
+        {
+            foreach (pnj interactivePNJ in allPNJ)
+            {
+                if (interactivePNJ.ReturnUpdate())
+                    break;
+            }
             return;
+        }
 
         if (Input.GetKeyDown(KeyCode.Return))
         {

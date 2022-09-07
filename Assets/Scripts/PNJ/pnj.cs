@@ -16,19 +16,21 @@ public class pnj : MonoBehaviour
     public Transform cameraPoint;
 
 
-    public void Update()
+    public bool ReturnUpdate()
     {
         //Better if take care in a "control manager" and compare to "dialogManager" too
         if (!playerOnReach)
-            return;
+            return false;
         
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if(!GameManager.instance.playerMove.talking) 
             {
                 Talk();
+                return true;
             }
         }
+        return false;
     }
 
     public void Talk()
