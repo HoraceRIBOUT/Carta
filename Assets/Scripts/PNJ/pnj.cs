@@ -7,12 +7,7 @@ public class pnj : MonoBehaviour
 
     public bool playerOnReach;
 
-    //Dialog can have some camera change.
-    //So, need to keep a link to here.
-    //But also, can be call by non-pnj item. 
-    //So, have to take care of both these case!
-    [TextArea]
-    public string dialog = "";
+    public Dialog dialog;
     public Transform cameraPoint;
 
 
@@ -35,7 +30,7 @@ public class pnj : MonoBehaviour
 
     public void Talk()
     {
-        GameManager.instance.dialogMng.StartDialog(dialog);
+        GameManager.instance.dialogMng.StartDialog(dialog, this);
 
         if(cameraPoint != null)
             GameManager.instance.cameraMng.SetSecondaryTarget(cameraPoint);

@@ -12,6 +12,8 @@ public class DialogManager : MonoBehaviour
     [Header("UI")]
     public TMPro.TMP_Text dialogText;
     public Animator dialogAnimator;
+    public pnj currentPNJ = null;
+
 
     public void Start()
     {
@@ -50,16 +52,49 @@ public class DialogManager : MonoBehaviour
     }
 
 
-    public void StartDialog(string text)
+    public void StartDialog(Dialog dialog, pnj pnj = null)
     {
-        //TO DO : add two text. When one sentence is finish, fade away the previous sentence. Then, open the second one, letter by letter
-        dialogText.text = text;
+        currentPNJ = pnj;
+        TreatDepending(dialog, 0);
+
+
         GameManager.instance.playerMove.Talk();
         dialogAnimator.SetBool("Open", true);
         inDialog = true;
 
         //en vrai, need a delay before you can act/type, so you don't pass the text by accident ! 
         //and when it show the full text, can't be pass before X seconds
+    }
+
+    public void TreatDepending(Dialog dialog, int index)
+    {
+        switch (dialog.allSteps[0].type)
+        {
+            case Step.stepType.dialog:
+                TreatText((Step.Step_Dialog) dialog.allSteps[0].GetData());
+                break;
+            case Step.stepType.camera:
+                //TO DO
+                break;
+            case Step.stepType.additem:
+                //TO DO
+                break;
+            case Step.stepType.remitem:
+                //TO DO
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void TreatText(Step.Step_Dialog data)
+    {
+        //TO DO : add two text. When one sentence is finish, fade away the previous sentence. Then, open the second one, letter by letter
+        dialogText.text = data.text;
+
+
+        if(data.color_override.a > 0)
+            dialogText.color = data.color_override;
     }
 
     public void FinishDialog()
@@ -74,5 +109,12 @@ public class DialogManager : MonoBehaviour
         GameManager.instance.cameraMng.UnSetSecondaryTarget();
         yield return new WaitForSeconds(0.1f);
         GameManager.instance.playerMove.FinishTalk();
+    }
+
+
+    [Sirenix.OdinInspector.Button]
+    public void ReloadEnumUtils()
+    {
+        Generate_EnumUtils.ReadTheFile();
     }
 }

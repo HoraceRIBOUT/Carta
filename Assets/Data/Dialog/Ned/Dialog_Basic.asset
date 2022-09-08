@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a35e07636896a4781feb685029f17f, type: 3}
+  m_Name: Dialog_Basic
+  m_EditorClassIdentifier: 
+  allSteps:
+  - type: 0
+    dialog_Data:
+      text: Oh ! Hello ? You're the new post-bot ?
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+    additem_Data:
+      itemId: 
+    remitem_Data:
+      itemId: 
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+  - type: 0
+    dialog_Data:
+      text: Nice to meet you!
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+    additem_Data:
+      itemId: 
+    remitem_Data:
+      itemId: 
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+  - type: 0
+    dialog_Data:
+      text: Deliver this letter please.
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+    additem_Data:
+      itemId: 
+    remitem_Data:
+      itemId: 
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+  - type: 1
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 1
+    additem_Data:
+      itemId: 
+    remitem_Data:
+      itemId: 
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+  - type: 0
+    dialog_Data:
+      text: Over there.
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+    additem_Data:
+      itemId: 
+    remitem_Data:
+      itemId: 
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+  - type: 1
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+    additem_Data:
+      itemId: 
+    remitem_Data:
+      itemId: 
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+  - type: 0
+    dialog_Data:
+      text: Thank youuuuu !
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+    additem_Data:
+      itemId: 
+    remitem_Data:
+      itemId: 
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+  pnj_link: {fileID: 0}
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
