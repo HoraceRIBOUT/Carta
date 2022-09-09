@@ -30,6 +30,7 @@ namespace Step
     public class Step_Camera : Step_father
     {
         public int cameraIndex;
+        public bool directTP = false;
     }
 
     [System.Serializable]

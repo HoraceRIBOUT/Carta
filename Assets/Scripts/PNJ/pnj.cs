@@ -8,7 +8,7 @@ public class pnj : MonoBehaviour
     public bool playerOnReach;
 
     public Dialog dialog;
-    public Transform cameraPoint;
+    public List<Transform> cameraPoints = new List<Transform>();
 
 
     public bool ReturnUpdate()
@@ -32,10 +32,8 @@ public class pnj : MonoBehaviour
     {
         GameManager.instance.dialogMng.StartDialog(dialog, this);
 
-        if(cameraPoint != null)
-            GameManager.instance.cameraMng.SetSecondaryTarget(cameraPoint);
-        //Also to the UI and etc...
-        Debug.Log("bla bla bla");
+        if (cameraPoints != null && cameraPoints.Count != 0)
+            GameManager.instance.cameraMng.SetSecondaryTarget(cameraPoints[0]);
     }
 
 }

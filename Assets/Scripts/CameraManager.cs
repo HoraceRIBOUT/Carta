@@ -32,7 +32,14 @@ public class CameraManager : MonoBehaviour
     public float lerpSecondaryTargetSpeed_Out = 4;
     public AnimationCurve lerpCurve;
     public Transform currentSecondaryTarget;
-    public Transform secondCamPoint;
+
+    [Header("   Thirdaries cam")]
+    public bool onThirdaries = false;
+    public float lerpThirdaryTarget = 0;
+    public float lerpThirdaryTargetSpeed_In = 2;
+    public float lerpThirdaryTargetSpeed_Out = 4;
+    public Transform secondCamPointSave;
+    public Transform currentThirdaryTarget;
 
     [Header("Transition")]
     public AnimationCurve transitionXCurve = AnimationCurve.Linear(0, 0, 1, 1);
@@ -56,6 +63,11 @@ public class CameraManager : MonoBehaviour
         {
             playerCamPoint = Instantiate(new GameObject(), this.transform).transform;
             playerCamPoint.name = "PlayerCam Point";
+        }
+        if (secondCamPointSave == null)
+        {
+            secondCamPointSave = Instantiate(new GameObject(), this.transform).transform;
+            secondCamPointSave.name = "SecondCam SavePoint";
         }
     }
 
@@ -141,37 +153,65 @@ public class CameraManager : MonoBehaviour
     public void SecondaryManagement()
     {
         if (onSecondary)
-        {
+        { 
             if (lerpSecondaryTarget < 1)
                 lerpSecondaryTarget += Time.deltaTime * lerpSecondaryTargetSpeed_In;
-            else
-                lerpSecondaryTarget = 1;
+        }
+        else
+        { 
+            if (lerpSecondaryTarget > 0)
+                lerpSecondaryTarget -= Time.deltaTime * lerpSecondaryTargetSpeed_Out;
+        }
+        lerpSecondaryTargetSpeed_In = Mathf.Clamp01(lerpSecondaryTargetSpeed_In);
+
+
+        if (onThirdaries)
+        {
+            if (lerpThirdaryTarget < 1)
+                lerpThirdaryTarget += Time.deltaTime * lerpThirdaryTargetSpeed_In;
         }
         else
         {
-            if (lerpSecondaryTarget > 0)
-                lerpSecondaryTarget -= Time.deltaTime * lerpSecondaryTargetSpeed_Out;
-            else
-                lerpSecondaryTarget = 0;
+            if (lerpThirdaryTarget > 0)
+                lerpThirdaryTarget -= Time.deltaTime * lerpThirdaryTargetSpeed_Out;
         }
+        lerpThirdaryTarget = Mathf.Clamp01(lerpThirdaryTarget);
     }
 
-    public void SetSecondaryTarget(Transform secondaryPoint)
+    public void SetSecondaryTarget(Transform secondaryPoint, bool directTP = false)
     {
-        /*
-        if(currentSecondaryTarget != null)
-        {
-            secondCamPoint.transform.position = mainCamera.transform.position;
-            secondCamPoint.transform.rotation = mainCamera.transform.rotation;
-              n
-        }*/
-
+        //if currentSecondaryTarget != null : how to react???
         currentSecondaryTarget = secondaryPoint;
+        if (directTP)
+            lerpSecondaryTarget = 1;
         onSecondary = true;
     }
     public void UnSetSecondaryTarget()
     {
         onSecondary = false;
+    }
+
+    public void SetThirdariesTarget(Transform thirdPoint, bool directTP = false)
+    {
+        secondCamPointSave.transform.position = mainCamera.transform.position;
+        secondCamPointSave.transform.rotation = mainCamera.transform.rotation;
+        currentThirdaryTarget = thirdPoint;
+
+        if (directTP)
+            lerpThirdaryTarget = 1;
+        else
+            lerpThirdaryTarget = 0;
+
+        onThirdaries = true;
+    }
+    public void UnSetThirdariesTarget()
+    {
+        secondCamPointSave.transform.position = mainCamera.transform.position;
+        secondCamPointSave.transform.rotation = mainCamera.transform.rotation;
+        lerpThirdaryTarget = 1;
+        currentThirdaryTarget = null;
+
+        onThirdaries = false;
     }
 
 
@@ -183,8 +223,20 @@ public class CameraManager : MonoBehaviour
             mainCamera.transform.rotation = playerCamPoint.transform.rotation;
             return;
         }
-        mainCamera.transform.position =    Vector3.Lerp(playerCamPoint.transform.position, currentSecondaryTarget.transform.position, lerpCurve.Evaluate(lerpSecondaryTarget));
-        mainCamera.transform.rotation = Quaternion.Lerp(playerCamPoint.transform.rotation, currentSecondaryTarget.transform.rotation, lerpCurve.Evaluate(lerpSecondaryTarget));
+
+        mainCamera.transform.position =     Vector3.Lerp(playerCamPoint.transform.position, currentSecondaryTarget.transform.position, lerpCurve.Evaluate(lerpSecondaryTarget));
+        mainCamera.transform.rotation =  Quaternion.Lerp(playerCamPoint.transform.rotation, currentSecondaryTarget.transform.rotation, lerpCurve.Evaluate(lerpSecondaryTarget));
+
+        if (onThirdaries)
+        {
+            mainCamera.transform.position =     Vector3.Lerp(secondCamPointSave.transform.position, currentThirdaryTarget.transform.position, lerpCurve.Evaluate(lerpThirdaryTarget));
+            mainCamera.transform.rotation =  Quaternion.Lerp(secondCamPointSave.transform.rotation, currentThirdaryTarget.transform.rotation, lerpCurve.Evaluate(lerpThirdaryTarget));
+        }
+        else
+        {
+            mainCamera.transform.position =     Vector3.Lerp(mainCamera.transform.position, secondCamPointSave.transform.position, lerpCurve.Evaluate(lerpThirdaryTarget));
+            mainCamera.transform.rotation =  Quaternion.Lerp(mainCamera.transform.rotation, secondCamPointSave.transform.rotation, lerpCurve.Evaluate(lerpThirdaryTarget));
+        }
     }
 
 
