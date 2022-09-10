@@ -31,6 +31,7 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Wall and ground")]
     public List<wallAndGround_Info> wallAndGround = new List<wallAndGround_Info>();
+    //public List<wallAndGround_Info> wallAndGround_GroundOnly = new List<wallAndGround_Info>();
     public Vector3 currentNormal = Vector3.up;
     private Vector3 lastNormal = Vector3.up;
     public float checkGroundDistance = 0.2f;
@@ -84,6 +85,8 @@ public class PlayerMove : MonoBehaviour
 
         if (talking)
             return;
+
+        //HandleGrappleWallMode();
 
         //Both jump and movement
         MovementManagement();

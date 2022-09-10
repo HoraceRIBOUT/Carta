@@ -13,6 +13,12 @@ public class Generate_ZoneTrigger : MonoBehaviour
     public static string NEW_SCRIPT_NAME = "ZoneTrigger_AutoGeneratePart";
 
 
+    [MenuItem("OrangeLetter/Generate/Zone Trigger Method")]
+    public static void ZoneTriggerGeneration()
+    {
+        ReadTheFile();
+    }
+
     public static void ReadTheFile()
     {
         string readPath = NEW_SCRIPT_PATH + SOURCE_SCRIPT_NAME + ".cs";

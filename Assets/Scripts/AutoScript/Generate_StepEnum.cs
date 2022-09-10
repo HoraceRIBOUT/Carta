@@ -4,7 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-public class Generate_EnumUtils : MonoBehaviour
+public class Generate_StepEnum : MonoBehaviour
 {
 
     public static string DETECT_NEWCLASS = "public class Step_";
@@ -13,6 +13,12 @@ public class Generate_EnumUtils : MonoBehaviour
 
     public static string NEW_SCRIPT_NAME = "Dialog_AutoGeneratePart";
 
+
+    [MenuItem("OrangeLetter/Generate/Step Enum")]
+    public static void StepEnumGeneration()
+    {
+        ReadTheFile();
+    }
 
     public static void ReadTheFile()
     {
@@ -74,7 +80,7 @@ public class Generate_EnumUtils : MonoBehaviour
             //Classic start of a class
             outfile.WriteLine("using UnityEngine;");
             outfile.WriteLine("");
-            outfile.WriteLine("public class " + NEW_SCRIPT_NAME + " : MonoBehaviour {");
+            outfile.WriteLine("public class " + NEW_SCRIPT_NAME + " {");
             outfile.WriteLine(" ");
             outfile.WriteLine("}");
             outfile.WriteLine(" ");
