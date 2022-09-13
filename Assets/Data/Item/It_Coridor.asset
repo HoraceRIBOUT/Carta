@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: It_Coridor
   m_EditorClassIdentifier: 
   id: 2
-  nameDisplay: 
-  icon: {fileID: 0}
+  nameDisplay: Couteau
+  icon: {fileID: 21300000, guid: 289fab5ed7f6124439bc1a44c1bdcf27, type: 3}

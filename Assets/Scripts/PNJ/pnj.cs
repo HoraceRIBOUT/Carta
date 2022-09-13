@@ -11,19 +11,25 @@ public class pnj : MonoBehaviour
     public List<Transform> cameraPoints = new List<Transform>();
 
 
+    public List<ItemReaction> reactions = new List<ItemReaction>();
+
+    public class ItemReaction
+    {
+        public itemID itemToReactFrom = itemID.none;
+
+        public bool finalTarget = false;
+        public Dialog response;
+    }
+
     public bool ReturnUpdate()
     {
         //Better if take care in a "control manager" and compare to "dialogManager" too
         if (!playerOnReach)
             return false;
-        
-        if (Input.GetKeyDown(KeyCode.Return))
+        if(!GameManager.instance.playerMove.talking)
         {
-            if(!GameManager.instance.playerMove.talking) 
-            {
-                Talk();
-                return true;
-            }
+            Talk();
+            return true;
         }
         return false;
     }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: It_LettrePourFleuriste
   m_EditorClassIdentifier: 
   id: 3
-  nameDisplay: 
-  icon: {fileID: 0}
+  nameDisplay: Eye drop
+  icon: {fileID: 21300000, guid: 32f236d520e290b488176b2b26e33c6f, type: 3}

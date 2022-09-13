@@ -115,7 +115,7 @@ public class CameraManager : MonoBehaviour
             UpdatePlayerCamPosition(lastXAxisValue, lastYAxisValue);
         }
 
-        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Joystick1Button2))
+        if (Input.GetMouseButtonDown(1))
         {
             if (Cursor.lockState == CursorLockMode.Locked) 
                 Cursor.lockState = CursorLockMode.None;

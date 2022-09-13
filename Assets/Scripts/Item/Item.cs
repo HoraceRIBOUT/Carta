@@ -8,4 +8,6 @@ public class Item : ScriptableObject
     public itemID id;  
     public string nameDisplay = "";
     public Sprite icon;
+
+
 }

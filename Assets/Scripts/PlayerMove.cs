@@ -43,6 +43,7 @@ public class PlayerMove : MonoBehaviour
     public bool talking = false;
     public Vector3 speedWhenInterupt;
 
+
     [System.Serializable]
     public class wallAndGround_Info
     {

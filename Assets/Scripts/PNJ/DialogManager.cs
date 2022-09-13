@@ -38,7 +38,7 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    public void Update()
+    public void ReturnUpdate()
     {
         if (!inDialog)
         {
@@ -49,11 +49,8 @@ public class DialogManager : MonoBehaviour
             }
             return;
         }
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Click();
-        }
+        
+        Click();
     }
 
     public void Click()
@@ -126,6 +123,10 @@ public class DialogManager : MonoBehaviour
                 //TO DO
                 NextStep();
                 break;
+                //case Step.stepType.itemOpenability:
+                //CanOpenInventory();
+                NextStep();
+                break;
             default:
                 break;
         }
@@ -152,6 +153,12 @@ public class DialogManager : MonoBehaviour
             //TO DO : deal with error if data.cameraIndex > cameraPoints.count
             GameManager.instance.cameraMng.SetThirdariesTarget(currentPNJ.cameraPoints[data.cameraIndex]/*, data.directTP*/);
         }
+    }
+
+    public void CanOpenInventory(Step.Step_ItemInteractivity itemInteraciv)
+    {
+        //TO DO : 
+        //this.canOpenInventory = itemInteraciv.itemInvoCanBeOpen;
     }
 
     public void FinishDialog()

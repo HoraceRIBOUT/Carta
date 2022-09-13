@@ -59,5 +59,12 @@ namespace Step
     }
 
 
+    [System.Serializable]
+    public class Step_ItemInteractivity : Step_father
+    {
+        public bool itemInvoCanBeOpen;
+    }
+
+
 }
 

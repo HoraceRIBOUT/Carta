@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: It_BouquetDeFleurJaune
   m_EditorClassIdentifier: 
   id: 1
-  nameDisplay: 
-  icon: {fileID: 0}
+  nameDisplay: Allumette
+  icon: {fileID: 21300000, guid: b11b3c322cf8a0b46b24b0a9f8c72592, type: 3}
