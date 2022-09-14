@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1cc426e39a61ca40b83530f74cd0377, type: 3}
-  m_Name: It_Coridor
+  m_Name: It_Couteau
   m_EditorClassIdentifier: 
   id: 2
   nameDisplay: Couteau

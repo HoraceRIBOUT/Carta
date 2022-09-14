@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1cc426e39a61ca40b83530f74cd0377, type: 3}
-  m_Name: It_BouquetDeFleurJaune
+  m_Name: It_GouteYeu
   m_EditorClassIdentifier: 
-  id: 1
-  nameDisplay: Allumette
-  icon: {fileID: 21300000, guid: b11b3c322cf8a0b46b24b0a9f8c72592, type: 3}
+  id: 3
+  nameDisplay: Eye drop
+  icon: {fileID: 21300000, guid: 32f236d520e290b488176b2b26e33c6f, type: 3}

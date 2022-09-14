@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    //Need to know if :
+    //in dialog or not
+    //  in inventory or not
+    //  
+    //else 
+    //  in range of pnj
+
 
     // Update is called once per frame
     void Update()
@@ -11,6 +18,17 @@ public class InputManager : MonoBehaviour
         ReturnUpdate();
 
         EUpdate();
+
+        //For inventory : 
+
+            //Out dialog :
+            // just show the info on it
+            // B : Go back
+
+            //On dialog
+            // A : show
+            // B : go back
+            // Y : give
     }
 
     void ReturnUpdate()

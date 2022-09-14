@@ -2120,7 +2120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabItemBox: {fileID: 4958117574349055695, guid: ccf7427598f8f364e84e70931555a9d7, type: 3}
   inventoryDeployed: 0
-  deployLerp: 1
+  deployLerp: 0.079
   deployPrompt: {fileID: 1632142542}
   mainRect: {fileID: 536799579}
   trnasitionSpeed: 5
@@ -2148,12 +2148,16 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  transparencyGoal: 0
+  transparencySpeed: 3
   allBox: []
   boxParent: {fileID: 536799579}
   currentPlace: 0
   currentDeployList: []
   indexOfNotInList: 0
-  startItem:
+  startItem_Current: []
+  startItem_All:
+  - {fileID: 11400000, guid: bde1843f5a56131468f1a93b7e91e04e, type: 2}
   - {fileID: 11400000, guid: 02c5e134d70f78745b85bb67b93c0828, type: 2}
 --- !u!1 &540451673
 GameObject:
@@ -8028,7 +8032,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Inventory
+  m_text: "Colis \net lettres"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 703c18f4c7ffffc4b8a00ec3202eb45b, type: 2}
   m_sharedMaterial: {fileID: -4744589093072057650, guid: 703c18f4c7ffffc4b8a00ec3202eb45b, type: 2}

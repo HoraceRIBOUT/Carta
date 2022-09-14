@@ -17,6 +17,8 @@ public class UI_Inventory : MonoBehaviour
     public float trnasitionSpeed = 1.5f;
     public AnimationCurve trnasitionCurve;
     Coroutine deployingRoutine = null;
+    public float transparencyGoal = 0;
+    public float transparencySpeed = 3;
 
     [Header("List item box")]
     public List<UI_ItemBox> allBox;
@@ -31,7 +33,8 @@ public class UI_Inventory : MonoBehaviour
     public List<Item> currentDeployList = new List<Item>();
     public int indexOfNotInList = 0;
     [Tooltip("For debug purpose only")]
-    public List<Item> startItem = new List<Item>(); 
+    public List<Item> startItem_Current = new List<Item>(); 
+    public List<Item> startItem_All = new List<Item>(); 
 
 
     public void Start()
@@ -48,38 +51,50 @@ public class UI_Inventory : MonoBehaviour
         inventory_all = new Dictionary<itemID, Item>();
         inventory_current = new Dictionary<itemID, Item>();
 
-        if (startItem != null)
+        //For debug only
+        foreach (Item item in startItem_All)
         {
-            foreach (var item in startItem)
-            {
-                AddItem(item);
-            }
+            AddItem(item);
+            if (startItem_Current != null)
+                if (!startItem_Current.Contains(item))
+                    RemItem(item);
         }
+        foreach (Item item in startItem_Current)
+            AddItem(item);
+        //End debug only
 
         currentDeployList = new List<Item>();
-        if (inventory_current != null && inventory_current.Count != 0)
+        foreach (KeyValuePair<itemID, Item> item in inventory_current)
         {
-            foreach (KeyValuePair<itemID, Item> item in inventory_current)
-            {
-                currentDeployList.Add(item.Value);
-            }
-            foreach (KeyValuePair<itemID, Item> item in inventory_all)
-            {
-                if(!currentDeployList.Contains(item.Value))
-                currentDeployList.Add(item.Value);
-            }
-            indexOfNotInList = inventory_current.Count;
+            currentDeployList.Add(item.Value);
+            Debug.Log("Add current :");
         }
+        foreach (KeyValuePair<itemID, Item> item in inventory_all)
+        {
+            if (!currentDeployList.Contains(item.Value))
+                currentDeployList.Add(item.Value);
+            Debug.Log("Add all : " + item.Value);
+        }
+        indexOfNotInList = inventory_current.Count;
+        Debug.Log("Finish  adding element" + currentDeployList.Count + " (bonus : " + indexOfNotInList + ")");
 
         for (int i = 0; i < 1/*currentDeployList.Count*/; i++)
         {
             UI_ItemBox box = Instantiate(prefabItemBox, boxParent.transform).GetComponent<UI_ItemBox>();
-            box.SetUpBox(currentDeployList[i], i > indexOfNotInList);
+            box.SetUpBox(currentDeployList[i], i >= indexOfNotInList);
             allBox = new List<UI_ItemBox>();
             allBox.Add(box);
         }
 
         Retract();
+    }
+
+    public void Update()
+    {
+        if (GameManager.instance.dialogMng.inDialog)
+            deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, transparencyGoal, Time.deltaTime * transparencySpeed);
+        else
+            deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, 0, Time.deltaTime * transparencySpeed);
     }
 
     public bool InputManagement_MoveUpDown(Vector2 direction)
@@ -119,6 +134,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void AddItem(Item it)
     {
+        Debug.Log("Add !" + it.id);
         inventory_all.Add(it.id, it);
         inventory_current.Add(it.id, it);
 
@@ -127,6 +143,7 @@ public class UI_Inventory : MonoBehaviour
     }
     public void RemItem(Item it)
     {
+        Debug.Log("Remove !" + it.id);
         inventory_current.Remove(it.id);
 
         UpdateVisual();
@@ -149,12 +166,11 @@ public class UI_Inventory : MonoBehaviour
 
     public void Deploy()
     {
-        Debug.Log("    public void Deploy inv");
+        Debug.Log("Deploy inv");
         mainRect.anchorMin = new Vector2(0.8f, 0);
         mainRect.anchorMax = new Vector2(1.0f, 1);
         mainRect.anchoredPosition = Vector2.zero;
 
-        deployPrompt.alpha = 0;
         inventoryDeployed = true;
 
         if (deployingRoutine != null)
@@ -186,7 +202,7 @@ public class UI_Inventory : MonoBehaviour
 
     public IEnumerator Deploy_Corout(bool deploy)
     {
-        Debug.Log("Cortou start : " + (deploy ? "deploy" : "retract"));
+        //Debug.Log("Cortou start : " + (deploy ? "deploy" : "retract"));
         while((deploy?deployLerp < 1 : deployLerp > 0))
         {
             deployLerp += Time.deltaTime * trnasitionSpeed * (deploy ? 1 : -1);
@@ -198,7 +214,7 @@ public class UI_Inventory : MonoBehaviour
             mainRect.anchorMax = new Vector2(Mathf.Lerp(1.0f, 1.2f, effectifLerp), 1);
             mainRect.anchoredPosition = Vector2.zero;
 
-            deployPrompt.alpha = effectifLerp;
+            transparencyGoal = effectifLerp;
             yield return new WaitForSeconds(1f / 60f);
         }
     }
