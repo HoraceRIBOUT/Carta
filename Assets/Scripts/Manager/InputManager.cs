@@ -36,6 +36,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
+            ReturnUpdate();
             //In movement in the real world else !
         }
 
@@ -65,6 +66,8 @@ public class InputManager : MonoBehaviour
             Input.GetAxis("Vertical")
             );
 
+        //Also the player
+        //Also the choice in dialog
 
         GameManager.instance.inventory.InputManagement_MoveUpDown(inputDirection);
     }

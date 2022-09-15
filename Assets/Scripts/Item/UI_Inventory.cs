@@ -64,13 +64,14 @@ public class UI_Inventory : MonoBehaviour
                 startItem_All.Add(item);
         foreach (Item item in startItem_All)
         {
-            AddItem(item);
+            AddItem(item, true);
             if (startItem_Current != null)
                 if (!startItem_Current.Contains(item))
-                    RemItem(item);
+                    RemItem(item, true);
         }
         //End debug only
 
+        PopulateCurrentItemList();
         CreateBox();
         Retract();
     }
@@ -94,15 +95,34 @@ public class UI_Inventory : MonoBehaviour
 
     public void CreateBox()
     {
-        allBox = new List<UI_ItemBox>();
+        if(allBox == null || allBox.Count == 0)
+            allBox = new List<UI_ItemBox>();
         for (int i = 0; i < currentDeployList.Count; i++)
         {
-            UI_ItemBox box = Instantiate(prefabItemBox, boxParent.transform).GetComponent<UI_ItemBox>();
-            box.SetUpBox(currentDeployList[i], i >= indexOfNotInList);
+            UI_ItemBox box;
+            if (i >= allBox.Count) //reuse previous box. 
+                box = Instantiate(prefabItemBox, boxParent.transform).GetComponent<UI_ItemBox>();
+            else
+                box = allBox[i];
+            box.SetUpBox(currentDeployList[i], i >= indexOfNotInList, i >= allBox.Count);
             //Position : 
             box.Placement(i, offsetBetweenBox, i == currentItemIndex);
-            allBox.Add(box);
+            if (i >= allBox.Count)
+                allBox.Add(box);
         }
+
+        //Normally, number of boxes never diminish
+        if (allBox.Count > currentDeployList.Count)
+        {
+            int toDestroy = allBox.Count - currentDeployList.Count;
+            Debug.LogError("Wow, when did we get fewer box ??? Destroy them ! (" + toDestroy + ")");
+            //for (int i = currentDeployList.Count; i < allBox.Count; i++)
+            //{
+            //    Destroy(allBox[i].gameObject);
+            //}
+            //allBox.RemoveRange(currentDeployList.Count, toDestroy);
+        }
+
     }
 
     public void Update()
@@ -147,6 +167,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void UpdateVisual()
     {
+        CreateBox();
     }
 
     public void MoveChoice(float up)
@@ -203,12 +224,15 @@ public class UI_Inventory : MonoBehaviour
             AddItem(res);
     }
 
-    public void AddItem(Item it)
+    public void AddItem(Item it, bool debugAdd = false)
     {
         Debug.Log("Add !" + it.id);
         inventory_all.Add(it.id, it);
         inventory_current.Add(it.id, it);
 
+        if (debugAdd)
+            return;
+        
         PopulateCurrentItemList();
         UpdateVisual();
     }
@@ -223,10 +247,13 @@ public class UI_Inventory : MonoBehaviour
         Item res = inventory_current[data.itemId];
         RemItem(res);
     }
-    public void RemItem(Item it)
+    public void RemItem(Item it, bool debugAdd = false)
     {
         Debug.Log("Remove !" + it.id);
         inventory_current.Remove(it.id);
+
+        if (debugAdd)
+            return;
 
         PopulateCurrentItemList();
         UpdateVisual();

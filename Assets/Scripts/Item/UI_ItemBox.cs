@@ -20,7 +20,7 @@ public class UI_ItemBox : MonoBehaviour
     public AnimationCurve positionCurve;
     public AnimationCurve scaleCurve;
 
-    public void SetUpBox(Item item, bool delivered)
+    public void SetUpBox(Item item, bool delivered, bool firstCreation)
     {
         itemName.text = item.nameDisplay;
         itemIcon.sprite = item.icon;
@@ -30,7 +30,9 @@ public class UI_ItemBox : MonoBehaviour
         {
             itemIcon.color = Color.Lerp(Color.black, Color.white, 0.5f);
         }
-        _startPos = _rect.localPosition;
+
+        if(firstCreation)
+            _startPos = _rect.localPosition;
     }
 
     public bool debug = false;
