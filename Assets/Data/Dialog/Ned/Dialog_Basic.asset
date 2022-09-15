@@ -20,10 +20,11 @@ MonoBehaviour:
       cameraIndex: 0
     camera_Data:
       cameraIndex: 0
+      directTP: 0
     additem_Data:
-      itemId: 
+      itemId: 0
     remitem_Data:
-      itemId: 
+      itemId: 0
     sfx_Data:
       sfxToPlay: {fileID: 0}
     music_Data:
@@ -35,10 +36,27 @@ MonoBehaviour:
       cameraIndex: 0
     camera_Data:
       cameraIndex: 0
+      directTP: 0
     additem_Data:
-      itemId: 
+      itemId: 0
     remitem_Data:
-      itemId: 
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+  - type: 2
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 6
+    remitem_Data:
+      itemId: 0
     sfx_Data:
       sfxToPlay: {fileID: 0}
     music_Data:
@@ -50,10 +68,11 @@ MonoBehaviour:
       cameraIndex: 0
     camera_Data:
       cameraIndex: 0
+      directTP: 0
     additem_Data:
-      itemId: 
+      itemId: 0
     remitem_Data:
-      itemId: 
+      itemId: 0
     sfx_Data:
       sfxToPlay: {fileID: 0}
     music_Data:
@@ -65,10 +84,11 @@ MonoBehaviour:
       cameraIndex: 0
     camera_Data:
       cameraIndex: 1
+      directTP: 0
     additem_Data:
-      itemId: 
+      itemId: 0
     remitem_Data:
-      itemId: 
+      itemId: 0
     sfx_Data:
       sfxToPlay: {fileID: 0}
     music_Data:
@@ -80,10 +100,11 @@ MonoBehaviour:
       cameraIndex: 0
     camera_Data:
       cameraIndex: 0
+      directTP: 0
     additem_Data:
-      itemId: 
+      itemId: 0
     remitem_Data:
-      itemId: 
+      itemId: 0
     sfx_Data:
       sfxToPlay: {fileID: 0}
     music_Data:
@@ -95,10 +116,11 @@ MonoBehaviour:
       cameraIndex: 0
     camera_Data:
       cameraIndex: 0
+      directTP: 0
     additem_Data:
-      itemId: 
+      itemId: 0
     remitem_Data:
-      itemId: 
+      itemId: 0
     sfx_Data:
       sfxToPlay: {fileID: 0}
     music_Data:
@@ -110,10 +132,11 @@ MonoBehaviour:
       cameraIndex: 0
     camera_Data:
       cameraIndex: 0
+      directTP: 0
     additem_Data:
-      itemId: 
+      itemId: 0
     remitem_Data:
-      itemId: 
+      itemId: 0
     sfx_Data:
       sfxToPlay: {fileID: 0}
     music_Data:

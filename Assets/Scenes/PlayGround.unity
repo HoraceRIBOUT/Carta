@@ -2119,6 +2119,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabItemBox: {fileID: 4958117574349055695, guid: ccf7427598f8f364e84e70931555a9d7, type: 3}
+  allItem:
+  - {fileID: 11400000, guid: 02c5e134d70f78745b85bb67b93c0828, type: 2}
+  - {fileID: 11400000, guid: 8aa2a0fdffb8ccf4ba590f6080f1e509, type: 2}
+  - {fileID: 11400000, guid: b9b7b9ac1fd74ae41971fdd99bc771aa, type: 2}
+  - {fileID: 11400000, guid: bde1843f5a56131468f1a93b7e91e04e, type: 2}
+  - {fileID: 11400000, guid: 1a7d782b10f323047b4c89c73e952bfd, type: 2}
+  - {fileID: 11400000, guid: 3216269970cfd9547857d0090b5a44a2, type: 2}
   inventoryDeployed: 0
   deployLerp: 0.079
   deployPrompt: {fileID: 1632142542}
@@ -2152,13 +2159,44 @@ MonoBehaviour:
   transparencySpeed: 3
   allBox: []
   boxParent: {fileID: 536799579}
-  currentPlace: 0
+  currentItemIndex: 0
+  offsetBetweenBox: 300
+  moveSpeed: 2.5
+  moveSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  currentMoveValue: 0
+  currentMoveSpeed: 0
   currentDeployList: []
   indexOfNotInList: 0
-  startItem_Current: []
+  startItem_Current:
+  - {fileID: 11400000, guid: 8aa2a0fdffb8ccf4ba590f6080f1e509, type: 2}
+  - {fileID: 11400000, guid: 1a7d782b10f323047b4c89c73e952bfd, type: 2}
   startItem_All:
   - {fileID: 11400000, guid: bde1843f5a56131468f1a93b7e91e04e, type: 2}
   - {fileID: 11400000, guid: 02c5e134d70f78745b85bb67b93c0828, type: 2}
+  - {fileID: 11400000, guid: b9b7b9ac1fd74ae41971fdd99bc771aa, type: 2}
 --- !u!1 &540451673
 GameObject:
   m_ObjectHideFlags: 0
@@ -8533,6 +8571,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5bf5e54b25c6cae4b97bd0f5d8ea342a, type: 2}
     - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+      propertyPath: reactions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
       propertyPath: cameraPoints.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -8544,6 +8586,10 @@ PrefabInstance:
       propertyPath: cameraPoints.Array.data[1]
       value: 
       objectReference: {fileID: 1721580451}
+    - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+      propertyPath: reactions.Array.data[0].itemToReactFrom
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1241996217963848329, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
       propertyPath: m_RootOrder
       value: -1

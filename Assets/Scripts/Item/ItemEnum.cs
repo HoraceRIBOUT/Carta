@@ -1,7 +1,10 @@
 public enum itemID
 {
      none = 0,
-     bouquetdefleurjaune,
-     coridor,
-     lettrepourfleuriste,
+     allumette,
+     cable,
+     couteau,
+     gouteyeu,
+     patate,
+     tournevis,
 }

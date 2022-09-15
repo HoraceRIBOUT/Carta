@@ -20,6 +20,7 @@ namespace Step
 	[System.Serializable]
 	public class Step
 	{
+		[Sirenix.OdinInspector.GUIColor("GetEnumColor")]
 		public stepType type;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.dialog)]
 		public Step_Dialog dialog_Data;
@@ -54,6 +55,13 @@ namespace Step
 				Debug.LogError(type + " not implemented in Dialog.cs(class Step.Step() )");
 				return null;
 			}
+		}
+
+
+		public Color GetEnumColor()
+		{
+			Sirenix.Utilities.Editor.GUIHelper.RequestRepaint();
+			return Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);
 		}
 	}
 }

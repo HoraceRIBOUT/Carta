@@ -5,6 +5,7 @@ using UnityEngine;
 public class UI_Inventory : MonoBehaviour
 {
     public GameObject prefabItemBox;
+    public List<Item> allItem = new List<Item>();
 
     [Header("Deploy")]
     public bool inventoryDeployed = false;
@@ -24,8 +25,14 @@ public class UI_Inventory : MonoBehaviour
     public List<UI_ItemBox> allBox;
     public RectTransform boxParent;
 
-    public int currentPlace = 0;
+    public int currentItemIndex = 0;
 
+    [Header("Box Movement")]
+    public float offsetBetweenBox = 500;
+    public float moveSpeed = 5f;
+    public AnimationCurve moveSpeedCurve;
+    public float currentMoveValue = 0;
+    public float currentMoveSpeed = 0;
 
     [Header("Inventory")]
     public Dictionary<itemID, Item> inventory_all;
@@ -52,6 +59,9 @@ public class UI_Inventory : MonoBehaviour
         inventory_current = new Dictionary<itemID, Item>();
 
         //For debug only
+        foreach (Item item in startItem_Current)
+            if(!startItem_All.Contains(item))
+                startItem_All.Add(item);
         foreach (Item item in startItem_All)
         {
             AddItem(item);
@@ -59,34 +69,40 @@ public class UI_Inventory : MonoBehaviour
                 if (!startItem_Current.Contains(item))
                     RemItem(item);
         }
-        foreach (Item item in startItem_Current)
-            AddItem(item);
         //End debug only
 
+        CreateBox();
+        Retract();
+    }
+
+    public void PopulateCurrentItemList()
+    {
         currentDeployList = new List<Item>();
         foreach (KeyValuePair<itemID, Item> item in inventory_current)
         {
             currentDeployList.Add(item.Value);
-            Debug.Log("Add current :");
         }
         foreach (KeyValuePair<itemID, Item> item in inventory_all)
         {
             if (!currentDeployList.Contains(item.Value))
                 currentDeployList.Add(item.Value);
-            Debug.Log("Add all : " + item.Value);
         }
         indexOfNotInList = inventory_current.Count;
         Debug.Log("Finish  adding element" + currentDeployList.Count + " (bonus : " + indexOfNotInList + ")");
 
-        for (int i = 0; i < 1/*currentDeployList.Count*/; i++)
+    }
+
+    public void CreateBox()
+    {
+        allBox = new List<UI_ItemBox>();
+        for (int i = 0; i < currentDeployList.Count; i++)
         {
             UI_ItemBox box = Instantiate(prefabItemBox, boxParent.transform).GetComponent<UI_ItemBox>();
             box.SetUpBox(currentDeployList[i], i >= indexOfNotInList);
-            allBox = new List<UI_ItemBox>();
+            //Position : 
+            box.Placement(i, offsetBetweenBox, i == currentItemIndex);
             allBox.Add(box);
         }
-
-        Retract();
     }
 
     public void Update()
@@ -101,10 +117,18 @@ public class UI_Inventory : MonoBehaviour
     {
         if (inventoryDeployed)
         {
-            if(Mathf.Abs(direction.y) > 0.1f)
+            if(Mathf.Abs(direction.y) < 0.1f)
             {
-                MoveChoice(direction.y > 0);
+                if (currentMoveSpeed > 0)
+                {
+                    currentMoveSpeed = Mathf.Clamp01(currentMoveSpeed - Time.deltaTime * 3f);
+                    Debug.Log("slowDown" + currentMoveSpeed);
+                }
+
+                currentMoveValue = Mathf.Lerp(currentMoveValue, currentItemIndex, Time.deltaTime * 4);
             }
+            MoveChoice(direction.y);
+            UpdateBoxPlacement();
             return true;
         }
         return false;
@@ -125,12 +149,59 @@ public class UI_Inventory : MonoBehaviour
     {
     }
 
-    public void MoveChoice(bool up)
+    public void MoveChoice(float up)
     {
-        //if up then --
-        //else ++ 
+        if (up < 0)
+        {
+            if(currentMoveValue < allBox.Count - 1)
+                currentMoveValue += Time.deltaTime * moveSpeedCurve.Evaluate(currentMoveSpeed) * moveSpeed;
+        }
+
+        if (up > 0)
+        {
+            if (currentMoveValue > 0)
+                currentMoveValue -= Time.deltaTime * moveSpeedCurve.Evaluate(currentMoveSpeed) * moveSpeed;
+        }
+        currentMoveValue = Mathf.Clamp(currentMoveValue, 0, allBox.Count - 1);
+        currentItemIndex = Mathf.RoundToInt(currentMoveValue);
+
+        if (up != 0 && currentMoveSpeed < 1)
+        {
+            currentMoveSpeed = Mathf.Clamp01(currentMoveSpeed + Time.deltaTime);
+        }
     }
 
+    public void UpdateBoxPlacement()
+    {
+        Debug.Log("currentItemIndex = " + currentItemIndex);
+        for (int i = 0; i < allBox.Count; i++)
+        {
+            UI_ItemBox box = allBox[i];
+            box.Placement(i - currentMoveValue, offsetBetweenBox, i == currentItemIndex);
+        }
+        //Debug.Log("currentMoveValue "+ currentMoveValue);
+    }
+
+
+
+    #region External Call
+
+    public void AddItem(Step.Step_AddItem data)
+    {
+        Item res = null;
+        foreach (Item it in GameManager.instance.inventory.allItem)
+        {
+            if(it.id == data.itemId)
+            {
+                res = it;
+                break;
+            }
+        }
+        if (res == null)
+            Debug.LogError("Did not add the "+ data.itemId + " item in the inventory pool.");
+        else
+            AddItem(res);
+    }
 
     public void AddItem(Item it)
     {
@@ -138,17 +209,30 @@ public class UI_Inventory : MonoBehaviour
         inventory_all.Add(it.id, it);
         inventory_current.Add(it.id, it);
 
-
+        PopulateCurrentItemList();
         UpdateVisual();
+    }
+    public void RemItem(Step.Step_RemItem data)
+    {
+        if (!inventory_current.ContainsKey(data.itemId))
+        {
+            Debug.LogError("Did not have the " + data.itemId + " item in the inventory curent.");
+            //May be already gave ? Or not taken in the first place ?
+            return;
+        }
+        Item res = inventory_current[data.itemId];
+        RemItem(res);
     }
     public void RemItem(Item it)
     {
         Debug.Log("Remove !" + it.id);
         inventory_current.Remove(it.id);
 
+        PopulateCurrentItemList();
         UpdateVisual();
     }
 
+    #endregion
 
     public bool EUpdate()
     {
@@ -166,7 +250,22 @@ public class UI_Inventory : MonoBehaviour
 
     public void Deploy()
     {
+        if (allBox.Count == 0)
+        {
+            //Cannot deploy an empty inventory
+            return;
+        }
+
         Debug.Log("Deploy inv");
+
+        //For other:
+        if (!GameManager.instance.dialogMng.inDialog)
+            GameManager.instance.playerMove.InventoryAndMenu();
+
+        //For itself
+        currentItemIndex = 0;
+        currentMoveValue = 0;
+
         mainRect.anchorMin = new Vector2(0.8f, 0);
         mainRect.anchorMax = new Vector2(1.0f, 1);
         mainRect.anchoredPosition = Vector2.zero;
@@ -177,16 +276,18 @@ public class UI_Inventory : MonoBehaviour
             StopCoroutine(deployingRoutine);
         deployingRoutine = StartCoroutine(Deploy_Corout(true));
 
-        foreach (UI_ItemBox item in allBox)
-        {
-            item.Deploy();
-        }
+        allBox[0].Deploy();
     }
 
     public void Retract()
     {
         Debug.Log("Retract inv");
 
+        //For other:
+        if(!GameManager.instance.dialogMng.inDialog)
+            GameManager.instance.playerMove.FinishMenuing();
+
+        //For itself
         inventoryDeployed = false;
 
         if (deployingRoutine != null)

@@ -242,10 +242,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b84ffd87b2c5104abdf0e0e311b15c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentlyMiddle: 0
   promptList: {fileID: 4958117575617559268}
-  promptGive: {fileID: 4958117574812022233}
+  promptGive: {fileID: 4958117574615164984}
   itemIcon: {fileID: 4958117575156101381}
   itemName: {fileID: 4958117574251722865}
+  _rect: {fileID: 4958117574349055692}
+  _startPos: {x: 0, y: 0, z: 0}
+  positionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -5
+      value: -5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.87316555
+      outSlope: 0.87316555
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.15126051
+    - serializedVersion: 3
+      time: 5
+      value: 5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.33
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.07563031
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  debug: 0
   deployLerp: 0.01
   trnasitionSpeed: 6
   trnasitionCurve:

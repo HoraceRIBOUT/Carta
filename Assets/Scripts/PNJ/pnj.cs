@@ -13,11 +13,12 @@ public class pnj : MonoBehaviour
 
     public List<ItemReaction> reactions = new List<ItemReaction>();
 
+    [System.Serializable]
     public class ItemReaction
     {
         public itemID itemToReactFrom = itemID.none;
 
-        public bool finalTarget = false;
+        public bool finalTarget = false;//can give, it take
         public Dialog response;
     }
 

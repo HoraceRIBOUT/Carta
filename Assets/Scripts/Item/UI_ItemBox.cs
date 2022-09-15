@@ -5,11 +5,20 @@ using UnityEngine;
 
 public class UI_ItemBox : MonoBehaviour
 {
+    public bool currentlyMiddle = false;
+
     public CanvasGroup promptList;
     public GameObject promptGive;
 
     public Image itemIcon;
     public TMPro.TMP_Text itemName;
+
+    public RectTransform _rect;
+    public Vector3 _startPos;
+
+
+    public AnimationCurve positionCurve;
+    public AnimationCurve scaleCurve;
 
     public void SetUpBox(Item item, bool delivered)
     {
@@ -20,6 +29,29 @@ public class UI_ItemBox : MonoBehaviour
         if (delivered)
         {
             itemIcon.color = Color.Lerp(Color.black, Color.white, 0.5f);
+        }
+        _startPos = _rect.localPosition;
+    }
+
+    public bool debug = false;
+    public void Placement(float i, float offsetDistance, bool currentMiddle) 
+    {
+        _rect.localScale = Vector3.one * scaleCurve.Evaluate((1 - Mathf.Abs(i / 4f)));
+        _rect.localPosition = _startPos + (positionCurve.Evaluate(i) * offsetDistance) * Vector3.down;
+
+        if(currentMiddle)
+        Debug.Log("currentMiddle ! A new one ! ");
+        if (currentlyMiddle != currentMiddle)
+        {
+            if (currentMiddle)
+            {
+                Deploy();
+            }
+            else
+            {
+                Retract();
+            }
+            currentlyMiddle = currentMiddle;
         }
     }
 

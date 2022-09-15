@@ -114,13 +114,15 @@ public class DialogManager : MonoBehaviour
                 NextStep();
                 break;
             case Step.stepType.additem:
+                GameManager.instance.inventory.AddItem((Step.Step_AddItem)dialog.allSteps[index].GetData());
                 //TO DO
                 //Probably an animation an then, goes next. Or wait for confirmation ? 
                 //Like a box on center, confirmation make it on the side THEN goes next 
                 //seems good
+                NextStep();
                 break;
             case Step.stepType.remitem:
-                //TO DO
+                GameManager.instance.inventory.RemItem((Step.Step_RemItem)dialog.allSteps[index].GetData());
                 NextStep();
                 break;
                 //case Step.stepType.itemOpenability:

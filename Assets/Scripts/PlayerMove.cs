@@ -507,17 +507,27 @@ public class PlayerMove : MonoBehaviour
 
     public void Talk()
     {
-        talking = true; 
+        InventoryAndMenu();
+    }
+    public void FinishTalk()
+    {
+        FinishMenuing();
+    }
+    public void InventoryAndMenu()
+    {
+        talking = true;
         speedWhenInterupt = _rgbd.velocity;
         _rgbd.velocity = Vector3.zero;
         _rgbd.isKinematic = true;
     }
-    public void FinishTalk()
+    public void FinishMenuing()
     {
         talking = false;
         _rgbd.isKinematic = false;
         _rgbd.velocity = speedWhenInterupt;
     }
+
+
     //Debug
 
     public void ResetAll()

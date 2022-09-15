@@ -9,6 +9,7 @@ public class Dialog : ScriptableObject
 
     public pnj pnj_link = null; //if not null, it's a pnj's dialog
     public Color defaultColor;
+
 }
 
 namespace Step
@@ -36,13 +37,13 @@ namespace Step
     [System.Serializable]
     public class Step_AddItem: Step_father
     {
-        public string itemId; //for now, like that. It's ugly, I know
+        public itemID itemId; 
     }
 
     [System.Serializable]
     public class Step_RemItem : Step_father
     {
-        public string itemId; //for now, like that. It's ugly, I know
+        public itemID itemId;
     }
 
     [System.Serializable]
