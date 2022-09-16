@@ -133,25 +133,19 @@ public class UI_Inventory : MonoBehaviour
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, 0, Time.deltaTime * transparencySpeed);
     }
 
-    public bool InputManagement_MoveUpDown(Vector2 direction)
+    public void InputManagement_MoveUpDown(Vector2 direction)
     {
-        if (inventoryDeployed)
+        if (Mathf.Abs(direction.y) < 0.1f)
         {
-            if(Mathf.Abs(direction.y) < 0.1f)
+            if (currentMoveSpeed > 0)
             {
-                if (currentMoveSpeed > 0)
-                {
-                    currentMoveSpeed = Mathf.Clamp01(currentMoveSpeed - Time.deltaTime * 3f);
-                    Debug.Log("slowDown" + currentMoveSpeed);
-                }
-
-                currentMoveValue = Mathf.Lerp(currentMoveValue, currentItemIndex, Time.deltaTime * 4);
+                currentMoveSpeed = Mathf.Clamp01(currentMoveSpeed - Time.deltaTime * 3f);
             }
-            MoveChoice(direction.y);
-            UpdateBoxPlacement();
-            return true;
+
+            currentMoveValue = Mathf.Lerp(currentMoveValue, currentItemIndex, Time.deltaTime * 4);
         }
-        return false;
+        MoveChoice(direction.y);
+        UpdateBoxPlacement();
     }
 
     public bool InputManagement_GiveItem()
@@ -172,21 +166,34 @@ public class UI_Inventory : MonoBehaviour
 
     public void MoveChoice(float up)
     {
+        bool edgeSlowEffect = false;
         if (up < 0)
         {
-            if(currentMoveValue < allBox.Count - 1)
+            if(currentMoveValue > allBox.Count - 1)
+            {
+                currentMoveSpeed = Mathf.Clamp01(currentMoveSpeed - Time.deltaTime * 3f);
+                edgeSlowEffect = true;
+            }
+
+            if(currentMoveValue < allBox.Count - 0.5f)
                 currentMoveValue += Time.deltaTime * moveSpeedCurve.Evaluate(currentMoveSpeed) * moveSpeed;
         }
 
         if (up > 0)
         {
-            if (currentMoveValue > 0)
-                currentMoveValue -= Time.deltaTime * moveSpeedCurve.Evaluate(currentMoveSpeed) * moveSpeed;
+            if (currentMoveValue < 0)
+            {
+                currentMoveSpeed = Mathf.Clamp01(currentMoveSpeed - Time.deltaTime * 3f);
+                edgeSlowEffect = true;
+            }
+
+            if (currentMoveValue > -0.5f)
+                    currentMoveValue -= Time.deltaTime * moveSpeedCurve.Evaluate(currentMoveSpeed) * moveSpeed;
         }
-        currentMoveValue = Mathf.Clamp(currentMoveValue, 0, allBox.Count - 1);
+        currentMoveValue = Mathf.Clamp(currentMoveValue, -0.499f, allBox.Count - 0.499f); //to avoid rounding too high or too low
         currentItemIndex = Mathf.RoundToInt(currentMoveValue);
 
-        if (up != 0 && currentMoveSpeed < 1)
+        if (up != 0 && currentMoveSpeed < 1 && !edgeSlowEffect)
         {
             currentMoveSpeed = Mathf.Clamp01(currentMoveSpeed + Time.deltaTime);
         }
@@ -194,7 +201,6 @@ public class UI_Inventory : MonoBehaviour
 
     public void UpdateBoxPlacement()
     {
-        Debug.Log("currentItemIndex = " + currentItemIndex);
         for (int i = 0; i < allBox.Count; i++)
         {
             UI_ItemBox box = allBox[i];
@@ -261,17 +267,6 @@ public class UI_Inventory : MonoBehaviour
 
     #endregion
 
-    public bool EUpdate()
-    {
-        //if (Transition en cours) ;
-            //return false;
-        if (inventoryDeployed)
-            Retract();
-        else
-            Deploy();
-
-        return true;
-    }
 
 
 

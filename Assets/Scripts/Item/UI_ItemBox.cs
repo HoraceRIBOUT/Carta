@@ -41,8 +41,6 @@ public class UI_ItemBox : MonoBehaviour
         _rect.localScale = Vector3.one * scaleCurve.Evaluate((1 - Mathf.Abs(i / 4f)));
         _rect.localPosition = _startPos + (positionCurve.Evaluate(i) * offsetDistance) * Vector3.down;
 
-        if(currentMiddle)
-        Debug.Log("currentMiddle ! A new one ! ");
         if (currentlyMiddle != currentMiddle)
         {
             if (currentMiddle)

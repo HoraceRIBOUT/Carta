@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Dialog_AutoGeneratePart : MonoBehaviour {
+public class Dialog_AutoGeneratePart {
  
 }
  
@@ -15,11 +15,14 @@ namespace Step
 	     remitem,
 	     sfx,
 	     music,
+	     iteminteractivity,
+	     dialogredirection,
 	}
  
 	[System.Serializable]
 	public class Step
 	{
+		[Header("__________________")]
 		[Sirenix.OdinInspector.GUIColor("GetEnumColor")]
 		public stepType type;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.dialog)]
@@ -34,6 +37,10 @@ namespace Step
 		public Step_SFX sfx_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.music)]
 		public Step_Music music_Data;
+		[Sirenix.OdinInspector.ShowIf("type", stepType.iteminteractivity)]
+		public Step_ItemInteractivity iteminteractivity_Data;
+		[Sirenix.OdinInspector.ShowIf("type", stepType.dialogredirection)]
+		public Step_DialogRedirection dialogredirection_Data;
 		
 		public Step_father GetData()
 		{
@@ -51,13 +58,16 @@ namespace Step
 				return sfx_Data;
 				case stepType.music:
 				return music_Data;
+				case stepType.iteminteractivity:
+				return iteminteractivity_Data;
+				case stepType.dialogredirection:
+				return dialogredirection_Data;
 				default:
 				Debug.LogError(type + " not implemented in Dialog.cs(class Step.Step() )");
 				return null;
 			}
 		}
-
-
+		
 		public Color GetEnumColor()
 		{
 			Sirenix.Utilities.Editor.GUIHelper.RequestRepaint();

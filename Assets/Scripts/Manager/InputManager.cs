@@ -19,13 +19,16 @@ public class InputManager : MonoBehaviour
 
         if (GameManager.instance.inventory.inventoryDeployed)
         {
+            Try_MoveInventoryUpdate();
+            Try_CloseInventory();
             //First case
             //With variable around weither is in dialog or not
             //and if the current item is already given or not
         }
         else if (GameManager.instance.dialogMng.inDialog)
         {
-            ReturnUpdate();
+            Try_OpenInventory();
+            Try_ValidateDialog();
 
             //Second case :
             //Can continue text
@@ -36,16 +39,13 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            ReturnUpdate();
+            Try_OpenInventory();
+            Try_TalkToPnj();
             //In movement in the real world else !
         }
 
         //Will need a fourth choice : the UI one. A big one. With so many case. An hellscape just for myself. O pity me, why giving me such monstruous task! I will turn into moby dick and chase myself indefinitly in a see of green letter and black space, with no star and no guiding light
 
-        MoveUpdate();
-
-
-        EUpdate();
 
         //For inventory : 
 
@@ -59,7 +59,7 @@ public class InputManager : MonoBehaviour
             // Y : give
     }
 
-    void MoveUpdate()
+    void Try_MoveInventoryUpdate()
     {
         Vector2 inputDirection = new Vector2(
             Input.GetAxis("Horizontal"),
@@ -72,17 +72,32 @@ public class InputManager : MonoBehaviour
         GameManager.instance.inventory.InputManagement_MoveUpDown(inputDirection);
     }
 
-    void ReturnUpdate()
+    void Try_TalkToPnj()
     {
-
         if(Input.GetKeyDown(KeyCode.Return))
-            GameManager.instance.dialogMng.ReturnUpdate();
+        {
+            GameManager.instance.dialogMng.ReturnUpdate_World();
+        }
+    }
+    void Try_ValidateDialog()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            GameManager.instance.dialogMng.ReturnUpdate_Dialog();
+        }
     }
 
-    void EUpdate()
+    void Try_OpenInventory()
     {
         //For now, always, no limit.
         if (Input.GetKeyDown(KeyCode.E))
-            GameManager.instance.inventory.EUpdate();
+            GameManager.instance.inventory.Deploy();
+    }
+
+    void Try_CloseInventory()
+    {
+        //For now, always, no limit.
+        if (Input.GetKeyDown(KeyCode.E))
+            GameManager.instance.inventory.Retract();
     }
 }

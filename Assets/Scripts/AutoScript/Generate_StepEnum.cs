@@ -102,6 +102,8 @@ public class Generate_StepEnum : MonoBehaviour
             outfile.WriteLine("\t[System.Serializable]");
             outfile.WriteLine("\tpublic class Step");
             outfile.WriteLine("\t{");
+            outfile.WriteLine("\t\t[Header(\"__________________\")]");
+            outfile.WriteLine("\t\t[Sirenix.OdinInspector.GUIColor(\"GetEnumColor\")]");
             outfile.WriteLine("\t\tpublic stepType type;");
             foreach (string str in importantLine)
             {
@@ -122,6 +124,12 @@ public class Generate_StepEnum : MonoBehaviour
             outfile.WriteLine("\t\t\t\tDebug.LogError(type + \" not implemented in Dialog.cs(class Step.Step() )\");");
             outfile.WriteLine("\t\t\t\treturn null;");
             outfile.WriteLine("\t\t\t}");
+            outfile.WriteLine("\t\t}");
+            outfile.WriteLine("\t\t");
+            outfile.WriteLine("\t\tpublic Color GetEnumColor()");
+            outfile.WriteLine("\t\t{");
+            outfile.WriteLine("\t\t\tSirenix.Utilities.Editor.GUIHelper.RequestRepaint();");
+            outfile.WriteLine("\t\t\treturn Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);");
             outfile.WriteLine("\t\t}");
             outfile.WriteLine("\t}");
             outfile.WriteLine("}");

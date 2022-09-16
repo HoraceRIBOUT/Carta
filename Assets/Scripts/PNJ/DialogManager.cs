@@ -38,18 +38,16 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    public void ReturnUpdate()
+    public void ReturnUpdate_World()
     {
-        if (!inDialog)
+        foreach (pnj interactivePNJ in allPNJ)
         {
-            foreach (pnj interactivePNJ in allPNJ)
-            {
-                if (interactivePNJ.ReturnUpdate())
-                    break;
-            }
-            return;
+            if (interactivePNJ.ReturnUpdate())
+                break;
         }
-        
+    }
+    public void ReturnUpdate_Dialog()
+    {
         Click();
     }
 
@@ -125,11 +123,16 @@ public class DialogManager : MonoBehaviour
                 GameManager.instance.inventory.RemItem((Step.Step_RemItem)dialog.allSteps[index].GetData());
                 NextStep();
                 break;
-                //case Step.stepType.itemOpenability:
-                //CanOpenInventory();
+            case Step.stepType.iteminteractivity:
+                CanOpenInventory((Step.Step_ItemInteractivity)dialog.allSteps[index].GetData());
+                NextStep();
+                break;
+            case Step.stepType.dialogredirection:
+                DialogRedirection((Step.Step_DialogRedirection)dialog.allSteps[index].GetData());
                 NextStep();
                 break;
             default:
+                Debug.LogError("Did not implement correct value for step type " + dialog.allSteps[index].type);
                 break;
         }
     }
@@ -161,6 +164,12 @@ public class DialogManager : MonoBehaviour
     {
         //TO DO : 
         //this.canOpenInventory = itemInteraciv.itemInvoCanBeOpen;
+    }
+
+    public void DialogRedirection(Step.Step_DialogRedirection data)
+    {
+        StartDialog(data.dialogToGo, currentPNJ);
+        //Seems that's it. Nothing else.
     }
 
     public void FinishDialog()

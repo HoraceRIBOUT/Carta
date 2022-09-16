@@ -67,5 +67,12 @@ namespace Step
     }
 
 
+    [System.Serializable]
+    public class Step_DialogRedirection : Step_father
+    {
+        public Dialog dialogToGo;
+    }
+
+
 }
 
