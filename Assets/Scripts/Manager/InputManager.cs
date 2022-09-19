@@ -21,6 +21,8 @@ public class InputManager : MonoBehaviour
         {
             Try_MoveInventoryUpdate();
             Try_CloseInventory();
+            Try_GiveInventory();
+            Try_ShowInventory();
             //First case
             //With variable around weither is in dialog or not
             //and if the current item is already given or not
@@ -41,6 +43,12 @@ public class InputManager : MonoBehaviour
         {
             Try_OpenInventory();
             Try_TalkToPnj();
+
+            //Dealt within PlayerMove.cs : 
+                //Crouching
+                //Moving
+                //Jumping
+
             //In movement in the real world else !
         }
 
@@ -69,21 +77,21 @@ public class InputManager : MonoBehaviour
         //Also the player
         //Also the choice in dialog
 
-        GameManager.instance.inventory.InputManagement_MoveUpDown(inputDirection);
+        GameManager.instance.inventory.IM_MoveUpDown(inputDirection);
     }
 
     void Try_TalkToPnj()
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            GameManager.instance.dialogMng.ReturnUpdate_World();
+            GameManager.instance.dialogMng.IM_World();
         }
     }
     void Try_ValidateDialog()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            GameManager.instance.dialogMng.ReturnUpdate_Dialog();
+            GameManager.instance.dialogMng.IM_Dialog();
         }
     }
 
@@ -91,13 +99,26 @@ public class InputManager : MonoBehaviour
     {
         //For now, always, no limit.
         if (Input.GetKeyDown(KeyCode.E))
-            GameManager.instance.inventory.Deploy();
+            GameManager.instance.inventory.IM_Open();
     }
 
     void Try_CloseInventory()
     {
         //For now, always, no limit.
         if (Input.GetKeyDown(KeyCode.E))
-            GameManager.instance.inventory.Retract();
+            GameManager.instance.inventory.IM_Close();
+    }
+
+    void Try_GiveInventory()
+    {
+        //For now, always, no limit.
+        if (Input.GetKeyDown(KeyCode.E))
+            GameManager.instance.inventory.IM_Give();
+    }
+    void Try_ShowInventory()
+    {
+        //For now, always, no limit.
+        if (Input.GetKeyDown(KeyCode.E))
+            GameManager.instance.inventory.IM_Show();
     }
 }

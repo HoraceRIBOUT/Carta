@@ -23,22 +23,19 @@ public class DialogManager : MonoBehaviour
 
     public void Start()
     {
-        if(allPNJ == null || allPNJ.Count == 0)
-        {
-            FillAllPNJ();
-        }
     }
 
-
+    [Sirenix.OdinInspector.Button()]
     public void FillAllPNJ()
     {
+        allPNJ = new List<pnj>();
         foreach (pnj interac in FindObjectsOfType<pnj>())
         {
             allPNJ.Add(interac);
         }
     }
 
-    public void ReturnUpdate_World()
+    public void IM_World()
     {
         foreach (pnj interactivePNJ in allPNJ)
         {
@@ -46,7 +43,7 @@ public class DialogManager : MonoBehaviour
                 break;
         }
     }
-    public void ReturnUpdate_Dialog()
+    public void IM_Dialog()
     {
         Click();
     }

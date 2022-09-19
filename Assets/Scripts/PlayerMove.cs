@@ -87,7 +87,7 @@ public class PlayerMove : MonoBehaviour
         if (talking)
             return;
 
-        //HandleGrappleWallMode();
+        HandleGrappleWallMode();
 
         //Both jump and movement
         MovementManagement();
@@ -105,6 +105,30 @@ public class PlayerMove : MonoBehaviour
             //Debug.Log("Become " + currentNormal);
             lastNormal = currentNormal;
         }
+    }
+
+    [Header("Grapple mode")]
+    public bool grapleMode = false;
+    public bool grapleMode_eff = false;
+
+    private void HandleGrappleWallMode()
+    {
+        //switch
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            grapleMode = !grapleMode;
+        }
+
+        //hold
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            grapleMode_eff = !grapleMode;
+        }
+        else
+        {
+            grapleMode_eff = grapleMode;
+        }
+
     }
 
     private void MovementManagement()
@@ -130,9 +154,12 @@ public class PlayerMove : MonoBehaviour
             Vector3 groundAcc = GetGroundMove(inputDirection);
             Vector3 wallAcc = GetWallMove(inputDirection);
 
-            float dotNormalToUp = Mathf.Clamp01(Vector3.Dot(currentNormal, Vector3.up)); 
+            float dotNormalToUp = Mathf.Clamp01(Vector3.Dot(currentNormal, Vector3.up));
 
-            acceleration =  groundAcc * dotNormalToUp + wallAcc * (1 - dotNormalToUp);
+            if (grapleMode_eff)
+                acceleration = groundAcc * dotNormalToUp + wallAcc * (1 - dotNormalToUp);
+            else
+                acceleration = groundAcc * dotNormalToUp;
             //Debug.Log("acceleration "+ acceleration + " = " + dotNormalToUp + " + " + (1 - dotNormalToUp) + " . "+ wallAcc + "/"+groundAcc);
 
             lastSpeed += acceleration * Time.deltaTime;
@@ -275,15 +302,25 @@ public class PlayerMove : MonoBehaviour
     public float gravityDefault = 9.81f;
     public float gravityOnFalling = 18.1f;
     public float surfaceAttraction = 2f;
+    public AnimationCurve gravityCurveForGrapple;
 
     public void GravityManagement()
     {
         gravityMultiplier = Vector3.Dot(currentNormal, Vector3.up);
 
-        _rgbd.velocity -= currentNormal * (1 - gravityMultiplier) * surfaceAttraction * Time.fixedDeltaTime;
-        //Debug.DrawRay(this.transform.position, -currentNormal * surfaceAttraction, Color.green, Time.fixedDeltaTime);
 
-        gravityMultiplier = Mathf.Abs(gravityMultiplier);
+        if (grapleMode_eff)
+        {
+            _rgbd.velocity -= currentNormal * (1 - gravityMultiplier) * surfaceAttraction * Time.fixedDeltaTime;
+            //Debug.DrawRay(this.transform.position, -currentNormal * surfaceAttraction, Color.green, Time.fixedDeltaTime);
+        }
+        else
+        {
+            gravityMultiplier = 1;//default. Always.
+        }
+        
+        
+        gravityMultiplier = gravityCurveForGrapple.Evaluate(Mathf.Abs(gravityMultiplier));
         if (gravityMultiplier <= 0)
             return;
         

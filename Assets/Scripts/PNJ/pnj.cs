@@ -12,6 +12,8 @@ public class pnj : MonoBehaviour
 
 
     public List<ItemReaction> reactions = new List<ItemReaction>();
+    public Dialog defaultReaction_FalseGive;
+    public Dialog defaultReaction;
 
     [System.Serializable]
     public class ItemReaction
@@ -19,7 +21,8 @@ public class pnj : MonoBehaviour
         public itemID itemToReactFrom = itemID.none;
 
         public bool finalTarget = false;//can give, it take
-        public Dialog response;
+        public Dialog responseGive; //most of the time, just redirect after a line when not final target
+        public Dialog responseShow;
     }
 
     public bool ReturnUpdate()

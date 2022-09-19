@@ -8929,7 +8929,10 @@ MonoBehaviour:
   reactions:
   - itemToReactFrom: 6
     finalTarget: 1
-    response: {fileID: 11400000, guid: 8c8683a46c8096349948fe8d32592041, type: 2}
+    responseGive: {fileID: 11400000, guid: 8c8683a46c8096349948fe8d32592041, type: 2}
+    responseShow: {fileID: 11400000, guid: 8c8683a46c8096349948fe8d32592041, type: 2}
+  defaultReaction_FalseGive: {fileID: 0}
+  defaultReaction: {fileID: 0}
 --- !u!23 &1241996217884794576
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9182,7 +9185,10 @@ MonoBehaviour:
   reactions:
   - itemToReactFrom: 6
     finalTarget: 0
-    response: {fileID: 11400000, guid: 3a81a5640d5824640a82dbaf4424e8d4, type: 2}
+    responseGive: {fileID: 11400000, guid: 3a81a5640d5824640a82dbaf4424e8d4, type: 2}
+    responseShow: {fileID: 11400000, guid: 3a81a5640d5824640a82dbaf4424e8d4, type: 2}
+  defaultReaction_FalseGive: {fileID: 0}
+  defaultReaction: {fileID: 0}
 --- !u!4 &1241996218543025313
 Transform:
   m_ObjectHideFlags: 0

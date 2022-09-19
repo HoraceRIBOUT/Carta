@@ -133,7 +133,7 @@ public class UI_Inventory : MonoBehaviour
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, 0, Time.deltaTime * transparencySpeed);
     }
 
-    public void InputManagement_MoveUpDown(Vector2 direction)
+    public void IM_MoveUpDown(Vector2 direction)
     {
         if (Mathf.Abs(direction.y) < 0.1f)
         {
@@ -265,8 +265,65 @@ public class UI_Inventory : MonoBehaviour
         UpdateVisual();
     }
 
+
+    public void IM_Give()
+    {
+        Give();
+    }
+
+    public void IM_Show()
+    {
+        Show();
+    }
+
+    public void Give()
+    {
+        //Because it's a give, we need to include a "drum roll moment"
+        //before saying either it's a good catch or not 
+        Item itemSelected = currentDeployList[currentItemIndex];
+        pnj currentPNJ = GameManager.instance.dialogMng.currentPNJ;
+
+        if (currentPNJ != null)
+        {
+            foreach (pnj.ItemReaction react in currentPNJ.reactions)
+            {
+                if(react.itemToReactFrom == itemSelected.id)
+                {
+                    if (react.finalTarget)
+                    {
+                        //Vicotry music !
+                        RemItem(itemSelected);
+                    }
+                    else
+                    {
+                        //Loose music...
+                    }
+                    GameManager.instance.dialogMng.StartDialog(react.responseGive);
+                    Retract();
+                    return;
+                }
+            }
+            GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultReaction);
+            Retract();
+        }
+    }
+
+    public void Show()
+    {
+
+    }
+
     #endregion
 
+
+    public void IM_Open()
+    {
+        Deploy();
+    }
+    public void IM_Close()
+    {
+        Retract();
+    }
 
 
 
