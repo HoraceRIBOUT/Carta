@@ -12,6 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a35e07636896a4781feb685029f17f, type: 3}
   m_Name: FlowMom_ScrewReceive
   m_EditorClassIdentifier: 
-  allSteps: []
+  allSteps:
+  - type: 0
+    dialog_Data:
+      text: "Oh ! Parfait, le tournevis de XXX ! Ca fait 3 semaines qu'on essaie
+        de se croiser pour qu'elle me le pr\xEAte !"
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+  - type: 0
+    dialog_Data:
+      text: "On va enfin pour r\xE9parer la porte de STAGIAIRE. Elle couinera plus
+        et nous r\xE9veillera pas le soir !"
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

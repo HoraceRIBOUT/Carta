@@ -112,13 +112,13 @@ public class InputManager : MonoBehaviour
     void Try_GiveInventory()
     {
         //For now, always, no limit.
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Return))
             GameManager.instance.inventory.IM_Give();
     }
     void Try_ShowInventory()
     {
         //For now, always, no limit.
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Space))
             GameManager.instance.inventory.IM_Show();
     }
 }

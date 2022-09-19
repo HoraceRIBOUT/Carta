@@ -15,7 +15,7 @@ MonoBehaviour:
   allSteps:
   - type: 0
     dialog_Data:
-      text: Oh ! Hello ? You're the new post-bot ?
+      text: "Oh, salut ! T'es le nouveau facteur m\xE9canique ?"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:
@@ -35,7 +35,27 @@ MonoBehaviour:
       dialogToGo: {fileID: 0}
   - type: 0
     dialog_Data:
-      text: Nice to meet you!
+      text: Enchant- OH ! Dis tu peux m'aider ?
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+  - type: 0
+    dialog_Data:
+      text: "Tu pourrais filer ce tournevis \xE0 Kamily ? "
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:
@@ -75,7 +95,7 @@ MonoBehaviour:
       dialogToGo: {fileID: 0}
   - type: 0
     dialog_Data:
-      text: Deliver this letter please.
+      text: "Elle g\xE8re le magasin de fleur, sur la place."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:
@@ -115,7 +135,7 @@ MonoBehaviour:
       dialogToGo: {fileID: 0}
   - type: 0
     dialog_Data:
-      text: Over there.
+      text: "L\xE0 bas, \xE0 l'\xE9tage du bas. Ce grand b\xE2timent."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:
@@ -155,7 +175,7 @@ MonoBehaviour:
       dialogToGo: {fileID: 0}
   - type: 0
     dialog_Data:
-      text: Good luck !
+      text: Merci encore ! Bonne chance !
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:
@@ -173,25 +193,5 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
-  - type: 7
-    dialog_Data:
-      text: 
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 11400000, guid: 191954197ad6d5c47880c0686a9220d7, type: 2}
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

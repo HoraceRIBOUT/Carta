@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70a35e07636896a4781feb685029f17f, type: 3}
-  m_Name: FlowAunt_ScrewReceive
+  m_Name: FlowerAunt_DefaultDialog
   m_EditorClassIdentifier: 
   allSteps:
   - type: 0
     dialog_Data:
-      text: Oh ! Mais c'est pas pour moi, c'est pour ma soeur ! Je la remplace.
+      text: Je suis la marchande de fleur !
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:
@@ -35,7 +35,7 @@ MonoBehaviour:
       dialogToGo: {fileID: 0}
   - type: 0
     dialog_Data:
-      text: "Elle est dans l'arri\xE8re boutique, en train de g\xE9rer les comptes."
+      text: "Et si t'ach\xE8tes rien, pshit, tu peux d\xE9gager mon p'tit !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:

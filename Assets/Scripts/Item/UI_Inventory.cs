@@ -283,6 +283,7 @@ public class UI_Inventory : MonoBehaviour
         Item itemSelected = currentDeployList[currentItemIndex];
         pnj currentPNJ = GameManager.instance.dialogMng.currentPNJ;
 
+        Debug.Log("Try to give : " + itemSelected.id);
         if (currentPNJ != null)
         {
             foreach (pnj.ItemReaction react in currentPNJ.reactions)
@@ -299,12 +300,14 @@ public class UI_Inventory : MonoBehaviour
                         //Loose music...
                     }
                     GameManager.instance.dialogMng.StartDialog(react.responseGive);
+                    Debug.Log("Gibe !!! " + itemSelected.id);
                     Retract();
                     return;
                 }
             }
             GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultReaction);
             Retract();
+            Debug.Log("Don't have it : " + itemSelected.id);
         }
     }
 

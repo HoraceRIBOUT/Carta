@@ -10,32 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70a35e07636896a4781feb685029f17f, type: 3}
-  m_Name: FlowAunt_ScrewReceive
+  m_Name: FlowerAunt_DefaultReaction
   m_EditorClassIdentifier: 
   allSteps:
   - type: 0
     dialog_Data:
-      text: Oh ! Mais c'est pas pour moi, c'est pour ma soeur ! Je la remplace.
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-  - type: 0
-    dialog_Data:
-      text: "Elle est dans l'arri\xE8re boutique, en train de g\xE9rer les comptes."
+      text: "Oh ? C'pas pour moi \xE7a, tu te trompes pas de magasin mon p'tit ?"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:
