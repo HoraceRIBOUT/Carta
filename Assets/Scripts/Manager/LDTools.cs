@@ -92,9 +92,9 @@ public class LDTools : MonoBehaviour
     }
 
 
-    [MenuItem("OrangeLetter/TryRotateLeft #Q")]
+    [MenuItem("OrangeLetter/TryRotateLeft #%Q")]
     public static void TryRotateLeft() { TryRotate(true); }
-    [MenuItem("OrangeLetter/TryRotateRight #D")]
+    [MenuItem("OrangeLetter/TryRotateRight #%D")]
     public static void TryRotateRight() { TryRotate(false); }
 
     public static void TryRotate(bool left)
@@ -118,6 +118,41 @@ public class LDTools : MonoBehaviour
 
     }
 
+
+    [MenuItem("OrangeLetter/TryMoveLeft %#LEFT")]
+    public static void TryMoveLeft () { TryMove(Vector3.left); }
+    [MenuItem("OrangeLetter/TryMoveRight %#RIGHT")]
+    public static void TryMoveRight() { TryMove(Vector3.right); }
+    [MenuItem("OrangeLetter/TryMoveForward %#UP")]
+    public static void TryMoveForward() { TryMove(Vector3.forward); }
+    [MenuItem("OrangeLetter/TryMoveBackward %#DOWN")]
+    public static void TryMoveBackWard() { TryMove(Vector3.back); }
+    [MenuItem("OrangeLetter/TryMoveUp %#U")]
+    public static void TryMoveUp() { TryMove(Vector3.up); }
+    [MenuItem("OrangeLetter/TryMoveDown %#J")]
+    public static void TryMoveDown() { TryMove(Vector3.down); }
+
+
+    public static void TryMove(Vector3 direction)
+    {
+        if (Selection.activeGameObject == null)
+        {
+            Debug.LogError("No item selected. (activeGO == null)");
+            return;
+        }
+        if (Selection.gameObjects.Length == 0)
+        {
+            Debug.LogError("No item selected. (gameObjects == 0)");
+            return;
+        }
+
+        for (int i = 0; i < Selection.gameObjects.Length; i++)
+        {
+            Undo.RegisterCompleteObjectUndo(Selection.gameObjects[i], "Move game object via Shortcut");
+            Selection.gameObjects[i].transform.position += direction;
+        }
+
+    }
 
 #endif
 }
