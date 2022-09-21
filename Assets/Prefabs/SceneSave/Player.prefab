@@ -162,7 +162,7 @@ Transform:
   m_Children:
   - {fileID: 6459757362635843702}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6459757362387403777
 MonoBehaviour:
@@ -193,6 +193,8 @@ MonoBehaviour:
   coyoteTiming: 0.2
   talking: 0
   speedWhenInterupt: {x: 0, y: 0, z: 0}
+  grapleMode: 0
+  grapleMode_eff: 0
   crouching: 0
   crouchDefaultSize: 2
   crouchGravity: 10
@@ -202,6 +204,39 @@ MonoBehaviour:
   gravityDefault: 9.81
   gravityOnFalling: 18.1
   surfaceAttraction: 2
+  gravityCurveForGrapple:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.2182379
+      outSlope: 3.2182379
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05729567
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   layerOnCollision: 0000000006000000
   layerMask:
     serializedVersion: 2

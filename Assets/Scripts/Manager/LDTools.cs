@@ -23,9 +23,9 @@ public class LDTools : MonoBehaviour
     }
 
 
-    [MenuItem("OrangeLetter/TryReplaceLeft #Z")]
+    [MenuItem("OrangeLetter/TryReplaceLeft #%A")]
     public static void TryReplaceLeft()    {        TryReplace(true);    }
-    [MenuItem("OrangeLetter/TryReplaceRight #S")]
+    [MenuItem("OrangeLetter/TryReplaceRight #%E")]
     public static void TryReplaceRight()    {       TryReplace(false);    }
 
     public static void TryReplace(bool left)
