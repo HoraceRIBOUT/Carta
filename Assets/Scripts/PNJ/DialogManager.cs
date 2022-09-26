@@ -20,6 +20,8 @@ public class DialogManager : MonoBehaviour
     public bool loadingDialogBox = false;
     public bool displayDialogText = false;
 
+    public bool inventoryBlock = false;
+
 
     public void Start()
     {
@@ -61,14 +63,7 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
-        if(currentDialog.allSteps.Count == currentStep + 1)
-        {
-            FinishDialog();
-        }
-        else
-        {
-            NextStep();
-        }
+        NextStep();
     }
 
 
@@ -93,6 +88,12 @@ public class DialogManager : MonoBehaviour
     
     public void NextStep()
     {
+        if (currentDialog.allSteps.Count == currentStep + 1)
+        {
+            FinishDialog();
+            return;
+        }
+
         currentStep++;
         TreatDepending(currentDialog, currentStep);
     }
@@ -128,8 +129,13 @@ public class DialogManager : MonoBehaviour
                 DialogRedirection((Step.Step_DialogRedirection)dialog.allSteps[index].GetData());
                 NextStep();
                 break;
+            case Step.stepType.setdefaultdialog:
+                SetDefaultDialog((Step.Step_SetDefaultDialog)dialog.allSteps[index].GetData());
+                NextStep();
+                break;
             default:
                 Debug.LogError("Did not implement correct value for step type " + dialog.allSteps[index].type);
+                NextStep();
                 break;
         }
     }
@@ -160,7 +166,29 @@ public class DialogManager : MonoBehaviour
     public void CanOpenInventory(Step.Step_ItemInteractivity itemInteraciv)
     {
         //TO DO : 
-        //this.canOpenInventory = itemInteraciv.itemInvoCanBeOpen;
+        if(GameManager.instance.inventory.inventoryDeployed)
+        {
+            GameManager.instance.inventory.Retract();
+        }
+
+        inventoryBlock = !itemInteraciv.itemInvoCanBeOpen;
+    }
+
+    public void SetDefaultDialog(Step.Step_SetDefaultDialog data)
+    {
+        pnj target = null;
+        foreach (pnj potential in allPNJ)
+        {
+            if(potential.id == data.targetID)
+            {
+                target = potential;
+                break;
+            }
+        }
+
+        Debug.Log("will set new default");
+        target.defaultDialog = data.newDefaultDial;
+        Debug.Log("new default !");
     }
 
     public void DialogRedirection(Step.Step_DialogRedirection data)

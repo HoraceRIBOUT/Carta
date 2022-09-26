@@ -29,7 +29,8 @@ public class InputManager : MonoBehaviour
         }
         else if (GameManager.instance.dialogMng.inDialog)
         {
-            Try_OpenInventory();
+            if(!GameManager.instance.dialogMng.inventoryBlock)
+                Try_OpenInventory();
             Try_ValidateDialog();
 
             //Second case :

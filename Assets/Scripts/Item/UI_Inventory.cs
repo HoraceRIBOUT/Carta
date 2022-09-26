@@ -127,7 +127,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void Update()
     {
-        if (GameManager.instance.dialogMng.inDialog)
+        if (GameManager.instance.dialogMng.inDialog && !GameManager.instance.dialogMng.inventoryBlock)
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, transparencyGoal, Time.deltaTime * transparencySpeed);
         else
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, 0, Time.deltaTime * transparencySpeed);
@@ -368,6 +368,7 @@ public class UI_Inventory : MonoBehaviour
         //For other:
         if(!GameManager.instance.dialogMng.inDialog)
             GameManager.instance.playerMove.FinishMenuing();
+        GameManager.instance.dialogMng.inventoryBlock = false;
 
         //For itself
         inventoryDeployed = false;

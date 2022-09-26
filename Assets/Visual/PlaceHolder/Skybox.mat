@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skybox
-  m_Shader: {fileID: 106, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 07bb423ab105d644cb883336f81986d4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _SUNDISK_HIGH_QUALITY
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -60,6 +60,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _StarMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _AtmosphereThickness: 0.96
@@ -67,10 +71,13 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Exponent1: 1
+    - _Exponent2: 1
     - _Exposure: 1.4
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Intensity: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -79,13 +86,21 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SunDisk: 2
+    - _SunInnerSize: 0.001
+    - _SunOuterSize: 0.005
     - _SunSize: 0.04
     - _SunSizeConvergence: 5
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color1: {r: 1, g: 0.771931, b: 0.2199308, a: 1}
+    - _Color2: {r: 0.83701587, g: 0.34584016, b: 0.14714575, a: 1}
+    - _Color3: {r: 0.083992206, g: 0.009407576, b: 0.27407253, a: 1}
+    - _Color4: {r: 0.00066749885, g: 0.042920068, b: 0.14150941, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 0.6415094, g: 0.08620826, b: 0.033285867, a: 1}
     - _SkyTint: {r: 1, g: 0.69796467, b: 0, a: 1}
+    - _SunColor: {r: 1, g: 1, b: 1, a: 0}
+    - _SunPosition: {r: -0.25637853, g: 0.39726663, b: 2.185509, a: 0}
   m_BuildTextureStacks: []

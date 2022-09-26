@@ -33,6 +33,9 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
   - type: 0
     dialog_Data:
       text: Enchant- OH ! Dis tu peux m'aider ?
@@ -53,6 +56,32 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
+  - type: 6
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
   - type: 0
     dialog_Data:
       text: "Tu pourrais filer ce tournevis \xE0 Kamily ? "
@@ -73,6 +102,9 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
   - type: 2
     dialog_Data:
       text: 
@@ -93,6 +125,9 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
   - type: 0
     dialog_Data:
       text: "Elle g\xE8re le magasin de fleur, sur la place."
@@ -113,6 +148,9 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
   - type: 1
     dialog_Data:
       text: 
@@ -133,6 +171,9 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
   - type: 0
     dialog_Data:
       text: "L\xE0 bas, \xE0 l'\xE9tage du bas. Ce grand b\xE2timent."
@@ -153,6 +194,9 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
   - type: 1
     dialog_Data:
       text: 
@@ -173,6 +217,32 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
+  - type: 6
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 1
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
   - type: 0
     dialog_Data:
       text: Merci encore ! Bonne chance !
@@ -193,5 +263,31 @@ MonoBehaviour:
       itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 0}
+  - type: 8
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      target: {fileID: 0}
+      newDefaultDial: {fileID: 11400000, guid: 0fdfa9ff92668934a8d27cae1c332eba, type: 2}
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

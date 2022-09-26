@@ -74,5 +74,12 @@ namespace Step
     }
 
 
+    [System.Serializable]
+    public class Step_SetDefaultDialog : Step_father
+    {
+        public pnj.pnjID targetID;
+        public Dialog newDefaultDial;
+    }
+
 }
 

@@ -6,6 +6,14 @@ public class pnj : MonoBehaviour
 {
     public bool playerOnReach;
 
+    public enum pnjID
+    {
+        ned,
+        flowerMom,
+        flowerAunt,
+    }
+    public pnjID id;
+
     public Dialog defaultDialog;
     public List<Transform> cameraPoints = new List<Transform>();
 

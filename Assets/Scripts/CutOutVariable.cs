@@ -48,7 +48,7 @@ public class CutOutVariable : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Touch " + other.name + " layer " + other.gameObject.layer);
+        //Debug.Log("Touch " + other.name + " layer " + other.gameObject.layer);
         if (other.gameObject.layer != 6)
             return;
 
@@ -66,7 +66,7 @@ public class CutOutVariable : MonoBehaviour
     }
     public void OnTriggerExit(Collider other)
     {
-        Debug.Log("Touch " + other.name + " layer " + other.gameObject.layer);
+        //Debug.Log("Touch " + other.name + " layer " + other.gameObject.layer);
         if (other.gameObject.layer != 6)
             return;
 

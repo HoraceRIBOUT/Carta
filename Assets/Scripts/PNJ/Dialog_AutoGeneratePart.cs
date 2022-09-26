@@ -17,6 +17,7 @@ namespace Step
 	     music,
 	     iteminteractivity,
 	     dialogredirection,
+	     setdefaultdialog,
 	}
  
 	[System.Serializable]
@@ -41,6 +42,8 @@ namespace Step
 		public Step_ItemInteractivity iteminteractivity_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.dialogredirection)]
 		public Step_DialogRedirection dialogredirection_Data;
+		[Sirenix.OdinInspector.ShowIf("type", stepType.setdefaultdialog)]
+		public Step_SetDefaultDialog setdefaultdialog_Data;
 		
 		public Step_father GetData()
 		{
@@ -62,6 +65,8 @@ namespace Step
 				return iteminteractivity_Data;
 				case stepType.dialogredirection:
 				return dialogredirection_Data;
+				case stepType.setdefaultdialog:
+				return setdefaultdialog_Data;
 				default:
 				Debug.LogError(type + " not implemented in Dialog.cs(class Step.Step() )");
 				return null;
