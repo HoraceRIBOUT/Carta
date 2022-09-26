@@ -86,8 +86,8 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SunDisk: 2
-    - _SunInnerSize: 0.001
-    - _SunOuterSize: 0.005
+    - _SunInnerSize: 0.002
+    - _SunOuterSize: 0.01
     - _SunSize: 0.04
     - _SunSizeConvergence: 5
     - _UVSec: 0
@@ -101,6 +101,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 0.6415094, g: 0.08620826, b: 0.033285867, a: 1}
     - _SkyTint: {r: 1, g: 0.69796467, b: 0, a: 1}
-    - _SunColor: {r: 1, g: 1, b: 1, a: 0}
-    - _SunPosition: {r: -0.25637853, g: 0.39726663, b: 2.185509, a: 0}
+    - _SunColor: {r: 1, g: 0.93642145, b: 0.6367924, a: 0}
+    - _SunPosition: {r: -1.0938705, g: 0.15685415, b: 2.3368664, a: 0}
   m_BuildTextureStacks: []
