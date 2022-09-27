@@ -34,7 +34,7 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 0}
   - type: 0
     dialog_Data:
@@ -57,7 +57,7 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 0}
   - type: 6
     dialog_Data:
@@ -80,7 +80,7 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 0}
   - type: 0
     dialog_Data:
@@ -103,7 +103,7 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 0}
   - type: 2
     dialog_Data:
@@ -126,7 +126,7 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 0}
   - type: 0
     dialog_Data:
@@ -149,7 +149,7 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 0}
   - type: 1
     dialog_Data:
@@ -172,7 +172,7 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 0}
   - type: 0
     dialog_Data:
@@ -195,7 +195,7 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 0}
   - type: 1
     dialog_Data:
@@ -218,53 +218,7 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
-      newDefaultDial: {fileID: 0}
-  - type: 6
-    dialog_Data:
-      text: 
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 1
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-    setdefaultdialog_Data:
-      target: {fileID: 0}
-      newDefaultDial: {fileID: 0}
-  - type: 0
-    dialog_Data:
-      text: Merci encore ! Bonne chance !
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-    setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 0}
   - type: 8
     dialog_Data:
@@ -287,7 +241,53 @@ MonoBehaviour:
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
-      target: {fileID: 0}
+      targetID: 0
       newDefaultDial: {fileID: 11400000, guid: 0fdfa9ff92668934a8d27cae1c332eba, type: 2}
+  - type: 6
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 1
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+  - type: 0
+    dialog_Data:
+      text: Merci encore ! Bonne chance !
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

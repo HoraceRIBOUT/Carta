@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PH_Plafond
-  m_Shader: {fileID: -6465566751694194690, guid: 08eedb064d3a5474d960a38a5f873f5e, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 2897413dfaf89bd45ab8e61776957b16, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -82,9 +82,12 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _CutoutSize: 0.4
+    - _CutoutSize: 0.6
     - _DetailNormalMapScale: 1
     - _Detail_Zoom: 200
+    - _DistanceSmootOut: 0.8
+    - _DistanceSmoothIn: 0.9
+    - _DistanceToPlayer: 2
     - _DstBlend: 0
     - _FalloffSize: 0.3
     - _GlossMapScale: 1
@@ -104,7 +107,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 0.80166054, b: 0, a: 1}
-    - _CutoutPosition: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _CutoutPosition: {r: 0.5000001, g: 0.2988783, b: 0, a: 0}
     - _Detail_SmoothStep: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SmoothStepMain: {r: 0, g: 1, b: 0, a: 0}

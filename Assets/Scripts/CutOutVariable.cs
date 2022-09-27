@@ -7,10 +7,10 @@ public class CutOutVariable : MonoBehaviour
     [SerializeField]
     private Transform targetObject;//the character (or any other target)
 
+    [SerializeField]
     private Camera cam;
-    public LayerMask decorMask;
 
-    public List<GameObject> objectTouch = new List<GameObject>();
+    public List<Material> materialToChange = new List<Material>();
 
     // Start is called before the first frame update
     void Start()
@@ -21,66 +21,22 @@ public class CutOutVariable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Reposition();
+        SetDistanceAndCutoutPos();
+    }
 
-
-
+    [Sirenix.OdinInspector.Button()]
+    public void SetDistanceAndCutoutPos()
+    {
+        float distance = (targetObject.transform.position - cam.transform.position).magnitude;
 
         Vector2 cutoutPosition = cam.WorldToViewportPoint(targetObject.position);
         cutoutPosition.y /= ((float)Screen.width / (float)Screen.height);
 
-        for (int i = 0; i < objectTouch.Count; i++)
+        foreach (Material mat in materialToChange)
         {
-            Material[] mats = objectTouch[i].GetComponent<Renderer>().materials;
-
-            foreach(Material mat in mats)
-            {
-                mat.SetVector("_CutoutPosition", cutoutPosition);
-            }
+            mat.SetVector("_CutoutPosition", cutoutPosition);
+            mat.SetFloat("_DistanceToPlayer", distance);
         }
     }
 
-    public void Reposition()
-    {
-        this.transform.position = (targetObject.position + cam.transform.position) / 2;
-        this.transform.LookAt(cam.transform);
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("Touch " + other.name + " layer " + other.gameObject.layer);
-        if (other.gameObject.layer != 6)
-            return;
-
-        if (!objectTouch.Contains(other.gameObject))
-        {
-            Material[] mats = other.gameObject.GetComponent<Renderer>().materials;
-
-            foreach (Material mat in mats)
-            {
-                mat.SetFloat("_Open", 1);
-            }
-
-            objectTouch.Add(other.gameObject);
-        }
-    }
-    public void OnTriggerExit(Collider other)
-    {
-        //Debug.Log("Touch " + other.name + " layer " + other.gameObject.layer);
-        if (other.gameObject.layer != 6)
-            return;
-
-        if (objectTouch.Contains(other.gameObject))
-        {
-            Material[] mats = other.gameObject.GetComponent<Renderer>().materials;
-
-            foreach (Material mat in mats)
-            {
-                mat.SetFloat("_Open", 0);
-            }
-
-            objectTouch.Remove(other.gameObject);
-        }
-
-    }
 }
