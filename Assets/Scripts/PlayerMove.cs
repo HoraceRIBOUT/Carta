@@ -110,7 +110,9 @@ public class PlayerMove : MonoBehaviour
     [Header("Grapple mode")]
     public bool grapleMode = false;
     public bool grapleMode_eff = false;
-
+    private bool grapleMode_Mem = false;
+    public GameObject grappleVisual_On;
+    public GameObject grappleVisual_Off;
     private void HandleGrappleWallMode()
     {
         //switch
@@ -127,6 +129,13 @@ public class PlayerMove : MonoBehaviour
         else
         {
             grapleMode_eff = grapleMode;
+        }
+
+        if(grapleMode_eff != grapleMode_Mem)
+        {
+            grappleVisual_On .SetActive( grapleMode_eff);
+            grappleVisual_Off.SetActive(!grapleMode_eff);
+            grapleMode_Mem = grapleMode_eff;
         }
 
     }
