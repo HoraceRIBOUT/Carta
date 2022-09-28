@@ -445,8 +445,8 @@ public class PlayerMove : MonoBehaviour
 
         //Ok, just to test it out : 
         _rgbd.velocity = Vector3.ProjectOnPlane(_rgbd.velocity, currentNormal);
+        _rgbd.velocity = Vector3.ProjectOnPlane(lastSpeed, currentNormal);
         lastSpeed = _rgbd.velocity;
-
     }
     private void RemoveWall(GameObject obj)
     {
