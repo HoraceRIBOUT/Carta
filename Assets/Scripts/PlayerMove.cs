@@ -373,11 +373,25 @@ public class PlayerMove : MonoBehaviour
                         {
                             impactNormal = info.normal;
                         }
+                        else
+                        {
+                            //We touch a new wall, but it's not blocking the player entierely. 
+                            //So, we can perhaps move forward afterall ? Let's try change the speed direction !
+                            
+                           /* if(collision.contacts[0].point.y < this.transform.position.y)
+                            {
+                                _rgbd.AddForce(lastSpeed.magnitude * Vector3.up * verticalBoost, ForceMode.Force);
+                                Debug.Log("Add verticality ! " + lastSpeed.magnitude);
+                            }*/
+                            //For now, just that
+                        }
 
                         AddWall(collision.gameObject, impactNormal);
 
 
                         RecalculateNormal();
+
+                        Debug.LogWarning("Current normal : " + currentNormal + " VS " + impactNormal);
                     }
 
                     //Reset Jump
@@ -391,7 +405,7 @@ public class PlayerMove : MonoBehaviour
         //if normal of collision is not too sharp
         
     }
-
+    public float verticalBoost = 100;
     public bool ObjectOnLayer(GameObject gameObject)
     {
         foreach(int layerValue in layerOnCollision)
@@ -443,10 +457,7 @@ public class PlayerMove : MonoBehaviour
         wallAndGround_Info newWall = new wallAndGround_Info(obj, normal);
         wallAndGround.Add(newWall);
 
-        //Ok, just to test it out : 
-        _rgbd.velocity = Vector3.ProjectOnPlane(_rgbd.velocity, currentNormal);
-        _rgbd.velocity = Vector3.ProjectOnPlane(lastSpeed, currentNormal);
-        lastSpeed = _rgbd.velocity;
+        TransposeSpeedToNewCurrentNormal();
     }
     private void RemoveWall(GameObject obj)
     {
@@ -469,6 +480,15 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    void TransposeSpeedToNewCurrentNormal()
+    {
+        //Ok, just to test it out : 
+        float magn = _rgbd.velocity.magnitude;
+        _rgbd.velocity = Vector3.ProjectOnPlane(lastSpeed, currentNormal);
+        Debug.Log("_rgbd.velocity.magn = " + _rgbd.velocity.magnitude + " when magn = " + magn + " but lastSpeed ! " + lastSpeed.magnitude);
+        lastSpeed = _rgbd.velocity;
+    }
+
     private void RecalculateNormal()
     {
         if (coyoteTimer > 0)
@@ -484,7 +504,8 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            ChooseMostVerticalWall();
+
+            //ChooseMostVerticalWall();
         }
     }
 
@@ -495,6 +516,21 @@ public class PlayerMove : MonoBehaviour
             //keep last current Normal
             return;
         }
+
+        if(wallAndGround.Count == 0)
+        {
+            currentNormal = Vector3.up;
+            return;
+        }
+
+        Vector3 normalSum = Vector3.zero;
+        foreach (wallAndGround_Info wallAndGround in wallAndGround)
+        {
+            normalSum += wallAndGround.lastNormal;
+        }
+
+        currentNormal = (normalSum / wallAndGround.Count).normalized;
+        return;
 
         currentNormal = Vector3.up;
         float maxDotValue = -1;

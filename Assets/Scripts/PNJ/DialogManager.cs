@@ -213,9 +213,4 @@ public class DialogManager : MonoBehaviour
     }
 
 
-    [Sirenix.OdinInspector.Button]
-    public void ReloadEnumUtils()
-    {
-        Generate_StepEnum.ReadTheFile();
-    }
 }

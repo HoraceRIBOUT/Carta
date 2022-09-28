@@ -4,6 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class Generate_ZoneTrigger : MonoBehaviour
 {
     public static string DETECT_ENTER = "public void Enter";
@@ -154,3 +155,4 @@ public class Generate_ZoneTrigger : MonoBehaviour
         AssetDatabase.Refresh();
     }
 }
+#endif

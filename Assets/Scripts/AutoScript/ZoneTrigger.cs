@@ -15,15 +15,6 @@ public class ZoneTrigger : MonoBehaviour
             this.gameObject.AddComponent<ZoneTrigger_AutoGeneratePart>();
     }
 
-    public void Update()
-    {
-        if (regenerate)
-        {
-            Generate_ZoneTrigger.ReadTheFile();
-            regenerate = false;
-        }
-    }
-
     public void EnterBalcony()
     {
         Debug.Log("Balcony ! Yeah !");

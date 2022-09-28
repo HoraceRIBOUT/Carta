@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PH_Mur
+  m_Name: PH_Mer
   m_Shader: {fileID: -6465566751694194690, guid: 2897413dfaf89bd45ab8e61776957b16, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -83,7 +83,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Open: 0
+    - _Open: 0.198
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -93,13 +93,13 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.6938923, b: 0, a: 1}
+    - _Color: {r: 0, g: 0.23921569, b: 0.99607843, a: 1}
     - _CutoutPosition: {r: 0.5, g: 0.18020998, b: 0, a: 0}
     - _Detail_SmoothStep: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SmoothStepMain: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &1565006448159522255
+--- !u!114 &389926965661788202
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

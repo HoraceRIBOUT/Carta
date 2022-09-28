@@ -4,6 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class Generate_ItemEnum : MonoBehaviour
 {
     public static string DETECT_NEW_ITEM = "It_";
@@ -73,3 +74,4 @@ public class Generate_ItemEnum : MonoBehaviour
         AssetDatabase.Refresh();
     }
 }
+#endif

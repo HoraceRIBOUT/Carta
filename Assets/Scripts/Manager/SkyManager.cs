@@ -7,6 +7,9 @@ public class SkyManager : MonoBehaviour
 {
     public Material skyMat;
 
+    public bool timeAdvance = false;
+    public float timeSpeed = 1f/(5f*60f); // duration of a day : 5 minute (5*60s)
+
     [Range(0,1)]
     public float timeOfTheDay;
     private float timeOfTheDay_m;
@@ -33,8 +36,21 @@ public class SkyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (timeOfTheDay == timeOfTheDay_m)
-        //    return;
+        if (timeAdvance && Application.isPlaying)
+        {
+            timeOfTheDay += Time.deltaTime * timeSpeed;
+            if(timeOfTheDay > 1)
+            {
+                timeOfTheDay--;
+            }
+            if (timeOfTheDay < 0)
+            {
+                timeOfTheDay++;
+            }
+        }
+        
+        if (timeOfTheDay == timeOfTheDay_m)
+            return;
         timeOfTheDay_m = timeOfTheDay;
 
         sunPivot.transform.rotation = Quaternion.AngleAxis(360*timeOfTheDay, this.transform.forward);

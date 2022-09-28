@@ -4,6 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class Generate_StepEnum : MonoBehaviour
 {
 
@@ -141,3 +142,4 @@ public class Generate_StepEnum : MonoBehaviour
         AssetDatabase.Refresh();
     }
 }
+#endif

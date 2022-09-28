@@ -75,7 +75,10 @@ namespace Step
 		
 		public Color GetEnumColor()
 		{
+
+#if UNITY_EDITOR
 			Sirenix.Utilities.Editor.GUIHelper.RequestRepaint();
+#endif
 			return Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);
 		}
 	}
