@@ -8,6 +8,7 @@ public class LDTools : MonoBehaviour
 {
 #if UNITY_EDITOR
     public List<GameObject> prefabsListTest_01 = new List<GameObject>();
+    public GameObject prefabToSwapFor;
 
     //To change the selection afterward
     private GameObject[] newSelection = new GameObject[0];
@@ -75,7 +76,9 @@ public class LDTools : MonoBehaviour
                 index = 0;
             GameObject newObject = (GameObject)PrefabUtility.InstantiatePrefab(replaceList[index]); 
             Undo.RegisterCreatedObjectUndo(newObject, "Replace With Prefabs");
-            newObject.name                      = gO.name;//need to only keep the number of any special element
+            string number = gO.name.Substring(gO.name.LastIndexOf(' '));
+            string newName = newObject.name + number;
+            newObject.name                      = newName;//need to only keep the number of any special element
             newObject.transform.parent          = gO.transform.parent;
             newObject.transform.localPosition   = gO.transform.localPosition;
             newObject.transform.localRotation   = gO.transform.localRotation;
@@ -152,6 +155,49 @@ public class LDTools : MonoBehaviour
             Selection.gameObjects[i].transform.position += direction;
         }
 
+    }
+
+
+
+    [MenuItem("OrangeLetter/TryReplaceSelection")]
+    public static void TryReplaceSelectionWithOne()
+    {
+        LDTools myLDTools = FindObjectOfType<LDTools>();
+
+
+        myLDTools.newSelection = Selection.gameObjects;
+        for (int i = 0; i < myLDTools.newSelection.Length; i++)
+        {
+            GameObject gO = myLDTools.newSelection[i];
+
+            GameObject newObj = TryReplaceOneElementWithOne(gO, myLDTools.prefabToSwapFor);
+            if (newObj != null) { myLDTools.newSelection[i] = newObj; continue; }
+            //else, item stay the same in selection
+            Debug.LogWarning("Did not change " + myLDTools.newSelection[i].name + " : was not a prefab in any list.");
+        }
+    }
+    public static GameObject TryReplaceOneElementWithOne(GameObject gO, GameObject prefab) 
+    {
+        if (gO == null)
+            return null;
+
+        if (prefab == null)
+            return null;
+
+        GameObject newObject = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+        Undo.RegisterCreatedObjectUndo(newObject, "Replace With Prefabs");
+        newObject.name = gO.name;//need to only keep the number of any special element
+        newObject.SetActive(gO.activeSelf);
+        newObject.transform.parent = gO.transform.parent;
+        newObject.transform.localPosition = gO.transform.localPosition;
+        newObject.transform.localRotation = gO.transform.localRotation;
+        newObject.transform.localScale = gO.transform.localScale;
+        newObject.transform.SetSiblingIndex(gO.transform.GetSiblingIndex());
+
+        Debug.Log("Change " + gO.name + " to " + prefab.name);
+
+        Undo.DestroyObjectImmediate(gO);
+        return newObject;
     }
 
 #endif
