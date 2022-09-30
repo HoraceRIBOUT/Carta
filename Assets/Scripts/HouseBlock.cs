@@ -14,7 +14,7 @@ public class HouseBlock : MonoBehaviour
     public Vector3 randomOffset_Min = new Vector3();
     public Vector3 randomOffset_Max = new Vector3();
 
-
+    public string lastTimeOnEarth = "";
 
     [Button]
     public void RePosition()
