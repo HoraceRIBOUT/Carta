@@ -18,12 +18,16 @@ namespace Step
 	     iteminteractivity,
 	     dialogredirection,
 	     setdefaultdialog,
+	     choice,
 	}
  
 	[System.Serializable]
 	public class Step
 	{
-		[Header("__________________")]
+		[HideInInspector()]
+		public int index;
+		public string title { get { return "Step " + index; } }
+		[Sirenix.OdinInspector.Title("$title")]
 		[Sirenix.OdinInspector.GUIColor("GetEnumColor")]
 		public stepType type;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.dialog)]
@@ -44,6 +48,8 @@ namespace Step
 		public Step_DialogRedirection dialogredirection_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.setdefaultdialog)]
 		public Step_SetDefaultDialog setdefaultdialog_Data;
+		[Sirenix.OdinInspector.ShowIf("type", stepType.choice)]
+		public Step_Choice choice_Data;
 		
 		public Step_father GetData()
 		{
@@ -67,6 +73,8 @@ namespace Step
 				return dialogredirection_Data;
 				case stepType.setdefaultdialog:
 				return setdefaultdialog_Data;
+				case stepType.choice:
+				return choice_Data;
 				default:
 				Debug.LogError(type + " not implemented in Dialog.cs(class Step.Step() )");
 				return null;
@@ -75,10 +83,7 @@ namespace Step
 		
 		public Color GetEnumColor()
 		{
-
-#if UNITY_EDITOR
 			Sirenix.Utilities.Editor.GUIHelper.RequestRepaint();
-#endif
 			return Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);
 		}
 	}

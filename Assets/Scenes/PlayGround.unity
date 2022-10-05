@@ -26833,7 +26833,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1125129794}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2129119802}
+        m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
+        m_MethodName: PressButton
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1125129794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28797,7 +28809,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1201177479}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2129119802}
+        m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
+        m_MethodName: PressButton
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1201177479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49248,6 +49272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inDialog: 0
+  canClick: 1
   allPNJ:
   - {fileID: 1967541513}
   - {fileID: 1241996217335910029}
@@ -49257,6 +49282,7 @@ MonoBehaviour:
   _addItem_anim: {fileID: 4958117575717705920}
   _addItem_icon: {fileID: 4958117573837770614}
   _addItem_text: {fileID: 4958117575009568258}
+  choiceEmbranchement: {x: 0, y: 0, z: 0}
   currentDialog: {fileID: 0}
   currentStep: 0
   currentPNJ: {fileID: 0}

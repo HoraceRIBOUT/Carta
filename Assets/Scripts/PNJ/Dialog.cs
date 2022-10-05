@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 [CreateAssetMenu(fileName = "Dialog", menuName = "Carta/Dialog", order = 1)]
 public class Dialog : ScriptableObject
 {
+    [Sirenix.OdinInspector.OnValueChanged("ReIndex")]
     public List<Step.Step> allSteps;
 
     public pnj pnj_link = null; //if not null, it's a pnj's dialog
     public Color defaultColor;
 
+    public void ReIndex()
+    {
+        for (int i = 0; i < allSteps.Count; i++)
+        {
+            allSteps[i].index = i;
+        }
+    }
 }
 
 namespace Step
@@ -79,6 +88,41 @@ namespace Step
     {
         public pnj.pnjID targetID;
         public Dialog newDefaultDial;
+    }
+
+    [System.Serializable]
+    public class Step_Choice : Step_father
+    {
+        public enum choiceType
+        {
+            dialogUnique,
+            redirectNumber,
+            redirectDialog,
+        }
+
+        public choiceType typeYes;
+        [ShowIf("typeYes", choiceType.dialogUnique  )][Indent()]
+        public Step_Dialog dialogYes;
+        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()]
+        public int redirectNumberIfYes;
+        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()]
+        public int redirectNumberStopYes;
+        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()]
+        public int redirectNumberAfterYes;
+        [ShowIf("typeYes", choiceType.redirectDialog)][Indent()]
+        public Step_DialogRedirection redirectYes;
+
+        public choiceType typeNo;
+        [ShowIf("typeNo", choiceType.dialogUnique  )][Indent()]
+        public Step_Dialog dialogNo;
+        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()]
+        public int redirectNumberIfNo;
+        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()]
+        public int redirectNumberStopNo;
+        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()]
+        public int redirectNumberAfterNo;
+        [ShowIf("typeNo", choiceType.redirectDialog)][Indent()]
+        public Step_DialogRedirection redirectNo;
     }
 
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 public class DialogManager : MonoBehaviour
 {
     public bool inDialog = false;
+    public bool canClick = true;
 
     public List<pnj> allPNJ = new List<pnj>();
 
@@ -18,6 +19,10 @@ public class DialogManager : MonoBehaviour
     public Animator _addItem_anim;
     public Image _addItem_icon;
     public TMPro.TMP_Text _addItem_text;
+
+    [Header("Choice")]
+    private Step.Step_Choice choiceInMemory;
+    public Vector3 choiceEmbranchement;
 
     [Header("Current dialog")]
     public Dialog currentDialog;
@@ -58,8 +63,8 @@ public class DialogManager : MonoBehaviour
 
     public void Click()
     {
-        //if(cant continue)
-        // return;
+        if(!canClick)
+            return;
         if (loadingDialogBox)
             return;
 
@@ -134,6 +139,9 @@ public class DialogManager : MonoBehaviour
             case Step.stepType.setdefaultdialog:
                 SetDefaultDialog((Step.Step_SetDefaultDialog)dialog.allSteps[index].GetData());
                 NextStep();
+                break;
+            case Step.stepType.choice:
+                DisplayChoice((Step.Step_Choice)dialog.allSteps[index].GetData());
                 break;
             default:
                 Debug.LogError("Did not implement correct value for step type " + dialog.allSteps[index].type);
@@ -211,6 +219,57 @@ public class DialogManager : MonoBehaviour
         //Seems that's it. Nothing else.
     }
 
+    public void DisplayChoice(Step.Step_Choice data) 
+    {
+        dialogAnimator.SetBool("Button", true);
+        inventoryBlock = true;
+
+        choiceInMemory = data;
+        canClick = false;
+    }
+
+    public void PressButton(bool yes)
+    {
+        if (choiceInMemory == null)
+            return;
+        Step.Step_Choice ch = choiceInMemory;
+        dialogAnimator.SetBool("Button", false);
+        canClick = true;
+        inventoryBlock = false;
+
+        switch (yes ? ch.typeYes : ch.typeNo)
+        {
+            case Step.Step_Choice.choiceType.dialogUnique:
+                TreatText(yes ? ch.dialogYes : ch.dialogNo);
+                break;
+            case Step.Step_Choice.choiceType.redirectNumber:
+                choiceEmbranchement = new Vector3(
+                    yes ? ch.redirectNumberIfYes    : ch.redirectNumberIfNo   ,
+                    yes ? ch.redirectNumberStopYes  : ch.redirectNumberStopNo ,
+                    yes ? ch.redirectNumberAfterYes : ch.redirectNumberAfterNo);
+                //Go to this step :
+                if(currentStep > choiceEmbranchement.x)
+                {
+                    Debug.LogError("Choice at " + currentStep + " in " + currentDialog.name + " have redirection BEFORE the choice.");
+                    NextStep();
+                }
+                while(currentStep != choiceEmbranchement.x)
+                {
+                    currentStep++;
+                }
+                NextStep();
+                break;
+            case Step.Step_Choice.choiceType.redirectDialog:
+                DialogRedirection(yes ? ch.redirectYes : ch.redirectNo);
+                break;
+            default:
+                break;
+        }
+
+
+        choiceInMemory = null;
+    }
+
     public void FinishDialog()
     {
         StartCoroutine(CloseDialog());
@@ -218,6 +277,7 @@ public class DialogManager : MonoBehaviour
 
     public IEnumerator CloseDialog()
     {
+        canClick = true;
         inDialog = false;
         currentPNJ = null;
         dialogAnimator.SetBool("Open", false);
