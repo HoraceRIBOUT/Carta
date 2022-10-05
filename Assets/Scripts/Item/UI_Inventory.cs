@@ -213,17 +213,21 @@ public class UI_Inventory : MonoBehaviour
 
     #region External Call
 
-    public void AddItem(Step.Step_AddItem data)
+    public Item GetItem(itemID id)
     {
-        Item res = null;
         foreach (Item it in GameManager.instance.inventory.allItem)
         {
-            if(it.id == data.itemId)
+            if (it.id == id)
             {
-                res = it;
-                break;
+                return it;
             }
         }
+        return null;
+    }
+
+    public void AddItem(Step.Step_AddItem data)
+    {
+        Item res = GetItem(data.itemId);
         if (res == null)
             Debug.LogError("Did not add the "+ data.itemId + " item in the inventory pool.");
         else

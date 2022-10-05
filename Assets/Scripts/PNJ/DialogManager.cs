@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 //Deal with the UI
@@ -12,6 +13,11 @@ public class DialogManager : MonoBehaviour
     [Header("UI")]
     public TMPro.TMP_Text dialogText;
     public Animator dialogAnimator;
+
+    [Header("Add item")]
+    public Animator _addItem_anim;
+    public Image _addItem_icon;
+    public TMPro.TMP_Text _addItem_text;
 
     [Header("Current dialog")]
     public Dialog currentDialog;
@@ -111,11 +117,7 @@ public class DialogManager : MonoBehaviour
                 break;
             case Step.stepType.additem:
                 GameManager.instance.inventory.AddItem((Step.Step_AddItem)dialog.allSteps[index].GetData());
-                //TO DO
-                //Probably an animation an then, goes next. Or wait for confirmation ? 
-                //Like a box on center, confirmation make it on the side THEN goes next 
-                //seems good
-                NextStep();
+                StartCoroutine(AddItem((Step.Step_AddItem)dialog.allSteps[index].GetData()));
                 break;
             case Step.stepType.remitem:
                 GameManager.instance.inventory.RemItem((Step.Step_RemItem)dialog.allSteps[index].GetData());
@@ -161,6 +163,18 @@ public class DialogManager : MonoBehaviour
             //TO DO : deal with error if data.cameraIndex > cameraPoints.count
             GameManager.instance.cameraMng.SetThirdariesTarget(currentPNJ.cameraPoints[data.cameraIndex]/*, data.directTP*/);
         }
+    }
+
+    public IEnumerator AddItem(Step.Step_AddItem item)
+    {
+        Item it = GameManager.instance.inventory.GetItem(item.itemId);
+        _addItem_icon.sprite = it.icon;
+        _addItem_text.text = it.nameDisplay;
+        _addItem_anim.SetTrigger("Play");
+
+        yield return new WaitForSeconds(1.5f);
+
+        NextStep();
     }
 
     public void CanOpenInventory(Step.Step_ItemInteractivity itemInteraciv)
