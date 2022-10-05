@@ -278,10 +278,11 @@ public class UI_Inventory : MonoBehaviour
 
     public void Give()
     {
-        //Because it's a give, we need to include a "drum roll moment"
-        //before saying either it's a good catch or not 
         Item itemSelected = currentDeployList[currentItemIndex];
         pnj currentPNJ = GameManager.instance.dialogMng.currentPNJ;
+
+        //Because it's a give, we need to include a "drum roll moment"
+        //before saying either it's a good catch or not 
 
         Debug.Log("Try to give : " + itemSelected.id);
         if (currentPNJ != null)
@@ -305,7 +306,7 @@ public class UI_Inventory : MonoBehaviour
                     return;
                 }
             }
-            GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultReaction);
+            GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultGiveReaction);
             Retract();
             Debug.Log("Don't have it : " + itemSelected.id);
         }

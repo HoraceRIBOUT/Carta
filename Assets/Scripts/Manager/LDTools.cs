@@ -9,6 +9,7 @@ public class LDTools : MonoBehaviour
 #if UNITY_EDITOR
     public List<GameObject> prefabsListTest_01 = new List<GameObject>();
     public GameObject prefabToSwapFor;
+    public GameObject prefabToAddDefaultFor;
 
     //To change the selection afterward
     private GameObject[] newSelection = new GameObject[0];
@@ -95,9 +96,9 @@ public class LDTools : MonoBehaviour
     }
 
 
-    [MenuItem("OrangeLetter/TryRotateLeft #%Q")]
+    [MenuItem("OrangeLetter/Move/TryRotateLeft #%Q")]
     public static void TryRotateLeft() { TryRotate(true); }
-    [MenuItem("OrangeLetter/TryRotateRight #%D")]
+    [MenuItem("OrangeLetter/Move/TryRotateRight #%D")]
     public static void TryRotateRight() { TryRotate(false); }
 
     public static void TryRotate(bool left)
@@ -122,17 +123,17 @@ public class LDTools : MonoBehaviour
     }
 
 
-    [MenuItem("OrangeLetter/TryMoveLeft %#LEFT")]
+    [MenuItem("OrangeLetter/Move/TryMoveLeft %#LEFT")]
     public static void TryMoveLeft () { TryMove(Vector3.left); }
-    [MenuItem("OrangeLetter/TryMoveRight %#RIGHT")]
+    [MenuItem("OrangeLetter/Move/TryMoveRight %#RIGHT")]
     public static void TryMoveRight() { TryMove(Vector3.right); }
-    [MenuItem("OrangeLetter/TryMoveForward %#UP")]
+    [MenuItem("OrangeLetter/Move/TryMoveForward %#UP")]
     public static void TryMoveForward() { TryMove(Vector3.forward); }
-    [MenuItem("OrangeLetter/TryMoveBackward %#DOWN")]
+    [MenuItem("OrangeLetter/Move/TryMoveBackward %#DOWN")]
     public static void TryMoveBackWard() { TryMove(Vector3.back); }
-    [MenuItem("OrangeLetter/TryMoveUp %#U")]
+    [MenuItem("OrangeLetter/Move/TryMoveUp %#U")]
     public static void TryMoveUp() { TryMove(Vector3.up); }
-    [MenuItem("OrangeLetter/TryMoveDown %#J")]
+    [MenuItem("OrangeLetter/Move/TryMoveDown %#J")]
     public static void TryMoveDown() { TryMove(Vector3.down); }
 
 
@@ -186,7 +187,7 @@ public class LDTools : MonoBehaviour
 
         GameObject newObject = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
         Undo.RegisterCreatedObjectUndo(newObject, "Replace With Prefabs");
-        newObject.name = gO.name;//need to only keep the number of any special element
+        newObject.name = gO.name; //kept the same name
         newObject.SetActive(gO.activeSelf);
         newObject.transform.parent = gO.transform.parent;
         newObject.transform.localPosition = gO.transform.localPosition;
@@ -197,6 +198,41 @@ public class LDTools : MonoBehaviour
         Debug.Log("Change " + gO.name + " to " + prefab.name);
 
         Undo.DestroyObjectImmediate(gO);
+        return newObject;
+    }
+
+
+
+    [MenuItem("OrangeLetter/TryAddAtSelection %#=")]
+    public static void TryAddAtSelection()
+    {
+        LDTools myLDTools = FindObjectOfType<LDTools>();
+
+        GameObject gO = Selection.activeGameObject;
+        GameObject newObj = TryAddOneElementAtSelection(gO, myLDTools.prefabToAddDefaultFor);
+        if (newObj != null) { myLDTools.newSelection = new GameObject[1]; myLDTools.newSelection[0] = newObj; return; }
+        //else, item stay the same in selection
+        Debug.LogWarning("Did not change " + myLDTools.newSelection[0].name + " : was not a prefab in any list.");
+
+    }
+    public static GameObject TryAddOneElementAtSelection(GameObject gO, GameObject prefab)
+    {
+        if (gO == null)
+            return null;
+
+        if (prefab == null)
+            return null;
+
+        GameObject newObject = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+        Undo.RegisterCreatedObjectUndo(newObject, "Add At Selection");
+        newObject.name = gO.name;//need to only keep the number of any special element
+        newObject.transform.parent = gO.transform.parent;
+        newObject.transform.localPosition = gO.transform.localPosition;
+        newObject.transform.localRotation = gO.transform.localRotation;
+        newObject.transform.localScale = gO.transform.localScale;
+        newObject.transform.SetSiblingIndex(gO.transform.GetSiblingIndex());
+
+        Debug.Log("Add " + prefab.name + " at " + gO.name);
         return newObject;
     }
 

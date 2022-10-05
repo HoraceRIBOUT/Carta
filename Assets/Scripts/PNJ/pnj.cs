@@ -14,12 +14,17 @@ public class pnj : MonoBehaviour
     }
     public pnjID id;
 
+
+
     public Dialog defaultDialog;
-    public List<Transform> cameraPoints = new List<Transform>();
-
-
     public List<ItemReaction> reactions = new List<ItemReaction>();
-    public Dialog defaultReaction;//when we give you a non-needed item
+
+    public Dialog giveReaction;         //when you give you an item, the first reaction
+    public Dialog giveReaction_Fail;    //when you give an item, it's on the list but not give
+    public Dialog defaultGiveReaction;  //when you give a non-needed item
+    public Dialog defaultShowReaction;  //when you show a non-needed item
+
+    public List<Transform> cameraPoints = new List<Transform>();
 
     [System.Serializable]
     public class ItemReaction
@@ -27,6 +32,8 @@ public class pnj : MonoBehaviour
         public itemID itemToReactFrom = itemID.none;
 
         public bool finalTarget = false;//can give, it take
+        [Sirenix.OdinInspector.ShowIf("finalTarget")]
+        public AudioClip musicGiveCorrect;
         public Dialog responseGive; //most of the time, just redirect after a line when not final target
         public Dialog responseShow;
 
@@ -106,13 +113,43 @@ public class pnj : MonoBehaviour
         }
 
 
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultReaction.asset"))
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction.asset"))
         {
             Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.name + "_DefaultReaction.asset";
+            asset2.name = currentPNJ.name + "_GiveReaction.asset";
             UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
 
-            defaultReaction = asset2;
+            giveReaction = asset2;
+            UnityEditor.Selection.activeObject = asset2;
+        }
+
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction_Fail.asset"))
+        {
+            Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
+            asset2.name = currentPNJ.name + "_GiveReaction_Fail.asset";
+            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
+
+            giveReaction_Fail = asset2;
+            UnityEditor.Selection.activeObject = asset2;
+        }
+
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultGiveReaction.asset"))
+        {
+            Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
+            asset2.name = currentPNJ.name + "_DefaultGiveReaction.asset";
+            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
+
+            defaultGiveReaction = asset2;
+            UnityEditor.Selection.activeObject = asset2;
+        }
+
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultShowReaction.asset"))
+        {
+            Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
+            asset2.name = currentPNJ.name + "_DefaultShowReaction.asset";
+            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
+
+            defaultShowReaction = asset2;
             UnityEditor.Selection.activeObject = asset2;
         }
 
