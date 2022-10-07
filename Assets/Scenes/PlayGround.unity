@@ -54178,6 +54178,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5bf5e54b25c6cae4b97bd0f5d8ea342a, type: 2}
     - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+      propertyPath: defaultColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+      propertyPath: defaultColor.g
+      value: 0.11320752
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+      propertyPath: defaultColor.r
+      value: 0.00950414
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
       propertyPath: defaultReaction
       value: 
       objectReference: {fileID: 11400000, guid: 7f1e3b8ffa8e0274791b4b3c71b8ca5a, type: 2}
@@ -54367,6 +54379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOnReach: 0
   id: 1
+  defaultColor: {r: 0, g: 0, b: 0, a: 1}
   defaultDialog: {fileID: 11400000, guid: 1a2b1523f917c804a969b1fe317fe22a, type: 2}
   reactions:
   - itemToReactFrom: 6
@@ -54627,6 +54640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOnReach: 0
   id: 2
+  defaultColor: {r: 0, g: 0, b: 0, a: 1}
   defaultDialog: {fileID: 11400000, guid: dfc8f6f40f823ee49b5f9376a2bd7abb, type: 2}
   reactions:
   - itemToReactFrom: 6

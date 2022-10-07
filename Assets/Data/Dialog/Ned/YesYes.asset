@@ -16,7 +16,7 @@ MonoBehaviour:
   - index: 0
     type: 0
     dialog_Data:
-      text: 'Yes ! '
+      text: Ok yes
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:
@@ -44,20 +44,69 @@ MonoBehaviour:
         color_override: {r: 0, g: 0, b: 0, a: 0}
         cameraIndex: 0
       redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
-      redirectYes: {fileID: 0}
+      redirectYes:
+        dialogToGo: {fileID: 0}
       typeNo: 0
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
         cameraIndex: 0
       redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
-      redirectNo: {fileID: 0}
+      redirectNo:
+        dialogToGo: {fileID: 0}
   - index: 1
+    type: 9
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    choice_Data:
+      typeYes: 1
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfYes: 2
+      redirectNumberStopYes: 3
+      redirectNumberAfterYes: 7
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 1
+      dialogNo:
+        text: I'm just a poor boy
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfNo: 4
+      redirectNumberStopNo: 6
+      redirectNumberAfterNo: 7
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 2
     type: 0
     dialog_Data:
-      text: 'Yes yes yes '
+      text: Yes yes !
       color_override: {r: 0.3662126, g: 1, b: 0, a: 1}
       cameraIndex: 0
     camera_Data:
@@ -85,20 +134,24 @@ MonoBehaviour:
         color_override: {r: 0, g: 0, b: 0, a: 0}
         cameraIndex: 0
       redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
-      redirectYes: {fileID: 0}
+      redirectYes:
+        dialogToGo: {fileID: 0}
       typeNo: 0
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
         cameraIndex: 0
       redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
-      redirectNo: {fileID: 0}
-  - index: 2
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 3
     type: 0
     dialog_Data:
-      text: And yes.
+      text: Oui bon, en vrai, c'est un embranchement vert quoi.
       color_override: {r: 0, g: 0, b: 0, a: 0}
       cameraIndex: 0
     camera_Data:
@@ -126,15 +179,199 @@ MonoBehaviour:
         color_override: {r: 0, g: 0, b: 0, a: 0}
         cameraIndex: 0
       redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
-      redirectYes: {fileID: 0}
+      redirectYes:
+        dialogToGo: {fileID: 0}
       typeNo: 0
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
         cameraIndex: 0
       redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
-      redirectNo: {fileID: 0}
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 4
+    type: 0
+    dialog_Data:
+      text: Alors qu'ici, embranchement rouge quoi
+      color_override: {r: 1, g: 0, b: 0, a: 0.6862745}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 5
+    type: 0
+    dialog_Data:
+      text: Yes No donc.
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 6
+    type: 0
+    dialog_Data:
+      text: Genre vraiment...
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 7
+    type: 0
+    dialog_Data:
+      text: Mais bon, let's go ! On retourne ici
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

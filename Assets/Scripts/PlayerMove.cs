@@ -31,7 +31,7 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Wall and ground")]
     public List<wallAndGround_Info> wallAndGround = new List<wallAndGround_Info>();
-    //public List<wallAndGround_Info> wallAndGround_GroundOnly = new List<wallAndGround_Info>();
+    public List<wallAndGround_Info> wallButGroundOnly = new List<wallAndGround_Info>();
     public Vector3 currentNormal = Vector3.up;
     private Vector3 lastNormal = Vector3.up;
     public float checkGroundDistance = 0.2f;
@@ -202,6 +202,14 @@ public class PlayerMove : MonoBehaviour
         JumpManagement();
     }
 
+    private List<wallAndGround_Info> getGroundAndWall()
+    {
+        if (grapleMode_eff)
+            return wallAndGround;
+        else
+            return wallButGroundOnly;
+    }
+
     private Vector3 GetGroundMove(Vector2 inputDirection)
     {
         Vector3 forwardDir = Vector3.ProjectOnPlane(cameraTr.forward, currentNormal).normalized;
@@ -334,7 +342,7 @@ public class PlayerMove : MonoBehaviour
             return;
         
         
-        if(wallAndGround.Count == 0 && _rgbd.velocity.y < 0)
+        if(getGroundAndWall().Count == 0 && _rgbd.velocity.y < 0)
         {
             _rgbd.velocity += Vector3.down * gravityOnFalling * Time.fixedDeltaTime;
         }
@@ -388,9 +396,6 @@ public class PlayerMove : MonoBehaviour
 
                         AddWall(collision.gameObject, impactNormal);
 
-
-                        RecalculateNormal();
-
                         Debug.LogWarning("Current normal : " + currentNormal + " VS " + impactNormal);
                     }
 
@@ -432,6 +437,7 @@ public class PlayerMove : MonoBehaviour
 
     private bool WallAlreadyTouching(GameObject obj)
     {
+        //Check in wall and ground, to be sure to not forget to remove one element
         foreach(wallAndGround_Info wall in wallAndGround)
         {
             if (wall.id == obj.GetInstanceID())
@@ -441,9 +447,9 @@ public class PlayerMove : MonoBehaviour
     }
     private int WallIndex(GameObject obj)
     {
-        for (int i = 0; i < wallAndGround.Count; i++)
+        for (int i = 0; i < getGroundAndWall().Count; i++)
         {
-            wallAndGround_Info wall = wallAndGround[i];
+            wallAndGround_Info wall = getGroundAndWall()[i];
             if (wall.id == obj.GetInstanceID())
                 return i;
         }
@@ -453,11 +459,22 @@ public class PlayerMove : MonoBehaviour
     {
         coyoteTimer = 0;
 
-        Debug.Log("Gain : " + obj.name + " with a normal of " + normal);
+        Debug.Log("Gain : " + obj.name + " with a normal of " + normal + " dot : "+ Vector3.Dot(normal, Vector3.up));
         wallAndGround_Info newWall = new wallAndGround_Info(obj, normal);
         wallAndGround.Add(newWall);
+        if (Vector3.Dot(normal, Vector3.up) > 0)
+        {
+            wallButGroundOnly.Add(newWall);
 
-        TransposeSpeedToNewCurrentNormal();
+            RecalculateNormal();
+            TransposeSpeedToNewCurrentNormal();
+        }
+        else if(grapleMode_eff)
+        {
+            RecalculateNormal();
+            TransposeSpeedToNewCurrentNormal();
+        }
+
     }
     private void RemoveWall(GameObject obj)
     {
@@ -474,7 +491,25 @@ public class PlayerMove : MonoBehaviour
         }
         wallAndGround.RemoveAt(index);
 
-        if(wallAndGround.Count == 0)
+        index = -1;
+        for (int i = 0; i < wallButGroundOnly.Count; i++)
+        {
+            wallAndGround_Info wall = wallButGroundOnly[i];
+            if (wall.id == obj.GetInstanceID())
+            {
+                index = i;
+                break;
+            }
+        }
+        if (index != -1)
+            wallButGroundOnly.RemoveAt(index);
+
+
+        if (grapleMode_eff && wallAndGround.Count == 0)
+        {
+            coyoteTimer = coyoteTiming;
+        }
+        else if ( !grapleMode_eff && wallButGroundOnly.Count == 0)
         {
             coyoteTimer = coyoteTiming;
         }
@@ -494,17 +529,18 @@ public class PlayerMove : MonoBehaviour
         if (coyoteTimer > 0)
             return;
 
-        if (wallAndGround.Count == 0)
+        if (getGroundAndWall().Count == 0)
         {
             currentNormal = Vector3.up;
         }
-        else if (wallAndGround.Count == 1)
+        else if (getGroundAndWall().Count == 1)
         {
-            currentNormal = wallAndGround[0].lastNormal;
+            currentNormal = getGroundAndWall()[0].lastNormal;
         }
         else
         {
-
+            //Keep the last direction ? 
+            //Ok, have to choose what/how to do
             //ChooseMostVerticalWall();
         }
     }
@@ -517,29 +553,29 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
-        if(wallAndGround.Count == 0)
+        if(getGroundAndWall().Count == 0)
         {
             currentNormal = Vector3.up;
             return;
         }
 
         Vector3 normalSum = Vector3.zero;
-        foreach (wallAndGround_Info wallAndGround in wallAndGround)
+        foreach (wallAndGround_Info oneWallOrGround in getGroundAndWall())
         {
-            normalSum += wallAndGround.lastNormal;
+            normalSum += oneWallOrGround.lastNormal;
         }
 
-        currentNormal = (normalSum / wallAndGround.Count).normalized;
+        currentNormal = (normalSum / getGroundAndWall().Count).normalized;
         return;
 
         currentNormal = Vector3.up;
         float maxDotValue = -1;
-        foreach (wallAndGround_Info wallAndGround in wallAndGround)
+        foreach (wallAndGround_Info oneWallOrGround in getGroundAndWall())
         {
-            float dotVal = Vector3.Dot(Vector3.up, wallAndGround.lastNormal);
+            float dotVal = Vector3.Dot(Vector3.up, oneWallOrGround.lastNormal);
             if (maxDotValue < dotVal)
             {
-                currentNormal = wallAndGround.lastNormal;
+                currentNormal = oneWallOrGround.lastNormal;
                 maxDotValue = dotVal;
             }
         }
@@ -568,7 +604,7 @@ public class PlayerMove : MonoBehaviour
             int wallIndex = WallIndex(info.collider.gameObject);
             if (wallIndex != -1)
             {
-                wallAndGround[wallIndex].lastNormal = info.normal;
+                getGroundAndWall()[wallIndex].lastNormal = info.normal;
                 currentNormal = info.normal;
                 //Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, Color.red);
                 return;

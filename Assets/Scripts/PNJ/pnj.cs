@@ -14,7 +14,7 @@ public class pnj : MonoBehaviour
     }
     public pnjID id;
 
-
+    public Color defaultColor = Color.black;
 
     public Dialog defaultDialog;
     public List<ItemReaction> reactions = new List<ItemReaction>();

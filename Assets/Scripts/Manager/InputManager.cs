@@ -90,7 +90,7 @@ public class InputManager : MonoBehaviour
     }
     void Try_ValidateDialog()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
         {
             GameManager.instance.dialogMng.IM_Dialog();
         }

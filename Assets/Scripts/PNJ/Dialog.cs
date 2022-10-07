@@ -103,11 +103,11 @@ namespace Step
         public choiceType typeYes;
         [ShowIf("typeYes", choiceType.dialogUnique  )][Indent()]
         public Step_Dialog dialogYes;
-        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()]
-        public int redirectNumberIfYes;
-        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()]
-        public int redirectNumberStopYes;
-        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()]
+        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()][HorizontalGroup("YesRedirect", marginRight: -15)][LabelWidth(45)][LabelText("From")]
+        public int redirectNumberIfYes;                                                         
+        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()][HorizontalGroup("YesRedirect", marginRight: -15)][LabelWidth(35)][LabelText("To")]
+        public int redirectNumberStopYes;                                                     
+        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()][HorizontalGroup("YesRedirect", marginRight: -15)][LabelWidth(45)][LabelText("Then")]
         public int redirectNumberAfterYes;
         [ShowIf("typeYes", choiceType.redirectDialog)][Indent()]
         public Step_DialogRedirection redirectYes;
@@ -115,11 +115,11 @@ namespace Step
         public choiceType typeNo;
         [ShowIf("typeNo", choiceType.dialogUnique  )][Indent()]
         public Step_Dialog dialogNo;
-        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()]
-        public int redirectNumberIfNo;
-        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()]
-        public int redirectNumberStopNo;
-        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()]
+        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()][HorizontalGroup("NoRedirect", marginRight: -15)][LabelWidth(45)][LabelText("From")]
+        public int redirectNumberIfNo;                                                      
+        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()][HorizontalGroup("NoRedirect", marginRight: -15)][LabelWidth(35)][LabelText("To")]
+        public int redirectNumberStopNo;                                                    
+        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()][HorizontalGroup("NoRedirect", marginRight: -15)][LabelWidth(45)][LabelText("Then")]
         public int redirectNumberAfterNo;
         [ShowIf("typeNo", choiceType.redirectDialog)][Indent()]
         public Step_DialogRedirection redirectNo;
