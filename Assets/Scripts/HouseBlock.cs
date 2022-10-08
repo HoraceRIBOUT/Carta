@@ -43,5 +43,11 @@ public class HouseBlock : MonoBehaviour
             this.transform.position = startingPos;
         }
     }
+
+    [Button]
+    public void ResetFirstPosition()
+    {
+        startPos_alreadySet = false;
+    }
 #endif
 }

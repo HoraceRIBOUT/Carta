@@ -34,7 +34,7 @@ Transform:
   - {fileID: 4865682658457147703}
   - {fileID: 8120452439242743493}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5398368561792515580
 PrefabInstance:
@@ -115,6 +115,10 @@ PrefabInstance:
     - target: {fileID: 4205095289423651637, guid: 3b241ee4e741f8240a23c992a5fb7ce5, type: 3}
       propertyPath: m_Name
       value: Baton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205095289423651637, guid: 3b241ee4e741f8240a23c992a5fb7ce5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4205095289423651637, guid: 3b241ee4e741f8240a23c992a5fb7ce5, type: 3}
       propertyPath: m_TagString
