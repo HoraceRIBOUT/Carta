@@ -99,6 +99,7 @@ public class PlayerMove : MonoBehaviour
 
     public void DebugMethod()
     {
+        Debug.DrawRay(this.transform.position, currentNormal, Color.red);
         if ((lastNormal - currentNormal).magnitude > 0.01f)
         {
             //Debug.DrawRay(this.transform.position, currentNormal, Color.red, 2f);
@@ -542,7 +543,27 @@ public class PlayerMove : MonoBehaviour
             //Keep the last direction ? 
             //Ok, have to choose what/how to do
             //ChooseMostVerticalWall();
+
+            //I will try an overall mean to all vector, because why not!
         }
+    }
+
+    private void TakeMeanOfAllTouchedSurface()
+    {
+        int count = getGroundAndWall().Count;
+        if (count == 0)
+        {
+            //might also add the coyote timer too
+            currentNormal = Vector3.up;
+            return;
+        }
+
+        Vector3 upSumm = Vector3.zero;
+        foreach (wallAndGround_Info info in getGroundAndWall())
+        {
+            upSumm += info.lastNormal;
+        }
+        currentNormal = upSumm / count;
     }
 
     private void ChooseMostVerticalWall()
@@ -584,6 +605,8 @@ public class PlayerMove : MonoBehaviour
 
     private void CheckGround(Vector2 inputDirection = new Vector2())
     {
+        TakeMeanOfAllTouchedSurface();
+        return;
         RaycastHit info;
 
         Vector3 ray = -currentNormal;
@@ -596,11 +619,12 @@ public class PlayerMove : MonoBehaviour
             ray = ray.normalized * checkGroundDistance;
         }
 
-        Debug.DrawRay(this.transform.position, ray, (inputDirection != Vector2.zero) ? Color.green : Color.blue);
+        //Debug.DrawRay(this.transform.position, ray, (inputDirection != Vector2.zero) ? Color.green : Color.blue);
         if (Physics.Raycast(this.transform.position, ray, out info, raycastDist, layerMask.value))
         {
-            //what did I hurt ?
-            //ok, then, I should follow that think !
+
+
+            //for now :
             int wallIndex = WallIndex(info.collider.gameObject);
             if (wallIndex != -1)
             {
@@ -613,12 +637,32 @@ public class PlayerMove : MonoBehaviour
             //Might create trouble later.
 
         }
-        //else
-        //I hurt nothing ? Then, let see what wall have the most UpVector and choose it 
-        ChooseMostVerticalWall();
+        else
+        {
+            //I hurt nothing ? Then, let see what wall have the most UpVector and choose it 
+            ChooseMostVerticalWall();
+
+            //If it hurt nothing, try to raycast to the ground to get up a little : 
+            //Debug.DrawRay(this.transform.position + ray, Vector3.down * rayToGroundSize, Color.black);
+            if (Physics.Raycast(this.transform.position + ray, Vector3.down * rayToGroundSize, out info, raycastDist, layerMask.value))
+            {
+                if (WallAlreadyTouching(info.collider.gameObject))
+                {
+                    float forceAmplitude = rayToGround_Force * Mathf.Clamp01(rayToGroundSize - info.distance) / rayToGroundSize;
+                    _rgbd.AddForce(Vector3.up * forceAmplitude);
+                    Debug.Log("March force : " + forceAmplitude + " info : " + rayToGround_Force + ", " + rayToGroundSize + ", - " + info.distance);
+                    debugSphere.transform.position = info.point;
+                }
+            }
+
+        }
         //Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, new Color(1, 0, 1));
-        
+
     }
+
+    public GameObject debugSphere;
+    public float rayToGroundSize = 1;
+    public float rayToGround_Force = 1;
 
     #endregion
 
