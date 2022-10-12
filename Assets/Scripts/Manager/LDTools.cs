@@ -14,6 +14,8 @@ public class LDTools : MonoBehaviour
     //To change the selection afterward
     private GameObject[] newSelection = new GameObject[0];
 
+    public float offsetDefault = 1;
+
     public void LateUpdate()
     {
         if(newSelection.Length > 0)
@@ -122,6 +124,26 @@ public class LDTools : MonoBehaviour
 
     }
 
+    [MenuItem("OrangeLetter/Move/ChangeOffset Plus %#o")]
+    public static void TryChangeOffsetPlus()
+    {
+        LDTools myLDTools = FindObjectOfType<LDTools>();
+        if (myLDTools.offsetDefault <= .1f)
+            myLDTools.offsetDefault = .5f;
+        else if (myLDTools.offsetDefault <= .5f)
+            myLDTools.offsetDefault = 1f;
+        Debug.Log("Default offset is now : " + myLDTools.offsetDefault);
+    }
+    [MenuItem("OrangeLetter/Move/ChangeOffset Minus %#l")]
+    public static void TryChangeOffsetMinus()
+    {
+        LDTools myLDTools = FindObjectOfType<LDTools>();
+        if (myLDTools.offsetDefault >= 1f)
+            myLDTools.offsetDefault = .5f;
+        else if (myLDTools.offsetDefault >= .5f)
+            myLDTools.offsetDefault = .1f;
+        Debug.Log("Default offset is now : " + myLDTools.offsetDefault);
+    }
 
     [MenuItem("OrangeLetter/Move/TryMoveLeft %#LEFT")]
     public static void TryMoveLeft () { TryMove(Vector3.left); }
@@ -150,10 +172,12 @@ public class LDTools : MonoBehaviour
             return;
         }
 
+        LDTools myLDTools = FindObjectOfType<LDTools>();
+
         for (int i = 0; i < Selection.gameObjects.Length; i++)
         {
             Undo.RegisterCompleteObjectUndo(Selection.gameObjects[i], "Move game object via Shortcut");
-            Selection.gameObjects[i].transform.position += direction;
+            Selection.gameObjects[i].transform.position += direction * myLDTools.offsetDefault;
         }
 
     }
