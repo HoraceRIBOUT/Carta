@@ -544,15 +544,43 @@ public class PlayerMove : MonoBehaviour
                 currentNormal = Vector3.up;
             return;
         }
+        if (count == 1)
+        {
+            //To avoid a lot of calculus
+            currentNormal = getGroundAndWall()[0].lastNormal;
+            return;
+        }
 
+        //ok so : what the direction ?
+        Vector2 inputDirection = new Vector2(
+            Input.GetAxis("Horizontal"),
+            Input.GetAxis("Vertical")
+            );
+        Vector3 wherePlayerPoint = 
+            inputDirection.y * Vector3.ProjectOnPlane(cameraTr.forward, Vector3.up).normalized + 
+            inputDirection.x * Vector3.ProjectOnPlane(cameraTr.right, Vector3.up).normalized;
+        if(inputDirection == Vector2.zero)
+        {
+            wherePlayerPoint = Vector3.up;
+        }
+        else
+        {
+            wherePlayerPoint = -wherePlayerPoint; //inverse to have the normal needed
+        }
         //if detect a wall and the normal to surface is roughly equivalent, then, 
 
         Vector3 upSumm = Vector3.zero;
+        float ponderationSum = 0;
         foreach (wallAndGround_Info info in getGroundAndWall())
         {
-            upSumm += info.lastNormal;
+            float pondera = Vector3.Dot(info.lastNormal, wherePlayerPoint) + 1;
+            if (pondera > 0)
+            {
+                upSumm += info.lastNormal * pondera;
+                ponderationSum += pondera;
+            }
         }
-        currentNormal = upSumm / count;
+        currentNormal = upSumm / ponderationSum;
     }
 
     private void ChooseMostVerticalWall()
