@@ -34,6 +34,9 @@ public class HouseBlock : MonoBehaviour
         newPos.y += y_off;
         newPos.z += z_off;
         this.transform.position = newPos;
+
+        int randomRot = Random.Range(0, 16);
+        this.transform.rotation = Quaternion.Euler(0, randomRot * 90, 0);
     }
     [Button]
     public void ResetPosition()
