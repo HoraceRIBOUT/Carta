@@ -36,6 +36,10 @@ public class PlayerMove : MonoBehaviour
     private Vector3 lastNormal = Vector3.up;
     public float checkGroundDistance = 0.2f;
 
+    public float rayToGroundSize = 1;
+    public float rayToGround_Force = 1;
+
+
     public float coyoteTiming = 0.2f;
     private float coyoteTimer = 0f;
 
@@ -527,25 +531,7 @@ public class PlayerMove : MonoBehaviour
 
     private void RecalculateNormal()
     {
-        if (coyoteTimer > 0)
-            return;
-
-        if (getGroundAndWall().Count == 0)
-        {
-            currentNormal = Vector3.up;
-        }
-        else if (getGroundAndWall().Count == 1)
-        {
-            currentNormal = getGroundAndWall()[0].lastNormal;
-        }
-        else
-        {
-            //Keep the last direction ? 
-            //Ok, have to choose what/how to do
-            //ChooseMostVerticalWall();
-
-            //I will try an overall mean to all vector, because why not!
-        }
+        TakeMeanOfAllTouchedSurface();
     }
 
     private void TakeMeanOfAllTouchedSurface()
@@ -553,10 +539,13 @@ public class PlayerMove : MonoBehaviour
         int count = getGroundAndWall().Count;
         if (count == 0)
         {
-            //might also add the coyote timer too
-            currentNormal = Vector3.up;
+            //If coyote timer still up, don't change normal
+            if(coyoteTimer <= 0)
+                currentNormal = Vector3.up;
             return;
         }
+
+        //if detect a wall and the normal to surface is roughly equivalent, then, 
 
         Vector3 upSumm = Vector3.zero;
         foreach (wallAndGround_Info info in getGroundAndWall())
@@ -651,7 +640,6 @@ public class PlayerMove : MonoBehaviour
                     float forceAmplitude = rayToGround_Force * Mathf.Clamp01(rayToGroundSize - info.distance) / rayToGroundSize;
                     _rgbd.AddForce(Vector3.up * forceAmplitude);
                     Debug.Log("March force : " + forceAmplitude + " info : " + rayToGround_Force + ", " + rayToGroundSize + ", - " + info.distance);
-                    debugSphere.transform.position = info.point;
                 }
             }
 
@@ -659,10 +647,6 @@ public class PlayerMove : MonoBehaviour
         //Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, new Color(1, 0, 1));
 
     }
-
-    public GameObject debugSphere;
-    public float rayToGroundSize = 1;
-    public float rayToGround_Force = 1;
 
     #endregion
 

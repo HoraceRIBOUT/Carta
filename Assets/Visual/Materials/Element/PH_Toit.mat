@@ -74,7 +74,7 @@ Material:
     - _Detail_Zoom: 200
     - _DistanceSmootOut: 0.8
     - _DistanceSmoothIn: 0.9
-    - _DistanceToPlayer: 1.998374
+    - _DistanceToPlayer: 2.0039139
     - _DstBlend: 0
     - _FalloffSize: 0.3
     - _GlossMapScale: 1
@@ -94,7 +94,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 0.93986446, b: 0.5896226, a: 1}
-    - _CutoutPosition: {r: 0.5, g: 0.3059602, b: 0, a: 0}
+    - _CutoutPosition: {r: 0.49999988, g: 0.28447616, b: 0, a: 0}
     - _Detail_SmoothStep: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SmoothStepMain: {r: 0, g: 1, b: 0, a: 0}

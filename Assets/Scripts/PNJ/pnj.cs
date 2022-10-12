@@ -41,6 +41,17 @@ public class pnj : MonoBehaviour
 
     public Dialog defaultDialog;
     public List<ItemReaction> reactions = new List<ItemReaction>();
+    public List<Dialog_ToShow> nextDialog; //sorted by priority
+    public struct Dialog_ToShow
+    {
+        public Dialog dialog;
+        public int priority;
+        public Dialog_ToShow(Dialog _dialog, int _priority)
+        {
+            dialog = _dialog;
+            priority = _priority;
+        }
+    }
 
     public Dialog giveReaction;         //when you give you an item, the first reaction
     public Dialog giveReaction_Fail;    //when you give an item, it's on the list but not give

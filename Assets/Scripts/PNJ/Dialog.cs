@@ -12,6 +12,20 @@ public class Dialog : ScriptableObject
     public pnj pnj_link = null; //if not null, it's a pnj's dialog
     public Color defaultColor;
 
+    private bool alreadyRead = false;
+    public bool IsAlreadyRead()
+    {
+        if (alreadyRead)
+            return true;
+
+        foreach(Step.Step step in allSteps)
+        {
+            if (!step.alreadyRead)
+                return false;
+        }
+        return true;
+    }
+
     public void ReIndex()
     {
         for (int i = 0; i < allSteps.Count; i++)

@@ -159,6 +159,8 @@ public class DialogManager : MonoBehaviour
                 NextStep();
                 break;
         }
+
+        dialog.allSteps[index].alreadyRead = true;
     }
 
     public void TreatText(Step.Step_Dialog data)

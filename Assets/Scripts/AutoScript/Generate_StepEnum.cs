@@ -105,6 +105,7 @@ public class Generate_StepEnum : MonoBehaviour
             outfile.WriteLine("\t{");
             outfile.WriteLine("\t\t[HideInInspector()]");
             outfile.WriteLine("\t\tpublic int index;");
+            outfile.WriteLine("\t\tpublic bool alreadyRead = false;");
             outfile.WriteLine("\t\tpublic string title { get { return \"Step \" + index; } }");
             outfile.WriteLine("\t\t[Sirenix.OdinInspector.Title(\"$title\")]");
             outfile.WriteLine("\t\t[Sirenix.OdinInspector.GUIColor(\"GetEnumColor\")]");
