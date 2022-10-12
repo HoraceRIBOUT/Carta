@@ -19,12 +19,11 @@ public class WaterAndTrash : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.LogWarning("Oh !");
         PlayerMove play = collision.gameObject.GetComponent<PlayerMove>();
         if (play != null) 
         {
-            Debug.Log("Get out");
             play.transform.position = Vector3.up * 5f;
+            //To a specific point.
         }
     }
 

@@ -39,4 +39,17 @@ public class CutOutVariable : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    public void OnDestroy()
+    {
+        foreach (Material mat in materialToChange)
+        {
+            mat.SetVector("_CutoutPosition", Vector2.one/2);
+            mat.SetFloat("_DistanceToPlayer", 2f);
+        }
+
+        UnityEditor.AssetDatabase.Refresh();
+    }
+#endif
+
 }
