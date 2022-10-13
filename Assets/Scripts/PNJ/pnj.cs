@@ -8,6 +8,7 @@ public class pnj : MonoBehaviour
 
     public enum pnjID
     {
+        None = 0,
         stagiaire       = 1,
         postma          = 2,
         flowerMom       = 3,
@@ -41,7 +42,7 @@ public class pnj : MonoBehaviour
 
     public Dialog defaultDialog;
     public List<ItemReaction> reactions = new List<ItemReaction>();
-    public List<Dialog_ToShow> nextDialog; //sorted by priority
+    private List<Dialog_ToShow> nextDialog = new List<Dialog_ToShow>(); //sorted by priority
     public struct Dialog_ToShow
     {
         public Dialog dialog;
@@ -113,16 +114,37 @@ public class pnj : MonoBehaviour
 
     public void Talk()
     {
-        GameManager.instance.dialogMng.StartDialog(defaultDialog, this);
+        GameManager.instance.dialogMng.StartDialog(GetDialogToShow(), this);
 
         if (cameraPoints != null && cameraPoints.Count != 0)
             GameManager.instance.cameraMng.SetSecondaryTarget(cameraPoints[0]);
     }
 
+    public Dialog GetDialogToShow()
+    {
+        if(nextDialog.Count == 0)
+        {
+            return defaultDialog;
+        }
+        Dialog res = nextDialog[0].dialog;
+        nextDialog.RemoveAt(0);
+        return res;
+    }
 
-
-
-
+    public void AddNextDialog(Dialog dial, int priority)
+    {
+        Dialog_ToShow dialInfo = new pnj.Dialog_ToShow(dial, priority);
+        for (int i = 0; i < nextDialog.Count; i++)
+        {
+            if(priority > nextDialog[i].priority)
+            {
+                nextDialog.Insert(i, dialInfo);
+                return;
+            }
+        }
+        //else
+        nextDialog.Add(dialInfo);
+    }
 
 
 #if UNITY_EDITOR
@@ -188,6 +210,28 @@ public class pnj : MonoBehaviour
         }
 
         UnityEditor.AssetDatabase.SaveAssets();
+    }
+
+
+    [Sirenix.OdinInspector.Button]
+    public static Dialog CreateDefaultDialog_GenericDialog(string fileGroup, string fileSuffix)
+    {
+        if (!System.IO.Directory.Exists("Assets/Data/Dialog/" + fileGroup + "/"))
+        {
+            System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + fileGroup + "/");
+        }
+        Dialog asset = null;
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + fileGroup + "/" + fileGroup + fileSuffix))
+        {
+            asset = ScriptableObject.CreateInstance<Dialog>();
+            asset.name = fileGroup + fileSuffix;
+            UnityEditor.AssetDatabase.CreateAsset(asset, "Assets/Data/Dialog/" + fileGroup + "/" + asset.name);
+
+            UnityEditor.Selection.activeObject = asset;
+        }
+
+        UnityEditor.AssetDatabase.SaveAssets();
+        return asset;
     }
 #endif
 

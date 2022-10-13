@@ -151,6 +151,10 @@ public class DialogManager : MonoBehaviour
                 SetDefaultDialog((Step.Step_SetDefaultDialog)dialog.allSteps[index].GetData());
                 NextStep();
                 break;
+            case Step.stepType.setnextdialog:
+                SetNextDialog((Step.Step_SetNextDialog)dialog.allSteps[index].GetData());
+                NextStep();
+                break;
             case Step.stepType.choice:
                 DisplayChoice((Step.Step_Choice)dialog.allSteps[index].GetData());
                 break;
@@ -194,9 +198,10 @@ public class DialogManager : MonoBehaviour
         _addItem_icon.sprite = it.icon;
         _addItem_text.text = it.nameDisplay;
         _addItem_anim.SetTrigger("Play");
+        canClick = false;
 
         yield return new WaitForSeconds(1.5f);
-
+        canClick = true;
         NextStep();
     }
 
@@ -222,10 +227,35 @@ public class DialogManager : MonoBehaviour
                 break;
             }
         }
+        if (target == null)
+        {
+            Debug.LogError("No pnj for " + data.targetID);
+            return;
+        }
 
         Debug.Log("will set new default");
         target.defaultDialog = data.newDefaultDial;
         Debug.Log("new default !");
+    }
+    public void SetNextDialog(Step.Step_SetNextDialog data)
+    {
+        pnj target = null;
+        foreach (pnj potential in allPNJ)
+        {
+            if (potential.id == data.targetID)
+            {
+                target = potential;
+                break;
+            }
+        }
+        if (target == null)
+        {
+            Debug.LogError("No pnj for " + data.targetID);
+            return;
+        }
+
+        Debug.Log("will add new dialog to use");
+        target.AddNextDialog(data.dialToAdd, data.priority);
     }
 
     public void DialogRedirection(Step.Step_DialogRedirection data)

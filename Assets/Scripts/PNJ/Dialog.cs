@@ -105,6 +105,14 @@ namespace Step
     }
 
     [System.Serializable]
+    public class Step_SetNextDialog : Step_father
+    {
+        public pnj.pnjID targetID;
+        public Dialog dialToAdd;
+        public int priority = 0;
+    }
+
+    [System.Serializable]
     public class Step_Choice : Step_father
     {
         public enum choiceType

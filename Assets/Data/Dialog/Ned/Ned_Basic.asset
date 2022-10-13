@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Oh, salut ! T'es le nouveau facteur m\xE9canique ?"
@@ -37,6 +38,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -59,6 +64,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 1
+    alreadyRead: 1
     type: 9
     dialog_Data:
       text: 
@@ -82,6 +88,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 2
+      dialToAdd: {fileID: 11400000, guid: 57a4e07a4be7e874283cfadbadc921b8, type: 2}
+      priority: 2
     choice_Data:
       typeYes: 2
       dialogYes:
@@ -104,6 +114,57 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 11400000, guid: 0c8c59f6a151d144382be37d1aa1c701, type: 2}
   - index: 2
+    alreadyRead: 1
+    type: 9
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      cameraIndex: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 2
+      dialToAdd: {fileID: 11400000, guid: 9a0066d491b180e4c978863aff20d3b9, type: 2}
+      priority: 5
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        cameraIndex: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 3
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Enchant- OH ! Dis tu peux m'aider ?
@@ -127,6 +188,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -148,7 +213,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 3
+  - index: 4
+    alreadyRead: 1
     type: 6
     dialog_Data:
       text: 
@@ -172,6 +238,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -193,7 +263,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 4
+  - index: 5
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Tu pourrais filer ce tournevis \xE0 Kamily ? "
@@ -217,6 +288,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -238,7 +313,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 5
+  - index: 6
+    alreadyRead: 1
     type: 2
     dialog_Data:
       text: 
@@ -262,6 +338,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -283,7 +363,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 6
+  - index: 7
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Elle g\xE8re le magasin de fleur, sur la place."
@@ -307,6 +388,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -328,7 +413,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 7
+  - index: 8
+    alreadyRead: 1
     type: 1
     dialog_Data:
       text: 
@@ -352,6 +438,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -373,7 +463,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 8
+  - index: 9
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "L\xE0 bas, \xE0 l'\xE9tage du bas. Ce grand b\xE2timent."
@@ -397,6 +488,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -418,7 +513,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 9
+  - index: 10
+    alreadyRead: 1
     type: 1
     dialog_Data:
       text: 
@@ -442,6 +538,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -463,7 +563,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 10
+  - index: 11
+    alreadyRead: 1
     type: 8
     dialog_Data:
       text: 
@@ -487,6 +588,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 11400000, guid: 0fdfa9ff92668934a8d27cae1c332eba, type: 2}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -508,7 +613,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 11
+  - index: 12
+    alreadyRead: 1
     type: 6
     dialog_Data:
       text: 
@@ -532,6 +638,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -553,7 +663,8 @@ MonoBehaviour:
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 12
+  - index: 13
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Merci encore ! Bonne chance !
@@ -577,6 +688,10 @@ MonoBehaviour:
     setdefaultdialog_Data:
       targetID: 0
       newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
     choice_Data:
       typeYes: 0
       dialogYes:

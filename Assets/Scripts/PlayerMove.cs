@@ -157,7 +157,7 @@ public class PlayerMove : MonoBehaviour
             coyoteTimer -= Time.deltaTime;
         }
 
-        CheckGround(inputDirection);
+        CheckGround();
 
 #if UNITY_EDITOR
         _rgbd.drag = drag;
@@ -606,74 +606,13 @@ public class PlayerMove : MonoBehaviour
         currentNormal = (normalSum / getGroundAndWall().Count).normalized;
         return;
 
-        currentNormal = Vector3.up;
-        float maxDotValue = -1;
-        foreach (wallAndGround_Info oneWallOrGround in getGroundAndWall())
-        {
-            float dotVal = Vector3.Dot(Vector3.up, oneWallOrGround.lastNormal);
-            if (maxDotValue < dotVal)
-            {
-                currentNormal = oneWallOrGround.lastNormal;
-                maxDotValue = dotVal;
-            }
-        }
     }
 
 
-    private void CheckGround(Vector2 inputDirection = new Vector2())
+    private void CheckGround()
     {
         TakeMeanOfAllTouchedSurface();
         return;
-        RaycastHit info;
-
-        Vector3 ray = -currentNormal;
-        if(inputDirection != Vector2.zero)
-        {
-            Vector3 forwardDir = Vector3.ProjectOnPlane(cameraTr.forward, Vector3.up).normalized;
-            Vector3 rightDir = Vector3.Cross(Vector3.up, forwardDir);
-
-            ray = forwardDir * inputDirection.y + rightDir * inputDirection.x;
-            ray = ray.normalized * checkGroundDistance;
-        }
-
-        //Debug.DrawRay(this.transform.position, ray, (inputDirection != Vector2.zero) ? Color.green : Color.blue);
-        if (Physics.Raycast(this.transform.position, ray, out info, raycastDist, layerMask.value))
-        {
-
-
-            //for now :
-            int wallIndex = WallIndex(info.collider.gameObject);
-            if (wallIndex != -1)
-            {
-                getGroundAndWall()[wallIndex].lastNormal = info.normal;
-                currentNormal = info.normal;
-                //Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, Color.red);
-                return;
-            }
-            //else : the wall we touch is not touch actually. Consider  it too far away from us. Ignore it.
-            //Might create trouble later.
-
-        }
-        else
-        {
-            //I hurt nothing ? Then, let see what wall have the most UpVector and choose it 
-            ChooseMostVerticalWall();
-
-            //If it hurt nothing, try to raycast to the ground to get up a little : 
-            //Debug.DrawRay(this.transform.position + ray, Vector3.down * rayToGroundSize, Color.black);
-            if (Physics.Raycast(this.transform.position + ray, Vector3.down * rayToGroundSize, out info, raycastDist, layerMask.value))
-            {
-                if (WallAlreadyTouching(info.collider.gameObject))
-                {
-                    float forceAmplitude = rayToGround_Force * Mathf.Clamp01(rayToGroundSize - info.distance) / rayToGroundSize;
-                    _rgbd.AddForce(Vector3.up * forceAmplitude);
-                    Debug.Log("March force : " + forceAmplitude + " info : " + rayToGround_Force + ", " + rayToGroundSize + ", - " + info.distance);
-                }
-            }
-
-        }
-        //Debug.DrawRay(this.transform.position, -currentNormal.normalized * raycastDist, new Color(1, 0, 1));
-
     }
 
     #endregion

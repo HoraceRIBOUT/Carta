@@ -236,6 +236,11 @@ public class UI_Inventory : MonoBehaviour
 
     public void AddItem(Item it, bool debugAdd = false)
     {
+        if (inventory_all.ContainsKey(it.id))
+        {
+            Debug.LogError("Already got " + it.id);
+            return;
+        }
         Debug.Log("Add !" + it.id);
         inventory_all.Add(it.id, it);
         inventory_current.Add(it.id, it);
