@@ -315,7 +315,7 @@ public class UI_Inventory : MonoBehaviour
                     return;
                 }
             }
-            GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultGiveReaction);
+            GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultGiveReponse);
             Retract();
             Debug.Log("Don't have it : " + itemSelected.id);
         }

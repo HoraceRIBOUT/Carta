@@ -56,8 +56,8 @@ public class pnj : MonoBehaviour
 
     public Dialog giveReaction;         //when you give you an item, the first reaction
     public Dialog giveReaction_Fail;    //when you give an item, it's on the list but not give
-    public Dialog defaultGiveReaction;  //when you give a non-needed item
-    public Dialog defaultShowReaction;  //when you show a non-needed item
+    public Dialog defaultGiveReponse;  //when you give a non-needed item 
+    public Dialog defaultShowReponse;  //when you show a non-needed item
 
     public List<Transform> cameraPoints = new List<Transform>();
 
@@ -167,6 +167,10 @@ public class pnj : MonoBehaviour
             defaultDialog = asset1;
             UnityEditor.Selection.activeObject = asset1;
         }
+        else
+        {
+            defaultDialog = (Dialog) UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultDialog.asset", typeof(Dialog));
+        }
 
 
         if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction.asset"))
@@ -178,6 +182,10 @@ public class pnj : MonoBehaviour
             giveReaction = asset2;
             UnityEditor.Selection.activeObject = asset2;
         }
+        else
+        {
+            giveReaction = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction.asset", typeof(Dialog));
+        }
 
         if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction_Fail.asset"))
         {
@@ -188,6 +196,10 @@ public class pnj : MonoBehaviour
             giveReaction_Fail = asset2;
             UnityEditor.Selection.activeObject = asset2;
         }
+        else
+        {
+            giveReaction_Fail = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction_Fail.asset", typeof(Dialog));
+        }
 
         if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultGiveReaction.asset"))
         {
@@ -195,8 +207,12 @@ public class pnj : MonoBehaviour
             asset2.name = currentPNJ.name + "_DefaultGiveReaction.asset";
             UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
 
-            defaultGiveReaction = asset2;
+            defaultGiveReponse = asset2;
             UnityEditor.Selection.activeObject = asset2;
+        }
+        else
+        {
+            defaultGiveReponse = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultGiveReaction.asset", typeof(Dialog));
         }
 
         if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultShowReaction.asset"))
@@ -205,12 +221,17 @@ public class pnj : MonoBehaviour
             asset2.name = currentPNJ.name + "_DefaultShowReaction.asset";
             UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
 
-            defaultShowReaction = asset2;
+            defaultShowReponse = asset2;
             UnityEditor.Selection.activeObject = asset2;
+        }
+        else
+        {
+            defaultShowReponse = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultShowReaction.asset", typeof(Dialog));
         }
 
         UnityEditor.AssetDatabase.SaveAssets();
     }
+
 
 
     [Sirenix.OdinInspector.Button]

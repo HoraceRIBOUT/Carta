@@ -47,7 +47,6 @@ namespace Step
         public string text = "";
 
         public Color color_override;
-        public int cameraIndex;
     }
 
     [System.Serializable]
