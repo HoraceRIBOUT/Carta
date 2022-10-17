@@ -47,6 +47,11 @@ public class CameraManager : MonoBehaviour
     public AnimationCurve transitionRotCurve = AnimationCurve.Linear(-1, -1, 1, 1);
     public AnimationCurve transitionFalseCamRotCurve = AnimationCurve.Linear(-1, -1, 1, 1);
 
+    [Header("Distance from player")]
+    [Sirenix.OdinInspector.ReadOnly] public float distanceCurrent = 1f;//it's a lerp value
+    [Sirenix.OdinInspector.ReadOnly] public float distanceTarget = 1f; //it's in "meter"
+    public float distance_min = 0.2f;
+    public float distance_LerpSpeed = 0.2f;
 
     [Range(0, 1)]
     public float lastXAxisValue = 0.5f;
@@ -107,7 +112,7 @@ public class CameraManager : MonoBehaviour
             //joystickMove
 
             lastXAxisValue += rotationSpeed.x * mouseMove.x;
-            lastXAxisValue = lastXAxisValue % 1;
+            lastXAxisValue = (lastXAxisValue + 1) % 1; //sometimes, modulo doesn't work on negative value, so, adding one clear this.
             lastYAxisValue += rotationSpeed.y * mouseMove.y;
             lastYAxisValue = Mathf.Clamp(lastYAxisValue, -1, 1);
 
@@ -214,12 +219,33 @@ public class CameraManager : MonoBehaviour
         onThirdaries = false;
     }
 
-
+    public LayerMask layerMask;
     public void UpdateCamPosition()
     {
-        if(currentSecondaryTarget == null)
+        //Replace playerCamPoint from distance
+        
+        Vector3 ray = playerCamPoint.position - target.transform.position;
+        float raycastDist = ray.magnitude;
+        RaycastHit info;
+        Debug.DrawRay(target.transform.position, ray, Color.yellow, 5f);
+        if (Physics.Raycast(target.transform.position, ray, out info, raycastDist, layerMask.value))
         {
-            mainCamera.transform.position = playerCamPoint.transform.position;
+            distanceTarget = Mathf.Clamp(info.distance, distance_min, raycastDist);
+            distanceTarget /= raycastDist; //to have a nice lerp
+            //ratio to maxDist to have the right distance value
+            //distance_min
+        }
+        else
+        {
+            distanceTarget = 1;
+        }
+
+        distanceCurrent = Mathf.Lerp(distanceCurrent, distanceTarget, Time.deltaTime * distance_LerpSpeed);
+
+
+        if (currentSecondaryTarget == null)
+        {
+            mainCamera.transform.position = Vector3.Lerp(target.transform.position, playerCamPoint.transform.position, distanceCurrent);
             mainCamera.transform.rotation = playerCamPoint.transform.rotation;
             return;
         }

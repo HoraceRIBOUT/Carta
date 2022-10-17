@@ -253,6 +253,42 @@ MonoBehaviour:
   - {fileID: 4957181889043958733}
   - {fileID: 4957181889065553534}
   falseCamera: {fileID: 0}
+  playerCamPoint: {fileID: 0}
+  onSecondary: 0
+  lerpSecondaryTarget: 0
+  lerpSecondaryTargetSpeed_In: 2
+  lerpSecondaryTargetSpeed_Out: 3
+  lerpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  currentSecondaryTarget: {fileID: 0}
+  onThirdaries: 0
+  lerpThirdaryTarget: 0
+  lerpThirdaryTargetSpeed_In: 1
+  lerpThirdaryTargetSpeed_Out: 2
+  secondCamPointSave: {fileID: 0}
+  currentThirdaryTarget: {fileID: 0}
   transitionXCurve:
     serializedVersion: 2
     m_Curve:
@@ -367,8 +403,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  distanceCurrent: 1
+  distanceTarget: 1
+  distance_min: 0.5
+  distance_LerpSpeed: 3
   lastXAxisValue: 0.5
   lastYAxisValue: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &4957181889182490617
 MonoBehaviour:
   m_ObjectHideFlags: 0
