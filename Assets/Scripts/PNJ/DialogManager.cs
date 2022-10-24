@@ -50,10 +50,21 @@ public class DialogManager : MonoBehaviour
 
     public void IM_World()
     {
+        pnj closestOne = null;
+        float distMin = 1000f;
+        Vector3 playerPos = GameManager.instance.playerMove.transform.position;
         foreach (pnj interactivePNJ in allPNJ)
         {
-            if (interactivePNJ.ReturnUpdate())
-                break;
+            float distance = (interactivePNJ.transform.position - playerPos).magnitude;
+            if (distMin > distance)
+            {
+                closestOne = interactivePNJ;
+                distMin = distance;
+            }
+        }
+        if(closestOne != null)
+        {
+            closestOne.ReturnUpdate();
         }
     }
     public void IM_Dialog()

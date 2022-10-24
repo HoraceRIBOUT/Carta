@@ -45,7 +45,7 @@ public class CutOutVariable : MonoBehaviour
         foreach (Material mat in materialToChange)
         {
             mat.SetVector("_CutoutPosition", Vector2.one/2);
-            mat.SetFloat("_DistanceToPlayer", 2f);
+            mat.SetFloat("_DistanceToPlayer", .5f);//to have fully shown block
         }
 
         UnityEditor.AssetDatabase.Refresh();

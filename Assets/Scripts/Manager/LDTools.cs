@@ -8,6 +8,8 @@ public class LDTools : MonoBehaviour
 {
 #if UNITY_EDITOR
     public List<GameObject> prefabsListTest_01 = new List<GameObject>();
+    public List<GameObject> prefabsListTest_02 = new List<GameObject>();//balcony
+    [Space]
     public GameObject prefabToSwapFor;
     public GameObject prefabToAddDefaultFor;
 
@@ -54,6 +56,10 @@ public class LDTools : MonoBehaviour
 
             GameObject newObj = TryReplaceOneElement(gO, myLDTools.prefabsListTest_01, left);
             if (newObj != null) { myLDTools.newSelection[i] = newObj; continue; }
+            //Then, try on the second list
+            newObj = TryReplaceOneElement(gO, myLDTools.prefabsListTest_02, left);
+            if (newObj != null) { myLDTools.newSelection[i] = newObj; continue; }
+
             //else, item stay the same in selection
             Debug.LogWarning("Did not change " + myLDTools.newSelection[i].name + " : was not a prefab in any list.");
         }

@@ -99,6 +99,19 @@ public class pnj : MonoBehaviour
 #endif
     }
 
+    public void Start()
+    {
+        foreach(Transform gO in cameraPoints)
+        {
+            Camera cam = gO.GetComponent<Camera>();
+            if (cam != null)
+            {
+                //maybe we will save the VOF if needed
+                Destroy(cam);
+            }
+        }
+    }
+
     public bool ReturnUpdate()
     {
         //Better if take care in a "control manager" and compare to "dialogManager" too

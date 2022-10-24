@@ -87,7 +87,7 @@ Material:
     - _Detail_Zoom: 200
     - _DistanceSmootOut: 0.8
     - _DistanceSmoothIn: 0.9
-    - _DistanceToPlayer: 2
+    - _DistanceToPlayer: 0.5
     - _DstBlend: 0
     - _FalloffSize: 0.3
     - _GlossMapScale: 1
