@@ -242,15 +242,15 @@ public class CameraManager : MonoBehaviour
 
         distanceCurrent = Mathf.Lerp(distanceCurrent, distanceTarget, Time.deltaTime * distance_LerpSpeed);
 
-
+        Vector3 playerPosLerped = Vector3.Lerp(target.transform.position, playerCamPoint.transform.position, distanceCurrent);
         if (currentSecondaryTarget == null)
         {
-            mainCamera.transform.position = Vector3.Lerp(target.transform.position, playerCamPoint.transform.position, distanceCurrent);
+            mainCamera.transform.position = playerPosLerped;
             mainCamera.transform.rotation = playerCamPoint.transform.rotation;
             return;
         }
 
-        mainCamera.transform.position =     Vector3.Lerp(playerCamPoint.transform.position, currentSecondaryTarget.transform.position, lerpCurve.Evaluate(lerpSecondaryTarget));
+        mainCamera.transform.position =     Vector3.Lerp(playerPosLerped                  , currentSecondaryTarget.transform.position, lerpCurve.Evaluate(lerpSecondaryTarget));
         mainCamera.transform.rotation =  Quaternion.Lerp(playerCamPoint.transform.rotation, currentSecondaryTarget.transform.rotation, lerpCurve.Evaluate(lerpSecondaryTarget));
 
         if (onThirdaries)
