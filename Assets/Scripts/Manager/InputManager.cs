@@ -83,7 +83,9 @@ public class InputManager : MonoBehaviour
 
     void Try_TalkToPnj()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
+        GameManager.instance.dialogMng.IM_ReachClosestOne();
+
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             GameManager.instance.dialogMng.IM_World();
         }

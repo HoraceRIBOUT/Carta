@@ -28,6 +28,7 @@ public class DialogManager : MonoBehaviour
     public Dialog currentDialog;
     public int currentStep = 0;
     public pnj currentPNJ = null;
+    private pnj closestPNJ = null;
     public bool loadingDialogBox = false;
     public bool displayDialogText = false;
 
@@ -48,13 +49,15 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    public void IM_World()
+    public void IM_ReachClosestOne()
     {
         pnj closestOne = null;
         float distMin = 1000f;
         Vector3 playerPos = GameManager.instance.playerMove.transform.position;
         foreach (pnj interactivePNJ in allPNJ)
         {
+            if (!interactivePNJ.playerOnReach)
+                continue;
             float distance = (interactivePNJ.transform.position - playerPos).magnitude;
             if (distMin > distance)
             {
@@ -62,9 +65,25 @@ public class DialogManager : MonoBehaviour
                 distMin = distance;
             }
         }
+
+        if(closestOne == closestPNJ)
+            return;
+
+        if(closestPNJ != null)
+        {
+            closestPNJ.TurnActionOnOrOff(false);
+        }
         if(closestOne != null)
         {
-            closestOne.ReturnUpdate();
+            closestOne.TurnActionOnOrOff(true);
+        }
+        closestPNJ = closestOne;
+    }
+    public void IM_World()
+    {
+        if (closestPNJ != null)
+        {
+            closestPNJ.ReturnUpdate();
         }
     }
     public void IM_Dialog()

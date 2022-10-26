@@ -54,12 +54,29 @@ public class pnj : MonoBehaviour
         }
     }
 
+    public List<Visual_Position> visuals = new List<Visual_Position>();
+    [Sirenix.OdinInspector.ReadOnly]public int visualIndex = 0;
+    [System.Serializable]
+    public struct Visual_Position
+    {
+        public List<GameObject> toTurnOn;
+        public Camera newCameraZero;
+    }
+
     public Dialog giveReaction;         //when you give you an item, the first reaction
     public Dialog giveReaction_Fail;    //when you give an item, it's on the list but not give
     public Dialog defaultGiveReponse;  //when you give a non-needed item 
     public Dialog defaultShowReponse;  //when you show a non-needed item
 
     public List<Transform> cameraPoints = new List<Transform>();
+
+
+    [Header("Action Button")]
+    public bool actionButt_On = false;
+    public float actionButt_Val = 0;
+    public float actionButt_speed = 3;
+    public Coroutine actionButt_Coroutine;
+    public SpriteRenderer actionButt_visual;
 
     [System.Serializable]
     public class ItemReaction
@@ -112,6 +129,7 @@ public class pnj : MonoBehaviour
         }
     }
 
+
     public bool ReturnUpdate()
     {
         //Better if take care in a "control manager" and compare to "dialogManager" too
@@ -157,6 +175,55 @@ public class pnj : MonoBehaviour
         }
         //else
         nextDialog.Add(dialInfo);
+    }
+
+    public void ChangeVisual(int index)
+    {
+        if(index < 0 || index >= visuals.Count)
+        {
+            Debug.LogError("Try change visual of "+id + " to index " + index + " but only have "+ visuals.Count + " visual.");
+        }
+        foreach(GameObject gO in visuals[visualIndex].toTurnOn) 
+        {
+            gO.SetActive(false);
+        }
+
+        foreach (GameObject gO in visuals[index].toTurnOn)
+        {
+            gO.SetActive(false);
+        }
+
+        cameraPoints[0] = visuals[index].newCameraZero.transform;
+
+        visualIndex = index;
+    }
+
+    public void TurnActionOnOrOff(bool value)
+    {
+        if(actionButt_On == value)
+        {
+            return;
+        }
+        actionButt_On = value;
+        if (actionButt_Coroutine != null)
+            StopCoroutine(actionButt_Coroutine);
+        actionButt_Coroutine = StartCoroutine(ActionButt_GoesToTarget());
+    }
+
+    private IEnumerator ActionButt_GoesToTarget()
+    {
+        while ((actionButt_On ?  actionButt_Val < 1 : actionButt_Val > 0) )
+        {
+            actionButt_Val += Time.deltaTime * actionButt_speed* (actionButt_On ? 1 : -1);
+            ActionButt_UpdateVisual();
+            yield return new WaitForSeconds(1f / 60f);
+        }
+        ActionButt_UpdateVisual();
+    }
+
+    private void ActionButt_UpdateVisual()
+    {
+        actionButt_visual.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
     }
 
 

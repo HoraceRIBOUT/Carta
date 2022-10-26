@@ -400,8 +400,6 @@ public class PlayerMove : MonoBehaviour
                         }
 
                         AddWall(collision.gameObject, impactNormal);
-
-                        Debug.LogWarning("Current normal : " + currentNormal + " VS " + impactNormal);
                     }
 
                     //Reset Jump
