@@ -42,7 +42,8 @@ public class pnj : MonoBehaviour
 
     public Dialog defaultDialog;
     public List<ItemReaction> reactions = new List<ItemReaction>();
-    private List<Dialog_ToShow> nextDialog = new List<Dialog_ToShow>(); //sorted by priority
+    public List<Dialog_ToShow> nextDialog = new List<Dialog_ToShow>(); //sorted by priority
+    [System.Serializable]
     public struct Dialog_ToShow
     {
         public Dialog dialog;
@@ -72,11 +73,11 @@ public class pnj : MonoBehaviour
 
 
     [Header("Action Button")]
-    public bool actionButt_On = false;
-    public float actionButt_Val = 0;
-    public float actionButt_speed = 3;
-    public Coroutine actionButt_Coroutine;
-    public SpriteRenderer actionButt_visual;
+    [SerializeField] private bool actionButt_On = false;
+    [SerializeField] private float actionButt_Val = 0;
+    [SerializeField] private float actionButt_speed = 3;
+    private Coroutine actionButt_Coroutine;
+    [SerializeField] private SpriteRenderer actionButt_visual;
 
     [System.Serializable]
     public class ItemReaction

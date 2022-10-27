@@ -413,4 +413,25 @@ public class UI_Inventory : MonoBehaviour
         }
     }
 
+
+
+    [Sirenix.OdinInspector.Button]
+    public void FillAllItem()
+    {
+        string DETECT_NEW_ITEM = "It_";
+        string DETECT_PATH = "Assets/Data/Item/";
+        allItem.Clear();
+        foreach (string fileName in System.IO.Directory.GetFiles(DETECT_PATH))
+        {
+            if (fileName.EndsWith(".meta"))
+                continue;
+            string betterFileName = fileName.Replace(DETECT_PATH, "");
+            if (betterFileName.StartsWith(DETECT_NEW_ITEM))
+            {
+                Item it = (Item)UnityEditor.AssetDatabase.LoadAssetAtPath(fileName, typeof(Item));
+                allItem.Add(it);
+            }
+        }
+    }
+
 }

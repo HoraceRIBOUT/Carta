@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1cc426e39a61ca40b83530f74cd0377, type: 3}
   m_Name: It_ComplementAlimentaire
   m_EditorClassIdentifier: 
-  id: 0
-  nameDisplay: 
-  icon: {fileID: 0}
+  id: 5
+  nameDisplay: Boite de pillule
+  icon: {fileID: 21300000, guid: 0d2941f843cd85b4db741617e0de850b, type: 3}
+  targets: []

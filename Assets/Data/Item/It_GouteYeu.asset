@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1cc426e39a61ca40b83530f74cd0377, type: 3}
   m_Name: It_GouteYeu
   m_EditorClassIdentifier: 
-  id: 4
+  id: 6
   nameDisplay: Eye drop
   icon: {fileID: 21300000, guid: 32f236d520e290b488176b2b26e33c6f, type: 3}
+  targets: []

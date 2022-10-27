@@ -69,6 +69,14 @@ public class PlayerMove : MonoBehaviour
         {
             return obj1.id != obj2.id;
         }
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
 
@@ -425,7 +433,7 @@ public class PlayerMove : MonoBehaviour
     }
     public void OnCollisionExit(Collision collision)
     {
-        Debug.Log("Exit : " + collision.gameObject.name);
+        //Debug.Log("Exit : " + collision.gameObject.name);
         if (WallAlreadyTouching(collision.gameObject))
         {
             RemoveWall(collision.gameObject);
@@ -462,7 +470,7 @@ public class PlayerMove : MonoBehaviour
     {
         coyoteTimer = 0;
 
-        Debug.Log("Gain : " + obj.name + " with a normal of " + normal + " dot : "+ Vector3.Dot(normal, Vector3.up));
+        //Debug.Log("Gain : " + obj.name + " with a normal of " + normal + " dot : "+ Vector3.Dot(normal, Vector3.up));
         wallAndGround_Info newWall = new wallAndGround_Info(obj, normal);
         wallAndGround.Add(newWall);
         if (Vector3.Dot(normal, Vector3.up) > 0)
@@ -481,7 +489,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void RemoveWall(GameObject obj)
     {
-        Debug.Log("Lost : " + obj.name);
+        //Debug.Log("Lost : " + obj.name);
         int index = -1;
         for (int i = 0; i < wallAndGround.Count; i++)
         {
@@ -523,7 +531,7 @@ public class PlayerMove : MonoBehaviour
         //Ok, just to test it out : 
         float magn = _rgbd.velocity.magnitude;
         _rgbd.velocity = Vector3.ProjectOnPlane(lastSpeed, currentNormal);
-        Debug.Log("_rgbd.velocity.magn = " + _rgbd.velocity.magnitude + " when magn = " + magn + " but lastSpeed ! " + lastSpeed.magnitude);
+        //Debug.Log("_rgbd.velocity.magn = " + _rgbd.velocity.magnitude + " when magn = " + magn + " but lastSpeed ! " + lastSpeed.magnitude);
         lastSpeed = _rgbd.velocity;
     }
 

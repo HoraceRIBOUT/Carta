@@ -44,19 +44,46 @@ public class Generate_ItemEnum : MonoBehaviour
         FileUtil.DeleteFileOrDirectory(metaPath);
         Debug.Log("Creating Classfile: " + copyPath);
 
-        //could be cool to load from there...
+        //
+        //Ok, gather the number for each and then, add new number
+        int maxValue = -1;
+        foreach(int value in System.Enum.GetValues(typeof(itemID)))
+        {
+            string nameString = ((itemID)value).ToString();
+            for (int i = 0; i < importantLine.Count; i++)
+            {
+                string str = importantLine[i];
+                if (nameString.ToLower() == str.ToLower())
+                {
+                    importantLine[i] = importantLine[i] + " = " + (value);
+                    break;
+                }
+            }
+            if (maxValue < value)
+            {
+                maxValue = value;
+            }
+        }
+
+        for (int i = 0; i < importantLine.Count; i++)
+        {
+            string str = importantLine[i];
+            Debug.Log(i + " : " + str + "("+ maxValue +")");
+            if (!str.Contains("="))
+            {
+                maxValue++;
+                importantLine[i] = importantLine[i] + " = " + (maxValue);
+                break;
+            }
+        }
+
+
+
 
         //writing
         using (StreamWriter outfile =
             new StreamWriter(copyPath))
         {
-            //Classic start of a class
-            /*outfile.WriteLine("using UnityEngine;");
-            outfile.WriteLine("");
-            outfile.WriteLine("public class " + NEW_SCRIPT_NAME + "");
-            outfile.WriteLine("{");*/
-
-            //Write all enum (lowercase)
             outfile.WriteLine("public enum itemID");
             outfile.WriteLine("{");
             outfile.WriteLine("     none = 0,");
