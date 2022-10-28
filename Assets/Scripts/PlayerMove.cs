@@ -553,6 +553,18 @@ public class PlayerMove : MonoBehaviour
         if (count == 1)
         {
             //To avoid a lot of calculus
+            //Update lastNormal if normal have change (look in the direction of the last normal seen)
+            Vector3 ray = -getGroundAndWall()[0].lastNormal;
+            RaycastHit info;
+            Debug.DrawRay(this.transform.position, ray, Color.yellow, 5f);
+            if (Physics.Raycast(this.transform.position, ray, out info, raycastDist, layerMask.value))
+            {
+                if (info.collider.gameObject.GetInstanceID() == getGroundAndWall()[0].id)
+                {
+                    getGroundAndWall()[0].lastNormal = info.normal;
+                }
+            }
+
             currentNormal = getGroundAndWall()[0].lastNormal;
             return;
         }
@@ -577,12 +589,28 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 upSumm = Vector3.zero;
         float ponderationSum = 0;
-        foreach (wallAndGround_Info info in getGroundAndWall())
+        List<wallAndGround_Info> list = getGroundAndWall();
+        for (int i = 0; i < list.Count; i++)
         {
-            float pondera = Vector3.Dot(info.lastNormal, wherePlayerPoint) + 1;
+            wallAndGround_Info wall = list[i];
+            //Just verify the lastnormal :
+            //One raycast per touched surface
+            Vector3 ray = -wall.lastNormal;
+            RaycastHit info;
+            Debug.DrawRay(this.transform.position, ray, Color.yellow, 5f);
+            if (Physics.Raycast(this.transform.position, ray, out info, raycastDist, layerMask.value))
+            {
+                if (info.collider.gameObject.GetInstanceID() == wall.id)
+                {
+                    list[i].lastNormal = info.normal;
+                }
+            }
+
+
+            float pondera = Vector3.Dot(wall.lastNormal, wherePlayerPoint) + 1;
             if (pondera > 0)
             {
-                upSumm += info.lastNormal * pondera;
+                upSumm += wall.lastNormal * pondera;
                 ponderationSum += pondera;
             }
         }

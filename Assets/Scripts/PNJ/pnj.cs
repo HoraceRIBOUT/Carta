@@ -105,10 +105,32 @@ public class pnj : MonoBehaviour
             {
                 System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.name + "/");
             }
+            if (!System.IO.Directory.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/Item/"))
+            {
+                System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.name + "/Item/");
+            }
 
-            UnityEditor.AssetDatabase.CreateAsset(asset1, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset1.name);
+            string filePath = "Assets/Data/Dialog/" + currentPNJ.name + "/Item/" + asset1.name;
+            if (!System.IO.File.Exists(filePath))
+            {
+                UnityEditor.AssetDatabase.CreateAsset(asset1, filePath);
+            }
+            else
+            {
+                asset1 = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
+            }
+
+            filePath = "Assets/Data/Dialog/" + currentPNJ.name + "/Item/" + asset2.name;
+            if (!System.IO.File.Exists(filePath))
+            {
+                UnityEditor.AssetDatabase.CreateAsset(asset2, filePath);
+            }
+            else
+            {
+                asset2 = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
+            }
+
             responseGive = asset1;
-            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
             responseShow = asset2;
             UnityEditor.AssetDatabase.SaveAssets();
 

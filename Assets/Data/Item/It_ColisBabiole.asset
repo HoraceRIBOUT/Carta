@@ -15,4 +15,13 @@ MonoBehaviour:
   id: 2
   nameDisplay: Colis de babiole
   icon: {fileID: 21300000, guid: f606987f7eac4804280000e2a4faf04b, type: 3}
-  targets: []
+  targets:
+  - pnj: 5
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 3
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 6
+    pnj_InGame: {fileID: 0}
+    finalTarget: 1
