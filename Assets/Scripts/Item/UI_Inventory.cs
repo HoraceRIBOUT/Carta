@@ -414,7 +414,7 @@ public class UI_Inventory : MonoBehaviour
     }
 
 
-
+#if UNITY_EDITOR
     [Sirenix.OdinInspector.Button]
     public void FillAllItem()
     {
@@ -433,5 +433,6 @@ public class UI_Inventory : MonoBehaviour
             }
         }
     }
+#endif
 
 }

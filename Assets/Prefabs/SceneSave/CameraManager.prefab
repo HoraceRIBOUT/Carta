@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &994933549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 994933550}
+  m_Layer: 0
+  m_Name: PlayerCam Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &994933550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994933549}
+  m_LocalRotation: {x: 0.08715574, y: -0, z: -0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 0.6, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4957181889182490566}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4957181887653638480
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +139,7 @@ GameObject:
   m_Layer: 0
   m_Name: Placement (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -139,7 +170,7 @@ GameObject:
   m_Layer: 0
   m_Name: Placement (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -170,7 +201,7 @@ GameObject:
   m_Layer: 0
   m_Name: Placement
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -222,8 +253,9 @@ Transform:
   - {fileID: 4957181887653638483}
   - {fileID: 4957181888469319469}
   - {fileID: 4957181888712395834}
+  - {fileID: 994933550}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4957181889182490616
 MonoBehaviour:
@@ -253,7 +285,7 @@ MonoBehaviour:
   - {fileID: 4957181889043958733}
   - {fileID: 4957181889065553534}
   falseCamera: {fileID: 0}
-  playerCamPoint: {fileID: 0}
+  playerCamPoint: {fileID: 994933550}
   onSecondary: 0
   lerpSecondaryTarget: 0
   lerpSecondaryTargetSpeed_In: 2
@@ -425,4 +457,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraMng: {fileID: 4957181889182490616}
-  simulateCamPlacement: 0
+  simulateCamPlacement: 1
