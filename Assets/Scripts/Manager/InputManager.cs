@@ -68,6 +68,12 @@ public class InputManager : MonoBehaviour
         // B : go back
         // Y : give
 
+        if(Mathf.Abs(Input.GetAxis("Horizontal")) > 0.3f || Mathf.Abs(Input.GetAxis("Vertical")) > 0.3f)
+        {
+            bool joystick = (Input.GetAxis("Horizontal_joy") != 0 || Input.GetAxis("Vertical_joy") != 0);
+            ChangeIconToCorrectDevice(joystick);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.JoystickButton3))
             ChangeIconToCorrectDevice(true);
