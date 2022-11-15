@@ -123,6 +123,7 @@ public class UI_Inventory : MonoBehaviour
             //allBox.RemoveRange(currentDeployList.Count, toDestroy);
         }
 
+
     }
 
     public void Update()
@@ -410,6 +411,14 @@ public class UI_Inventory : MonoBehaviour
 
             transparencyGoal = effectifLerp;
             yield return new WaitForSeconds(1f / 60f);
+        }
+    }
+
+    public void ChangePromptVisual()
+    {
+        foreach(UI_ItemBox it in allBox)
+        {
+            it.ChangePromptToCorrectDevice();
         }
     }
 

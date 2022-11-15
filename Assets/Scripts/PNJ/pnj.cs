@@ -77,7 +77,8 @@ public class pnj : MonoBehaviour
     [SerializeField] private float actionButt_Val = 0;
     [SerializeField] private float actionButt_speed = 3;
     private Coroutine actionButt_Coroutine;
-    [SerializeField] private SpriteRenderer actionButt_visual;
+    [SerializeField] private SpriteRenderer actionButt_visual_key;
+    [SerializeField] private SpriteRenderer actionButt_visual_con;
 
     [System.Serializable]
     public class ItemReaction
@@ -221,6 +222,13 @@ public class pnj : MonoBehaviour
         visualIndex = index;
     }
 
+
+    public void ChangeIcon(bool controllerIcon)
+    {
+            actionButt_visual_con.gameObject.SetActive(controllerIcon);
+            actionButt_visual_key.gameObject.SetActive(!controllerIcon);
+    }
+
     public void TurnActionOnOrOff(bool value)
     {
         if(actionButt_On == value)
@@ -246,7 +254,8 @@ public class pnj : MonoBehaviour
 
     private void ActionButt_UpdateVisual()
     {
-        actionButt_visual.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
+        actionButt_visual_con.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
+        actionButt_visual_key.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
     }
 
 

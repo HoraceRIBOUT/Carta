@@ -9,23 +9,27 @@ public class UI_ItemBox : MonoBehaviour
 
     public CanvasGroup promptList;
     public GameObject promptGive;
+    public List<GameObject> prompt_iconController = new List<GameObject>();
+    public List<GameObject> prompt_iconKeyboard = new List<GameObject>();
 
     public Image itemIcon;
     public TMPro.TMP_Text itemName;
 
     public RectTransform _rect;
     public Vector3 _startPos;
-
+    
 
     public AnimationCurve positionCurve;
     public AnimationCurve scaleCurve;
 
     public void SetUpBox(Item item, bool delivered, bool firstCreation)
     {
+        promptList.alpha = 0;
         itemName.text = item.nameDisplay;
         itemIcon.sprite = item.icon;
 
         promptGive.SetActive(!delivered);
+        ChangePromptToCorrectDevice();
         if (delivered)
         {
             itemIcon.color = Color.Lerp(Color.black, Color.white, 0.5f);
@@ -85,5 +89,16 @@ public class UI_ItemBox : MonoBehaviour
             promptList.alpha = trnasitionCurve.Evaluate(deployLerp);
             yield return new WaitForSeconds(1f / 60f);
         }
+    }
+
+
+    public void ChangePromptToCorrectDevice()
+    {
+        bool controller = InputManager.controller;
+        
+        foreach (GameObject gO in prompt_iconKeyboard)
+            gO.SetActive(!controller);
+        foreach (GameObject gO in prompt_iconController)
+            gO.SetActive(controller);
     }
 }

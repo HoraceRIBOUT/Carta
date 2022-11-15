@@ -117,6 +117,10 @@ public class DialogManager : MonoBehaviour
         choiceEmbranchement = Vector3.zero;
         NextStep();
 
+        if(closestPNJ != null)
+        {
+            closestPNJ.TurnActionOnOrOff(false);
+        }
 
         GameManager.instance.playerMove.Talk();
         dialogAnimator.SetBool("Open", true);

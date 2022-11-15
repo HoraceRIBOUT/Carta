@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     //  
     //else 
     //  in range of pnj
+    public static bool controller = false;
 
 
     // Update is called once per frame
@@ -58,14 +59,20 @@ public class InputManager : MonoBehaviour
 
         //For inventory : 
 
-            //Out dialog :
-            // just show the info on it
-            // B : Go back
+        //Out dialog :
+        // just show the info on it
+        // B : Go back
 
-            //On dialog
-            // A : show
-            // B : go back
-            // Y : give
+        //On dialog
+        // A : show
+        // B : go back
+        // Y : give
+
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.JoystickButton3))
+            ChangeIconToCorrectDevice(true);
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
+            ChangeIconToCorrectDevice(false);
     }
 
     void Try_MoveInventoryUpdate()
@@ -74,6 +81,10 @@ public class InputManager : MonoBehaviour
             Input.GetAxis("Horizontal"),
             Input.GetAxis("Vertical")
             );
+
+        //Detect gamepad joystick
+        //if not joystock : then mouse.
+
 
         //Also the player
         //Also the choice in dialog
@@ -89,10 +100,18 @@ public class InputManager : MonoBehaviour
         {
             GameManager.instance.dialogMng.IM_World();
         }
+        else if (Input.GetKeyDown(KeyCode.JoystickButton3))
+        {
+            GameManager.instance.dialogMng.IM_World();
+        }
     }
     void Try_ValidateDialog()
     {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        {
+            GameManager.instance.dialogMng.IM_Dialog();
+        }
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
             GameManager.instance.dialogMng.IM_Dialog();
         }
@@ -102,26 +121,75 @@ public class InputManager : MonoBehaviour
     {
         //For now, always, no limit.
         if (Input.GetKeyDown(KeyCode.E))
+        {
             GameManager.instance.inventory.IM_Open();
+        }
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button3))
+        {
+            GameManager.instance.inventory.IM_Open();
+        }
     }
 
     void Try_CloseInventory()
     {
         //For now, always, no limit.
         if (Input.GetKeyDown(KeyCode.E))
+        {
             GameManager.instance.inventory.IM_Close();
+        }
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+        {
+            GameManager.instance.inventory.IM_Close();
+        }
     }
 
     void Try_GiveInventory()
     {
         //For now, always, no limit.
         if (Input.GetKeyDown(KeyCode.Return))
+        {
             GameManager.instance.inventory.IM_Give();
+        }
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button3))
+        {
+            GameManager.instance.inventory.IM_Give();
+        }
     }
     void Try_ShowInventory()
     {
         //For now, always, no limit.
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             GameManager.instance.inventory.IM_Show();
+        }
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+        {
+            GameManager.instance.inventory.IM_Show();
+        }
+    }
+
+
+
+
+
+
+    public List<GameObject> iconController = new List<GameObject>();
+    public List<GameObject> iconKeyboard = new List<GameObject>();
+
+    public void ChangeIconToCorrectDevice(bool newControllerValue)
+    {
+        if (controller != newControllerValue)
+        {
+            controller = newControllerValue;
+            foreach (GameObject gO in iconKeyboard)
+                gO.SetActive(!controller);
+            foreach (GameObject gO in iconController)
+                gO.SetActive(controller);
+
+            foreach (pnj pn in GameManager.instance.dialogMng.allPNJ)
+                pn.ChangeIcon(controller);
+
+            GameManager.instance.inventory.ChangePromptVisual();
+        }
     }
 }
