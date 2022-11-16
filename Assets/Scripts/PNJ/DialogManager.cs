@@ -19,7 +19,9 @@ public class DialogManager : MonoBehaviour
     public Animator dialogAnimator;
     private Coroutine fadeDial = null;
     private Coroutine printDial = null;
+    private string printText_inSkipCase = "";
     public float printDelay = 0.05f;
+    public int nbrIndxGrad = 5;
 
     [Header("Add item")]
     public Animator _addItem_anim;
@@ -106,10 +108,11 @@ public class DialogManager : MonoBehaviour
 
         if (printDial != null)
         {
+            Debug.Log("Skip apparition time");
             StopCoroutine(printDial);
             printDial = null;
             TMPro.TMP_Text currentText = (dialogText_currIndex == 0 ? dialogText0 : dialogText1);
-            currentText.text = currentText.text.Replace("<color=#00000000>", "").Replace("</color>", "");
+            currentText.text = printText_inSkipCase;
             //Just display it totally, in one try
             return;
         }
@@ -233,7 +236,8 @@ public class DialogManager : MonoBehaviour
         if (printDial != null)
             StopCoroutine(printDial);
         printDial = StartCoroutine(PrintDialogText(dialogText_currIndex, data.text));
-        
+
+        printText_inSkipCase = data.text;
     }
 
     private IEnumerator PrintDialogText(int index, string originalText)
@@ -241,19 +245,56 @@ public class DialogManager : MonoBehaviour
         Debug.Log("Print " + index + " start.");
         TMPro.TMP_Text currentText = (index == 0 ? dialogText0 : dialogText1);
         int charIndex = 0;
+
+        float minDelay = 1f / 60f;
         while (charIndex < originalText.Length)
         {
-            if (currentText.text[charIndex] == ' ')
+            if (originalText[charIndex] == ' ')
             {
                 charIndex++;
                 continue;
             }
-            string firstHalf = originalText.Substring(0, charIndex);
-            string secondHalf = originalText.Substring(charIndex, originalText.Length - charIndex);
-            currentText.text = firstHalf + "<color=#00000000>" + secondHalf + "</color>";
+            //Set text : 
             //Add a gradient
-            yield return new WaitForSeconds(Mathf.Min(1 / 60f, printDelay));
-            charIndex++;
+            {
+                string part1 = originalText.Substring(0, Mathf.Max(0,charIndex - nbrIndxGrad));
+                string[] partList = new string[nbrIndxGrad];
+                for (int i = 0; i < nbrIndxGrad; i++)
+                {
+                    int inv = nbrIndxGrad - i;
+                    partList[i] = originalText.Substring(Mathf.Max(0, charIndex - inv), charIndex - inv < 0 ? 0 : 1);
+                }
+                string partFinal = originalText.Substring(Mathf.Max(0, charIndex - 0), originalText.Length - charIndex);
+
+                Color startCol = currentText.color;
+                Color endCol = currentText.color - Color.black;
+                string[] colorList = new string[nbrIndxGrad]; 
+                for (int i = 0; i < nbrIndxGrad; i++)
+                {
+                    int inv = nbrIndxGrad - i;
+                    colorList[i] = ColorUtility.ToHtmlStringRGBA(Color.Lerp(startCol, endCol, i * (1f / (nbrIndxGrad + 1))));
+                }
+                string colorGradientFinal = ColorUtility.ToHtmlStringRGBA(endCol);
+
+                System.Text.StringBuilder build = new System.Text.StringBuilder(part1);
+                for (int i = 0; i < nbrIndxGrad; i++)
+                {
+                    build.Append("<color=#" + colorList[i] + ">" + partList[i] + "</color>");
+                }
+                build.Append("<color=#" + colorGradientFinal + ">" + partFinal + "</color>");
+                currentText.text = build.ToString();
+            }
+            
+            yield return new WaitForSeconds(Mathf.Max(minDelay, printDelay));
+            //Jump more char if delay is < than Mindelay
+            if(printDelay < minDelay)
+            {
+                charIndex += Mathf.RoundToInt(printDelay / minDelay);
+            }
+            else
+            {
+                charIndex++;
+            }
         }
         Debug.Log("Print " + index + " finish.");
         currentText.text = originalText;
