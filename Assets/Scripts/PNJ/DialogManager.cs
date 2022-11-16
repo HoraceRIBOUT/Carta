@@ -12,8 +12,14 @@ public class DialogManager : MonoBehaviour
     public List<pnj> allPNJ = new List<pnj>();
 
     [Header("UI")]
-    public TMPro.TMP_Text dialogText;
+    public TMPro.TMP_Text dialogText0;
+    public TMPro.TMP_Text dialogText1;
+    [Sirenix.OdinInspector.ReadOnly] private int dialogText_currIndex = -1;
+    [SerializeField] private float dialogText_fadeOutSpeed = 5f;
     public Animator dialogAnimator;
+    private Coroutine fadeDial = null;
+    private Coroutine printDial = null;
+    public float printDelay = 0.05f;
 
     [Header("Add item")]
     public Animator _addItem_anim;
@@ -98,8 +104,12 @@ public class DialogManager : MonoBehaviour
         if (loadingDialogBox)
             return;
 
-        if (displayDialogText)
+        if (printDial != null)
         {
+            StopCoroutine(printDial);
+            printDial = null;
+            TMPro.TMP_Text currentText = (dialogText_currIndex == 0 ? dialogText0 : dialogText1);
+            currentText.text = currentText.text.Replace("<color=#00000000>", "").Replace("</color>", "");
             //Just display it totally, in one try
             return;
         }
@@ -204,13 +214,66 @@ public class DialogManager : MonoBehaviour
     public void TreatText(Step.Step_Dialog data)
     {
         //TO DO : add two text. When one sentence is finish, fade away the previous sentence. Then, open the second one, letter by letter
-        dialogText.text = data.text;
+        if(dialogText_currIndex != -1)
+        {
+            if (fadeDial != null)
+                StopCoroutine(fadeDial);
+            fadeDial = StartCoroutine(FadeDialogText(dialogText_currIndex));
+        }
+        dialogText_currIndex++;
+        dialogText_currIndex = dialogText_currIndex % 2;
+        TMPro.TMP_Text currentText = (dialogText_currIndex == 0 ? dialogText0 : dialogText1);
 
-
+        currentText.text = data.text;
         if(data.color_override != Color.clear)
-            dialogText.color = data.color_override;
+            currentText.color = data.color_override;
         else
-            dialogText.color = currentPNJ.defaultColor;
+            currentText.color = currentPNJ.defaultColor;
+
+        if (printDial != null)
+            StopCoroutine(printDial);
+        printDial = StartCoroutine(PrintDialogText(dialogText_currIndex, data.text));
+        
+    }
+
+    private IEnumerator PrintDialogText(int index, string originalText)
+    {
+        Debug.Log("Print " + index + " start.");
+        TMPro.TMP_Text currentText = (index == 0 ? dialogText0 : dialogText1);
+        int charIndex = 0;
+        while (charIndex < originalText.Length)
+        {
+            if (currentText.text[charIndex] == ' ')
+            {
+                charIndex++;
+                continue;
+            }
+            string firstHalf = originalText.Substring(0, charIndex);
+            string secondHalf = originalText.Substring(charIndex, originalText.Length - charIndex);
+            currentText.text = firstHalf + "<color=#00000000>" + secondHalf + "</color>";
+            //Add a gradient
+            yield return new WaitForSeconds(Mathf.Min(1 / 60f, printDelay));
+            charIndex++;
+        }
+        Debug.Log("Print " + index + " finish.");
+        currentText.text = originalText;
+        printDial = null;
+    }
+
+    private IEnumerator FadeDialogText(int index)
+    {
+        Debug.Log("Fade " + index + " start.");
+        TMPro.TMP_Text currentText = (index == 0 ? dialogText0 : dialogText1);
+        float lerp = currentText.alpha;
+        while (lerp > 0)
+        {
+            lerp -= Time.deltaTime * dialogText_fadeOutSpeed;
+            currentText.alpha = lerp;
+            yield return new WaitForSeconds(1 / 60f);
+        }
+        Debug.Log("Fade " + index + " finish.");
+        currentText.alpha = 0;
+        fadeDial = null;
     }
 
     public void TreatCamera(Step.Step_Camera data)
@@ -366,8 +429,13 @@ public class DialogManager : MonoBehaviour
         currentPNJ = null;
         dialogAnimator.SetBool("Open", false);
         GameManager.instance.cameraMng.UnSetSecondaryTarget();
+        if (fadeDial != null)
+            StopCoroutine(fadeDial);
+        StartCoroutine(FadeDialogText(0));
+        StartCoroutine(FadeDialogText(1));
         yield return new WaitForSeconds(0.1f);
         GameManager.instance.playerMove.FinishTalk();
+        dialogText_currIndex = -1;
     }
 
 
