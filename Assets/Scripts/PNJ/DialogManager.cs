@@ -233,9 +233,11 @@ public class DialogManager : MonoBehaviour
         _addItem_text.text = it.nameDisplay;
         _addItem_anim.SetTrigger("Play");
         canClick = false;
+        inventoryBlock = true;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.2f);
         canClick = true;
+        inventoryBlock = false;
         NextStep();
     }
 

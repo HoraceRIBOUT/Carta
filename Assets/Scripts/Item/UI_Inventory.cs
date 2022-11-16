@@ -128,7 +128,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void Update()
     {
-        if (GameManager.instance.dialogMng.inDialog && !GameManager.instance.dialogMng.inventoryBlock)
+        if (GameManager.instance.dialogMng.inDialog && !GameManager.instance.dialogMng.inventoryBlock && inventory_all.Count != 0)
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, transparencyGoal, Time.deltaTime * transparencySpeed);
         else
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, 0, Time.deltaTime * transparencySpeed);

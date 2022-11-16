@@ -45,18 +45,26 @@ public class UI_ItemBox : MonoBehaviour
         _rect.localScale = Vector3.one * scaleCurve.Evaluate((1 - Mathf.Abs(i / 4f)));
         _rect.localPosition = _startPos + (positionCurve.Evaluate(i) * offsetDistance) * Vector3.down;
 
-        if (currentlyMiddle != currentMiddle)
+        if(GameManager.instance.inventory.inventoryDeployed)
         {
-            if (currentMiddle)
+            if (currentlyMiddle != currentMiddle)
             {
-                Deploy();
+                if (currentMiddle)
+                {
+                    Deploy();
+                }
+                else
+                {
+                    Retract();
+                }
+                currentlyMiddle = currentMiddle;
             }
-            else
-            {
-                Retract();
-            }
-            currentlyMiddle = currentMiddle;
         }
+        else
+        {
+            Retract();
+        }
+
     }
 
 
