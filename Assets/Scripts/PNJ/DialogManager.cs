@@ -125,7 +125,8 @@ public class DialogManager : MonoBehaviour
     public void StartDialog(Dialog dialog, pnj pnj = null)
     {
         currentDialog = dialog;
-        currentPNJ = pnj;
+        if (pnj != null)
+            currentPNJ = pnj;
         currentStep = -1;
         choiceEmbranchement = Vector3.zero;
         NextStep();
@@ -476,6 +477,8 @@ public class DialogManager : MonoBehaviour
         StartCoroutine(FadeDialogText(1));
         yield return new WaitForSeconds(0.1f);
         GameManager.instance.playerMove.FinishTalk();
+
+        inventoryBlock = false;
         dialogText_currIndex = -1;
     }
 

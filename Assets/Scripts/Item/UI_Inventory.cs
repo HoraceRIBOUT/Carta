@@ -288,11 +288,18 @@ public class UI_Inventory : MonoBehaviour
 
     public void Give()
     {
+        //Ok so : 
+
+        //default "give : hm?" + music + wait  + cannot open inventory
+
+        
         Item itemSelected = currentDeployList[currentItemIndex];
         pnj currentPNJ = GameManager.instance.dialogMng.currentPNJ;
 
         //Because it's a give, we need to include a "drum roll moment"
         //before saying either it's a good catch or not 
+
+        GameManager.instance.dialogMng.StartDialog(currentPNJ.giveReaction);
 
         Debug.Log("Try to give : " + itemSelected.id);
         if (currentPNJ != null)
@@ -311,20 +318,51 @@ public class UI_Inventory : MonoBehaviour
                         //Loose music...
                     }
                     GameManager.instance.dialogMng.StartDialog(react.responseGive);
-                    Debug.Log("Gibe !!! " + itemSelected.id);
+                    Debug.Log("Give !!! " + itemSelected.id);
                     Retract();
+                    GameManager.instance.dialogMng.inventoryBlock = true;
                     return;
                 }
             }
             GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultGiveReponse);
             Retract();
+            GameManager.instance.dialogMng.inventoryBlock = true;
             Debug.Log("Don't have it : " + itemSelected.id);
         }
     }
 
     public void Show()
     {
+        Item itemSelected = currentDeployList[currentItemIndex];
+        pnj currentPNJ = GameManager.instance.dialogMng.currentPNJ;
 
+
+        Debug.Log("Try to show : " + itemSelected.id);
+        if (currentPNJ != null)
+        {
+            foreach (pnj.ItemReaction react in currentPNJ.reactions)
+            {
+                if (react.itemToReactFrom == itemSelected.id)
+                {
+                    if (react.finalTarget)
+                    {
+                        //Redirect and add victory music !
+                        RemItem(itemSelected);
+                    }
+                    else
+                    {
+                        //Loose music...
+                    }
+                    GameManager.instance.dialogMng.StartDialog(react.responseShow);
+                    Debug.Log("Show !!! " + itemSelected.id);
+                    Retract();
+                    return;
+                }
+            }
+            GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultShowReponse);
+            Retract();
+            Debug.Log("Don't have it : " + itemSelected.id);
+        }
     }
 
     #endregion

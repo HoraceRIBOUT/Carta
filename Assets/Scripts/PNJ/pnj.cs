@@ -65,9 +65,10 @@ public class pnj : MonoBehaviour
     }
 
     public Dialog giveReaction;         //when you give you an item, the first reaction
-    public Dialog giveReaction_Fail;    //when you give an item, it's on the list but not give
-    public Dialog defaultGiveReponse;  //when you give a non-needed item 
-    public Dialog defaultShowReponse;  //when you show a non-needed item
+    [Tooltip("when you give a not-in-the-list item")]
+    public Dialog defaultGiveReponse;
+    [Tooltip("when you show a not-in-the-list item")]
+    public Dialog defaultShowReponse;  //when you show a not-in-the-list item
 
     public List<Transform> cameraPoints = new List<Transform>();
 
@@ -297,20 +298,6 @@ public class pnj : MonoBehaviour
         else
         {
             giveReaction = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction.asset", typeof(Dialog));
-        }
-
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction_Fail.asset"))
-        {
-            Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.name + "_GiveReaction_Fail.asset";
-            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
-
-            giveReaction_Fail = asset2;
-            UnityEditor.Selection.activeObject = asset2;
-        }
-        else
-        {
-            giveReaction_Fail = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction_Fail.asset", typeof(Dialog));
         }
 
         if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultGiveReaction.asset"))

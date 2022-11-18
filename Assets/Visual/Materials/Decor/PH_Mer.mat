@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PH_Mer
-  m_Shader: {fileID: -6465566751694194690, guid: 2897413dfaf89bd45ab8e61776957b16, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f3d199b8c67312b4d8297cbc06872334, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -80,6 +80,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Intensity: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -87,13 +88,14 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: 10
     - _SpeedMain: 0.001
     - _SpeedMain_2: 0.001
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.23921569, b: 0.99607843, a: 1}
+    - _Color: {r: 0, g: 0.22745098, b: 0.99607843, a: 0.7607843}
     - _CutoutPosition: {r: 0.5, g: 0.18020998, b: 0, a: 0}
     - _Detail_SmoothStep: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

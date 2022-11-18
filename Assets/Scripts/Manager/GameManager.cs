@@ -23,4 +23,20 @@ public class GameManager : MonoBehaviour
     public DialogManager dialogMng;
     public UI_Inventory inventory;
 
+
+
+    private float quitButton = 0;
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (quitButton > 1)
+                Application.Quit();
+            quitButton += Time.deltaTime;
+        }
+        else
+        {
+            quitButton = 0;
+        }
+    }
 }
