@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public CameraManager cameraMng;
     public DialogManager dialogMng;
     public UI_Inventory inventory;
+    public UI_MapAndPaper mapAndPaper;
 
 
 

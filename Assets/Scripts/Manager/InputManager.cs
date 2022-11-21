@@ -16,8 +16,8 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Three state for now :
-
+        //Need to be add : pause.
+        //Four state for now :
         if (GameManager.instance.inventory.inventoryDeployed)
         {
             Try_MoveInventoryUpdate();
@@ -28,11 +28,19 @@ public class InputManager : MonoBehaviour
             //With variable around weither is in dialog or not
             //and if the current item is already given or not
         }
+        else if (GameManager.instance.mapAndPaper.mapOpen)
+        {
+            if (!GameManager.instance.dialogMng.inventoryBlock)
+                Try_OpenInventory();
+            Try_CloseMapAndPaper();
+
+        }
         else if (GameManager.instance.dialogMng.inDialog)
         {
             if(!GameManager.instance.dialogMng.inventoryBlock)
                 Try_OpenInventory();
             Try_ValidateDialog();
+            Try_OpenMapAndPaper();
 
             //Second case :
             //Can continue text
@@ -45,11 +53,12 @@ public class InputManager : MonoBehaviour
         {
             Try_OpenInventory();
             Try_TalkToPnj();
+            Try_OpenMapAndPaper();
 
             //Dealt within PlayerMove.cs : 
-                //Crouching
-                //Moving
-                //Jumping
+            //Crouching
+            //Moving
+            //Jumping
 
             //In movement in the real world else !
         }
@@ -75,7 +84,22 @@ public class InputManager : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.JoystickButton3))
+        //if (Input.GetKeyDown(KeyCode.JoystickButton0))            Debug.Log("0");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton1))            Debug.Log("&");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton2))            Debug.Log("2");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton3))            Debug.Log("\"");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton4))            Debug.Log("'");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton5))            Debug.Log("(");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton6))            Debug.Log("6"); //back
+        //if (Input.GetKeyDown(KeyCode.JoystickButton7))            Debug.Log("7");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton8))            Debug.Log("8");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton9))            Debug.Log("9");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton10))            Debug.Log("10");
+        //if (Input.GetKeyDown(KeyCode.JoystickButton11))            Debug.Log("11");
+
+
+
+            if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.JoystickButton3))
             ChangeIconToCorrectDevice(true);
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
             ChangeIconToCorrectDevice(false);
@@ -147,6 +171,7 @@ public class InputManager : MonoBehaviour
         {
             GameManager.instance.inventory.IM_Close();
         }
+        //Need to add : if try to go to paper and map : just close the inventory AND try open 
     }
 
     void Try_GiveInventory()
@@ -172,6 +197,43 @@ public class InputManager : MonoBehaviour
         {
             GameManager.instance.inventory.IM_Show();
         }
+    }
+
+    void Try_OpenMapAndPaper()
+    {
+        //For now, always, no limit.
+        if (Input.GetKeyDown(KeyCode.Alpha1) 
+            || Input.GetKeyDown(KeyCode.Alpha2) 
+            || Input.GetKeyDown(KeyCode.Alpha3) 
+            || Input.GetKeyDown(KeyCode.Alpha4) 
+            || Input.GetKeyDown(KeyCode.Alpha5)
+            )
+        {
+            GameManager.instance.mapAndPaper.IM_Open();
+        }
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button6))
+        {
+            Debug.Log("6 is press");
+            GameManager.instance.mapAndPaper.IM_Open();
+        }
+    }
+
+    void Try_CloseMapAndPaper()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1) 
+            || Input.GetKeyDown(KeyCode.Alpha2)
+            || Input.GetKeyDown(KeyCode.Alpha3)
+            || Input.GetKeyDown(KeyCode.Alpha4)
+            || Input.GetKeyDown(KeyCode.Alpha5)
+            )
+        {
+            GameManager.instance.mapAndPaper.IM_Close();
+        }
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button6))
+        {
+            GameManager.instance.mapAndPaper.IM_Close();
+        }
+        //Need to add : if try to go to paper and map : just close the inventory AND try open 
     }
 
 
