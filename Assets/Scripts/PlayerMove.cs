@@ -666,12 +666,16 @@ public class PlayerMove : MonoBehaviour
         speedWhenInterupt = _rgbd.velocity;
         _rgbd.velocity = Vector3.zero;
         _rgbd.isKinematic = true;
+
+        Cursor.lockState = CursorLockMode.None;
     }
     public void FinishMenuing()
     {
         talking = false;
         _rgbd.isKinematic = false;
         _rgbd.velocity = speedWhenInterupt;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 

@@ -19,5 +19,61 @@ public class UI_MaP_Icon : MonoBehaviour
     //this have mostly function and data related to that
     //while the scriptable have the above info
 
+    public CanvasGroup infoPart;
+
+    public Vector2 lastPosition;
+    public GameObject lastParent;
+
+    public Vector2 lastOffset;
+
+    public bool dragOn = false;
+    public void BeginDrag()
+    {
+        //If taken from the iconList :
+        //  should create a new one, and the new one is the one being dragged.
+        //  
+
+        Vector2 mousePos = Input.mousePosition; // for now, only the real mouse (later, the mouse can be move by joystick)
+        lastOffset = (Vector2)this.transform.position - mousePos;
+
+
+        dragOn = true;
+    }
+    public void EndDrag()
+    {
+        //Need to see what under it. 
+        //How ?
+
+        //if drag on the icon list : 
+        //  delete it.
+        //else : if on the paper 
+        //  add to the paper list AND register at the paper script that you where add at this adress (transformPos)
+        //      (paper will need to made a conversion to taka account of offset + zoom)
+
+        //else : retur to last pos. Immediatly. (or maybe a "SHLIIIIING" in like, half a second (coroutine + lerp))
+
+
+        dragOn = false;
+    }
+
+    public void Update()
+    {
+        if (dragOn)
+        {
+            Vector2 mousePos = Input.mousePosition; // for now, only the real mouse (later, the mouse can be move by joystick)
+            this.transform.position = mousePos + lastOffset;
+
+            if (infoPart.alpha >= 0)
+                infoPart.alpha -= Time.deltaTime * 4;
+        }
+        else
+        {
+            //if not drag BUT pointerOver : display info
+            if (infoPart.alpha <= 1)
+                infoPart.alpha += Time.deltaTime * 2;
+        }
+    }
+
+
 
 }

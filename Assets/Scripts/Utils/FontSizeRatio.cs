@@ -4,13 +4,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[ExecuteAlways]
 public class FontSizeRatio : MonoBehaviour
 {
     [Header("☟ ")]
     [Tooltip("If not, is ratio from the whole screen")]
     public bool ratioFromTheRect;
     [Range(0,1)]
-    //[Sirenix.OdinInspector.OnValueChanged("Resize")]
+    [Sirenix.OdinInspector.OnValueChanged("Resize")]
     public float ratio = 0.33f;
 
     private Vector2 screenSize;
@@ -51,6 +52,7 @@ public class FontSizeRatio : MonoBehaviour
             Resize();
             screenSize = new Vector2(Screen.width, Screen.height);
         }
+
     }
 
     //[Sirenix.OdinInspector.Button("Apply size")]
