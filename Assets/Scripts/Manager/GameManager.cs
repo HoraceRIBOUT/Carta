@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public DialogManager dialogMng;
     public UI_Inventory inventory;
     public UI_MapAndPaper mapAndPaper;
+    public Transform canvasGeneral;
 
 
 

@@ -6,13 +6,19 @@ using Sirenix.OdinInspector;
 //This is the manager for the "map" and "paper" part
 public class UI_MapAndPaper : MonoBehaviour
 {
-    [ReadOnly] private List<UI_MaP_Paper> papers = new List<UI_MaP_Paper>();
+    [ReadOnly] [SerializeField] private List<UI_MaP_Paper> papers = new List<UI_MaP_Paper>();
+    public UI_MaP_Paper currentPaper;
+    public UI_MaP_IconInfoZone iconZone;
     //So, by default, have one blank paper
     public bool mapOpen = false;
 
     private Coroutine openCloseCorout = null;
     [SerializeField] private Animator _anima;
     [SerializeField] private CanvasGroup wholeOpacity; //use to clear the visual in Editor mode
+
+    [Header("Data and prefab")]
+    public GameObject iconPrefab; 
+    //probably also the different paper prefab
 
     public void Start()
     {
@@ -41,7 +47,16 @@ public class UI_MapAndPaper : MonoBehaviour
         mapOpen = true;
         openCloseCorout = StartCoroutine(OpenCloseMap());
 
+        iconZone.UpdateIconList();
         GameManager.instance.playerMove.InventoryAndMenu();
+
+        //Set paper 
+
+    }
+
+    public void Paper_ResetPosition()
+    {
+        currentPaper.ResetPosAndScale();
     }
 
     public void Close()

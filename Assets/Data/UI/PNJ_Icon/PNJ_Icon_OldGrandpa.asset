@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29771c44a1baee7468b730982f620a30, type: 3}
+  m_Name: PNJ_Icon_OldGrandpa
+  m_EditorClassIdentifier: 
+  id: 13
+  spriteLittleIcon: {fileID: 21300000, guid: 69f76e7f2f549b04598c2357def2efe9, type: 3}
+  mainName: Gary
+  surName: Temersohn
+  username: GodFather
+  activity: MonneyExcahgner
