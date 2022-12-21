@@ -170,6 +170,9 @@ public class pnj : MonoBehaviour
 
     public void Talk()
     {
+        GameManager.instance.mapAndPaper.iconZone.AddIconIfNeeded(this.id);
+
+
         GameManager.instance.dialogMng.StartDialog(GetDialogToShow(), this);
 
         if (cameraPoints != null && cameraPoints.Count != 0)

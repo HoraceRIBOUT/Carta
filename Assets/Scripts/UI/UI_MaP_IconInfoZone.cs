@@ -7,7 +7,7 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
     public UI_MaP_Icon iconPrefab;
 
     [Header("Normally, set by game")]
-    public List<pnj> pnjToDeploy = new List<pnj>();
+    public List<pnj.pnjID> pnjToDeploy = new List<pnj.pnjID>();
 
     [Header("Data")]
     public List<IconData> dataFromPnj;
@@ -51,30 +51,42 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
             }
 
             UI_MaP_Icon newIcon = Instantiate(iconPrefab);
-            IconData data = GetDataForThisPJN(pnjToDeploy[i].id);
+            IconData data = GetDataForThisPJN(pnjToDeploy[i]);
             newIcon.transform.SetParent(iconParent);
             newIcon.Create(data, true);
-            int xPos = iconsGO.Count % 2;
-            int yPos = (int)Mathf.Floor(iconsGO.Count / 2);
-            Debug.Log("Pos = " + xPos + ", " + yPos);
-            newIcon.himselfRect.localPosition = new Vector3(
-                xPos * positionX * fullSize.x + marginX * fullSize.x,
-               -yPos * positionY * fullSize.y + marginY * fullSize.y,
-                0                   );
-            newIcon.transform.localRotation = Quaternion.identity;
-            newIcon.himselfRect.sizeDelta = new Vector2(
-                fullSize.x * size,
-                fullSize.x * size);
 
             iconsGO.Add(newIcon);
         }
+        UpdateIconPosition();
     }
 
-    public bool IconAlreadyDeployed(pnj pnjToTest)
+    public void UpdateIconPosition()
+    {
+        fullSize = dolly.rect.size;
+
+        for (int i = 0; i < iconsGO.Count; i++)
+        {
+            UI_MaP_Icon iconToReplace = iconsGO[i];
+            int xPos = i % 2;
+            int yPos = (int)Mathf.Floor(i / 2);
+            Debug.Log("Pos = " + xPos + ", " + yPos);
+            iconToReplace.himselfRect.localPosition = new Vector3(
+                xPos * positionX * fullSize.x + marginX * fullSize.x,
+               -yPos * positionY * fullSize.y + marginY * fullSize.y,
+                0);
+            iconToReplace.transform.localRotation = Quaternion.identity;
+            iconToReplace.transform.localScale = Vector3.one;
+            iconToReplace.himselfRect.sizeDelta = new Vector2(
+                fullSize.x * size,
+                fullSize.x * size);
+        }
+    }
+
+    public bool IconAlreadyDeployed(pnj.pnjID pnjToTest)
     {
         foreach (UI_MaP_Icon ic in iconsGO)
         {
-            if(ic.data.id == pnjToTest.id)
+            if(ic.data.id == pnjToTest)
             {
                 return true;
             }
@@ -95,8 +107,17 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
         return null;
     }
 
-    public void AddNewIcon()
+    public void AddIconIfNeeded(pnj.pnjID iconId)
     {
-
+        if (pnjToDeploy.Contains(iconId))
+            return;
+        foreach (IconData data in dataFromPnj)
+        {
+            if(data.id == iconId)
+            {
+                pnjToDeploy.Add(iconId);
+            }
+        }
     }
+
 }
