@@ -40,6 +40,8 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
     public Vector2 lastOffset;
 
+    public float baseSize = 0.33f;
+
     public bool dragOn = false;
 
     public void Create(IconData data, bool onIconZone)
@@ -73,7 +75,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
             UI_MaP_Icon ic = Instantiate(this, GameManager.instance.mapAndPaper.iconZone.iconParent);
             ic.Create(data, false);
             ic.transform.position = this.transform.position;
-            ic.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale;
+            ic.transform.localScale = Vector3.one;
 
             iconToDrag = ic;
         }
@@ -154,7 +156,10 @@ public class UI_MaP_Icon : UI_MaP_Overing
             if (infoPart.alpha >= 0)
                 infoPart.alpha -= Time.deltaTime * 4;
 
-            this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale;
+            if(GameManager.instance.mapAndPaper.currentPaper.overing)
+                this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
+            else
+                this.transform.localScale = Vector3.one;
         }
         else if(fromIconZone)
         {
