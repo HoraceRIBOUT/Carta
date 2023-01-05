@@ -1,0 +1,6 @@
+JumpForce
+2
+Strenght
+6.3
+speed
+2
