@@ -43,7 +43,7 @@ public class UI_MaP_Element : MonoBehaviour
         Vector2 mousePos = Input.mousePosition; // for now, only the real mouse (later, the mouse can be move by joystick)
         lastOffset = (Vector2)this.transform.position - mousePos;
 
-        transform.SetParent(GameManager.instance.canvasGeneral);
+        transform.SetParent(GameManager.instance.mapAndPaper.aboveMaP);
 
         himself.blocksRaycasts = false;
         dragOn = true;

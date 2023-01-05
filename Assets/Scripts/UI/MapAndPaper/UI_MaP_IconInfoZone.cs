@@ -50,8 +50,10 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
                 continue;
             }
 
-            UI_MaP_Icon newIcon = Instantiate(iconPrefab);
             IconData data = GetDataForThisPJN(pnjToDeploy[i]);
+            if (data == null)
+                continue;
+            UI_MaP_Icon newIcon = Instantiate(iconPrefab);
             newIcon.transform.SetParent(iconParent);
             newIcon.Create(data, true);
 

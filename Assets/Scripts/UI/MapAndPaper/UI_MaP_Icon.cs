@@ -64,33 +64,33 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
     private void BeginDrag()
     {
+        UI_MaP_Icon iconToDrag = this;
         if (fromIconZone)
         {
             //If taken from the iconList :
             //  should create a new one, and the new one is the one being dragged.
             //  
-            UI_MaP_Icon ic = Instantiate(this);
+            UI_MaP_Icon ic = Instantiate(this, GameManager.instance.mapAndPaper.iconZone.iconParent);
             ic.Create(data, false);
             ic.transform.position = this.transform.position;
             ic.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale;
+
+            iconToDrag = ic;
         }
-        else
+        //When we will have a custom mouse for this menu : take the "lastPos" of the mouse , to avoid the "BeginDrag" being to late
+        Vector2 mousePos = Input.mousePosition; // for now, only the real mouse (later, the mouse can be move by joystick)
+        iconToDrag.lastOffset = (Vector2)this.transform.position - mousePos;
+
+        iconToDrag.transform.SetParent(GameManager.instance.mapAndPaper.aboveMaP);
+        if (iconToDrag.lastParent_Paper != null)
         {
-            //When we will have a custom mouse for this menu : take the "lastPos" of the mouse , to avoid the "BeginDrag" being to late
-            Vector2 mousePos = Input.mousePosition; // for now, only the real mouse (later, the mouse can be move by joystick)
-            lastOffset = (Vector2)this.transform.position - mousePos;
-
-            transform.SetParent(GameManager.instance.canvasGeneral);
-            if (lastParent_Paper != null)
-            {
-                lastParent_Paper.RemoveIcon(this);
-                lastParent_Paper = null;
-            }
-
-            himself.blocksRaycasts = false;
-            dragOn = true;
+            iconToDrag.lastParent_Paper.RemoveIcon(iconToDrag);
+            iconToDrag.lastParent_Paper = null;
         }
-       
+
+        iconToDrag.himself.blocksRaycasts = false;
+        iconToDrag.dragOn = true;
+
 
         //if taken from a paper : 
         //should unlinked themself immediately

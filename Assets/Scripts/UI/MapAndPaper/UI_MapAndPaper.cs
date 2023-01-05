@@ -15,6 +15,7 @@ public class UI_MapAndPaper : MonoBehaviour
     private Coroutine openCloseCorout = null;
     [SerializeField] private Animator _anima;
     [SerializeField] private CanvasGroup wholeOpacity; //use to clear the visual in Editor mode
+    [SerializeField] public  RectTransform aboveMaP; //use to clear the visual in Editor mode
 
     [Header("Data and prefab")]
     public GameObject iconPrefab; 
