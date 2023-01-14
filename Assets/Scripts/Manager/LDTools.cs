@@ -85,7 +85,11 @@ public class LDTools : MonoBehaviour
                 index = 0;
             GameObject newObject = (GameObject)PrefabUtility.InstantiatePrefab(replaceList[index]); 
             Undo.RegisterCreatedObjectUndo(newObject, "Replace With Prefabs");
-            string number = gO.name.Substring(gO.name.LastIndexOf(' '));
+            string number = "";
+            if (gO.name.Contains(' '))
+                number = gO.name.Substring(gO.name.LastIndexOf(' '));
+            else
+                number = gO.name;
             string newName = newObject.name + number;
             newObject.name                      = newName;//need to only keep the number of any special element
             newObject.transform.parent          = gO.transform.parent;

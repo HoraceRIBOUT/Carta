@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class pnj : MonoBehaviour
@@ -34,6 +35,7 @@ public class pnj : MonoBehaviour
         prof            = 19,
         chiefLudo       = 20,
         forge           = 21,
+        mimo            = 22,
 
     }
     public pnjID id;
@@ -356,6 +358,27 @@ public class pnj : MonoBehaviour
         UnityEditor.AssetDatabase.SaveAssets();
         return asset;
     }
+
+    [Sirenix.OdinInspector.Button]
+    public void ExportToCSV()
+    {
+        //create a csv with :
+        // defaultDialog --> just a start dialog
+        // giveReaction --> wait before giving
+        // defaultGiveReponse -> fail
+        // defaultShowReponse -> fail
+        List<Dialog> contatenatedDialog = new List<Dialog>(); 
+        contatenatedDialog.Add(defaultDialog);
+        contatenatedDialog.Add(giveReaction);
+        contatenatedDialog.Add(defaultGiveReponse);
+        contatenatedDialog.Add(defaultShowReponse);
+        CreateCSV.WriteDialogInCVS("Assets/Resources/CSV/Basic_" + id + ".csv", contatenatedDialog);
+        
+        Debug.Log("Finish exporting CSV for " + id);
+    }
+
+
+
 #endif
 
 }

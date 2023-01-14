@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+
 [CreateAssetMenu(fileName = "Dialog", menuName = "Carta/Dialog", order = 1)]
 public class Dialog : ScriptableObject
 {
+    public static string CASE_SEPARATOR = ";";
     [Sirenix.OdinInspector.OnValueChanged("ReIndex")]
     public List<Step.Step> allSteps;
 
@@ -38,15 +40,36 @@ public class Dialog : ScriptableObject
 namespace Step
 {
     [System.Serializable]
-    public abstract class Step_father {}
+    public abstract class Step_father
+    {
+        public abstract string ToCSVLine();
+    }
 
     [System.Serializable]
     public class Step_Dialog : Step_father
     {
+
         [TextArea]
         public string text = "";
 
         public Color color_override;
+
+        public override string ToCSVLine()
+        {
+            return "Step_Dialog "+ Dialog.CASE_SEPARATOR+ text + Dialog.CASE_SEPARATOR + color_override;
+        }
+
+        public Step_Dialog(string csvLine)
+        {
+            //cut the line between the "SEPARATOR"
+            string[] eachCase = csvLine.Split(Dialog.CASE_SEPARATOR);
+            //and put the text in it 
+            text = eachCase[1];
+            //and the color then if it have one
+            if (!ColorUtility.TryParseHtmlString(eachCase[2], out color_override))
+                Debug.LogError("Error when parsing color : " + csvLine);
+
+        }
     }
 
     [System.Serializable]
@@ -54,24 +77,40 @@ namespace Step
     {
         public int cameraIndex;
         public bool directTP = false;
+        public override string ToCSVLine()
+        {
+            return "Step_Camera " + Dialog.CASE_SEPARATOR + cameraIndex + Dialog.CASE_SEPARATOR + directTP.ToString();
+        }
     }
 
     [System.Serializable]
     public class Step_AddItem: Step_father
     {
-        public itemID itemId; 
+        public itemID itemId;
+        public override string ToCSVLine()
+        {
+            return "Step_AddItem " + Dialog.CASE_SEPARATOR + itemId;
+        }
     }
 
     [System.Serializable]
     public class Step_RemItem : Step_father
     {
         public itemID itemId;
+        public override string ToCSVLine()
+        {
+            return "Step_RemItem " + Dialog.CASE_SEPARATOR + itemId;
+        }
     }
 
     [System.Serializable]
     public class Step_SFX : Step_father
     {
         public AudioClip sfxToPlay;
+        public override string ToCSVLine()
+        {
+            return "Step_SFX " + Dialog.CASE_SEPARATOR + sfxToPlay.name;
+        }
     }
 
 
@@ -79,6 +118,10 @@ namespace Step
     public class Step_Music : Step_father
     {
         public AudioClip musicToPlay;
+        public override string ToCSVLine()
+        {
+            return "Step_Music " + Dialog.CASE_SEPARATOR + musicToPlay.name;
+        }
     }
 
 
@@ -86,6 +129,10 @@ namespace Step
     public class Step_ItemInteractivity : Step_father
     {
         public bool itemInvoCanBeOpen;
+        public override string ToCSVLine()
+        {
+            return "Step_ItemInteractivity " + Dialog.CASE_SEPARATOR + itemInvoCanBeOpen.ToString();
+        }
     }
 
 
@@ -93,6 +140,10 @@ namespace Step
     public class Step_DialogRedirection : Step_father
     {
         public Dialog dialogToGo;
+        public override string ToCSVLine()
+        {
+            return "Step_DialogRedirection " + Dialog.CASE_SEPARATOR + dialogToGo.name;
+        }
     }
 
 
@@ -101,6 +152,10 @@ namespace Step
     {
         public pnj.pnjID targetID;
         public Dialog newDefaultDial;
+        public override string ToCSVLine()
+        {
+            return "Step_SetDefaultDialog " + Dialog.CASE_SEPARATOR + targetID  + Dialog.CASE_SEPARATOR + newDefaultDial.name;
+        }
     }
 
     [System.Serializable]
@@ -109,6 +164,10 @@ namespace Step
         public pnj.pnjID targetID;
         public Dialog dialToAdd;
         public int priority = 0;
+        public override string ToCSVLine()
+        {
+            return "Step_SetNextDialog " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + dialToAdd.name + Dialog.CASE_SEPARATOR + priority;
+        }
     }
 
     [System.Serializable]
@@ -144,6 +203,13 @@ namespace Step
         public int redirectNumberAfterNo;
         [ShowIf("typeNo", choiceType.redirectDialog)][Indent()]
         public Step_DialogRedirection redirectNo;
+
+
+        public override string ToCSVLine()
+        {
+            //TO DO 
+            return "Step_Dialog " + Dialog.CASE_SEPARATOR + typeYes + Dialog.CASE_SEPARATOR + typeNo;
+        }
     }
 
 }
