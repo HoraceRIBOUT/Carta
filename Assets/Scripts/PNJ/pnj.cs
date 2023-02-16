@@ -10,32 +10,39 @@ public class pnj : MonoBehaviour
     public enum pnjID
     {
         None = 0,
-        stagiaire       = 1,
-        postma          = 2,
-        flowerMom       = 3,
-        flowerKid       = 4,
-        flowerDad       = 5,
-        babiol          = 6,
-
-        crow            = 7,
+        
+        postWoman       = 2,
         seawatcher      = 8,
-
         boxLudo         = 9,
+        wolfGirl        = 23,
+        chiefLudo       = 20,
+        mimo            = 22,
+
+        youngUncle      = 23,
+        oldNephew       = 24,
         guitar          = 10,
-        biblio          = 11,
-        simonSez        = 12,
+
+        babiol          = 6,
+        flowerMom       = 3,
+        climbrDad       = 5,
+        stagiaire       = 1,
+        flowerKid       = 4,
+
+        sistUp          = 16,
+        sistLittle      = 18,
 
         parainTem       = 13,
         cuistTem        = 14,
         ospinoTem       = 15,
-        sistUp          = 16,
-        aguilarTem      = 17,
-        sistLittle      = 18,
-                        
-        prof            = 19,
-        chiefLudo       = 20,
         forge           = 21,
-        mimo            = 22,
+        aguilarTem      = 17,
+        crowCool        = 7,
+        kiddo           = 12, 
+
+                        
+        biblio          = 11, 
+        prof            = 19,
+        //PNJ_number = 25,
 
     }
     public pnjID id;
