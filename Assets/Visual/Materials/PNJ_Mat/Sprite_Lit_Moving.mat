@@ -62,11 +62,13 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Saturation: 1.5
+    - _SecondarySize: 50
+    - _SecondaryStenght: 0.87
     - _changeSize: 10
     - _dbg_TimeOffset: 10000
-    - _differenceSize: 100
-    - _frameRate: 3
-    - _speedOfMove: 0.05
+    - _differenceSize: 200
+    - _frameRate: 1.5
+    - _speedOfMove: 10
     m_Colors:
     - _CY: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 0}

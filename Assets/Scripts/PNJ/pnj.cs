@@ -158,7 +158,7 @@ public class pnj : MonoBehaviour
             if (cam != null)
             {
                 //maybe we will save the VOF if needed
-                Destroy(cam);
+                //Destroy(cam);
             }
         }
     }
