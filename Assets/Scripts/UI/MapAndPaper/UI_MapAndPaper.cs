@@ -51,6 +51,8 @@ public class UI_MapAndPaper : MonoBehaviour
         iconZone.UpdateIconList();
         GameManager.instance.playerMove.InventoryAndMenu();
 
+        GameManager.instance.dialogMng.InventoryOrMapOpen();
+
         //Set paper 
 
     }
@@ -75,6 +77,8 @@ public class UI_MapAndPaper : MonoBehaviour
         {
             GameManager.instance.playerMove.FinishMenuing();
         }
+
+        GameManager.instance.dialogMng.InventoryOrMapClose();
     }
 
     private IEnumerator OpenCloseMap()

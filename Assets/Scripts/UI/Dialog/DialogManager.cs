@@ -15,6 +15,7 @@ public class DialogManager : MonoBehaviour
     public List<DialogBox> dialogTexts;
     [Sirenix.OdinInspector.ReadOnly] private int dialogText_currIndex = -1;
     public Animator dialogAnimator;
+    public CanvasGroup dialogCanvas;
 
     [Header("Add item")]
     public Animator _addItem_anim;
@@ -116,10 +117,11 @@ public class DialogManager : MonoBehaviour
         if (pnj != null)
             currentPNJ = pnj;
         currentStep = -1;
+        inventoryBlock = true; // by default, you can only give item during "default" dial
         choiceEmbranchement = Vector3.zero;
         NextStep();
 
-        if(closestPNJ != null)
+        if (closestPNJ != null)
         {
             closestPNJ.TurnActionOnOrOff(false);
         }
@@ -219,9 +221,6 @@ public class DialogManager : MonoBehaviour
             currentText.Open(data.text, data.color_override);
         else
             currentText.Open(data.text, currentPNJ.defaultColor);
-
-
-        dialogAnimator.SetTrigger("Next");
     }
 
 
@@ -246,11 +245,12 @@ public class DialogManager : MonoBehaviour
         _addItem_text.text = it.nameDisplay;
         _addItem_anim.SetTrigger("Play");
         canClick = false;
+        bool tmp_inventoryBlock = inventoryBlock;
         inventoryBlock = true;
 
         yield return new WaitForSeconds(2.2f);
         canClick = true;
-        inventoryBlock = false;
+        inventoryBlock = tmp_inventoryBlock;
         NextStep();
     }
 
@@ -383,7 +383,6 @@ public class DialogManager : MonoBehaviour
         canClick = true;
         inDialog = false;
         currentPNJ = null;
-        dialogAnimator.ResetTrigger("Next");
         dialogAnimator.SetBool("Open", false);
         GameManager.instance.cameraMng.UnSetSecondaryTarget();
         //May need a delay here
@@ -400,5 +399,17 @@ public class DialogManager : MonoBehaviour
 
     }
 
+
+
+    public void InventoryOrMapOpen()
+    {
+        //Also, lower the whole a little
+        dialogCanvas.alpha = 0.6f;
+    }
+    public void InventoryOrMapClose()
+    {
+        //Also, set back to start pos
+        dialogCanvas.alpha = 1f;
+    }
 
 }

@@ -288,6 +288,8 @@ public class UI_Inventory : MonoBehaviour
 
     public void Give()
     {
+        if (!GameManager.instance.dialogMng.inDialog)
+            return;
         //Ok so : 
 
         //default "give : hm?" + music + wait  + cannot open inventory
@@ -410,6 +412,10 @@ public class UI_Inventory : MonoBehaviour
         deployingRoutine = StartCoroutine(Deploy_Corout(true));
 
         allBox[0].Deploy();
+        //here, if in dialog : show and give
+        //else : no "give" AND show become "look" or info or remember 
+
+        GameManager.instance.dialogMng.InventoryOrMapOpen();
     }
 
     public void Retract()
@@ -419,6 +425,7 @@ public class UI_Inventory : MonoBehaviour
         //For other:
         if(!GameManager.instance.dialogMng.inDialog)
             GameManager.instance.playerMove.FinishMenuing();
+
         GameManager.instance.dialogMng.inventoryBlock = false;
 
         //For itself
@@ -432,6 +439,8 @@ public class UI_Inventory : MonoBehaviour
         {
             item.Retract();
         }
+
+        GameManager.instance.dialogMng.InventoryOrMapClose();
     }
 
 

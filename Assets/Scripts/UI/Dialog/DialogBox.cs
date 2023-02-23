@@ -54,6 +54,7 @@ public class DialogBox : MonoBehaviour
     {
         if (printDial != null)
             StopCoroutine(printDial);
+        animator.ResetTrigger("Next");
         animator.SetBool("Open", false);
         step = 0;
     }

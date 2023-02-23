@@ -27,7 +27,7 @@ namespace Step
 	{
 		[HideInInspector()]
 		public int index;
-		public bool alreadyRead = false;
+		[Sirenix.OdinInspector.ReadOnly] public bool alreadyRead = false;
 		public string title { get { return "Step " + index; } }
 		[Sirenix.OdinInspector.Title("$title")]
 		[Sirenix.OdinInspector.GUIColor("GetEnumColor")]

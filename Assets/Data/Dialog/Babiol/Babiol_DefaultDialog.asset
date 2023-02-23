@@ -15,11 +15,10 @@ MonoBehaviour:
   allSteps:
   - index: 0
     alreadyRead: 0
-    type: 0
+    type: 6
     dialog_Data:
-      text: Tu cherches quelque chose ?
+      text: 
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -32,7 +31,7 @@ MonoBehaviour:
     music_Data:
       musicToPlay: {fileID: 0}
     iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
+      itemInvoCanBeOpen: 1
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
@@ -47,7 +46,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -57,7 +55,6 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
@@ -67,9 +64,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Ou quelqu'un avec qui parlais ?
+      text: Tu cherches quelque chose ?
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -97,7 +93,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -107,7 +102,6 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
@@ -115,11 +109,57 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
   - index: 2
     alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: Ou quelqu'un avec qui parlais ?
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 3
+    alreadyRead: 0
     type: 10
     dialog_Data:
       text: 
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -147,7 +187,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -157,19 +196,17 @@ MonoBehaviour:
       dialogNo:
         text: Pas de souci mon petit.
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 3
+  - index: 4
     alreadyRead: 0
     type: 0
     dialog_Data:
       text: "Passe une bonne journ\xE9e mon ch\xE9ri !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -197,7 +234,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -207,7 +243,53 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 5
+    alreadyRead: 0
+    type: 6
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0

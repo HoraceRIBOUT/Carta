@@ -20,7 +20,6 @@ MonoBehaviour:
       text: "Ahahah alors laisse moi te parler plus en d\xE9tail de cette grande
         place vide."
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -48,7 +47,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -58,7 +56,6 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
@@ -70,7 +67,6 @@ MonoBehaviour:
     dialog_Data:
       text: 
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 1
       directTP: 0
@@ -98,7 +94,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -108,7 +103,6 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
@@ -121,7 +115,6 @@ MonoBehaviour:
       text: "Elle devait contenir bien plus de b\xE2timent, mais l'usine Ludivico
         a d\xFB fermer en urgence."
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -149,7 +142,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -159,7 +151,6 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
@@ -172,7 +163,6 @@ MonoBehaviour:
       text: "Ils n'ont pus construire que le sol et ont d\xFB laisser vide cette
         grande place."
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -200,7 +190,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -210,7 +199,6 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
@@ -222,7 +210,6 @@ MonoBehaviour:
     dialog_Data:
       text: 
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -250,7 +237,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -260,7 +246,6 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
@@ -272,7 +257,6 @@ MonoBehaviour:
     dialog_Data:
       text: "Bref, je vais pas t'emb\xEAter plus longtemps mon p'tit, tu as du boulot."
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -300,7 +284,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -310,7 +293,6 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
@@ -322,7 +304,6 @@ MonoBehaviour:
     dialog_Data:
       text: Allez, psh ! Va-t-en !
       color_override: {r: 0, g: 0, b: 0, a: 0}
-      cameraIndex: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -350,7 +331,6 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -360,7 +340,53 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-        cameraIndex: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+  - index: 7
+    alreadyRead: 0
+    type: 6
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
