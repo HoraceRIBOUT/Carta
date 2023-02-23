@@ -107,6 +107,8 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     //remove the animation so we can move it on LateUpdate
     public void LateUpdate()
     {
+        if (!GameManager.instance.mapAndPaper.mapOpen)
+            return;
         //For now here :
         MovePaper();
     }

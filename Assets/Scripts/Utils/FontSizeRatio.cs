@@ -14,6 +14,11 @@ public class FontSizeRatio : MonoBehaviour
     [Sirenix.OdinInspector.OnValueChanged("Resize")]
     public float ratio = 0.33f;
 
+    public bool alwaysUpdateSize = false;
+    [Range(0, 1)]
+    [Sirenix.OdinInspector.OnValueChanged("Resize")]
+    public float scaleur = 1;
+
     private Vector2 screenSize;
 
     public RectTransform myRectTransform;
@@ -51,6 +56,12 @@ public class FontSizeRatio : MonoBehaviour
         {
             Resize();
             screenSize = new Vector2(Screen.width, Screen.height);
+            return;
+        }
+
+        if (alwaysUpdateSize)
+        {
+            Resize();
         }
 
     }
@@ -68,22 +79,22 @@ public class FontSizeRatio : MonoBehaviour
         {
             if (myText != null)
             {
-                myText.fontSize = (int)(ratio * myRectTransform.rect.size.y * sizeMultiplier);
+                myText.fontSize = (int)(ratio * myRectTransform.rect.size.y * sizeMultiplier * scaleur);
             }
             if (myTMP_Text != null)
             {
-                myTMP_Text.fontSize = ratio * myRectTransform.rect.size.y * sizeMultiplier;
+                myTMP_Text.fontSize = ratio * myRectTransform.rect.size.y * sizeMultiplier * scaleur;
             }
         }
         else
         {
             if (myText != null)
             {
-                myText.fontSize = (int)(ratio * Screen.height * sizeMultiplier);
+                myText.fontSize = (int)(ratio * Screen.height * sizeMultiplier * scaleur);
             }
             if (myTMP_Text != null)
             {
-                myTMP_Text.fontSize = ratio * Screen.height * sizeMultiplier;
+                myTMP_Text.fontSize = ratio * Screen.height * sizeMultiplier * scaleur;
             }
         }
     }
