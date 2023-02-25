@@ -19,6 +19,7 @@ namespace Step
 	     dialogredirection,
 	     setdefaultdialog,
 	     setnextdialog,
+	     changeface,
 	     choice,
 	}
  
@@ -27,7 +28,7 @@ namespace Step
 	{
 		[HideInInspector()]
 		public int index;
-		[Sirenix.OdinInspector.ReadOnly] public bool alreadyRead = false;
+		public bool alreadyRead = false;
 		public string title { get { return "Step " + index; } }
 		[Sirenix.OdinInspector.Title("$title")]
 		[Sirenix.OdinInspector.GUIColor("GetEnumColor")]
@@ -52,6 +53,8 @@ namespace Step
 		public Step_SetDefaultDialog setdefaultdialog_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.setnextdialog)]
 		public Step_SetNextDialog setnextdialog_Data;
+		[Sirenix.OdinInspector.ShowIf("type", stepType.changeface)]
+		public Step_ChangeFace changeface_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.choice)]
 		public Step_Choice choice_Data;
 		
@@ -79,6 +82,8 @@ namespace Step
 				return setdefaultdialog_Data;
 				case stepType.setnextdialog:
 				return setnextdialog_Data;
+				case stepType.changeface:
+				return changeface_Data;
 				case stepType.choice:
 				return choice_Data;
 				default:
@@ -89,12 +94,8 @@ namespace Step
 		
 		public Color GetEnumColor()
 		{
-#if UNITY_EDITOR
 			Sirenix.Utilities.Editor.GUIHelper.RequestRepaint();
 			return Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);
-#else
-			return Color.white;
-#endif
 		}
 	}
 }

@@ -196,6 +196,10 @@ public class DialogManager : MonoBehaviour
             case Step.stepType.choice:
                 DisplayChoice((Step.Step_Choice)dialog.allSteps[index].GetData());
                 break;
+            case Step.stepType.changeface:
+                ChangePNJFace((Step.Step_ChangeFace)dialog.allSteps[index].GetData());
+                NextStep();
+                break;
             default:
                 Debug.LogError("Did not implement correct value for step type " + dialog.allSteps[index].type);
                 NextStep();
@@ -263,6 +267,26 @@ public class DialogManager : MonoBehaviour
         }
 
         inventoryBlock = !itemInteraciv.itemInvoCanBeOpen;
+    }
+
+    public void ChangePNJFace(Step.Step_ChangeFace data)
+    {
+        pnj target = null;
+        foreach (pnj potential in allPNJ)
+        {
+            if (potential.id == data.targetID)
+            {
+                target = potential;
+                break;
+            }
+        }
+        if (target == null)
+        {
+            Debug.LogError("No pnj for " + data.targetID);
+            return;
+        }
+
+        target.ChangeFace(data.eyesIndex, data.mouthIndex);
     }
 
     public void SetDefaultDialog(Step.Step_SetDefaultDialog data)

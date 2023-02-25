@@ -49,6 +49,7 @@ public class pnj : MonoBehaviour
 
     public Color defaultColor = Color.black;
 
+    [Header("Dialog data")]
     public Dialog defaultDialog;
     public List<ItemReaction> reactions = new List<ItemReaction>();
     public List<Dialog_ToShow> nextDialog = new List<Dialog_ToShow>(); //sorted by priority
@@ -64,6 +65,13 @@ public class pnj : MonoBehaviour
         }
     }
 
+    public Dialog giveReaction;         //when you give you an item, the first reaction
+    [Tooltip("when you give a not-in-the-list item")]
+    public Dialog defaultGiveReponse;
+    [Tooltip("when you show a not-in-the-list item")]
+    public Dialog defaultShowReponse;  //when you show a not-in-the-list item
+
+    [Header("Visual")]
     public List<Visual_Position> visuals = new List<Visual_Position>();
     [Sirenix.OdinInspector.ReadOnly]public int visualIndex = 0;
     [System.Serializable]
@@ -72,12 +80,7 @@ public class pnj : MonoBehaviour
         public List<GameObject> toTurnOn;
         public Camera newCameraZero;
     }
-
-    public Dialog giveReaction;         //when you give you an item, the first reaction
-    [Tooltip("when you give a not-in-the-list item")]
-    public Dialog defaultGiveReponse;
-    [Tooltip("when you show a not-in-the-list item")]
-    public Dialog defaultShowReponse;  //when you show a not-in-the-list item
+    public pnj_face face = null;
 
     public List<Transform> cameraPoints = new List<Transform>();
 
@@ -240,6 +243,20 @@ public class pnj : MonoBehaviour
     {
             actionButt_visual_con.gameObject.SetActive(controllerIcon);
             actionButt_visual_key.gameObject.SetActive(!controllerIcon);
+    }
+
+    public void ChangeFace(int eyeIndex, int mouthIndex)
+    {
+        if(face == null)
+        {
+            face = GetComponentInChildren<pnj_face>();
+            if(face == null)
+            {
+                Debug.LogError(id + " don't have a face.");
+                return;
+            }
+        }
+        face.ChangeFace(eyeIndex, mouthIndex);
     }
 
     public void TurnActionOnOrOff(bool value)

@@ -9,7 +9,7 @@ public class Generate_StepEnum : MonoBehaviour
 {
 
     public static string DETECT_NEWCLASS = "public class Step_";
-    public static string NEW_SCRIPT_PATH = "Assets/Scripts/PNJ/";
+    public static string NEW_SCRIPT_PATH = "Assets/Scripts/UI/Dialog/";
     public static string SOURCE_SCRIPT_NAME = "Dialog";
 
     public static string NEW_SCRIPT_NAME = "Dialog_AutoGeneratePart";

@@ -171,6 +171,18 @@ namespace Step
     }
 
     [System.Serializable]
+    public class Step_ChangeFace : Step_father
+    {
+        public pnj.pnjID targetID;
+        public int eyesIndex = 0;
+        public int mouthIndex = 0;
+        public override string ToCSVLine()
+        {
+            return "Step_ChangeFace " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + eyesIndex + Dialog.CASE_SEPARATOR + mouthIndex;
+        }
+    }
+
+    [System.Serializable]
     public class Step_Choice : Step_father
     {
         public enum choiceType

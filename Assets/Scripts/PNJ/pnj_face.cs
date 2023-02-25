@@ -18,6 +18,23 @@ public class pnj_face : MonoBehaviour
     [PropertyRange(0, "MouthLenght")][OnValueChanged("ChangeFace")]
     public int dbg_mouth = 0;
 
+    [Header("Wink")]
+    public List<int> winkIndexes = new List<int>();
+    public Vector2 winkCadence = Vector2.one;
+    public float winkFrameRate = 0.5f;
+    public float winkCloseDuration = 0.5f;
+    bool winking = false;
+
+    private void OnEnable()
+    {
+        if(Application.isPlaying)
+            StartCoroutine(Wink_Coroutine());
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     //For test only
     [Button()]
     private void ChangeFace()
@@ -32,7 +49,8 @@ public class pnj_face : MonoBehaviour
 
     public void ChangeEyes(int i)
     {
-        eyesRenderer.sprite = eyesSprite[i];
+        if(!winking)
+            eyesRenderer.sprite = eyesSprite[i];
         dbg_eyes = i;
     }
     public void ChangeMouth(int i)
@@ -51,6 +69,46 @@ public class pnj_face : MonoBehaviour
         accesories.sprite = accesSprite[i];
         dbg_acess = i;
     }
+
+
+
+    private IEnumerator Wink_Coroutine()
+    {
+        if(winkIndexes.Count == 0)
+            yield return 0; //early exit
+
+        //So : 
+        while (this.isActiveAndEnabled)
+        {
+            winking = false;
+            yield return new WaitForSeconds(Random.Range(winkCadence.x,winkCadence.y));
+            winking = true;
+            //Then, wink !
+            int startIndex = 0;
+            if (winkIndexes.Contains(dbg_eyes))
+                startIndex = winkIndexes.IndexOf(dbg_eyes);
+            int currentWinkIndex = startIndex;
+            //Open
+            while (currentWinkIndex < winkIndexes.Count)
+            {
+                eyesRenderer.sprite = eyesSprite[winkIndexes[currentWinkIndex]];
+                yield return new WaitForSeconds(winkFrameRate);
+                currentWinkIndex++;
+            }
+            currentWinkIndex = winkIndexes.Count - 1;
+            yield return new WaitForSeconds(winkCloseDuration);
+            //Close
+            while (currentWinkIndex >= startIndex)
+            {
+                eyesRenderer.sprite = eyesSprite[winkIndexes[currentWinkIndex]];
+                yield return new WaitForSeconds(winkFrameRate);
+                currentWinkIndex--;
+            }
+            eyesRenderer.sprite = eyesSprite[dbg_eyes];//not nescesarry the same as the start of the coroutine
+        }
+    }
+
+
 
 
 
