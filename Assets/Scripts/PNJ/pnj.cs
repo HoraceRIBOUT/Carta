@@ -72,6 +72,7 @@ public class pnj : MonoBehaviour
     public Dialog defaultShowReponse;  //when you show a not-in-the-list item
 
     [Header("Visual")]
+    [SerializeField] private Animator animator;
     public List<Visual_Position> visuals = new List<Visual_Position>();
     [Sirenix.OdinInspector.ReadOnly]public int visualIndex = 0;
     [System.Serializable]
@@ -217,6 +218,15 @@ public class pnj : MonoBehaviour
         nextDialog.Add(dialInfo);
     }
 
+    public void LineStart()
+    {
+        animator.SetBool("Blabla", true);
+    }
+    public void LineEnd()
+    {
+        animator.SetBool("Blabla", false);
+    }
+
     public void ChangeVisual(int index)
     {
         if(index < 0 || index >= visuals.Count)
@@ -243,6 +253,17 @@ public class pnj : MonoBehaviour
     {
             actionButt_visual_con.gameObject.SetActive(controllerIcon);
             actionButt_visual_key.gameObject.SetActive(!controllerIcon);
+    }
+
+    public void LaunchAnimation(int animationIndex)
+    {
+        for (int i = 1; i < 6; i++)
+        {
+            animator.SetBool("Reaction" + i, false);
+        }
+
+        if(animationIndex != 0)
+            animator.SetBool("Reaction" + animationIndex, true);
     }
 
     public void ChangeFace(int eyeIndex, int mouthIndex)

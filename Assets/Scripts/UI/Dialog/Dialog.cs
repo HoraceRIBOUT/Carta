@@ -171,6 +171,17 @@ namespace Step
     }
 
     [System.Serializable]
+    public class Step_Animation : Step_father
+    {
+        public pnj.pnjID targetID;
+        public int animIndex = 0;
+        public override string ToCSVLine()
+        {
+            return "Step_Animation " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + animIndex;
+        }
+    }
+
+    [System.Serializable]
     public class Step_ChangeFace : Step_father
     {
         public pnj.pnjID targetID;

@@ -110,6 +110,43 @@ public class DialogManager : MonoBehaviour
     }
 
 
+    public void Update()
+    {
+        if (!inDialog)
+            return;
+
+
+        float alphaValue = 1f;
+        Vector3 positionValue = Screen.width * 0.5f * Vector3.left;
+
+        if (GameManager.instance.mapAndPaper.mapOpen)
+        {
+            float lowerDialValue = 0.25f;
+            float underMouseValue = 0.14f;
+            if (Input.mousePosition.y > Screen.height * lowerDialValue)
+            {
+                //if the mouse is on the lower part of the screen : up ! else : down.
+                alphaValue = 0.6f;
+                positionValue = Screen.height * lowerDialValue * Vector3.down + Screen.width * 0.5f * Vector3.left;
+            }
+            else
+            {
+                //if the mouse is on the lower part of the screen : up ! else : down.
+                alphaValue = 0.8f;
+                positionValue = Screen.height * underMouseValue * Vector3.down + Screen.width * 0.5f * Vector3.left;
+            }
+        }
+        else if (GameManager.instance.inventory.inventoryDeployed)
+        {
+            //Also, lower the whole a little
+            alphaValue = 0.8f;
+        }
+
+        //Also, set back to start pos
+        dialogCanvas.alpha = Mathf.Lerp(dialogCanvas.alpha, alphaValue, Time.deltaTime * 2);
+        dialogCanvas.transform.localPosition = Vector3.Lerp(dialogCanvas.transform.localPosition, positionValue, Time.deltaTime * 2);
+    }
+
 
     public void StartDialog(Dialog dialog, pnj pnj = null)
     {
@@ -200,6 +237,10 @@ public class DialogManager : MonoBehaviour
                 ChangePNJFace((Step.Step_ChangeFace)dialog.allSteps[index].GetData());
                 NextStep();
                 break;
+            case Step.stepType.animation:
+                LaunchAnimation((Step.Step_Animation)dialog.allSteps[index].GetData());
+                NextStep();
+                break;
             default:
                 Debug.LogError("Did not implement correct value for step type " + dialog.allSteps[index].type);
                 NextStep();
@@ -225,6 +266,9 @@ public class DialogManager : MonoBehaviour
             currentText.Open(data.text, data.color_override);
         else
             currentText.Open(data.text, currentPNJ.defaultColor);
+
+        if (currentPNJ != null)
+            currentPNJ.LineStart();
     }
 
 
@@ -265,8 +309,27 @@ public class DialogManager : MonoBehaviour
         {
             GameManager.instance.inventory.Retract();
         }
-
         inventoryBlock = !itemInteraciv.itemInvoCanBeOpen;
+    }
+
+    public void LaunchAnimation(Step.Step_Animation data)
+    {
+        pnj target = null;
+        foreach (pnj potential in allPNJ)
+        {
+            if (potential.id == data.targetID)
+            {
+                target = potential;
+                break;
+            }
+        }
+        if (target == null)
+        {
+            Debug.LogError("No pnj for " + data.targetID);
+            return;
+        }
+
+        target.LaunchAnimation(data.animIndex);
     }
 
     public void ChangePNJFace(Step.Step_ChangeFace data)
@@ -427,13 +490,9 @@ public class DialogManager : MonoBehaviour
 
     public void InventoryOrMapOpen()
     {
-        //Also, lower the whole a little
-        dialogCanvas.alpha = 0.6f;
     }
     public void InventoryOrMapClose()
     {
-        //Also, set back to start pos
-        dialogCanvas.alpha = 1f;
     }
 
 }

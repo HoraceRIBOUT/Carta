@@ -76,7 +76,7 @@ public class DialogBox : MonoBehaviour
     {
         Debug.Log("Skip apparition time");
         StopCoroutine(printDial);
-        printDial = null;
+        FinishPrint();
         dialogueTextBox.text = printText_inSkipCase;
         //Just display it totally, in one try
     }
@@ -139,6 +139,13 @@ public class DialogBox : MonoBehaviour
         }
         Debug.Log("Print " + dialogueTextBox.name + " finish.");
         dialogueTextBox.text = originalText;
+        FinishPrint();
+    }
+
+    void FinishPrint()
+    {
+        if(GameManager.instance.dialogMng.currentPNJ != null)
+            GameManager.instance.dialogMng.currentPNJ.LineEnd();
         printDial = null;
     }
 }

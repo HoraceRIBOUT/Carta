@@ -249,11 +249,13 @@ MonoBehaviour:
   defaultDialog: {fileID: 0}
   reactions: []
   nextDialog: []
-  visuals: []
-  visualIndex: 0
   giveReaction: {fileID: 0}
   defaultGiveReponse: {fileID: 0}
   defaultShowReponse: {fileID: 0}
+  animator: {fileID: 6252156859856202171}
+  visuals: []
+  visualIndex: 0
+  face: {fileID: 0}
   cameraPoints: []
   actionButt_On: 0
   actionButt_Val: 0

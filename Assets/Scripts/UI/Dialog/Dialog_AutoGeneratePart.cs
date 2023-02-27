@@ -19,6 +19,7 @@ namespace Step
 	     dialogredirection,
 	     setdefaultdialog,
 	     setnextdialog,
+	     animation,
 	     changeface,
 	     choice,
 	}
@@ -53,6 +54,8 @@ namespace Step
 		public Step_SetDefaultDialog setdefaultdialog_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.setnextdialog)]
 		public Step_SetNextDialog setnextdialog_Data;
+		[Sirenix.OdinInspector.ShowIf("type", stepType.animation)]
+		public Step_Animation animation_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.changeface)]
 		public Step_ChangeFace changeface_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.choice)]
@@ -82,6 +85,8 @@ namespace Step
 				return setdefaultdialog_Data;
 				case stepType.setnextdialog:
 				return setnextdialog_Data;
+				case stepType.animation:
+				return animation_Data;
 				case stepType.changeface:
 				return changeface_Data;
 				case stepType.choice:

@@ -20,9 +20,9 @@ public class pnj_face : MonoBehaviour
 
     [Header("Wink")]
     public List<int> winkIndexes = new List<int>();
-    public Vector2 winkCadence = Vector2.one;
-    public float winkFrameRate = 0.5f;
-    public float winkCloseDuration = 0.5f;
+    public Vector2 winkCadence = new Vector2(3,10);
+    public float winkFrameRate = 0.033f;
+    public float winkCloseDuration = 0f;
     bool winking = false;
 
     private void OnEnable()
@@ -114,10 +114,12 @@ public class pnj_face : MonoBehaviour
 
     int EyeLenght()
     {
+        if (eyesSprite.Count == 0) return 0;
         return eyesSprite.Count - 1;
     }
     int MouthLenght()
     {
+        if (mouthSprite.Count == 0) return 0;
         return mouthSprite.Count - 1;
     }
 }
