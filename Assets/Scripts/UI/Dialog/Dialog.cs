@@ -1,15 +1,14 @@
-using System.Collections;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 
 [CreateAssetMenu(fileName = "Dialog", menuName = "Carta/Dialog", order = 1)]
 public class Dialog : ScriptableObject
 {
-    public static string CASE_SEPARATOR = ";";
+    public static string CASE_SEPARATOR = "\t";
     [Sirenix.OdinInspector.OnValueChanged("ReIndex")]
-    public List<Step.Step> allSteps;
+    public List<Step.Step> allSteps = new List<Step.Step>();
 
     public pnj pnj_link = null; //if not null, it's a pnj's dialog
     public Color defaultColor;
@@ -20,7 +19,7 @@ public class Dialog : ScriptableObject
         if (alreadyRead)
             return true;
 
-        foreach(Step.Step step in allSteps)
+        foreach (Step.Step step in allSteps)
         {
             if (!step.alreadyRead)
                 return false;
@@ -35,6 +34,16 @@ public class Dialog : ScriptableObject
             allSteps[i].index = i;
         }
     }
+
+    //#if UNITY_EDITOR
+    public Step.stepType AddStep(string line)
+    {
+        string[] lineSplit = line.Split(CASE_SEPARATOR);
+        Step.Step newStep = Step.Step.SetUpStepFromLine(lineSplit);
+        allSteps.Add(newStep);
+        return newStep.type;
+    }
+    //#endif
 }
 
 namespace Step
@@ -56,19 +65,23 @@ namespace Step
 
         public override string ToCSVLine()
         {
-            return "Step_Dialog "+ Dialog.CASE_SEPARATOR+ text + Dialog.CASE_SEPARATOR + color_override;
+            return "Step_Dialog " + Dialog.CASE_SEPARATOR + text + Dialog.CASE_SEPARATOR + color_override;
         }
 
-        public Step_Dialog(string csvLine)
+        public Step_Dialog(string[] splitLine)
         {
-            //cut the line between the "SEPARATOR"
-            string[] eachCase = csvLine.Split(Dialog.CASE_SEPARATOR);
             //and put the text in it 
-            text = eachCase[1];
+            text = splitLine[4];
             //and the color then if it have one
-            if (!ColorUtility.TryParseHtmlString(eachCase[2], out color_override))
-                Debug.LogError("Error when parsing color : " + csvLine);
+            if (splitLine[5].Trim() != "")
+                if (!ColorUtility.TryParseHtmlString(splitLine[5], out color_override))
+                    Debug.LogError("Error when parsing color : " + splitLine[5]);
+        }
 
+        public Step_Dialog(string uniqueLine)
+        {
+            //and put the text in it 
+            text = uniqueLine;
         }
     }
 
@@ -81,15 +94,33 @@ namespace Step
         {
             return "Step_Camera " + Dialog.CASE_SEPARATOR + cameraIndex + Dialog.CASE_SEPARATOR + directTP.ToString();
         }
+
+        public Step_Camera(string[] splitLine)
+        {
+            //and put the index here 
+            if (int.TryParse(splitLine[4], out int res))
+                cameraIndex = res;
+            else
+                Debug.LogError("CAMERA CANNOT PARSE THE NEXT PART : " + splitLine[4]);
+            //and the bool then if it have one
+            if (splitLine[5].Trim() != "")
+                if (!bool.TryParse(splitLine[5], out directTP))
+                    Debug.LogError("Error when parsing boolean : " + splitLine[5]);
+        }
     }
 
     [System.Serializable]
-    public class Step_AddItem: Step_father
+    public class Step_AddItem : Step_father
     {
         public itemID itemId;
         public override string ToCSVLine()
         {
             return "Step_AddItem " + Dialog.CASE_SEPARATOR + itemId;
+        }
+
+        public Step_AddItem(string[] splitLine)
+        {
+            itemId = CreateCSV.GetItemIDFromString(splitLine[4]);
         }
     }
 
@@ -101,6 +132,11 @@ namespace Step
         {
             return "Step_RemItem " + Dialog.CASE_SEPARATOR + itemId;
         }
+
+        public Step_RemItem(string[] splitLine)
+        {
+            itemId = CreateCSV.GetItemIDFromString(splitLine[4]);
+        }
     }
 
     [System.Serializable]
@@ -110,6 +146,11 @@ namespace Step
         public override string ToCSVLine()
         {
             return "Step_SFX " + Dialog.CASE_SEPARATOR + sfxToPlay.name;
+        }
+
+        public Step_SFX(string[] splitLine)
+        {
+            //Should create a cool way to launch SFX (maybe a list by character ? that we have to register ?)
         }
     }
 
@@ -122,6 +163,11 @@ namespace Step
         {
             return "Step_Music " + Dialog.CASE_SEPARATOR + musicToPlay.name;
         }
+
+        public Step_Music(string[] splitLine)
+        {
+            //Should create a cool way to launch MUSIC (maybe a worldly list? launch by index ?)
+        }
     }
 
 
@@ -132,6 +178,13 @@ namespace Step
         public override string ToCSVLine()
         {
             return "Step_ItemInteractivity " + Dialog.CASE_SEPARATOR + itemInvoCanBeOpen.ToString();
+        }
+
+        public Step_ItemInteractivity(string[] splitLine)
+        {
+            if (splitLine[4].Trim() != "")
+                if (!bool.TryParse(splitLine[4], out itemInvoCanBeOpen))
+                    Debug.LogError("Error when parsing boolean : " + splitLine[4]);
         }
     }
 
@@ -144,6 +197,15 @@ namespace Step
         {
             return "Step_DialogRedirection " + Dialog.CASE_SEPARATOR + dialogToGo.name;
         }
+
+        public Step_DialogRedirection(string[] splitLine)
+        {
+            //The "dialogToGo" will be set automaticly by the FixLater() code
+        }
+        public Step_DialogRedirection(Dialog dialog)
+        {
+            dialogToGo = dialog;
+        }
     }
 
 
@@ -154,7 +216,14 @@ namespace Step
         public Dialog newDefaultDial;
         public override string ToCSVLine()
         {
-            return "Step_SetDefaultDialog " + Dialog.CASE_SEPARATOR + targetID  + Dialog.CASE_SEPARATOR + newDefaultDial.name;
+            return "Step_SetDefaultDialog " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + newDefaultDial.name;
+        }
+
+        public Step_SetDefaultDialog(string[] splitLine)
+        {
+            targetID = CreateCSV.GetPnjIdFromString(splitLine[4]);//Get pnj from string ?
+
+            //The "newDefaultDial" will be set automaticly by the FixLater() code
         }
     }
 
@@ -168,6 +237,19 @@ namespace Step
         {
             return "Step_SetNextDialog " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + dialToAdd.name + Dialog.CASE_SEPARATOR + priority;
         }
+
+        public Step_SetNextDialog(string[] splitLine)
+        {
+            targetID = CreateCSV.GetPnjIdFromString(splitLine[4]);
+
+            //The "dialToAdd" will be set automaticly by the FixLater() code
+
+            if (int.TryParse(splitLine[6], out int res))
+                priority = res;
+            else
+                Debug.LogError("CAMERA CANNOT PARSE THE NEXT PART : " + splitLine[6]);
+
+        }
     }
 
     [System.Serializable]
@@ -178,6 +260,16 @@ namespace Step
         public override string ToCSVLine()
         {
             return "Step_Animation " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + animIndex;
+        }
+
+        public Step_Animation(string[] splitLine)
+        {
+            targetID = CreateCSV.GetPnjIdFromString(splitLine[4]);
+
+            if (int.TryParse(splitLine[5], out int res))
+                animIndex = res;
+            else
+                Debug.LogError("CAMERA CANNOT PARSE THE NEXT PART : " + splitLine[5]);
         }
     }
 
@@ -190,6 +282,21 @@ namespace Step
         public override string ToCSVLine()
         {
             return "Step_ChangeFace " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + eyesIndex + Dialog.CASE_SEPARATOR + mouthIndex;
+        }
+
+        public Step_ChangeFace(string[] splitLine)
+        {
+            targetID = CreateCSV.GetPnjIdFromString(splitLine[4]);
+
+            if (int.TryParse(splitLine[5], out int res))
+                eyesIndex = res;
+            else
+                Debug.LogError("CAMERA CANNOT PARSE THE NEXT PART : " + splitLine[5]);
+
+            if (int.TryParse(splitLine[6], out res))
+                mouthIndex = res;
+            else
+                Debug.LogError("CAMERA CANNOT PARSE THE NEXT PART : " + splitLine[6]);
         }
     }
 
@@ -204,27 +311,55 @@ namespace Step
         }
 
         public choiceType typeYes;
-        [ShowIf("typeYes", choiceType.dialogUnique  )][Indent()]
+        [ShowIf("typeYes", choiceType.dialogUnique)]
+        [Indent()]
         public Step_Dialog dialogYes;
-        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()][HorizontalGroup("YesRedirect", marginRight: -15)][LabelWidth(45)][LabelText("From")]
-        public int redirectNumberIfYes;                                                         
-        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()][HorizontalGroup("YesRedirect", marginRight: -15)][LabelWidth(35)][LabelText("To")]
-        public int redirectNumberStopYes;                                                     
-        [ShowIf("typeYes", choiceType.redirectNumber)][Indent()][HorizontalGroup("YesRedirect", marginRight: -15)][LabelWidth(45)][LabelText("Then")]
+        [ShowIf("typeYes", choiceType.redirectNumber)]
+        [Indent()]
+        [HorizontalGroup("YesRedirect", marginRight: -15)]
+        [LabelWidth(45)]
+        [LabelText("From")]
+        public int redirectNumberIfYes;
+        [ShowIf("typeYes", choiceType.redirectNumber)]
+        [Indent()]
+        [HorizontalGroup("YesRedirect", marginRight: -15)]
+        [LabelWidth(35)]
+        [LabelText("To")]
+        public int redirectNumberStopYes;
+        [ShowIf("typeYes", choiceType.redirectNumber)]
+        [Indent()]
+        [HorizontalGroup("YesRedirect", marginRight: -15)]
+        [LabelWidth(45)]
+        [LabelText("Then")]
         public int redirectNumberAfterYes;
-        [ShowIf("typeYes", choiceType.redirectDialog)][Indent()]
+        [ShowIf("typeYes", choiceType.redirectDialog)]
+        [Indent()]
         public Step_DialogRedirection redirectYes;
 
         public choiceType typeNo;
-        [ShowIf("typeNo", choiceType.dialogUnique  )][Indent()]
+        [ShowIf("typeNo", choiceType.dialogUnique)]
+        [Indent()]
         public Step_Dialog dialogNo;
-        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()][HorizontalGroup("NoRedirect", marginRight: -15)][LabelWidth(45)][LabelText("From")]
-        public int redirectNumberIfNo;                                                      
-        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()][HorizontalGroup("NoRedirect", marginRight: -15)][LabelWidth(35)][LabelText("To")]
-        public int redirectNumberStopNo;                                                    
-        [ShowIf("typeNo", choiceType.redirectNumber)][Indent()][HorizontalGroup("NoRedirect", marginRight: -15)][LabelWidth(45)][LabelText("Then")]
+        [ShowIf("typeNo", choiceType.redirectNumber)]
+        [Indent()]
+        [HorizontalGroup("NoRedirect", marginRight: -15)]
+        [LabelWidth(45)]
+        [LabelText("From")]
+        public int redirectNumberIfNo;
+        [ShowIf("typeNo", choiceType.redirectNumber)]
+        [Indent()]
+        [HorizontalGroup("NoRedirect", marginRight: -15)]
+        [LabelWidth(35)]
+        [LabelText("To")]
+        public int redirectNumberStopNo;
+        [ShowIf("typeNo", choiceType.redirectNumber)]
+        [Indent()]
+        [HorizontalGroup("NoRedirect", marginRight: -15)]
+        [LabelWidth(45)]
+        [LabelText("Then")]
         public int redirectNumberAfterNo;
-        [ShowIf("typeNo", choiceType.redirectDialog)][Indent()]
+        [ShowIf("typeNo", choiceType.redirectDialog)]
+        [Indent()]
         public Step_DialogRedirection redirectNo;
 
 
@@ -233,6 +368,80 @@ namespace Step
             //TO DO 
             return "Step_Dialog " + Dialog.CASE_SEPARATOR + typeYes + Dialog.CASE_SEPARATOR + typeNo;
         }
+
+        //This going to be hell
+        public Step_Choice(string[] splitLine)
+        {
+            //will be deal later by "Fix Choice" to have access to both dictionnary (by index, and by name)
+        }
+
+        public void FixChoice(Dictionary<string, Dialog> dicoName, Dictionary<int, Dialog> dicoIndex, string wholeLine, int firstLineIndex)
+        {
+            //Big function incoming
+            string[] splitLine = wholeLine.Split(Dialog.CASE_SEPARATOR);
+
+            //For the case where we redirect to a number : need a "return" value at place 9
+            redirectNumberAfterYes = -1;
+            redirectNumberAfterNo = -1;
+            if (splitLine.Length > 9)
+            {
+                if (int.TryParse(splitLine[9].Trim(), out int returnResult))
+                {
+                    redirectNumberAfterYes = returnResult;
+                    redirectNumberAfterNo = returnResult;
+                }
+            }
+
+            //No part
+            string noPart = splitLine[7].Trim();
+            Debug.Log("Try parse to int : ." + noPart + ".");
+            if (int.TryParse(noPart, out int res))                //it's a number !
+            {
+                typeNo = choiceType.redirectNumber;
+                //So : the res number is dependant of the lineStart of the dialog here. How can I have it ?
+
+                redirectNumberIfNo = res - firstLineIndex - 1; //maybe will need a -1
+                redirectNumberStopNo = redirectNumberAfterNo - 1;//by default.
+            }
+            else if (noPart.Contains(" ") || noPart.Contains('.'))                //it's a line !
+            {
+                typeNo = choiceType.dialogUnique;
+
+                dialogNo = new Step_Dialog(noPart);
+            }
+            else            //it's a name !
+            {
+                typeNo = choiceType.redirectDialog;
+                redirectNo = new Step_DialogRedirection(dicoName[noPart]);
+            }
+
+            //Yes part:
+            string yesPart = splitLine[5].Trim();
+            if(int.TryParse(yesPart, out  res))                //it's a number !
+            {
+                typeYes = choiceType.redirectNumber;
+                //So : the res number is dependant of the lineStart of the dialog here. How can I have it ?
+            
+                redirectNumberIfYes = res - firstLineIndex - 1; //maybe will need a -1
+                if (typeNo == choiceType.redirectNumber)
+                    redirectNumberStopYes = redirectNumberIfNo - 1;
+                else
+                    redirectNumberStopYes = redirectNumberAfterYes - 1;
+            }
+            else if(yesPart.Contains(" ") || yesPart.Contains('.'))                //it's a line !
+            {
+                typeYes = choiceType.dialogUnique;
+            
+                dialogYes = new Step_Dialog(yesPart);
+            }
+            else            //it's a name !
+            {
+                typeYes = choiceType.redirectDialog;
+                redirectYes = new Step_DialogRedirection( dicoName[yesPart]);
+            }
+        }
+
+
     }
 
 }

@@ -2,7 +2,7 @@ public enum itemID
 {
      none = 0,
      colisbabiole = 2,
-     colisfleur = 3,
+     colisterre = 12,
      commandefleur = 4,
      complementalimentaire = 5,
      football = 11,

@@ -136,6 +136,25 @@ public class Generate_StepEnum : MonoBehaviour
             outfile.WriteLine("\t\t\tSirenix.Utilities.Editor.GUIHelper.RequestRepaint();");
             outfile.WriteLine("\t\t\treturn Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);");
             outfile.WriteLine("\t\t}");
+            outfile.WriteLine("\t\tpublic static Step SetUpStepFromLine(string[] lineSplit)");
+            outfile.WriteLine("\t\t{");
+            outfile.WriteLine("\t\t\tstepType stepType = CreateCSV.GetStepTypeFromLine(lineSplit[3]);");
+            outfile.WriteLine("\t\t\tStep newStep = new Step();");
+            outfile.WriteLine("\t\t\tnewStep.type = stepType;");
+            outfile.WriteLine("\t\t\t");
+            outfile.WriteLine("\t\t\t//We add the correct step depending on the line we read");
+            outfile.WriteLine("\t\t\tswitch (stepType)");
+            outfile.WriteLine("\t\t\t{");
+            foreach (string str in importantLine)
+            {
+                string finalEnumName = str.ToLower();
+                outfile.WriteLine("\t\t\t\tcase stepType."+ finalEnumName + ":                newStep."+ str.ToLower() + "_Data" + "			= new "+ "Step_" + str + "(lineSplit);                          break;");
+            }
+
+            outfile.WriteLine("\t\t\t\tdefault: \t\t newStep.dialog_Data = new Step_Dialog(lineSplit); \t\t break;");
+            outfile.WriteLine("\t\t\t}");
+            outfile.WriteLine("\t\t\treturn newStep;");
+            outfile.WriteLine("\t\t}");
             outfile.WriteLine("\t}");
             outfile.WriteLine("}");
         }

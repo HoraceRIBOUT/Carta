@@ -9,14 +9,19 @@ public class CreateCSV : MonoBehaviour
     public enum DialogType
     {
         None,
-        NewDial,
-        ZoneInteraction,
-        FirstDialog,
-        DefaultShow,
-        WaitGive,
-        DefaultGive,
+        idleDial,       //default dial, where you give or show item
+        firstDial,      //dial who are only play once 
+        showFail,       //the default reaction when show
+        showRes,        //PNJ + ITEM : the reaction of PNJ when show ITEM
+        giveWait,       //the PNJ dialog when give any item before saying if you're right or not
+        giveFail,       //the default reaction when give an item
+        giveRes,        //PNJ + ITEM : the reaction of PNJ when give ITEM (plus some data to say it's the win or not ?)
+        zone,           //for the dialog who trigger when entering a zone 
+        newDial,        //for the rest
     }
+    //Special directories : zone , others and item 
 
+    #region CreateCSV
     public static void WriteDialogInCVS(string filePath, List<Dialog> dialogs)
     {
         if (!File.Exists(filePath))
@@ -35,22 +40,22 @@ public class CreateCSV : MonoBehaviour
                 //get the type :
                 // showDialog
                 if (dialog.name.EndsWith(       "_DefaultShowReaction"))
-                    dialogDefineLine = (DialogType.DefaultShow      ).ToString();
+                    dialogDefineLine = (DialogType.showFail      ).ToString();
 
                 else if (dialog.name.EndsWith(  "_DefaultGiveReaction"))
-                    dialogDefineLine = (DialogType.DefaultGive      ).ToString();
+                    dialogDefineLine = (DialogType.giveFail      ).ToString();
 
                 else if (dialog.name.EndsWith(  "_GiveReaction"))
-                    dialogDefineLine = (DialogType.WaitGive         ).ToString();
+                    dialogDefineLine = (DialogType.giveWait         ).ToString();
 
                 else if (dialog.name.EndsWith(  "_DefaultDialog"))
-                    dialogDefineLine = (DialogType.FirstDialog      ).ToString();
+                    dialogDefineLine = (DialogType.idleDial      ).ToString();
 
-                else if (dialog.name.EndsWith(  "_ZoneInteraction"))
-                    dialogDefineLine = (DialogType.ZoneInteraction  ).ToString();
+                else if (dialog.name.EndsWith(  "_Zone"))
+                    dialogDefineLine = (DialogType.zone  ).ToString();
 
                 else
-                    dialogDefineLine = (DialogType.NewDial          ).ToString();
+                    dialogDefineLine = (DialogType.newDial          ).ToString();
 
                 //get the pnj/item/what it concern
                 dialogDefineLine += Dialog.CASE_SEPARATOR + dialog.name.Remove(dialog.name.IndexOf("_"));
@@ -76,10 +81,19 @@ public class CreateCSV : MonoBehaviour
         }
 
     }
+    #endregion
 
 
 
 
+
+
+
+
+
+
+
+    #region Read CSV To Create Dialog
     [MenuItem("OrangeLetter/Generate/Dialog From CSV")]
     public static void LoadCSVToDialog()
     {
@@ -88,38 +102,418 @@ public class CreateCSV : MonoBehaviour
         if (textAss == null)
             return;
 
+        dialogOnThisCSV = new Dictionary<int, Dialog>();
+        toFixLater.Clear();
+
         string wholeText = textAss.text;
         string[] splitedText = wholeText.Split("\n");
         Debug.Log("Load " + splitedText.Length + "lines. The text load is : \n" + wholeText);
 
-        foreach (string textLine in splitedText)
+        for (int i = 0; i < splitedText.Length; i++)
         {
-            DialogType dialogLineType = LineTypeOfDialog(textLine);
-            if (dialogLineType != DialogType.None)
-            {
-                string pnjName = textLine.Remove(0, dialogLineType.ToString().Length);
+            string textLine = splitedText[i];
+            //Seek what type of dial it is : 
+            //if (dialogLineType != DialogType.None) then : treat it depending of the type of dialog we need to create
+            //              --> in the function, advance the line position (i)
+            //              when finish, return the position (i)
+            //  redo it until no more line.
+            //every line who cannot proceed is return as error!
 
-                Debug.Log("New Document : " + dialogLineType + " with : " + pnjName);
+
+
+            DialogType dialogFileType = TypeOfDialogFileFromLine(textLine);
+            if (dialogFileType == DialogType.None)
+            {
+                Debug.LogError("Can't recognize : " + textLine);
+                //then, continue
             }
             else
             {
-                //it's a line for the same file.
-                //Debug.Log("Line from doc");
+                Debug.Log("Recognize new dial : " + textLine);
+                i = CreateDialogFromLineList(splitedText, i);
+                //then, continue
+
+            }
+
+        }
+        FixNow();
+        //add the dialog when needed.
+
+    }
+
+    static int CreateDialogFromLineList(string[] splitedText, int firstLineIndex)
+    {
+        Debug.Log("(" + firstLineIndex + ") Create dialogue from : " + splitedText[firstLineIndex]);
+        Dialog dial = CreateDialogFromThis(splitedText[firstLineIndex]);
+        for (int i = firstLineIndex + 1;  i < splitedText.Length; i++)
+        {
+            string textLine = splitedText[i];
+            DialogType dialogFileType = TypeOfDialogFileFromLine(textLine);
+            if (dialogFileType != DialogType.None)
+            {
+                Debug.Log("Finish dialog creation." + i + " Have "+dial.allSteps.Count +" steps.");
+                DialogCreate(dial, firstLineIndex);
+                return i - 1;
+            }
+            else
+            {
+                //Reach the line type
+                Debug.Log("Read : " + textLine);
+                var newType = dial.AddStep(textLine);
+                switch (newType)
+                {
+                    case Step.stepType.dialogredirection:
+                    case Step.stepType.setnextdialog:
+                    case Step.stepType.setdefaultdialog:
+                        string[] lineSplit = textLine.Split(Dialog.CASE_SEPARATOR);
+                        if (int.TryParse(lineSplit[5], out int dialIndex))
+                            AddToFixLater(dial, i - firstLineIndex - 1, dialIndex);
+                        else
+                            AddToFixLater(dial, i - firstLineIndex - 1, lineSplit[5]);
+                        break;
+                    case Step.stepType.choice:
+                        //what a hell.
+                        AddToFixLater(dial, i - firstLineIndex - 1, textLine);
+                        break;
+                }
             }
         }
-
+        //we reach the end of the file.
+        DialogCreate(dial, firstLineIndex);
+        return splitedText.Length;
     }
 
-    public static DialogType LineTypeOfDialog(string textLine)
+    static Dialog CreateDialogFromThis(string firstLine)
     {
-             if (textLine.StartsWith(DialogType.DefaultShow     .ToString())) return DialogType.DefaultShow    ;
-        else if (textLine.StartsWith(DialogType.DefaultGive     .ToString())) return DialogType.DefaultGive    ;
-        else if (textLine.StartsWith(DialogType.WaitGive        .ToString())) return DialogType.WaitGive       ;
-        else if (textLine.StartsWith(DialogType.FirstDialog     .ToString())) return DialogType.FirstDialog    ;
-        else if (textLine.StartsWith(DialogType.ZoneInteraction .ToString())) return DialogType.ZoneInteraction;
-        else if (textLine.StartsWith(DialogType.NewDial         .ToString())) return DialogType.NewDial        ;
-        else                                                                  return DialogType.None           ;
+        DialogType dialogLineType = TypeOfDialogFileFromLine(firstLine);
+        //
+        string[] splittedLine = firstLine.Split(Dialog.CASE_SEPARATOR); 
+        
+        string finalPath = "Assets/Data/Dialog/";
+        string finalName = "";
+
+        Debug.Log("firstLine = " + firstLine + " || splitted = " + splittedLine.Length);
+        string itemName = splittedLine[1].Trim();
+        string pnjName = splittedLine[2].Trim();
+
+        switch (dialogLineType)
+        {
+            case DialogType.None:
+                break;
+            case DialogType.idleDial:
+                if (pnjName != ""){ finalPath += pnjName + "/"; }                      
+                finalName = pnjName + "_DefaultDialog"+ splittedLine[1];
+                break;
+            case DialogType.firstDial:
+                if (pnjName != "") { finalPath += pnjName + "/"; }
+                finalName = pnjName + "_NextDialog" + splittedLine[1];
+                break;
+            case DialogType.showFail:
+                if (pnjName != ""){ finalPath += pnjName + "/"; }                       
+                finalName = pnjName + "_DefaultShowReaction";                           
+                break;
+            case DialogType.showRes:
+                if (pnjName != "") { finalPath += "item/" + itemName + "/"; }
+                finalName = pnjName + "_" + itemName + "_Show";
+                break;                                                                  
+            case DialogType.giveWait:                                                   
+                if (pnjName != "") { finalPath += pnjName + "/"; }
+                finalName = pnjName + "_GiveReaction";
+                break;
+            case DialogType.giveFail:
+                if (pnjName != "") { finalPath += pnjName + "/"; }
+                finalName = pnjName + "_DefaultGiveReaction";
+                break;
+            case DialogType.giveRes:
+                if (pnjName != "") { finalPath += "item/" + itemName + "/"; }
+                finalName = pnjName + "_" + itemName + "_Give";
+                break;
+            case DialogType.zone:
+                if (pnjName != "") finalPath += pnjName + "/";
+                else finalPath += "zone/";
+                finalName = splittedLine[1];
+                break;
+            case DialogType.newDial:
+                finalPath += "others/";
+                finalName = splittedLine[1];
+                break;
+            default:
+                break;
+        }
+
+        if (!Directory.Exists(finalPath))
+        {
+            Debug.Log("Create directory " + finalPath);
+            Directory.CreateDirectory(finalPath);
+        }
+
+        Dialog dialogAsset;
+        bool alreadyExist = System.IO.File.Exists(finalPath + finalName + ".asset");
+        if (alreadyExist)
+        {
+            //TO DO : rename it for safety and erase the previous one
+            //For now : destructive.
+            Debug.LogWarning("Already exists : " + finalName + " at " + finalPath + ". We delete it. Goodbye lost file!");
+            //File.Delete(finalPath + finalName + ".asset");
+            dialogAsset = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(finalPath + finalName + ".asset", typeof(Dialog));
+            dialogAsset.allSteps.Clear();
+        }
+        else
+        {
+            dialogAsset = ScriptableObject.CreateInstance<Dialog>();
+        }
+
+        dialogAsset.name = finalName;
+        if(!alreadyExist)
+            UnityEditor.AssetDatabase.CreateAsset(dialogAsset, finalPath + finalName + ".asset");
+
+        UnityEditor.Selection.activeObject = dialogAsset;
+        Debug.Log("Create : " + finalName + " at " + finalPath + ".", dialogAsset);
+        return dialogAsset;        
     }
 
+
+    static List<DialogToFixLater> toFixLater = new List<DialogToFixLater>();
+    static Dictionary<int,Dialog> dialogOnThisCSV = new Dictionary<int, Dialog>();
+    class DialogToFixLater
+    {
+        Dialog mySelf;
+        int stepIndex;
+        int indexOfTheNeededDialog;
+        string nameOfTheNeededDialog;
+        public DialogToFixLater(Dialog _dialog, int _index, int _indexOfTheDialog)
+        {
+            mySelf = _dialog;
+            stepIndex = _index;
+            indexOfTheNeededDialog = _indexOfTheDialog;
+        }
+        public DialogToFixLater(Dialog _dialog, int _index, string _nameOfTheDialog)
+        {
+            mySelf = _dialog;
+            stepIndex = _index;
+            indexOfTheNeededDialog = -1;
+            nameOfTheNeededDialog = _nameOfTheDialog;
+        }
+        public void Fix(Dictionary<string, Dialog> dicoName, Dictionary<int, Dialog> dicoIndex)
+        {
+            Debug.Log("Dialog null ?" + (mySelf == null?"Yes":"No"));
+            Debug.Log("Dialog (" + mySelf.name + ") steps ?" + mySelf.allSteps.Count + " VS " + stepIndex);
+            switch (mySelf.allSteps[stepIndex].type)
+            {
+                case Step.stepType.dialogredirection:
+                    if(indexOfTheNeededDialog != -1)
+                    {
+                        if (!dicoIndex.ContainsKey(indexOfTheNeededDialog)) Debug.LogError("CSV don't contain a dialog at " + indexOfTheNeededDialog);
+                        mySelf.allSteps[stepIndex].dialogredirection_Data.dialogToGo = dicoIndex[indexOfTheNeededDialog];
+                    }
+                    else
+                    {
+                        if (!dicoName.ContainsKey(nameOfTheNeededDialog)) Debug.LogError("File don't contain any dialog named " + nameOfTheNeededDialog);
+                        mySelf.allSteps[stepIndex].dialogredirection_Data.dialogToGo = dicoName[nameOfTheNeededDialog];
+                    }
+                    break;
+                case Step.stepType.setdefaultdialog:
+                    if (indexOfTheNeededDialog != -1)
+                    {
+                        if (!dicoIndex.ContainsKey(indexOfTheNeededDialog)) Debug.LogError("CSV don't contain a dialog at " + stepIndex);
+                        mySelf.allSteps[stepIndex].setdefaultdialog_Data.newDefaultDial = dicoIndex[indexOfTheNeededDialog];
+                    }
+                    else
+                    {
+                        if (!dicoName.ContainsKey(nameOfTheNeededDialog)) Debug.LogError("File don't contain any dialog named " + nameOfTheNeededDialog);
+                        mySelf.allSteps[stepIndex].setdefaultdialog_Data.newDefaultDial = dicoName[nameOfTheNeededDialog];
+                    }
+                    break;
+                case Step.stepType.setnextdialog:
+                    if (indexOfTheNeededDialog != -1)
+                    {
+                        if (!dicoIndex.ContainsKey(indexOfTheNeededDialog)) Debug.LogError("CSV don't contain a dialog at " + stepIndex);
+                        mySelf.allSteps[stepIndex].setnextdialog_Data.dialToAdd = dicoIndex[indexOfTheNeededDialog];
+                    }
+                    else
+                    {
+                        if (!dicoName.ContainsKey(nameOfTheNeededDialog)) Debug.LogError("File don't contain any dialog named " + nameOfTheNeededDialog);
+                        mySelf.allSteps[stepIndex].setnextdialog_Data.dialToAdd = dicoName[nameOfTheNeededDialog];
+                    }
+                    break;
+                case Step.stepType.choice:
+                    int indexOfMySelf = -1;
+                    foreach (var pair in dicoIndex)
+                    {
+                        if (mySelf.name == pair.Value.name)
+                            indexOfMySelf = pair.Key;
+                    }
+                    if (indexOfMySelf == -1)
+                    {
+                        Debug.LogError("Choice cannot find himself in the list");
+                        indexOfMySelf = 0;//failsafe to avoid another error after that.
+                    }
+
+                    mySelf.allSteps[stepIndex].choice_Data.FixChoice(dicoName, dicoIndex, nameOfTheNeededDialog, indexOfMySelf);
+                    break;
+            }
+        }
+    }
+    static void DialogCreate(Dialog dialog, int firstIndex)
+    {
+        dialogOnThisCSV.Add(firstIndex + 1, dialog); //PLUS ONE because the excel start at 1, when the array start at 0
+    }
+    public static void AddToFixLater(Dialog dialog, int currentIndex, int indexOfDialog)
+    {
+        toFixLater.Add(new DialogToFixLater(dialog, currentIndex, indexOfDialog));
+    }
+    public static void AddToFixLater(Dialog dialog, int currentIndex, string nameOfDialog)
+    {
+        toFixLater.Add(new DialogToFixLater(dialog, currentIndex, nameOfDialog));
+    }
+    static void FixNow()
+    {
+        if (toFixLater == null || toFixLater.Count == 0)
+        {
+            dialogOnThisCSV = new Dictionary<int, Dialog>();
+            return;
+        }
+        Dictionary<string, Dialog> dico = new Dictionary<string, Dialog>();
+        //here, make the string, Dialog list, and then, go fetch them. Trim().ToLower() 
+
+        string largestPath = "Assets/Data/Dialog/";
+#if UNITY_EDITOR
+        foreach (var filePath in Directory.EnumerateFiles(largestPath, SearchOption.AllDirectories.ToString()))
+        {
+            string fileName = filePath.Remove(0, largestPath.Length).Trim();
+            Debug.Log("What filename are you : " + fileName + " (fullPath = " + filePath + ")");
+            //Get rid of the directory : only the filename ! (and test if it's a dialog, please, by the mother of god)
+
+            Dialog dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
+            if(dial != null)
+                dico.Add(fileName, dial);
+        }
+#else
+        Debug.LogError("GetDialogFromString() should not be call on runtime.");
+#endif
+        foreach (DialogToFixLater dialStruc in toFixLater)
+        {
+            dialStruc.Fix(dico, dialogOnThisCSV);
+        }
+
+        foreach (KeyValuePair<int, Dialog> pair in dialogOnThisCSV)
+        {
+            Debug.Log("List of the asset created : " + pair.Value.name + " .", pair.Value);
+        }
+
+        toFixLater.Clear();
+        dialogOnThisCSV.Clear();
+    }
+
+    #endregion
+
+
+
+
+
+
+
+
+    #region Get Data From String
+    public static DialogType TypeOfDialogFileFromLine(string textLine)
+    {
+             if (textLine.StartsWith(DialogType.idleDial .ToString())) return DialogType.idleDial ;
+        else if (textLine.StartsWith(DialogType.firstDial.ToString())) return DialogType.firstDial;
+        else if (textLine.StartsWith(DialogType.showFail .ToString())) return DialogType.showFail ;
+        else if (textLine.StartsWith(DialogType.showRes  .ToString())) return DialogType.showRes  ;
+        else if (textLine.StartsWith(DialogType.giveWait .ToString())) return DialogType.giveWait ;
+        else if (textLine.StartsWith(DialogType.giveFail .ToString())) return DialogType.giveFail ;
+        else if (textLine.StartsWith(DialogType.giveRes  .ToString())) return DialogType.giveRes  ;
+        else if (textLine.StartsWith(DialogType.zone     .ToString())) return DialogType.zone     ;
+        else if (textLine.StartsWith(DialogType.newDial  .ToString())) return DialogType.newDial  ;
+        else                                                           return DialogType.None     ;
+
+    }                                           
+    
+    public static Step.stepType GetStepTypeFromLine(string lineExtract)
+    {
+        if(lineExtract.Trim() == "")    //to avoid to add "dialog" in each line, when it's the default.
+            return Step.stepType.dialog;
+        lineExtract = lineExtract.Trim().ToLower();
+
+             if (lineExtract == Step.stepType.dialog            .ToString().Trim().ToLower() ) return Step.stepType.dialog              ;
+        else if (lineExtract == Step.stepType.camera            .ToString().Trim().ToLower() ) return Step.stepType.camera              ; 
+        else if (lineExtract == Step.stepType.additem           .ToString().Trim().ToLower() ) return Step.stepType.additem             ;
+        else if (lineExtract == Step.stepType.remitem           .ToString().Trim().ToLower() ) return Step.stepType.remitem             ;
+        else if (lineExtract == Step.stepType.sfx               .ToString().Trim().ToLower() ) return Step.stepType.sfx                 ;
+        else if (lineExtract == Step.stepType.music             .ToString().Trim().ToLower() ) return Step.stepType.music               ;
+        else if (lineExtract == Step.stepType.iteminteractivity .ToString().Trim().ToLower() ) return Step.stepType.iteminteractivity   ;
+        else if (lineExtract == Step.stepType.dialogredirection .ToString().Trim().ToLower() ) return Step.stepType.dialogredirection   ;
+        else if (lineExtract == Step.stepType.setdefaultdialog  .ToString().Trim().ToLower() ) return Step.stepType.setdefaultdialog    ;
+        else if (lineExtract == Step.stepType.setnextdialog     .ToString().Trim().ToLower() ) return Step.stepType.setnextdialog       ;
+        else if (lineExtract == Step.stepType.animation         .ToString().Trim().ToLower() ) return Step.stepType.animation           ;
+        else if (lineExtract == Step.stepType.changeface        .ToString().Trim().ToLower() ) return Step.stepType.changeface          ;
+        else if (lineExtract == Step.stepType.choice            .ToString().Trim().ToLower() ) return Step.stepType.choice              ;
+        else
+        {
+            Debug.LogError("!!!Not a valid line type : " + lineExtract);
+            return Step.stepType.dialog;
+        }                                                                                
+    }
+
+    public static itemID GetItemIDFromString(string lineExtract)
+    {
+        foreach (int value in System.Enum.GetValues(typeof(itemID)))
+        {
+            itemID id = (itemID)value;
+            string nameString = id.ToString().Trim().ToLower();
+            
+            if (lineExtract.Trim().ToLower() == nameString)
+            {
+                return id;
+            }
+        }
+        Debug.LogError("ERROR : " + lineExtract + " is not an item registred.");
+        return itemID.none;
+    }
+
+    public static pnj.pnjID GetPnjIdFromString(string lineExtract)
+    {
+        foreach (int value in System.Enum.GetValues(typeof(pnj.pnjID)))
+        {
+            pnj.pnjID id = (pnj.pnjID)value;
+            string nameString = id.ToString().Trim().ToLower();
+
+            if (lineExtract.Trim().ToLower() == nameString)
+            {
+                return id;
+            }
+        }
+        Debug.LogError("ERROR : " + lineExtract + " is not a pnj registred.");
+        return pnj.pnjID.None;
+    }
+
+    public static Dialog GetDialogFromString(string dialogName)
+    {
+        dialogName = dialogName.Trim();
+
+        //Ok, comment on fait ?
+        //on suis le nom du "dialogName" pour voir si y a un nom en particulier à suivre ???
+        //où on fouille tout ?
+        //... compliqué !
+        string largestPath = "Assets/Data/Dialog/";
+
+#if UNITY_EDITOR
+        foreach(var filePath in Directory.EnumerateFiles(largestPath))
+        {
+            string fileName = filePath.Remove(0, largestPath.Length).Trim();
+            Debug.Log("Seek (" + dialogName + ") : " + fileName);
+            if(fileName == dialogName)
+            {
+                return (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
+            }
+        }
+#else
+        Debug.LogError("GetDialogFromString() should not be call on runtime.");
+#endif
+        Debug.LogError("Cannot find any dialog named "+ dialogName);
+        return null;
+    }
+    #endregion
 
 }

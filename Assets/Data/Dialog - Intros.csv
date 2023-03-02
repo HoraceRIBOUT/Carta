@@ -1,0 +1,105 @@
+newDial	Tuto_01FirstInteraction	stagiaire							
+			dialog	Hm...					
+			dialog	Vous êtes réveillé ?					
+			choice	Yes :	Eheh, tant mieux, on arrive au terminus là !	No : 	Pas de souci, la prochaine est le terminus. Vous pouvez encore vous reposé.		
+			dialog	Il n'y a plus rien après la pointe.					
+				... Désolé de vous déranger, mais j'aimerais trop savoir :					
+				Vous êtes un automate facteur ou un automate détective ???					
+			choice	Yes :	9	No : 	10	Return :	12
+			dialog	Ah. J'avais oublié que vous ne pouviez que répondre oui ou non... 					
+			dialog	Ah, oui, forcément, vous ne pouvez pas répondre correctement... 					
+				Vous pouvez que dire "oui" ou "non", j'avais oublié.					
+				Désolé. (Heureusement qu'on arrive au terminus pour me faire oublier cette bourde)					
+				Vous pouvez vous lever ? Hésitez-pas à vous dégourir les jambes avant de sortir pour pas trébuchez sur la marche.					
+newDial	Tuto_02SecondInteraction	stagiaire							
+			dialog	Terminus, tout le monde descend.					
+			dialog	J'espère que vous passerez un bon séjour à la pointe !					
+				(Si vous croisez ma mère, dites lui pas que je suis ici, j'aimerais rester glander encore un peu au tram.)					
+zone	Tuto_00_Zone_Factrice	postWoman							
+			dialog	Eh !					
+			dialog	Par ici !					
+newDial	Tuto_01Factrice	postWoman							
+			dialog	Coucou p'tit automate ! 					
+				Je suis la factrice ! C'est moi qui t'es fait venir ici. 					
+				Attends, j'ai 2 colis qui doivent arriver par le tram.					
+				...					
+				Hmf, ils sont trop lourds. Oh !					
+				Oh, bah tiens, portes les toi ! On va tester à quel point tu es fort.					
+			additem	colisbabiole					
+			additem	colisterre					
+				Alors ?					
+				Eh bien, tu as l'air de tenir sans souci. T'es vraiment fait pour la livraison de gros colis !					
+				Je te donne rendez-vous à la poste, je t'en dirais plus une fois là bas !					
+				C'est la grande tour derrière l'usine. Tu peux pas louper la grande porte jaune.					
+				Mais si tu préfères te ballader un peu avant, n'hésites pas : visite la ville !					
+				Tu peux même livrer les colis si ça te tentes. Les magasins sont sur la place de la fontaine.					
+				Allez, à toute p'tit automate !					
+				...					
+				Et sache que j'suis contente de te voir fonctionner ! C'était pas gagner.					
+newDial	Tuto_03Factrice	postWoman							
+			dialog	-Donc là c'est là où elle t'explique que tu va devoir la remplacer car elle se fait vieille et c'pour ça qu'elle t'a fait créer/venir.					
+				-et elle te file 3 items et te dis : "si tu veux, tu peux essayer 					
+				Si tu veux, tu peux essayer de les livrer dès maintenant tiens !					
+				Mais si tu veux que je te dises à qui elles sont destinées, montre moi juste l'objet en question.					
+				De manière générale, si tu as un doute, hésites pas à montrer aux gens les couriers : la plupart t'aideront.					
+				Et ceux qui t'aideront pas, c'est ou qu'ils ont aucune idée d'où ça vient, ou c'est FORGERON. Eheheh.					
+				Hm hm.					
+				Allez, y a des livraisons qui attendent !					
+									
+	secondcopyquotation								
+giveRes	secondcopyquotation	chiefLudo							
+				Oh, c'est les papiers de ma fille ça ?					
+			dialogredirection		53				
+showRes	secondcopyquotation	chiefLudo							
+			dialog	Elle les a fait signer ? Parfait.					
+				Tu peux les remettre à Mr Tarr ? 					
+				Il est normalement dans l'entrée de l'usine, avec son oncle. Sûrement en train de peindre de la poterie.					
+showRes	secondcopyquotation	oldNephew							
+			dialog	Oh ! C'est les papiers de m'dame Ludivico ! Il faut les ranger. Tu peux t'en occuper tonton ?					
+			camera	2					
+			dialog	... Pourquoi moi ?	#34EE56FF				
+			camera	0					
+			dialog	J'ai les mains prises, j'ai pas envie de mettre de peinture dessus. Et puis, c'est pas moi qui suis à la compta.					
+showRes	secondcopyquotation	oldNephew							
+			dialog	Désolé, j'ai les mains prises, tu veux bien filer ça à...					
+			dialogredirection	Ligne :	57				
+giveRes	secondcopyquotation	youngUncle							
+			dialog	Hm.. C'est des papiers qu'à fait signer la mome ?					
+			dialog	La patronne devrait pas passer par nous pour ces papiers persos...					
+			camera	2					
+			dialog	C'est pas persos. C'est des accords avec l'université de [Nom Boxeuse]. Elle négocie en ce moment pour faire redémarrer un peu l'usine.	#56EE34FF				
+			camera	0					
+			dialog	Oh... 					
+				Bon, ok, dans ce cas, je vais les ranger.					
+				Merci p'tit robot. Bon boulot.					
+				/i Il vous tapote la tête gentiment comme un remerciement					
+showRes	secondcopyquotation	youngUncle							
+				Eh, ça a l'air important.					
+				J'peux voir ?					
+			dialogredirection	Ligne :	66				
+									
+	complementalimentaire								
+giveRes	complementalimentaire	boxLudo							
+			dialog	Oh, mais c'est mes médocs ! Merci !					
+				La facteure croit encore que c'est des compléments pour le sport...					
+				Alors que c'est juste de quoi compenser mon manque de fer.					
+				...					
+				Me regarde pas comme ça ! J'te jure j'me dope pas !					
+				Oh.					
+				Dis donc, tant que t'es là					
+				Tu pourrais ramener ça à l'usine ?					
+				Add					
+				Ma mère m'avais demandé de le remplir à l'université.					
+				Pas besoin de lui rapporter : tu peux directement le filer aux gars dans l'usine.					
+				Ils sauront quoi en faire.					
+showRes	complementalimentaire	boxLudo							
+			dialog	Hm ?					
+			dialogredirection	ligne	82				
+			setnextdialog	parainTem	63	1			
+			setdefaultdialog	sistLittle	100				
+newDial	JustATest								
+			dialog	It's just a little test					
+				Nothing really hard.					
+				Just a test.					
+				Please.					
+				try it.					

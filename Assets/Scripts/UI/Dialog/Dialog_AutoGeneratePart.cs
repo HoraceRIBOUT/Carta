@@ -102,5 +102,31 @@ namespace Step
 			Sirenix.Utilities.Editor.GUIHelper.RequestRepaint();
 			return Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);
 		}
+		public static Step SetUpStepFromLine(string[] lineSplit)
+		{
+			stepType stepType = CreateCSV.GetStepTypeFromLine(lineSplit[3]);
+			Step newStep = new Step();
+			newStep.type = stepType;
+			
+			//We add the correct step depending on the line we read
+			switch (stepType)
+			{
+				case stepType.dialog:                newStep.dialog_Data			= new Step_Dialog(lineSplit);                          break;
+				case stepType.camera:                newStep.camera_Data			= new Step_Camera(lineSplit);                          break;
+				case stepType.additem:                newStep.additem_Data			= new Step_AddItem(lineSplit);                          break;
+				case stepType.remitem:                newStep.remitem_Data			= new Step_RemItem(lineSplit);                          break;
+				case stepType.sfx:                newStep.sfx_Data			= new Step_SFX(lineSplit);                          break;
+				case stepType.music:                newStep.music_Data			= new Step_Music(lineSplit);                          break;
+				case stepType.iteminteractivity:                newStep.iteminteractivity_Data			= new Step_ItemInteractivity(lineSplit);                          break;
+				case stepType.dialogredirection:                newStep.dialogredirection_Data			= new Step_DialogRedirection(lineSplit);                          break;
+				case stepType.setdefaultdialog:                newStep.setdefaultdialog_Data			= new Step_SetDefaultDialog(lineSplit);                          break;
+				case stepType.setnextdialog:                newStep.setnextdialog_Data			= new Step_SetNextDialog(lineSplit);                          break;
+				case stepType.animation:                newStep.animation_Data			= new Step_Animation(lineSplit);                          break;
+				case stepType.changeface:                newStep.changeface_Data			= new Step_ChangeFace(lineSplit);                          break;
+				case stepType.choice:                newStep.choice_Data			= new Step_Choice(lineSplit);                          break;
+				default: 		 newStep.dialog_Data = new Step_Dialog(lineSplit); 		 break;
+			}
+			return newStep;
+		}
 	}
 }
