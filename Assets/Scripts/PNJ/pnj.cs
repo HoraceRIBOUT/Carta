@@ -109,23 +109,24 @@ public class pnj : MonoBehaviour
         [Sirenix.OdinInspector.Button]
         public void CreateNeededDialog()
         {
-            GameObject currentPNJ = UnityEditor.Selection.activeGameObject;
+            GameObject currentGO = UnityEditor.Selection.activeGameObject;
+            pnj currentPNJ = currentGO.GetComponent<pnj>();
 
             Dialog asset1 = ScriptableObject.CreateInstance<Dialog>();
-            asset1.name = currentPNJ.name + "_" + itemToReactFrom.ToString() + "_Give.asset";
+            asset1.name = currentPNJ.id + "_" + itemToReactFrom.ToString() + "_Give.asset";
             Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.name + "_" + itemToReactFrom.ToString() + "_Show.asset";
+            asset2.name = currentPNJ.id + "_" + itemToReactFrom.ToString() + "_Show.asset";
 
-            if(!System.IO.Directory.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/"))
+            if(!System.IO.Directory.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/"))
             {
-                System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.name + "/");
+                System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.id + "/");
             }
-            if (!System.IO.Directory.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/Item/"))
+            if (!System.IO.Directory.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/Item/"))
             {
-                System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.name + "/Item/");
+                System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.id + "/Item/");
             }
 
-            string filePath = "Assets/Data/Dialog/" + currentPNJ.name + "/Item/" + asset1.name;
+            string filePath = "Assets/Data/Dialog/" + currentPNJ.id + "/Item/" + asset1.name;
             if (!System.IO.File.Exists(filePath))
             {
                 UnityEditor.AssetDatabase.CreateAsset(asset1, filePath);
@@ -135,7 +136,7 @@ public class pnj : MonoBehaviour
                 asset1 = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
             }
 
-            filePath = "Assets/Data/Dialog/" + currentPNJ.name + "/Item/" + asset2.name;
+            filePath = "Assets/Data/Dialog/" + currentPNJ.id + "/Item/" + asset2.name;
             if (!System.IO.File.Exists(filePath))
             {
                 UnityEditor.AssetDatabase.CreateAsset(asset2, filePath);
@@ -314,68 +315,69 @@ public class pnj : MonoBehaviour
     [Sirenix.OdinInspector.Button]
     public void CreateDefaultDialog()
     {
-        GameObject currentPNJ = UnityEditor.Selection.activeGameObject;
+        GameObject currentGO = UnityEditor.Selection.activeGameObject;
+        pnj currentPNJ = currentGO.GetComponent<pnj>();
 
-        if (!System.IO.Directory.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/"))
+        if (!System.IO.Directory.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/"))
         {
-            System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.name + "/");
+            System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.id + "/");
         }
 
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultDialog.asset"))
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_DefaultDialog.asset"))
         {
             Dialog asset1 = ScriptableObject.CreateInstance<Dialog>();
-            asset1.name = currentPNJ.name + "_DefaultDialog.asset";
-            UnityEditor.AssetDatabase.CreateAsset(asset1, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset1.name);
+            asset1.name = currentPNJ.id + "_DefaultDialog.asset";
+            UnityEditor.AssetDatabase.CreateAsset(asset1, "Assets/Data/Dialog/" + currentPNJ.id + "/" + asset1.name);
 
             defaultDialog = asset1;
             UnityEditor.Selection.activeObject = asset1;
         }
         else
         {
-            defaultDialog = (Dialog) UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultDialog.asset", typeof(Dialog));
+            defaultDialog = (Dialog) UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_DefaultDialog.asset", typeof(Dialog));
         }
 
 
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveWait.asset"))
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_GiveWait.asset"))
         {
             Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.name + "_GiveWait.asset";
-            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
+            asset2.name = currentPNJ.id + "_GiveWait.asset";
+            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.id + "/" + asset2.name);
 
             giveWait_Dial = asset2;
             UnityEditor.Selection.activeObject = asset2;
         }
         else
         {
-            giveWait_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveWait.asset", typeof(Dialog));
+            giveWait_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_GiveWait.asset", typeof(Dialog));
         }
 
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveFail.asset"))
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_GiveFail.asset"))
         {
             Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.name + "_GiveFail.asset";
-            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
+            asset2.name = currentPNJ.id + "_GiveFail.asset";
+            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.id + "/" + asset2.name);
 
             giveFail_Dial = asset2;
             UnityEditor.Selection.activeObject = asset2;
         }
         else
         {
-            giveFail_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveFail.asset", typeof(Dialog));
+            giveFail_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_GiveFail.asset", typeof(Dialog));
         }
 
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_ShowFail.asset"))
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_ShowFail.asset"))
         {
             Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.name + "_ShowFail.asset";
-            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
+            asset2.name = currentPNJ.id + "_ShowFail.asset";
+            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.id + "/" + asset2.name);
 
             showFail_Dial = asset2;
             UnityEditor.Selection.activeObject = asset2;
         }
         else
         {
-            showFail_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_ShowFail.asset", typeof(Dialog));
+            showFail_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_ShowFail.asset", typeof(Dialog));
         }
 
         UnityEditor.AssetDatabase.SaveAssets();
