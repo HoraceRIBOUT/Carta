@@ -1,0 +1,14 @@
+idleDial	BoxGirl
+			iteminteractivity	True
+			dialog	HMPF !		
+			dialog	Qu'y a t'il p'tit 'tomate ?		
+			dialog	Si tu as rien pour moi j'vais reprendre mes jabs.		
+			iteminteractivity	False
+giveWait	BoxGirl
+			dialog	Oh, qu'est-ce que c'est ?		
+giveFail	BoxGirl
+			dialog	Ah, c'est pas pour moi ça. 		
+			dialog	Bonne chance pour trouver à qui le livrer !		
+showFail	BoxGirl
+			dialog	Hm... Aucune idée de pour qui c'est. 		
+			dialog	J'te dis bonne chance pour trouver à qui le livrer !		

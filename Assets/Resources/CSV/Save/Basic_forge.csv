@@ -1,0 +1,13 @@
+idleDial	Forge
+			iteminteractivity	True
+			dialog	Qu'est-ce que tu fais là toi ?		
+			dialog	Tu as une lettre pour moi ou du matériel ?		
+			dialog	Non ? Alors dégage.		
+			iteminteractivity	False
+giveWait	Forge
+			dialog	Hm ?		
+giveFail	Forge
+			dialog	Non, ce n'est pas pour moi ! Fait ton boulot correctement p'tit...		
+			dialog	Allez, va-t-en.		
+showFail	Forge
+			dialog	Si tu veux de l'aide, tu va devoir cherchez ailleurs.		

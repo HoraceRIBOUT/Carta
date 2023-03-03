@@ -10,7 +10,7 @@ public class CreateCSV : MonoBehaviour
     {
         None,
         idleDial,       //default dial, where you give or show item
-        firstDial,      //dial who are only play once 
+        nextDial,      //dial who are only play once 
         showFail,       //the default reaction when show
         showRes,        //PNJ + ITEM : the reaction of PNJ when show ITEM
         giveWait,       //the PNJ dialog when give any item before saying if you're right or not
@@ -39,20 +39,24 @@ public class CreateCSV : MonoBehaviour
                 string dialogDefineLine = "";
                 //get the type :
                 // showDialog
-                if (dialog.name.EndsWith(       "_DefaultShowReaction"))
+                if (dialog.name.Contains(       "_ShowFail"))
                     dialogDefineLine = (DialogType.showFail      ).ToString();
 
-                else if (dialog.name.EndsWith(  "_DefaultGiveReaction"))
+                else if (dialog.name.Contains(  "_GiveFail"))
                     dialogDefineLine = (DialogType.giveFail      ).ToString();
 
-                else if (dialog.name.EndsWith(  "_GiveReaction"))
+                else if (dialog.name.Contains(  "_GiveWait"))
                     dialogDefineLine = (DialogType.giveWait         ).ToString();
 
-                else if (dialog.name.EndsWith(  "_DefaultDialog"))
+                else if (dialog.name.Contains(  "_DefaultDialog"))
                     dialogDefineLine = (DialogType.idleDial      ).ToString();
 
-                else if (dialog.name.EndsWith(  "_Zone"))
+                else if (dialog.name.Contains(  "_Once_"))
+                    dialogDefineLine = (DialogType.nextDial  ).ToString();
+
+                else if (dialog.name.Contains(  "_zone"))
                     dialogDefineLine = (DialogType.zone  ).ToString();
+
 
                 else
                     dialogDefineLine = (DialogType.newDial          ).ToString();
@@ -202,40 +206,55 @@ public class CreateCSV : MonoBehaviour
                 break;
             case DialogType.idleDial:
                 if (pnjName != ""){ finalPath += pnjName + "/"; }                      
-                finalName = pnjName + "_DefaultDialog"+ splittedLine[1];
+                finalName = pnjName + "_DefaultDialog" /*add if custom text*/+ (splittedLine[1].Trim() == "" ? "" : "_" + splittedLine[1]);
                 break;
-            case DialogType.firstDial:
+            case DialogType.nextDial:
                 if (pnjName != "") { finalPath += pnjName + "/"; }
-                finalName = pnjName + "_NextDialog" + splittedLine[1];
+                finalName = pnjName + "_Once_" + splittedLine[1];
                 break;
             case DialogType.showFail:
                 if (pnjName != ""){ finalPath += pnjName + "/"; }                       
-                finalName = pnjName + "_DefaultShowReaction";                           
+                finalName = pnjName + "_ShowFail";                           
                 break;
             case DialogType.showRes:
                 if (pnjName != "") { finalPath += "item/" + itemName + "/"; }
-                finalName = pnjName + "_" + itemName + "_Show";
+                finalName = itemName + "_" + pnjName + "_Show";
                 break;                                                                  
             case DialogType.giveWait:                                                   
                 if (pnjName != "") { finalPath += pnjName + "/"; }
-                finalName = pnjName + "_GiveReaction";
+                finalName = pnjName + "_GiveWait";
                 break;
             case DialogType.giveFail:
                 if (pnjName != "") { finalPath += pnjName + "/"; }
-                finalName = pnjName + "_DefaultGiveReaction";
+                finalName = pnjName + "_GiveFail";
                 break;
             case DialogType.giveRes:
                 if (pnjName != "") { finalPath += "item/" + itemName + "/"; }
-                finalName = pnjName + "_" + itemName + "_Give";
+                finalName = itemName + "_" + pnjName + "_Give";
                 break;
             case DialogType.zone:
-                if (pnjName != "") finalPath += pnjName + "/";
-                else finalPath += "zone/";
-                finalName = splittedLine[1];
+                if (pnjName != "")
+                {
+                    finalPath += pnjName + "/";
+                    finalName = pnjName + "_zone_" + splittedLine[1];
+                }
+                else
+                {
+                    finalPath += "zone/";
+                    finalName = "zone_" + splittedLine[1];
+                }
                 break;
             case DialogType.newDial:
-                finalPath += "others/";
-                finalName = splittedLine[1];
+                if (pnjName != "")
+                {
+                    finalPath += pnjName + "/";
+                    finalName = pnjName + "_" + splittedLine[1];
+                }
+                else
+                {
+                    finalPath += "others/";
+                    finalName = splittedLine[1];
+                }
                 break;
             default:
                 break;
@@ -377,10 +396,11 @@ public class CreateCSV : MonoBehaviour
         //here, make the string, Dialog list, and then, go fetch them. Trim().ToLower() 
 
         string largestPath = "Assets/Data/Dialog/";
+        Debug.Log("Go seek in  " + largestPath);
 #if UNITY_EDITOR
-        foreach (var filePath in Directory.EnumerateFiles(largestPath, SearchOption.AllDirectories.ToString()))
+        foreach (var filePath in Directory.EnumerateFiles(largestPath, "*.asset", SearchOption.AllDirectories))
         {
-            string fileName = filePath.Remove(0, largestPath.Length).Trim();
+            string fileName = Path.GetFileNameWithoutExtension(filePath.Trim());
             Debug.Log("What filename are you : " + fileName + " (fullPath = " + filePath + ")");
             //Get rid of the directory : only the filename ! (and test if it's a dialog, please, by the mother of god)
 
@@ -388,6 +408,7 @@ public class CreateCSV : MonoBehaviour
             if(dial != null)
                 dico.Add(fileName, dial);
         }
+        Debug.Log("Finish seek but found " + dico.Count + " files.");
 #else
         Debug.LogError("GetDialogFromString() should not be call on runtime.");
 #endif
@@ -418,7 +439,7 @@ public class CreateCSV : MonoBehaviour
     public static DialogType TypeOfDialogFileFromLine(string textLine)
     {
              if (textLine.StartsWith(DialogType.idleDial .ToString())) return DialogType.idleDial ;
-        else if (textLine.StartsWith(DialogType.firstDial.ToString())) return DialogType.firstDial;
+        else if (textLine.StartsWith(DialogType.nextDial.ToString())) return DialogType.nextDial;
         else if (textLine.StartsWith(DialogType.showFail .ToString())) return DialogType.showFail ;
         else if (textLine.StartsWith(DialogType.showRes  .ToString())) return DialogType.showRes  ;
         else if (textLine.StartsWith(DialogType.giveWait .ToString())) return DialogType.giveWait ;

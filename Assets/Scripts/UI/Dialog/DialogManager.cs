@@ -16,6 +16,7 @@ public class DialogManager : MonoBehaviour
     [Sirenix.OdinInspector.ReadOnly] private int dialogText_currIndex = -1;
     public Animator dialogAnimator;
     public CanvasGroup dialogCanvas;
+    public Animator buttonAnimator;
 
     [Header("Add item")]
     public Animator _addItem_anim;
@@ -402,7 +403,7 @@ public class DialogManager : MonoBehaviour
 
     public void DisplayChoice(Step.Step_Choice data) 
     {
-        dialogAnimator.SetBool("Button", true);
+        buttonAnimator.SetBool("Button", true);
         inventoryBlock = true;
         Cursor.lockState = CursorLockMode.None;
 
@@ -412,11 +413,15 @@ public class DialogManager : MonoBehaviour
 
     public void PressButton(bool yes)
     {
+        Debug.Log("PRESS " + (yes ? "yes" : "no"));
         if (choiceInMemory == null)
             return;
         Step.Step_Choice ch = choiceInMemory;
-        dialogAnimator.SetBool("Yes", yes);
-        dialogAnimator.SetBool("Button", false);
+        if (yes)
+            buttonAnimator.SetTrigger("Yes");
+        else
+            buttonAnimator.SetTrigger("No");
+        buttonAnimator.SetBool("Button", false);
         canClick = true;
         inventoryBlock = false;
         Cursor.lockState = CursorLockMode.Locked;

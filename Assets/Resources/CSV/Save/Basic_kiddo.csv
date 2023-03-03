@@ -1,0 +1,15 @@
+idleDial	SimonSez
+			iteminteractivity	True
+			dialog	Yo, salut toi.		
+			dialog	Tu viens voir Coolman ?		
+			dialog	Il est au travail dans les déchets à cette heure là.		
+			dialog	Moi ? Je squatte son frigo.		
+			dialog	Et je répète le même message au petit robot qui repasse ici et qui me redemande la même chose.		
+			iteminteractivity	False
+giveWait	SimonSez
+			dialog	Ah, pardon, c'est pour moi ?		
+giveFail	SimonSez
+			dialog	Euh... non, et je sais même pas si c'est pour Coolman.		
+showFail	SimonSez
+			dialog	Oh ? Un truc ?		
+			dialog	Pft. J'vois pas ce que c'est.		

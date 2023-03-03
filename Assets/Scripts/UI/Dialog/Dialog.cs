@@ -57,7 +57,6 @@ namespace Step
     [System.Serializable]
     public class Step_Dialog : Step_father
     {
-
         [TextArea]
         public string text = "";
 
@@ -65,7 +64,11 @@ namespace Step
 
         public override string ToCSVLine()
         {
-            return "Step_Dialog " + Dialog.CASE_SEPARATOR + text + Dialog.CASE_SEPARATOR + color_override;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR 
+                + "dialog" + Dialog.CASE_SEPARATOR + text
+                + (color_override == Color.clear ?
+                Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR :
+                Dialog.CASE_SEPARATOR + ColorUtility.ToHtmlStringRGBA(color_override));
         }
 
         public Step_Dialog(string[] splitLine)
@@ -92,7 +95,8 @@ namespace Step
         public bool directTP = false;
         public override string ToCSVLine()
         {
-            return "Step_Camera " + Dialog.CASE_SEPARATOR + cameraIndex + Dialog.CASE_SEPARATOR + directTP.ToString();
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "camera" + Dialog.CASE_SEPARATOR + cameraIndex + Dialog.CASE_SEPARATOR + directTP.ToString();
         }
 
         public Step_Camera(string[] splitLine)
@@ -115,7 +119,8 @@ namespace Step
         public itemID itemId;
         public override string ToCSVLine()
         {
-            return "Step_AddItem " + Dialog.CASE_SEPARATOR + itemId;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "additem" + Dialog.CASE_SEPARATOR + itemId;
         }
 
         public Step_AddItem(string[] splitLine)
@@ -130,7 +135,8 @@ namespace Step
         public itemID itemId;
         public override string ToCSVLine()
         {
-            return "Step_RemItem " + Dialog.CASE_SEPARATOR + itemId;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "remitem" + Dialog.CASE_SEPARATOR + itemId;
         }
 
         public Step_RemItem(string[] splitLine)
@@ -145,7 +151,8 @@ namespace Step
         public AudioClip sfxToPlay;
         public override string ToCSVLine()
         {
-            return "Step_SFX " + Dialog.CASE_SEPARATOR + sfxToPlay.name;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "sfx" + Dialog.CASE_SEPARATOR + sfxToPlay.name;
         }
 
         public Step_SFX(string[] splitLine)
@@ -161,7 +168,8 @@ namespace Step
         public AudioClip musicToPlay;
         public override string ToCSVLine()
         {
-            return "Step_Music " + Dialog.CASE_SEPARATOR + musicToPlay.name;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "music" + Dialog.CASE_SEPARATOR + musicToPlay.name;
         }
 
         public Step_Music(string[] splitLine)
@@ -177,7 +185,8 @@ namespace Step
         public bool itemInvoCanBeOpen;
         public override string ToCSVLine()
         {
-            return "Step_ItemInteractivity " + Dialog.CASE_SEPARATOR + itemInvoCanBeOpen.ToString();
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "iteminteractivity" + Dialog.CASE_SEPARATOR + itemInvoCanBeOpen.ToString();
         }
 
         public Step_ItemInteractivity(string[] splitLine)
@@ -195,7 +204,8 @@ namespace Step
         public Dialog dialogToGo;
         public override string ToCSVLine()
         {
-            return "Step_DialogRedirection " + Dialog.CASE_SEPARATOR + dialogToGo.name;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "dialogredirection" + Dialog.CASE_SEPARATOR + dialogToGo.name;
         }
 
         public Step_DialogRedirection(string[] splitLine)
@@ -216,7 +226,8 @@ namespace Step
         public Dialog newDefaultDial;
         public override string ToCSVLine()
         {
-            return "Step_SetDefaultDialog " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + newDefaultDial.name;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "setdefaultdialog" + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + newDefaultDial.name;
         }
 
         public Step_SetDefaultDialog(string[] splitLine)
@@ -235,7 +246,8 @@ namespace Step
         public int priority = 0;
         public override string ToCSVLine()
         {
-            return "Step_SetNextDialog " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + dialToAdd.name + Dialog.CASE_SEPARATOR + priority;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "setnextdialog" + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + dialToAdd.name + Dialog.CASE_SEPARATOR + priority;
         }
 
         public Step_SetNextDialog(string[] splitLine)
@@ -259,7 +271,8 @@ namespace Step
         public int animIndex = 0;
         public override string ToCSVLine()
         {
-            return "Step_Animation " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + animIndex;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "animation" + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + animIndex;
         }
 
         public Step_Animation(string[] splitLine)
@@ -281,7 +294,8 @@ namespace Step
         public int mouthIndex = 0;
         public override string ToCSVLine()
         {
-            return "Step_ChangeFace " + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + eyesIndex + Dialog.CASE_SEPARATOR + mouthIndex;
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "changeface" + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + eyesIndex + Dialog.CASE_SEPARATOR + mouthIndex;
         }
 
         public Step_ChangeFace(string[] splitLine)
@@ -365,11 +379,21 @@ namespace Step
 
         public override string ToCSVLine()
         {
-            //TO DO 
-            return "Step_Dialog " + Dialog.CASE_SEPARATOR + typeYes + Dialog.CASE_SEPARATOR + typeNo;
+            //TO DO : redirect number + return value corrected
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "choice" + Dialog.CASE_SEPARATOR
+                + typeYes + Dialog.CASE_SEPARATOR
+                + (typeYes == choiceType.dialogUnique ? dialogYes.text : (typeYes == choiceType.redirectDialog ? redirectYes.dialogToGo.name : "NUMBER_TO_RECALCULATE : " + redirectNumberIfYes))
+                + Dialog.CASE_SEPARATOR
+                + typeNo + Dialog.CASE_SEPARATOR
+                + (typeNo == choiceType.dialogUnique ? dialogNo.text : (typeNo == choiceType.redirectDialog ? redirectNo.dialogToGo.name : "NUMBER_TO_RECALCULATE : " + redirectNumberIfNo))
+                + Dialog.CASE_SEPARATOR
+                + (typeYes == choiceType.redirectNumber ? "RETURN : " + Dialog.CASE_SEPARATOR + redirectNumberStopYes
+                : (typeNo == choiceType.redirectNumber ? "RETURN : " + Dialog.CASE_SEPARATOR + redirectNumberStopNo
+                : Dialog.CASE_SEPARATOR))
+                ;
         }
 
-        //This going to be hell
         public Step_Choice(string[] splitLine)
         {
             //will be deal later by "Fix Choice" to have access to both dictionnary (by index, and by name)
@@ -437,7 +461,7 @@ namespace Step
             else            //it's a name !
             {
                 typeYes = choiceType.redirectDialog;
-                redirectYes = new Step_DialogRedirection( dicoName[yesPart]);
+                redirectYes = new Step_DialogRedirection(dicoName[yesPart]);
             }
         }
 

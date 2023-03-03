@@ -301,7 +301,7 @@ public class UI_Inventory : MonoBehaviour
         //Because it's a give, we need to include a "drum roll moment"
         //before saying either it's a good catch or not 
 
-        GameManager.instance.dialogMng.StartDialog(currentPNJ.giveReaction);
+        GameManager.instance.dialogMng.StartDialog(currentPNJ.giveWait_Dial);
 
         Debug.Log("Try to give : " + itemSelected.id);
         if (currentPNJ != null)
@@ -326,7 +326,7 @@ public class UI_Inventory : MonoBehaviour
                     return;
                 }
             }
-            GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultGiveReponse);
+            GameManager.instance.dialogMng.StartDialog(currentPNJ.giveFail_Dial);
             Retract();
             GameManager.instance.dialogMng.inventoryBlock = true;
             Debug.Log("Don't have it : " + itemSelected.id);
@@ -361,7 +361,7 @@ public class UI_Inventory : MonoBehaviour
                     return;
                 }
             }
-            GameManager.instance.dialogMng.StartDialog(currentPNJ.defaultShowReponse);
+            GameManager.instance.dialogMng.StartDialog(currentPNJ.showFail_Dial);
             Retract();
             Debug.Log("Don't have it : " + itemSelected.id);
         }

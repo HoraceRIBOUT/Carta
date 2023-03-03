@@ -1,0 +1,14 @@
+idleDial	Parain
+			iteminteractivity	True
+			dialog	Bienvenue dans ma boutique p'tit gars !		
+			dialog	Si tu viens pas pour m'filer d'l'argent, alors soit polie :		
+			dialog	et dégage. 		
+			dialog	Merci ! Nyehehe.		
+			iteminteractivity	False
+giveWait	Parain
+			dialog	Un colis pour moi ? 		
+giveFail	Parain
+			dialog	Me fait pas perdre mon temps p'tit, tu vois bien que c'est pour quelqu'un d'autre !		
+showFail	Parain
+			dialog	Et tu veux qu'j'en fasse quoi de ça ? 		
+			dialog	Allez, va-t-en p'tit gars !		

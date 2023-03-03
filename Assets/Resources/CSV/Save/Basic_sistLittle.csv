@@ -1,0 +1,13 @@
+idleDial	SisterLittle
+			iteminteractivity	True
+			dialog	Coucou, tu viens écouter la mer avec moi ?		
+			dialog	Assis toi et repose toi !		
+			dialog	Ou repars en sautant dans l'eau, c'est pas moi qui décide.		
+giveWait	SisterLittle
+			dialog	Oh, c'est quoi ???? 		
+giveFail	SisterLittle
+			dialog	Oh, c'est pas pour moi...		
+showFail	SisterLittle
+			dialog	Si tu me le montres alors que c'est pas pour moi...		
+			dialog	Est-ce que ça veux dire que je peux le prendre ?		
+			dialog	... oublie ça, Letícia ne voudra pas que je ramène encore plus de babiole à la maison...		

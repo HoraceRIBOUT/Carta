@@ -1,0 +1,29 @@
+idleDial		postWoman							
+			iteminteractivity	TRUE					
+			dialog	Oui automate ? Tu as un truc à me demander ?					
+			dialog	Si tu ne sais plus où livrer un colis, montre le moi, je te guiderai.					
+			dialog	Sinon, bonne chance !					
+			dialog	Je ne veux pas non plus te détruire tout le FUN ~~~					
+			dialog	Amuse toi bien !					
+			iteminteractivity	FALSE					
+giveWait		postWoman							
+			dialog	Oh ? Tu veux me livrer ça à moi ?					
+giveFail		postWoman							
+			dialog	Ahah, non, ce n'est pas pour moi ! Et je ne peux rien te dire dessus !					
+showFail		postWoman							
+			dialog	Là dessus, je ne peux rien te dire.					
+			dialog	Il va falloir te débrouiller, petite automate.					
+idleDial		boxLudo							
+			iteminteractivity	TRUE					
+			dialog	HMPF !					
+			dialog	Qu'y a t'il p'tit 'tomate ?					
+			dialog	Si tu as rien pour moi j'vais reprendre mes jabs.					
+			iteminteractivity	FALSE					
+giveWait		boxLudo							
+			dialog	Oh, qu'est-ce que c'est ?					
+giveFail		boxLudo							
+			dialog	Ah, c'est pas pour moi ça.					
+			dialog	Bonne chance pour trouver à qui le livrer !					
+showFail		boxLudo							
+			dialog	Hm... Aucune idée de pour qui c'est.					
+			dialog	J'te dis bonne chance pour trouver à qui le livrer !								

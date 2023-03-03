@@ -1,0 +1,15 @@
+idleDial	FlowerKid
+			iteminteractivity	True
+			dialog	Eh ! Eh ! Comment ça ? 		
+			dialog	Franchement, j'adore te voir courir sur les murs et grimper comme ça, c'est vraiment fun ! 		
+			dialog	Tu devrais visiter la ville englouti, y a des passages super rigolo où faut sauter d'un toît à l'autre !		
+			dialog	Et si tu tombes, c'est pas dangereux, c'est juste de l'eau !		
+			dialog	Oh... t'es un robot... c'est vrai... désolé.		
+			iteminteractivity	False
+giveWait	FlowerKid
+			dialog	Oh c'est pour moi !		
+giveFail	FlowerKid
+			dialog	Ah non.		
+showFail	FlowerKid
+			dialog	C'est quoi ? 		
+			dialog	J'suis pas sûr que j'ai le droit de regarder les affaires des autres comme ça.		

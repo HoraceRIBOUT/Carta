@@ -1,0 +1,15 @@
+idleDial	PostMa
+			iteminteractivity	True
+			dialog	Oui automate ? Tu as un truc à me demander ?		
+			dialog	Si tu ne sais plus où livrer un colis, montre le moi, je te guiderai.		
+			dialog	Sinon, bonne chance !		
+			dialog	Je ne veux pas non plus te détruire tout le FUN ~~~		
+			dialog	Amuse toi bien !		
+			iteminteractivity	False
+giveWait	PostMa
+			dialog	Oh ? Tu veux me livrer ça à moi ?		
+giveFail	PostMa
+			dialog	Ahah, non, ce n'est pas pour moi ! Et je ne peux rien te dire dessus !		
+showFail	PostMa
+			dialog	Là dessus, je ne peux rien te dire.		
+			dialog	Il va falloir te débrouiller, petite automate.		

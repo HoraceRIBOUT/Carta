@@ -65,11 +65,11 @@ public class pnj : MonoBehaviour
         }
     }
 
-    public Dialog giveReaction;         //when you give you an item, the first reaction
+    public Dialog giveWait_Dial;         //when you give you an item, the first reaction
     [Tooltip("when you give a not-in-the-list item")]
-    public Dialog defaultGiveReponse;
+    public Dialog giveFail_Dial;
     [Tooltip("when you show a not-in-the-list item")]
-    public Dialog defaultShowReponse;  //when you show a not-in-the-list item
+    public Dialog showFail_Dial;  //when you show a not-in-the-list item
 
     [Header("Visual")]
     [SerializeField] private Animator animator;
@@ -336,46 +336,46 @@ public class pnj : MonoBehaviour
         }
 
 
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction.asset"))
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveWait.asset"))
         {
             Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.name + "_GiveReaction.asset";
+            asset2.name = currentPNJ.name + "_GiveWait.asset";
             UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
 
-            giveReaction = asset2;
+            giveWait_Dial = asset2;
             UnityEditor.Selection.activeObject = asset2;
         }
         else
         {
-            giveReaction = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveReaction.asset", typeof(Dialog));
+            giveWait_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveWait.asset", typeof(Dialog));
         }
 
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultGiveReaction.asset"))
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveFail.asset"))
         {
             Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.name + "_DefaultGiveReaction.asset";
+            asset2.name = currentPNJ.name + "_GiveFail.asset";
             UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
 
-            defaultGiveReponse = asset2;
+            giveFail_Dial = asset2;
             UnityEditor.Selection.activeObject = asset2;
         }
         else
         {
-            defaultGiveReponse = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultGiveReaction.asset", typeof(Dialog));
+            giveFail_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_GiveFail.asset", typeof(Dialog));
         }
 
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultShowReaction.asset"))
+        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_ShowFail.asset"))
         {
             Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.name + "_DefaultShowReaction.asset";
+            asset2.name = currentPNJ.name + "_ShowFail.asset";
             UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.name + "/" + asset2.name);
 
-            defaultShowReponse = asset2;
+            showFail_Dial = asset2;
             UnityEditor.Selection.activeObject = asset2;
         }
         else
         {
-            defaultShowReponse = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_DefaultShowReaction.asset", typeof(Dialog));
+            showFail_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.name + "/" + currentPNJ.name + "_ShowFail.asset", typeof(Dialog));
         }
 
         UnityEditor.AssetDatabase.SaveAssets();
@@ -414,9 +414,9 @@ public class pnj : MonoBehaviour
         // defaultShowReponse -> fail
         List<Dialog> contatenatedDialog = new List<Dialog>(); 
         contatenatedDialog.Add(defaultDialog);
-        contatenatedDialog.Add(giveReaction);
-        contatenatedDialog.Add(defaultGiveReponse);
-        contatenatedDialog.Add(defaultShowReponse);
+        contatenatedDialog.Add(giveWait_Dial);
+        contatenatedDialog.Add(giveFail_Dial);
+        contatenatedDialog.Add(showFail_Dial);
         CreateCSV.WriteDialogInCVS("Assets/Resources/CSV/Basic_" + id + ".csv", contatenatedDialog);
         
         Debug.Log("Finish exporting CSV for " + id);

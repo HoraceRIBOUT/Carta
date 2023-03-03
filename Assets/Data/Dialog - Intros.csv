@@ -1,4 +1,4 @@
-newDial	Tuto_01FirstInteraction	stagiaire							
+newDial	Tuto_01_FirstInteraction	stagiaire							
 			dialog	Hm...					
 			dialog	Vous êtes réveillé ?					
 			choice	Yes :	Eheh, tant mieux, on arrive au terminus là !	No : 	Pas de souci, la prochaine est le terminus. Vous pouvez encore vous reposé.		
@@ -11,14 +11,14 @@ newDial	Tuto_01FirstInteraction	stagiaire
 				Vous pouvez que dire "oui" ou "non", j'avais oublié.					
 				Désolé. (Heureusement qu'on arrive au terminus pour me faire oublier cette bourde)					
 				Vous pouvez vous lever ? Hésitez-pas à vous dégourir les jambes avant de sortir pour pas trébuchez sur la marche.					
-newDial	Tuto_02SecondInteraction	stagiaire							
+newDial	Tuto_02_Second	stagiaire							
 			dialog	Terminus, tout le monde descend.					
 			dialog	J'espère que vous passerez un bon séjour à la pointe !					
 				(Si vous croisez ma mère, dites lui pas que je suis ici, j'aimerais rester glander encore un peu au tram.)					
-zone	Tuto_00_Zone_Factrice	postWoman							
+zone	Tuto_00	postWoman							
 			dialog	Eh !					
 			dialog	Par ici !					
-newDial	Tuto_01Factrice	postWoman							
+newDial	Tuto_01	postWoman							
 			dialog	Coucou p'tit automate ! 					
 				Je suis la factrice ! C'est moi qui t'es fait venir ici. 					
 				Attends, j'ai 2 colis qui doivent arriver par le tram.					
@@ -36,7 +36,7 @@ newDial	Tuto_01Factrice	postWoman
 				Allez, à toute p'tit automate !					
 				...					
 				Et sache que j'suis contente de te voir fonctionner ! C'était pas gagner.					
-newDial	Tuto_03Factrice	postWoman							
+newDial	Tuto_02	postWoman							
 			dialog	-Donc là c'est là où elle t'explique que tu va devoir la remplacer car elle se fait vieille et c'pour ça qu'elle t'a fait créer/venir.					
 				-et elle te file 3 items et te dis : "si tu veux, tu peux essayer 					
 				Si tu veux, tu peux essayer de les livrer dès maintenant tiens !					
@@ -103,3 +103,19 @@ newDial	JustATest
 				Just a test.					
 				Please.					
 				try it.					
+			iteminteractivity	TRUE					
+idleDial	Babiol								
+			iteminteractivity	TRUE					
+			dialog	Tu cherches quelque chose ?					
+			dialog	Ou quelqu'un avec qui parlais ?					
+			choice	redirectDialog	Babiol_DefaultDialog_Yes	redirectNumber	112	RETURN :	113
+			dialog	Passe une bonne journée mon chéri !					
+			animation	babiol	0				
+			iteminteractivity	FALSE					
+giveWait	Babiol								
+			dialog	Oh ? Un colis pour moi ?					
+giveFail	Babiol								
+			dialog	J'aimerais éviter de vendre une babiole qui es destinée à quelqu'un mon petit.					
+showFail	Babiol								
+			dialog	Hm ? Oh, c'est... pas pour moi.					
+			dialog	J'espère que tu trouveras à qui livrer ça !					

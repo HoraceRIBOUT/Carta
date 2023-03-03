@@ -1,0 +1,9 @@
+idleDial	ChiefLudo
+			iteminteractivity	True
+			dialog	... Je suis en pause, qu'y a t'il ?		
+			dialog	...		
+			dialog	S'il n'y a rien, je retourne à ma pause.		
+			iteminteractivity	False
+giveWait	ChiefLudo
+giveFail	ChiefLudo
+showFail	ChiefLudo

@@ -41,6 +41,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -61,7 +68,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 1
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Je suis la posti\xE8re ! Enfin, l'ancienne posti\xE8re, maintenant."
@@ -88,6 +95,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -108,7 +122,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 2
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Et oui, tu dois me remplacer dor\xE9navant."
@@ -135,6 +149,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -155,7 +176,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 3
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Bon, je ne vais pas te donner tout le boulot d'un coup.
@@ -182,6 +203,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -202,7 +230,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 4
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Par contre, c'est deux colis l\xE0, je veux bien que tu les portes.
@@ -230,6 +258,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -250,7 +285,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 5
-    alreadyRead: 0
+    alreadyRead: 1
     type: 2
     dialog_Data:
       text: 
@@ -277,6 +312,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -297,7 +339,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 6
-    alreadyRead: 0
+    alreadyRead: 1
     type: 2
     dialog_Data:
       text: 
@@ -306,7 +348,7 @@ MonoBehaviour:
       cameraIndex: 0
       directTP: 0
     additem_Data:
-      itemId: 3
+      itemId: 12
     remitem_Data:
       itemId: 0
     sfx_Data:
@@ -324,6 +366,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -344,7 +393,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 7
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Tu peux me rejoindre \xE0 la poste, il y aura d'autre courier !"
@@ -371,6 +420,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -391,7 +447,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 8
-    alreadyRead: 0
+    alreadyRead: 1
     type: 9
     dialog_Data:
       text: 
@@ -418,6 +474,13 @@ MonoBehaviour:
       targetID: 2
       dialToAdd: {fileID: 11400000, guid: a65d8a29488744847854008b454997e2, type: 2}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -438,7 +501,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 9
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Mais si tu veux d\xE9j\xE0 apporter les colis, n'h\xE9sites pas !"
@@ -465,6 +528,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -485,7 +555,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 10
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Les cristaux sont pour la vendeuse de babioles sur la place.
@@ -512,6 +582,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -532,7 +609,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 11
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Les fleurs en carton, c'estpour le magasin de fleur. Il est recouvert
@@ -560,6 +637,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
@@ -580,7 +664,7 @@ MonoBehaviour:
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 12
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Allez, je file moi ! Rejoins moi vite !
@@ -607,6 +691,13 @@ MonoBehaviour:
       targetID: 0
       dialToAdd: {fileID: 0}
       priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:

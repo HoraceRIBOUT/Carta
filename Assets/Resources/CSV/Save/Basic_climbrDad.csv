@@ -1,0 +1,14 @@
+idleDial	FlowerDad
+			iteminteractivity	True
+			dialog	Attention à toi, je coupe des fleurs.		
+			dialog	J'aimerais ne pas te trancher le bras !		
+			dialog	J'ai encore une vingtaine de fleur à récupérer pour le mariage, alors ne les écrase pas trop, s'il te plaît.		
+			iteminteractivity	False
+giveWait	FlowerDad
+			dialog	Un colis ? Approche le pour voir ?		
+giveFail	FlowerDad
+			dialog	Ce n'est pas pour moi mais ça me dis quelque chose...		
+showFail	FlowerDad
+			dialog	Hein ? Tu peux me montrer ça de plus près ?		
+			dialog	Hm...		
+			dialog	Je crains de ne pas pouvoir t'aider petit bonhomme.		

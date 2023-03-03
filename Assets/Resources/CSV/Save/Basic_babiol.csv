@@ -1,0 +1,15 @@
+idleDial	Babiol
+			iteminteractivity	True
+			dialog	Tu cherches quelque chose ?		
+			dialog	Ou quelqu'un avec qui parlais ?		
+			choice	redirectDialog	Babiol_DefaultDialog_Yes	redirectNumber	NUMBER_TO_RECALCULATE : 4	RETURN : 	4
+			dialog	Passe une bonne journée mon chéri !		
+			animation	babiol	0
+			iteminteractivity	False
+giveWait	Babiol
+			dialog	Oh ? Un colis pour moi ?		
+giveFail	Babiol
+			dialog	J'aimerais éviter de vendre une babiole qui es destinée à quelqu'un mon petit.		
+showFail	Babiol
+			dialog	Hm ? Oh, c'est... pas pour moi.		
+			dialog	J'espère que tu trouveras à qui livrer ça !		

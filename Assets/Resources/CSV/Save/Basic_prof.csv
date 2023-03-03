@@ -1,0 +1,13 @@
+idleDial	Prof
+			iteminteractivity	True
+			dialog	Bonjour monsieur le postier. 		
+			dialog	Vous avez un colis pour moi ou pour l'école ?		
+			dialog	Non ? Pas de souci petit robot, à bientôt !		
+			iteminteractivity	False
+giveWait	Prof
+			dialog	Ah ! Un colis !		
+giveFail	Prof
+			dialog	Non non, ce n'est pas pour moi. Je ne peux pas t'aider hélas...		
+showFail	Prof
+			dialog	Oh, ça ne me dis rien cela... 		
+			dialog	Essaie de voir avec quelqu'un d'autre.		

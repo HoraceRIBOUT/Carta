@@ -1,0 +1,12 @@
+idleDial	SoeurGrande
+			iteminteractivity	True
+			dialog	B..bonjour.		
+			dialog	Je suis un peu occupée, tu me voulais quelque chose ?		
+			dialog	Si non, je... désolée j'ai à faire.		
+giveWait	SoeurGrande
+			dialog	Qu'y a t'il ?		
+giveFail	SoeurGrande
+			dialog	Je crois pas que ça me soit destinée, ça.		
+showFail	SoeurGrande
+			dialog	Oh ? Euh... Ouaho, je sais pas du tout à qui ça peux être destinté.		
+			dialog	Bonne chance pour trouver le destinataire !		

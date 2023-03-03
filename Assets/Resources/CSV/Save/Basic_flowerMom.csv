@@ -1,0 +1,12 @@
+idleDial	FlowerMom
+			iteminteractivity	True
+			dialog	Bonjour petit robot.		
+			dialog	Tu cherches quelqu'un ?		
+			dialog	Si tu cherches mon fils, il est à l'étage.		
+			iteminteractivity	False
+giveWait	FlowerMom
+			dialog	Hm ? Pour moi ?		
+giveFail	FlowerMom
+			dialog	Je dois finir les taxes, je ne peux pas t'aider à trouver ta destination, désolée.		
+showFail	FlowerMom
+			dialog	Hm ? Désolée, ça ne me dis rien.		

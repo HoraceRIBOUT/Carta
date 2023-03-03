@@ -177,7 +177,7 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
   - index: 3
     alreadyRead: 1
-    type: 10
+    type: 12
     dialog_Data:
       text: 
       color_override: {r: 0, g: 0, b: 0, a: 0}
@@ -220,13 +220,13 @@ MonoBehaviour:
       redirectNumberAfterYes: 0
       redirectYes:
         dialogToGo: {fileID: 11400000, guid: 6fbdd5bac815ea24986e1c77b78c8bcc, type: 2}
-      typeNo: 0
+      typeNo: 1
       dialogNo:
         text: Pas de souci mon petit.
         color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfNo: 0
-      redirectNumberStopNo: 0
-      redirectNumberAfterNo: 0
+      redirectNumberIfNo: 4
+      redirectNumberStopNo: 4
+      redirectNumberAfterNo: 5
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 4

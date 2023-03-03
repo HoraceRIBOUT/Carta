@@ -1,0 +1,16 @@
+idleDial	Gokul
+			iteminteractivity	True
+			dialog	Heyo l'automate ! 		
+			dialog	T'es bien luissant aujourd'hui ou c'est naturel ?		
+			dialog	Eheheh, si j't'embête, tu me dis !		
+			dialog	Je retourne surveiller que les déchets s'effondre pas ! Dis moi si t'a des colis pour moi !		
+			iteminteractivity	False
+giveWait	Gokul
+			dialog	Ah ! Un colis pour moi !		
+giveFail	Gokul
+			dialog	Loupé, c'pas pour moi. 		
+			dialog	Mais rassure-toi : je suis trop haut pour que la déception m'atteigne !		
+showFail	Gokul
+			dialog	Oh ? C'est pas un déchet, mais si tu veux que je t'en débarasse...		
+			dialog	Ehehe, je rigole l'automate ! Je ne te volerai pas le courier.		
+			dialog	La précédente factrice m'a appris ce qu'il pouvait m'en coûter...		
