@@ -40,15 +40,26 @@ public class DialogManager : MonoBehaviour
 
     public void Start()
     {
+        //Just in case, could be delete when finishing the game to lighten the start load
+        FillAllPNJ();
     }
 
     [Sirenix.OdinInspector.Button()]
     public void FillAllPNJ()
     {
-        allPNJ = new List<pnj>();
-        foreach (pnj interac in FindObjectsOfType<pnj>())
+        for (int i = 0; i < allPNJ.Count; i++)
         {
-            allPNJ.Add(interac);
+            if (allPNJ[i] != null)
+                continue;
+
+            allPNJ.RemoveAt(i);
+            i--;
+        }
+
+        foreach (pnj newPNJ in FindObjectsOfType<pnj>())
+        {
+            if(!allPNJ.Contains(newPNJ))
+                allPNJ.Add(newPNJ);
         }
     }
 
@@ -178,6 +189,7 @@ public class DialogManager : MonoBehaviour
     {
         if (currentDialog.allSteps.Count == currentStep + 1)
         {
+            Debug.LogError("Finish Dialog");
             FinishDialog();
             return;
         }
@@ -471,7 +483,7 @@ public class DialogManager : MonoBehaviour
             closestPNJ.TurnActionOnOrOff(true);
         }
 
-
+        Debug.LogError("Close ? Close ! Close Dialog");
         canClick = true;
         inDialog = false;
         currentPNJ = null;

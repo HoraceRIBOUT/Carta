@@ -14,7 +14,7 @@ public class pnj : MonoBehaviour
         postWoman       = 2,
         seawatcher      = 8,
         boxLudo         = 9,
-        wolfGirl        = 23,
+        wolfGirl        = 25,
         chiefLudo       = 20,
         mimo            = 22,
 
@@ -112,21 +112,23 @@ public class pnj : MonoBehaviour
             GameObject currentGO = UnityEditor.Selection.activeGameObject;
             pnj currentPNJ = currentGO.GetComponent<pnj>();
 
+            //TO DO : follow the nomenclature :
+            // - item/ITEMID/[item]_[pnj]_[Give||Show].asset
+            string pnjName = currentPNJ.id.ToString();
+            if (currentPNJ.id == pnjID.None)
+                pnjName = currentPNJ.gameObject.name;
+
             Dialog asset1 = ScriptableObject.CreateInstance<Dialog>();
-            asset1.name = currentPNJ.id + "_" + itemToReactFrom.ToString() + "_Give.asset";
+            asset1.name = itemToReactFrom.ToString() + "_" + pnjName + "_Give.asset";
             Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.id + "_" + itemToReactFrom.ToString() + "_Show.asset";
+            asset2.name = itemToReactFrom.ToString() + "_" + pnjName + "_Show.asset";
 
-            if(!System.IO.Directory.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/"))
+            if(!System.IO.Directory.Exists("Assets/Data/Dialog/item/" + itemToReactFrom.ToString() + "/"))
             {
-                System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.id + "/");
-            }
-            if (!System.IO.Directory.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/Item/"))
-            {
-                System.IO.Directory.CreateDirectory("Assets/Data/Dialog/" + currentPNJ.id + "/Item/");
+                System.IO.Directory.CreateDirectory("Assets/Data/Dialog/item/" + itemToReactFrom.ToString() + "/");
             }
 
-            string filePath = "Assets/Data/Dialog/" + currentPNJ.id + "/Item/" + asset1.name;
+            string filePath = "Assets/Data/Dialog/item/" + itemToReactFrom.ToString() + "/" + asset1.name;
             if (!System.IO.File.Exists(filePath))
             {
                 UnityEditor.AssetDatabase.CreateAsset(asset1, filePath);
@@ -136,7 +138,7 @@ public class pnj : MonoBehaviour
                 asset1 = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
             }
 
-            filePath = "Assets/Data/Dialog/" + currentPNJ.id + "/Item/" + asset2.name;
+            filePath = "Assets/Data/Dialog/item/" + itemToReactFrom.ToString() + "/" + asset2.name;
             if (!System.IO.File.Exists(filePath))
             {
                 UnityEditor.AssetDatabase.CreateAsset(asset2, filePath);
@@ -188,7 +190,11 @@ public class pnj : MonoBehaviour
 
 
         GameManager.instance.dialogMng.StartDialog(GetDialogToShow(), this);
+        StartCameraForDialog();
+    }
 
+    public void StartCameraForDialog()
+    {
         if (cameraPoints != null && cameraPoints.Count != 0)
             GameManager.instance.cameraMng.SetSecondaryTarget(cameraPoints[0]);
     }

@@ -217,7 +217,7 @@ MonoBehaviour:
         color_override: {r: 0, g: 0, b: 0, a: 0}
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
-      redirectNumberAfterYes: 113
+      redirectNumberAfterYes: 46
       redirectYes:
         dialogToGo: {fileID: 11400000, guid: 6fbdd5bac815ea24986e1c77b78c8bcc, type: 2}
       typeNo: 1
@@ -225,8 +225,8 @@ MonoBehaviour:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
       redirectNumberIfNo: 4
-      redirectNumberStopNo: 112
-      redirectNumberAfterNo: 113
+      redirectNumberStopNo: 45
+      redirectNumberAfterNo: 46
       redirectNo:
         dialogToGo: {fileID: 0}
   - index: 0

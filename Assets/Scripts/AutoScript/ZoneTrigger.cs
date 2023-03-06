@@ -15,9 +15,18 @@ public class ZoneTrigger : MonoBehaviour
             this.gameObject.AddComponent<ZoneTrigger_AutoGeneratePart>();
     }
 
+
+    [Sirenix.OdinInspector.ShowIf("myType", ZoneTrigger_AutoGeneratePart.ZoneTriggerType.balcony)]
+    public Dialog balconyDialog;
+    public pnj balconyPNJ;
+
     public void EnterBalcony()
     {
         Debug.Log("Balcony ! Yeah !");
+        //Play the dialog :
+        GameManager.instance.dialogMng.StartDialog(balconyDialog, balconyPNJ);
+        balconyPNJ.StartCameraForDialog();
+        this.gameObject.SetActive(false);
     }
     public void ExitBalcony()
     {

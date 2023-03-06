@@ -1,0 +1,65 @@
+zone	football	flowerKid				
+				Eh ! Toi !		
+				Oui, toi ! Le robot !		
+				Tu peux venir stp ?		
+			setnextdialog	flowerKid	6	
+nextDial	FootballIntro	flowerKid				
+			dialog	Tiens !		
+			additem	football		
+				J'aurais besoin que tu amènes ça en bas.		
+			camera	1		
+				Là, derrière l'immeuble ! Y a un terrain de foot.		
+				Tu verras deux buts : va à celui qui est le plus loin, à côté d'un escalier. C'est celui là!		
+			camera	1		
+				Merci !!!		
+showRes	football	flowerKid				
+				Oui, oui, je te l'ai filé.		
+				Faut juste que tu l'apportes au but là bas.		
+			camera	1		
+				En contrebas, derrière l'immeuble.		
+				Tu verras deux buts : va à celui qui est le plus loin, à côté d'un escalier. C'est celui là!		
+			camera	1		
+				Tu te trompes pas hein ?		
+				Et le dis pas aux autres, hein ? C'est une surprise...		
+giveRes	football	flowerKid				
+			dialog	Non, non, non, me rend pas la balle.		
+				Il faut que tu la mettre dans le but !		
+			camera	1		
+				Le terrain est juste en bas, là, derrière l'immeuble.		
+			camera	0		
+				Celui à côté de l'escalier, pas celui prêt de la porte, compris ?		
+showRes	football	kiddo				
+				Oh, c'est à XXX !		
+				Toujours à vouloir tricher.		
+				Au moins, la balle dans tes moins, il ne trichera pas.		
+				Enfin... j'espère.		
+				...		
+				Je te surveille.		
+giveRes	football	kiddo				
+				Eh, oh, non, me file pas cette balle.		
+				On es en pause, on attendra que la partie reprend.		
+				Je respecte les règles, moi.		
+				... Enfin, celle du foot quoi.		
+showRes	football	sistLittle				
+				Oh, la balle de foot !		
+				On a fais pause à la parti parce que XXX c'est fait mal !		
+				J'ai hâte qu'il aille mieux pour qu'on puisse reprendre ! Y avais égalité !		
+				Et j'veux leur montrer comment j'suis devenu meilleur !		
+				Sez m'a trop bien appris ! 		
+giveRes	football	sistLittle				
+				Oh non, j'veux pas la balle		
+				J'risquerai de la faire tomber à l'eau et tout les autres m'en voudraient !		
+showRes	football	wolfGirl				
+			dialog	...		
+				C'est la balle de XXX.		
+				Il est blessé, la partie est suspendu.		
+				...		
+			changeface	wolfGirl	2	3
+			dialog	Enfin, sauf si tu veux nous aider ..?		
+giveRes	football	wolfGirl				
+				Oh, la balle de XXX ?		
+				Non non, me la passe pas.		
+				Ils vont m'accuser de tricher après.		
+				...		
+				Mais si c'est toi qui triche, c'est comme si ça compterai pas...		
+				...		

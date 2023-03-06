@@ -26,4 +26,155 @@ giveFail		boxLudo
 			dialog	Bonne chance pour trouver à qui le livrer !					
 showFail		boxLudo							
 			dialog	Hm... Aucune idée de pour qui c'est.					
-			dialog	J'te dis bonne chance pour trouver à qui le livrer !								
+			dialog	J'te dis bonne chance pour trouver à qui le livrer !					
+idleDial		chiefLudo							
+			iteminteractivity	TRUE					
+			dialog	... Je suis en pause, qu'y a t'il ?					
+			dialog	...					
+			dialog	S'il n'y a rien, je retourne à ma pause.					
+			iteminteractivity	FALSE					
+giveWait		chiefLudo							
+giveFail		chiefLudo							
+showFail		chiefLudo							
+									
+idleDial		babiol							
+			iteminteractivity	TRUE					
+			dialog	Tu cherches quelque chose ?					
+			dialog	Ou quelqu'un avec qui parlais ?					
+			choice	redirectDialog	babiol_DefaultDialog_Yes	redirectNumber	45	RETURN :	46
+			dialog	Passe une bonne journée mon chéri !					
+			animation	babiol	0				
+			iteminteractivity	FALSE					
+newDial	DefaultDialog_Yes	babiol							
+			dialog	Ohoh, laisse moi écouter la chose, car ceci n'est qu'un test !					
+				File p'tite bête !					
+giveWait		babiol							
+			dialog	Oh ? Un colis pour moi ?					
+giveFail		babiol							
+			dialog	J'aimerais éviter de vendre une babiole qui es destinée à quelqu'un mon petit.					
+showFail		babiol							
+			dialog	Hm ? Oh, c'est... pas pour moi.					
+			dialog	J'espère que tu trouveras à qui livrer ça !					
+idleDial		flowerMom							
+			iteminteractivity	TRUE					
+			dialog	Bonjour petit robot.					
+			dialog	Tu cherches quelqu'un ?					
+			dialog	Si tu cherches mon fils, il est à l'étage.					
+			iteminteractivity	FALSE					
+giveWait		flowerMom							
+			dialog	Hm ? Pour moi ?					
+giveFail		flowerMom							
+			dialog	Je dois finir les taxes, je ne peux pas t'aider à trouver ta destination, désolée.					
+showFail		flowerMom							
+			dialog	Hm ? Désolée, ça ne me dis rien.					
+									
+idleDial		climbrDad							
+			iteminteractivity	TRUE					
+			dialog	Attention à toi, je coupe des fleurs.					
+			dialog	J'aimerais ne pas te trancher le bras !					
+			dialog	J'ai encore une vingtaine de fleur à récupérer pour le mariage, alors ne les écrase pas trop, s'il te plaît.					
+			iteminteractivity	FALSE					
+giveWait		climbrDad							
+			dialog	Un colis ? Approche le pour voir ?					
+giveFail		climbrDad							
+			dialog	Ce n'est pas pour moi mais ça me dis quelque chose...					
+showFail		climbrDad							
+			dialog	Hein ? Tu peux me montrer ça de plus près ?					
+			dialog	Hm...					
+			dialog	Je crains de ne pas pouvoir t'aider petit bonhomme.					
+		flowerKid							
+idleDial		flowerKid							
+			iteminteractivity	TRUE					
+			dialog	Eh ! Eh ! Comment ça ?					
+			dialog	Franchement, j'adore te voir courir sur les murs et grimper comme ça, c'est vraiment fun !					
+			dialog	Tu devrais visiter la ville englouti, y a des passages super rigolo où faut sauter d'un toît à l'autre !					
+			dialog	Et si tu tombes, c'est pas dangereux, c'est juste de l'eau !					
+			dialog	Oh... t'es un robot... c'est vrai... désolé.					
+			iteminteractivity	FALSE					
+giveWait		flowerKid							
+			dialog	Oh c'est pour moi !					
+giveFail		flowerKid							
+			dialog	Ah non.					
+showFail		flowerKid							
+			dialog	C'est quoi ?					
+			dialog	J'suis pas sûr que j'ai le droit de regarder les affaires des autres comme ça.					
+idleDial		sistUp							
+			iteminteractivity	TRUE					
+			dialog	B..bonjour.					
+			dialog	Je suis un peu occupée, tu me voulais quelque chose ?					
+			dialog	Si non, je... désolée j'ai à faire.					
+giveWait		sistUp							
+			dialog	Qu'y a t'il ?					
+giveFail		sistUp							
+			dialog	Je crois pas que ça me soit destinée, ça.					
+showFail		sistUp							
+			dialog	Oh ? Euh... Ouaho, je sais pas du tout à qui ça peux être destinté.					
+			dialog	Bonne chance pour trouver le destinataire !					
+idleDial		sistLittle							
+			iteminteractivity	TRUE					
+			dialog	Coucou, tu viens écouter la mer avec moi ?					
+			dialog	Assis toi et repose toi !					
+			dialog	Ou repars en sautant dans l'eau, c'est pas moi qui décide.					
+giveWait		sistLittle							
+			dialog	Oh, c'est quoi ????					
+giveFail		sistLittle							
+			dialog	Oh, c'est pas pour moi...					
+showFail		sistLittle							
+			dialog	Si tu me le montres alors que c'est pas pour moi...					
+			dialog	Est-ce que ça veux dire que je peux le prendre ?					
+			dialog	... oublie ça, Letícia ne voudra pas que je ramène encore plus de babiole à la maison...					
+idleDial		parainTem							
+			iteminteractivity	TRUE					
+			dialog	Bienvenue dans ma boutique p'tit gars !					
+			dialog	Si tu viens pas pour m'filer d'l'argent, alors soit polie :					
+			dialog	et dégage.					
+			dialog	Merci ! Nyehehe.					
+			iteminteractivity	FALSE					
+giveWait		parainTem							
+			dialog	Un colis pour moi ?					
+giveFail		parainTem							
+			dialog	Me fait pas perdre mon temps p'tit, tu vois bien que c'est pour quelqu'un d'autre !					
+showFail		parainTem							
+			dialog	Et tu veux qu'j'en fasse quoi de ça ?					
+			dialog	Allez, va-t-en p'tit gars !					
+idleDial		forge							
+			iteminteractivity	TRUE					
+			dialog	Qu'est-ce que tu fais là toi ?					
+			dialog	Tu as une lettre pour moi ou du matériel ?					
+			dialog	Non ? Alors dégage.					
+			iteminteractivity	FALSE					
+giveWait		forge							
+			dialog	Hm ?					
+giveFail		forge							
+			dialog	Non, ce n'est pas pour moi ! Fait ton boulot correctement p'tit...					
+			dialog	Allez, va-t-en.					
+showFail		forge							
+			dialog	Si tu veux de l'aide, tu va devoir cherchez ailleurs.					
+idleDial		kiddo							
+			iteminteractivity	TRUE					
+			dialog	Yo, salut toi.					
+			dialog	Tu viens voir Coolman ?					
+			dialog	Il est au travail dans les déchets à cette heure là.					
+			dialog	Moi ? Je squatte son frigo.					
+			dialog	Et je répète le même message au petit robot qui repasse ici et qui me redemande la même chose.					
+			iteminteractivity	FALSE					
+giveWait		kiddo							
+			dialog	Ah, pardon, c'est pour moi ?					
+giveFail		kiddo							
+			dialog	Euh... non, et je sais même pas si c'est pour Coolman.					
+showFail		kiddo							
+			dialog	Oh ? Un truc ?					
+			dialog	Pft. J'vois pas ce que c'est.					
+idleDial		prof							
+			iteminteractivity	TRUE					
+			dialog	Bonjour monsieur le postier.					
+			dialog	Vous avez un colis pour moi ou pour l'école ?					
+			dialog	Non ? Pas de souci petit robot, à bientôt !					
+			iteminteractivity	FALSE					
+giveWait		prof							
+			dialog	Ah ! Un colis !					
+giveFail		prof							
+			dialog	Non non, ce n'est pas pour moi. Je ne peux pas t'aider hélas...					
+showFail		prof							
+			dialog	Oh, ça ne me dis rien cela...					
+			dialog	Essaie de voir avec quelqu'un d'autre.					

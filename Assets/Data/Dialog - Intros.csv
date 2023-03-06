@@ -104,21 +104,3 @@ newDial	JustATest
 				Please.					
 				try it.					
 			iteminteractivity	TRUE					
-idleDial		babiol							
-			iteminteractivity	TRUE					
-			dialog	Tu cherches quelque chose ?					
-			dialog	Ou quelqu'un avec qui parlais ?					
-			choice	redirectDialog	babiol_DefaultDialog_Yes	redirectNumber	112	RETURN :	113
-			dialog	Passe une bonne journée mon chéri !					
-			animation	babiol	0				
-			iteminteractivity	FALSE					
-newDial	DefaultDialog_Yes	babiol							
-			dialog	Ohoh, laisse moi écouter la chose, car ceci n'est qu'un test !					
-				File p'tite bête !					
-giveWait		babiol							
-			dialog	Oh ? Un colis pour moi ?					
-giveFail		babiol							
-			dialog	J'aimerais éviter de vendre une babiole qui es destinée à quelqu'un mon petit.					
-showFail		babiol							
-			dialog	Hm ? Oh, c'est... pas pour moi.					
-			dialog	J'espère que tu trouveras à qui livrer ça !					
