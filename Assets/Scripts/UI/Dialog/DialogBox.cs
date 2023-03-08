@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DialogBox : MonoBehaviour
 {
     //Global : 
-    private Coroutine fadeDial = null;
+    //private Coroutine fadeDial = null; //useless now
     private Coroutine printDial = null;
     private string printText_inSkipCase = "";
     [SerializeField] private float printDelay = 0.05f;

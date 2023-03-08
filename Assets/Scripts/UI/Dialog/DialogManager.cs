@@ -189,7 +189,7 @@ public class DialogManager : MonoBehaviour
     {
         if (currentDialog.allSteps.Count == currentStep + 1)
         {
-            Debug.LogError("Finish Dialog");
+            /*Debug.LogError("Finish Dialog");*/
             FinishDialog();
             return;
         }
@@ -483,7 +483,6 @@ public class DialogManager : MonoBehaviour
             closestPNJ.TurnActionOnOrOff(true);
         }
 
-        Debug.LogError("Close ? Close ! Close Dialog");
         canClick = true;
         inDialog = false;
         currentPNJ = null;

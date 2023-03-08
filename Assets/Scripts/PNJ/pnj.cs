@@ -74,7 +74,7 @@ public class pnj : MonoBehaviour
     [Header("Visual")]
     [SerializeField] private Animator animator;
     public List<Visual_Position> visuals = new List<Visual_Position>();
-    [Sirenix.OdinInspector.ReadOnly]public int visualIndex = 0;
+    [Sirenix.OdinInspector.ReadOnly] public int visualIndex = 0;
     [System.Serializable]
     public struct Visual_Position
     {
@@ -93,6 +93,19 @@ public class pnj : MonoBehaviour
     private Coroutine actionButt_Coroutine;
     [SerializeField] private SpriteRenderer actionButt_visual_key;
     [SerializeField] private SpriteRenderer actionButt_visual_con;
+
+    [Header("SaveData")]
+    [Sirenix.OdinInspector.ReadOnly()] public PNJ_SaveData saveData;
+    public class PNJ_SaveData
+    {
+        //Info to save :
+
+        //visuals index 
+
+        //nextDial List
+        //current idleDial 
+    }
+
 
     [System.Serializable]
     public class ItemReaction

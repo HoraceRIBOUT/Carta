@@ -336,7 +336,10 @@ public class PlayerMove : MonoBehaviour
 
     public void GravityManagement()
     {
-        gravityMultiplier = Vector3.Dot(currentNormal, Vector3.up);
+        if (currentNormal != Vector3.zero)
+            gravityMultiplier = Vector3.Dot(currentNormal.normalized, Vector3.up);
+        else
+            gravityMultiplier = 1;
 
 
         if (grapleMode_eff)
