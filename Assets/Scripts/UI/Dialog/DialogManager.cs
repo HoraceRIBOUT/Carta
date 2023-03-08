@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System.IO;
 
 //Deal with the UI
 public class DialogManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class DialogManager : MonoBehaviour
     public bool canClick = true;
 
     public List<pnj> allPNJ = new List<pnj>();
+    [Sirenix.OdinInspector.ReadOnly] public List<Dialog> allDialog;
+    [Sirenix.OdinInspector.ReadOnly] public Dictionary<string, Dialog> allDialogDico;
 
     [Header("UI")]
     public List<DialogBox> dialogTexts;
@@ -41,7 +44,8 @@ public class DialogManager : MonoBehaviour
     public void Start()
     {
         //Just in case, could be delete when finishing the game to lighten the start load
-        FillAllPNJ();
+        FillAllPNJ(); 
+        FillAllDialogDico();
     }
 
     [Sirenix.OdinInspector.Button()]
@@ -254,6 +258,10 @@ public class DialogManager : MonoBehaviour
                 LaunchAnimation((Step.Step_Animation)dialog.allSteps[index].GetData());
                 NextStep();
                 break;
+            case Step.stepType.changevisual:
+                ChangeVisual((Step.Step_ChangeVisual)dialog.allSteps[index].GetData());
+                NextStep();
+                break;
             default:
                 Debug.LogError("Did not implement correct value for step type " + dialog.allSteps[index].type);
                 NextStep();
@@ -327,15 +335,7 @@ public class DialogManager : MonoBehaviour
 
     public void LaunchAnimation(Step.Step_Animation data)
     {
-        pnj target = null;
-        foreach (pnj potential in allPNJ)
-        {
-            if (potential.id == data.targetID)
-            {
-                target = potential;
-                break;
-            }
-        }
+        pnj target = GetPNJFromID(data.targetID);
         if (target == null)
         {
             Debug.LogError("No pnj for " + data.targetID);
@@ -347,15 +347,7 @@ public class DialogManager : MonoBehaviour
 
     public void ChangePNJFace(Step.Step_ChangeFace data)
     {
-        pnj target = null;
-        foreach (pnj potential in allPNJ)
-        {
-            if (potential.id == data.targetID)
-            {
-                target = potential;
-                break;
-            }
-        }
+        pnj target = GetPNJFromID(data.targetID);
         if (target == null)
         {
             Debug.LogError("No pnj for " + data.targetID);
@@ -365,17 +357,21 @@ public class DialogManager : MonoBehaviour
         target.ChangeFace(data.eyesIndex, data.mouthIndex);
     }
 
+    public void ChangeVisual(Step.Step_ChangeVisual data)
+    {
+        pnj target = GetPNJFromID(data.targetID);
+        if (target == null)
+        {
+            Debug.LogError("No pnj for " + data.targetID);
+            return;
+        }
+
+        target.ChangeVisual(data.visualIndex);
+    }
+
     public void SetDefaultDialog(Step.Step_SetDefaultDialog data)
     {
-        pnj target = null;
-        foreach (pnj potential in allPNJ)
-        {
-            if(potential.id == data.targetID)
-            {
-                target = potential;
-                break;
-            }
-        }
+        pnj target = GetPNJFromID(data.targetID);
         if (target == null)
         {
             Debug.LogError("No pnj for " + data.targetID);
@@ -388,15 +384,7 @@ public class DialogManager : MonoBehaviour
     }
     public void SetNextDialog(Step.Step_SetNextDialog data)
     {
-        pnj target = null;
-        foreach (pnj potential in allPNJ)
-        {
-            if (potential.id == data.targetID)
-            {
-                target = potential;
-                break;
-            }
-        }
+        pnj target = GetPNJFromID(data.targetID);
         if (target == null)
         {
             Debug.LogError("No pnj for " + data.targetID);
@@ -502,9 +490,62 @@ public class DialogManager : MonoBehaviour
 
     }
 
+    public pnj GetPNJFromID(pnj.pnjID id)
+    {
+        foreach (pnj potential in allPNJ)
+        {
+            if (potential.id == id)
+            {
+                return potential;
+            }
+        }
+        return null;
+    }
 
 
-    public void InventoryOrMapOpen()
+#if UNITY_EDITOR
+
+    [Sirenix.OdinInspector.Button]
+    void LoadAllDialog()
+    {
+        allDialog = new List<Dialog>();
+        string largestPath = "Assets/Data/Dialog/";
+        Debug.Log("Go seek in  " + largestPath);
+        foreach (var filePath in Directory.EnumerateFiles(largestPath, "*.asset", SearchOption.AllDirectories))
+        {
+            string fileName = Path.GetFileNameWithoutExtension(filePath.Trim());
+            Debug.Log("What filename are you : " + fileName + " (fullPath = " + filePath + ")");
+            //Get rid of the directory : only the filename ! (and test if it's a dialog, please, by the mother of god)
+
+            Dialog dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
+            if (dial != null)
+                allDialog.Add(dial);
+        }
+        Debug.Log("Finish seek but found " + allDialog.Count + " files.");
+    }
+
+    private void FillAllDialogDico()
+    {
+        allDialogDico = new Dictionary<string, Dialog>();
+        foreach (Dialog dial in allDialog)
+        {
+            allDialogDico.Add(dial.name, dial);
+        }
+    }
+
+    [Sirenix.OdinInspector.Button]
+    void InfoAllDialog()
+    {
+        Debug.Log("AllDialog " + (allDialog == null ? "is null." : "have " + allDialog.Count + " files."));
+    }
+#endif
+
+    public Dialog GetDialByName(string name)
+    {
+        return allDialogDico[name];
+    }
+
+public void InventoryOrMapOpen()
     {
     }
     public void InventoryOrMapClose()

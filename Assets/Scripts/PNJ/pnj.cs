@@ -96,14 +96,35 @@ public class pnj : MonoBehaviour
 
     [Header("SaveData")]
     [Sirenix.OdinInspector.ReadOnly()] public PNJ_SaveData saveData;
+    [System.Serializable]
     public class PNJ_SaveData
     {
         //Info to save :
+        public pnjID id;
 
         //visuals index 
+        public int visualsIndex = 0;
 
         //nextDial List
         //current idleDial 
+        public string idleDial_Name;
+        public List<string> nextDial_Names;
+        public List<int> nextDial_Priority;
+
+        public PNJ_SaveData(pnjID _id, int _visualsIndex, Dialog _idleDial, List<Dialog_ToShow> _nextDial)
+        {
+            id = _id;
+            visualsIndex = _visualsIndex;
+            idleDial_Name = _idleDial.name;
+
+            nextDial_Names = new List<string>();
+            nextDial_Priority = new List<int>();
+            foreach (Dialog_ToShow nextDial in _nextDial)
+            {
+                nextDial_Names.Add(nextDial.dialog.name);
+                nextDial_Priority.Add(nextDial.priority);
+            }
+        }
     }
 
 
@@ -201,7 +222,7 @@ public class pnj : MonoBehaviour
     {
         GameManager.instance.mapAndPaper.iconZone.AddIconIfNeeded(this.id);
 
-
+        //Will need to have a way to make a smooth change and not a brutal like that (thirdaries ?)
         GameManager.instance.dialogMng.StartDialog(GetDialogToShow(), this);
         StartCameraForDialog();
     }
@@ -249,6 +270,8 @@ public class pnj : MonoBehaviour
 
     public void ChangeVisual(int index)
     {
+        if (index == visualIndex)
+            return; //No need
         if(index < 0 || index >= visuals.Count)
         {
             Debug.LogError("Try change visual of "+id + " to index " + index + " but only have "+ visuals.Count + " visual.");
@@ -260,12 +283,13 @@ public class pnj : MonoBehaviour
 
         foreach (GameObject gO in visuals[index].toTurnOn)
         {
-            gO.SetActive(false);
+            gO.SetActive(true);
         }
 
-        cameraPoints[0] = visuals[index].newCameraZero.transform;
-
+        cameraPoints[0] = visuals[index].newCameraZero.transform; 
         visualIndex = index;
+        StartCameraForDialog();
+
     }
 
 
@@ -327,6 +351,34 @@ public class pnj : MonoBehaviour
     {
         actionButt_visual_con.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
         actionButt_visual_key.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
+    }
+
+
+
+    public PNJ_SaveData GetSaveData()
+    {
+        PNJ_SaveData data = new PNJ_SaveData(id, visualIndex, defaultDialog, nextDialog);
+
+        return data;
+    }
+    public void LoadData(PNJ_SaveData dataToLoad)
+    {
+        //Visuals
+        ChangeVisual(dataToLoad.visualsIndex);
+
+        //Idle dial and next dial 
+        defaultDialog = GameManager.instance.dialogMng.GetDialByName(dataToLoad.idleDial_Name);
+        nextDialog = new List<Dialog_ToShow>();
+        for (int i = 0; i < dataToLoad.nextDial_Names.Count; i++)
+        {
+            string name = dataToLoad.nextDial_Names[i];
+            Dialog dial = GameManager.instance.dialogMng.GetDialByName(name);
+            int index = dataToLoad.nextDial_Priority[i];
+            nextDialog.Add(new Dialog_ToShow(dial, index));
+        }
+        //Maybe sort again by priority
+
+
     }
 
 

@@ -120,6 +120,7 @@ Material:
     - _MainIntensoty: 0
     - _Metallic: 0
     - _Mode: 0
+    - _NormalStrenght: 1
     - _OcclusionStrength: 1
     - _Open: 0
     - _Parallax: 0.02

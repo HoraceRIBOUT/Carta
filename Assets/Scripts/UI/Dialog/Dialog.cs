@@ -315,6 +315,29 @@ namespace Step
     }
 
     [System.Serializable]
+    public class Step_ChangeVisual : Step_father
+    {
+        public pnj.pnjID targetID;
+        public int visualIndex = 0;
+        public override string ToCSVLine()
+        {
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "changevisual" + Dialog.CASE_SEPARATOR + targetID + Dialog.CASE_SEPARATOR + visualIndex + Dialog.CASE_SEPARATOR;
+        }
+
+        public Step_ChangeVisual(string[] splitLine)
+        {
+            targetID = CreateCSV.GetPnjIdFromString(splitLine[4]);
+
+            if (int.TryParse(splitLine[5], out int res))
+                visualIndex = res;
+            else
+                Debug.LogError("Change visual : the index is not a number : " + splitLine[5]);
+
+        }
+    }
+
+    [System.Serializable]
     public class Step_Choice : Step_father
     {
         public enum choiceType

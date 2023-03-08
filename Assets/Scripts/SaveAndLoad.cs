@@ -25,14 +25,14 @@ public class SaveAndLoad : MonoBehaviour
         //Character visual : (maybe)
 
         //PNJ state (for the pnj who change position or state (factrice, aguilar, wolfgirl...) : 
-
+        public List<pnj.PNJ_SaveData> pnjSave;
 
         //Time of the day :
         public float timeOfTheDay;
 
         //element and page (mostly allready Serializable ?)
 
-        public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, float _timeOfTheDay)
+        public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, float _timeOfTheDay, List<pnj.PNJ_SaveData> _pnjSave)
         {
             inventory_all = _inventory_all;
             inventory_current = _inventory_current;
@@ -40,6 +40,7 @@ public class SaveAndLoad : MonoBehaviour
             posWhenQuit_y = _posWhenQuit.y;
             posWhenQuit_z = _posWhenQuit.z;
             timeOfTheDay = _timeOfTheDay;
+            pnjSave = _pnjSave;
         }
 
         public Vector3 posWhenQuit()
@@ -120,6 +121,15 @@ public class SaveAndLoad : MonoBehaviour
 
         //PNJ state (int for each pnjID not at 0)
         //pnj : next dialog / current idle dial 
+        List<pnj.PNJ_SaveData> pnjSave = new List<pnj.PNJ_SaveData>();
+        foreach(pnj pnj in GameManager.instance.dialogMng.allPNJ)
+        {
+            if (pnj.id == pnj.pnjID.None)
+                continue;//can ignore the None pnj (we may need to know which one are activate or not)  
+
+            if(pnj.defaultDialog != null && pnj.giveWait_Dial != null) //need to be sure it's not WIP
+                pnjSave.Add(pnj.GetSaveData());
+        }
 
         //Already read dialog : 
         //OK, THIS is going to take a huge chunck.
@@ -135,7 +145,7 @@ public class SaveAndLoad : MonoBehaviour
 
         //
 
-        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay);
+        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave);
         return data;
     }
 
@@ -160,6 +170,14 @@ public class SaveAndLoad : MonoBehaviour
         GameManager.instance.inventory.inventory_current = inventory_current;
         GameManager.instance.inventory.PopulateCurrentItemList();
         GameManager.instance.inventory.UpdateVisual();
+
+        //PNJ 
+        foreach (pnj.PNJ_SaveData pnjData in data.pnjSave)
+        {
+            pnj pnj = GameManager.instance.dialogMng.GetPNJFromID(pnjData.id);
+            pnj.LoadData(pnjData);
+        }
+
 
         //Character :
         //Go reach the closest spawn point to where you quit 
