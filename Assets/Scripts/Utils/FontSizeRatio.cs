@@ -75,27 +75,22 @@ public class FontSizeRatio : MonoBehaviour
         else if (FindObjectOfType<Opening>() != null)
             sizeMultiplier = FindObjectOfType<Opening>().option.dialogueSizeMultiplier;*/
 
-        if (ratioFromTheRect)
+        float fontSize = ratioFromTheRect?
+            ratio * myRectTransform.rect.size.y * sizeMultiplier * scaleur
+            :
+            ratio * Screen.height * sizeMultiplier * scaleur
+            ;
+
+        if (myText != null)
         {
-            if (myText != null)
-            {
-                myText.fontSize = (int)(ratio * myRectTransform.rect.size.y * sizeMultiplier * scaleur);
-            }
-            if (myTMP_Text != null)
-            {
-                myTMP_Text.fontSize = ratio * myRectTransform.rect.size.y * sizeMultiplier * scaleur;
-            }
+            myText.fontSize = (int)(fontSize);
         }
-        else
+        if (myTMP_Text != null)
         {
-            if (myText != null)
-            {
-                myText.fontSize = (int)(ratio * Screen.height * sizeMultiplier * scaleur);
-            }
-            if (myTMP_Text != null)
-            {
-                myTMP_Text.fontSize = ratio * Screen.height * sizeMultiplier * scaleur;
-            }
+            if (myTMP_Text.enableAutoSizing)
+                myTMP_Text.fontSizeMax = fontSize;
+            else
+                myTMP_Text.fontSize = fontSize;
         }
     }
 }
