@@ -15,9 +15,11 @@ public class UI_MaP_Icon : UI_MaP_Overing
     public CanvasGroup himself;
     public RectTransform himselfRect;
     public CanvasGroup editionPart;
+    public CanvasGroup editNOTPart;
 
     [Header("For populate part")]
     public Image iconImage;
+    [Tooltip("Define by screen percentage")]public Vector2 shadowDistance = new Vector2(0.01f, 0.005f);
     private RectTransform iconRect;
     public TMPro.TMP_InputField name_textField;
     public TMPro.TMP_InputField desc_textField;
@@ -205,7 +207,8 @@ public class UI_MaP_Icon : UI_MaP_Overing
             }
             lastMouseClickPosition = Vector3.zero;
         }
-        
+
+        Debug.Log("Oh ? Not on it ?" + (OveringMe()?"OveringIt":"NotOvering"));
 
         if (Input.GetMouseButton(0) && lastMouseClickPosition != Vector3.zero)
         {
@@ -222,6 +225,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
         {
             QuitEditMode();
         }
+
     }
 
     void PlacementManagement()
@@ -246,6 +250,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
             if (editionPart.alpha <= 1)
             {
                 editionPart.alpha += Time.deltaTime * 2;
+                editNOTPart.alpha = 1 - editionPart.alpha;
             }
         }
         else
@@ -253,10 +258,21 @@ public class UI_MaP_Icon : UI_MaP_Overing
             if (editionPart.alpha >= 0)
             {
                 editionPart.alpha -= Time.deltaTime * 4;
+                editNOTPart.alpha = 1 - editionPart.alpha;
             }
         }
-    }
 
+        if (dragOn)
+        {
+            Vector2 targetSize = new Vector2(Screen.width * shadowDistance.x, Screen.height * shadowDistance.y);
+            iconImage.transform.localPosition = Vector2.Lerp(iconImage.transform.localPosition, targetSize, Time.deltaTime * 4);
+        }
+        else
+        {
+            Vector2 targetSize = Vector2.zero;
+            iconImage.transform.localPosition = Vector2.Lerp(iconImage.transform.localPosition, targetSize, Time.deltaTime * 4);
+        }
+    }
 
 
     void LaunchEditMode()
@@ -280,6 +296,10 @@ public class UI_MaP_Icon : UI_MaP_Overing
     {
         Vector2 mousePos = Input.mousePosition;
         float zoom = this.transform.localScale.x;
+        if (!fromIconZone)
+        {
+            zoom *= GameManager.instance.mapAndPaper.currentPaper.transform.localScale.x;
+        }
         float minX, maxX, minY, maxY;
         if (editMode)
         {

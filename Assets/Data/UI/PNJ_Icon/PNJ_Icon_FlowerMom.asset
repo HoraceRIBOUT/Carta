@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   spriteLittleIcon: {fileID: 21300000, guid: 430212d492e11e741bb1d4c66c581149, type: 3}
-  mainName: 
-  surName: Susanti
-  username: Mom
-  activity: Flower seller
+  nameText: 
+  descText: 

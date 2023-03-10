@@ -91,7 +91,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (!GameManager.instance.mapAndPaper.mapOpen && Input.GetKeyDown(KeyCode.R))
         {
             ResetAll();
         }
