@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public abstract class UI_MaP_Overing : MonoBehaviour
 {
-    public bool overing = false;
+    /// <summary>
+    /// [OBSOLETE] use OveringMe() when you can
+    /// </summary>
+    public bool overing = false; //this value is now obsolet : use OveringMe()
 
     public void MouseEnterZone()
     {
-        overing = true;
+        overing = true; 
+        //Debug.Log("MouseEnterZone " + this.gameObject.name, this.gameObject);
     }
     public void MouseExitZone()
     {
-        overing = false;
+        overing = false; 
+        //Debug.Log("MouseExitZone" + this.gameObject.name, this.gameObject);
     }
+
+
+
 }

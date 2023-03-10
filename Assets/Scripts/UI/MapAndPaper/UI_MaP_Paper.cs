@@ -80,7 +80,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     {
         ItemAndIconPos info = new ItemAndIconPos();
         info.data = newIcon.data;
-        info.positionRelative = newIcon.transform.position - this.transform.position;//need to have a position correct so ?
+        info.positionRelative = newIcon.transform.position - this.transform.position;
         itemAndIcons.Add(info);
 
         iconsGO.Add(newIcon);
@@ -115,7 +115,8 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
     private void MovePaper()
     {
-        if (overing && Input.GetMouseButtonDown(0))
+        //Overing me AND no icon (or element) are overed AND list icon zone is not overred too
+        if (OveringMe() && !GameManager.instance.mapAndPaper.iconZone.OveringMe() && !AnyIconOvered() && Input.GetMouseButtonDown(0))
         {
             beingDragAround = true;
             //Start drag the paper
@@ -131,19 +132,17 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
         if (beingDragAround)
         {
-            Debug.Log("mousePositionWhenStartDragin = " + mousePositionWhenStartDragin);
-            Vector3 movement = this.transform.position - (positionWhenStartDragin + (Input.mousePosition - mousePositionWhenStartDragin) * mouseDragSpeed);
-
-
+            //Debug.Log("mousePositionWhenStartDragin = " + mousePositionWhenStartDragin);
             Vector3 desirePosition = positionWhenStartDragin + (Input.mousePosition - mousePositionWhenStartDragin) * mouseDragSpeed;
+            desirePosition = ClampedPosition(desirePosition);
+            this.transform.position = desirePosition;
 
-            this.transform.position = ClampedPosition(desirePosition);
-
-
+            Vector3 movement = this.transform.position - desirePosition;
             iconMove_Speed = Vector3.Lerp(iconMove_Speed, movement, Time.deltaTime);
         }
         else
         {
+
         }
 
         if(iconMove_Speed != Vector3.zero)
@@ -155,7 +154,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             {
                 UI_MaP_Icon ic = iconsGO[i];
                 ItemAndIconPos icP = itemAndIcons[i];
-                ic.transform.position = this.transform.position + (Vector3)icP.positionRelative * this.transform.localScale.x + iconMove_Speed * iconMove_Amplitude;
+                ic.transform.position = this.transform.position + (Vector3)icP.positionRelative;// * this.transform.localScale.x + iconMove_Speed * iconMove_Amplitude;
             }
         }
 
@@ -199,6 +198,33 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             position.y = relativeMinMaxPos.w;
 
         return position;
+    }
+
+
+
+    public bool OveringMe()
+    {
+        Vector2 mousePos = Input.mousePosition;
+
+        //Now, add the zoom !
+        float zoom = this.transform.localScale.x;
+
+        float minX = this.transform.position.x - rectTr.rect.width  * zoom / 2;
+        float maxX = this.transform.position.x + rectTr.rect.width  * zoom / 2;
+        float minY = this.transform.position.y - rectTr.rect.height * zoom / 2;
+        float maxY = this.transform.position.y + rectTr.rect.height * zoom / 2;
+
+        //Debug.Log(mousePos + " vs : " + rectTr.rect.x + " , " + rectTr.rect.y + " and " + minY + " ---> " + maxY);
+
+        if (minX < mousePos.x &&
+            maxX > mousePos.x &&
+            minY < mousePos.y &&
+            maxY > mousePos.y )
+        {
+            return true;
+        }
+
+        return false;
     }
 
 }

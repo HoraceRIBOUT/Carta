@@ -51,7 +51,7 @@ public class UI_MaP_Element : MonoBehaviour
     public void EndDrag()
     {
         //Need to see what under it. 
-        if (GameManager.instance.mapAndPaper.iconZone.overing)
+        if (GameManager.instance.mapAndPaper.iconZone.OveringMe())
         {
             //Go bakc to the icon zone
 
@@ -61,7 +61,7 @@ public class UI_MaP_Element : MonoBehaviour
             //for now : just change parent
             this.transform.SetParent(GameManager.instance.mapAndPaper.iconZone.iconParent);
         }
-        else if(GameManager.instance.mapAndPaper.currentPaper.overing)
+        else if(GameManager.instance.mapAndPaper.currentPaper.OveringMe())
         {
             this.transform.SetParent(GameManager.instance.mapAndPaper.currentPaper.iconParent);
             GameManager.instance.mapAndPaper.currentPaper.AddElement(this);

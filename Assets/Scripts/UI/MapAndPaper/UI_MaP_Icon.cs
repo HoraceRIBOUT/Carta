@@ -18,8 +18,10 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
     [Header("For populate part")]
     public Image iconImage;
+    private RectTransform iconRect;
     public TMPro.TMP_InputField name_textField;
     public TMPro.TMP_InputField desc_textField;
+    public RectTransform editBGRect;
 
     [Header("For prog")]
     [SerializeField] private Vector2 lastPosition;
@@ -38,6 +40,8 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
     public void Create(IconData data, bool onIconZone)
     {
+        iconRect = iconImage.transform.parent.GetComponent<RectTransform>();
+
         this.name = "Icon " + data.id +  (onIconZone?" fromZone":" for page.");
         fromIconZone = onIconZone;
         this.data = data;
@@ -55,6 +59,8 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
         if (fromIconZone)
             LaunchEditMode();
+        else
+            QuitEditMode();
     }
 
     public void ReUpdateFromData()
@@ -69,17 +75,19 @@ public class UI_MaP_Icon : UI_MaP_Overing
     public void OnNameInputFieldChange()
     {
         data.nameText = name_textField.text;
-        if (!fromIconZone)
+        //if (!fromIconZone)
         {
             GameManager.instance.mapAndPaper.currentPaper.ReUpdateIconFromData();
+            GameManager.instance.mapAndPaper.iconZone.ReUpdateIconFromData();
         }
     }
     public void OnDescInputFieldChange()
     {
         data.descText = desc_textField.text;
-        if (!fromIconZone)
+        //if (!fromIconZone)
         {
             GameManager.instance.mapAndPaper.currentPaper.ReUpdateIconFromData();
+            GameManager.instance.mapAndPaper.iconZone.ReUpdateIconFromData();
         }
     }
 
@@ -120,11 +128,11 @@ public class UI_MaP_Icon : UI_MaP_Overing
     {
         UI_MaP_Paper currentPaper = GameManager.instance.mapAndPaper.currentPaper;
         //Need to see what under it. 
-        if (GameManager.instance.mapAndPaper.iconZone.overing)
+        if (GameManager.instance.mapAndPaper.iconZone.OveringMe())
         {
             TryDestroyAfterDrag();
         }
-        else if(currentPaper.overing)
+        else if(currentPaper.OveringMe())
         {
             this.transform.SetParent(currentPaper.iconParent);
             lastParent_Paper = currentPaper;
@@ -163,9 +171,11 @@ public class UI_MaP_Icon : UI_MaP_Overing
             Destroy(this.gameObject);
     }
 
+    public bool showDebug = false;
     public void Update()
     {
-        //Ok so 
+        if (showDebug)
+            Debug.Log(OveringMe()?"OveringMe " : "NOTvering me.");
 
         InputManagement();
 
@@ -174,7 +184,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
     void InputManagement()
     {
-        if (overing && Input.GetMouseButtonDown(0))
+        if (OveringMe() && Input.GetMouseButtonDown(0))
         {
             //create start point
             lastMouseClickPosition = Input.mousePosition;
@@ -195,6 +205,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
             }
             lastMouseClickPosition = Vector3.zero;
         }
+        
 
         if (Input.GetMouseButton(0) && lastMouseClickPosition != Vector3.zero)
         {
@@ -207,6 +218,10 @@ public class UI_MaP_Icon : UI_MaP_Overing
             }
         }
 
+        if (!fromIconZone && !OveringMe() && editMode)
+        {
+            QuitEditMode();
+        }
     }
 
     void PlacementManagement()
@@ -216,12 +231,10 @@ public class UI_MaP_Icon : UI_MaP_Overing
             Vector2 mousePos = Input.mousePosition; // for now, only the real mouse (later, the mouse can be move by joystick)
             this.transform.position = mousePos + lastOffset;
 
-
             if (lastOffset.magnitude > 0)
                 lastOffset = Vector2.Lerp(lastOffset, Vector2.zero, Time.deltaTime * 4);
 
-
-            if (GameManager.instance.mapAndPaper.currentPaper.overing)
+            if (GameManager.instance.mapAndPaper.currentPaper.OveringMe())
                 this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
             else
                 this.transform.localScale = Vector3.one;
@@ -262,5 +275,41 @@ public class UI_MaP_Icon : UI_MaP_Overing
         editionPart.blocksRaycasts = false;
     }
 
+
+    public bool OveringMe()
+    {
+        Vector2 mousePos = Input.mousePosition;
+        float zoom = this.transform.localScale.x;
+        float minX, maxX, minY, maxY;
+        if (editMode)
+        {
+            //The whole thing
+            minX = editBGRect.transform.position.x - editBGRect.rect.width  * zoom / 2;
+            maxX = editBGRect.transform.position.x + editBGRect.rect.width  * zoom / 2;
+            minY = editBGRect.transform.position.y - editBGRect.rect.height * zoom / 2;
+            maxY = editBGRect.transform.position.y + editBGRect.rect.height * zoom / 2;
+        }
+        else
+        {
+            //Only icon
+            minX = iconRect.transform.position.x - iconRect.rect.width  * zoom / 2;
+            maxX = iconRect.transform.position.x + iconRect.rect.width  * zoom / 2;
+            minY = iconRect.transform.position.y - iconRect.rect.height * zoom / 2;
+            maxY = iconRect.transform.position.y + iconRect.rect.height * zoom / 2;
+
+            //Debug.Log(mousePos + " vs : " + rectTr.rect.x + " , " + rectTr.rect.y + " and " + minY + " ---> " + maxY);
+        }
+
+
+        if (minX < mousePos.x &&
+            maxX > mousePos.x &&
+            minY < mousePos.y &&
+            maxY > mousePos.y)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
 }

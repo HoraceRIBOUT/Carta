@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
 {
+    public RectTransform rect;
+
+
     public UI_MaP_Icon iconPrefab;
 
     [Header("Normally, set by game")]
@@ -23,6 +26,7 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
 
     public void Start()
     {
+        rect = GetComponent<RectTransform>();
     }
 
     public void ChangeSize()
@@ -121,5 +125,23 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
             }
         }
     }
+
+
+
+
+    public bool OveringMe()
+    {
+        Vector3 mousePos = Input.mousePosition;
+
+        if (Screen.width * rect.anchorMin.x < mousePos.x &&
+            Screen.width * rect.anchorMax.x > mousePos.x &&
+            Screen.height * rect.anchorMin.y < mousePos.y &&
+            Screen.height * rect.anchorMax.y > mousePos.y)
+        {
+            return true;
+        }
+        return false;
+    }
+
 
 }

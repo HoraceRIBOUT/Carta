@@ -9,7 +9,7 @@ public class UI_MapAndPaper : MonoBehaviour
     [ReadOnly] [SerializeField] private List<UI_MaP_Paper> papers = new List<UI_MaP_Paper>();
     public UI_MaP_Paper currentPaper;
     public UI_MaP_IconInfoZone iconZone;
-    //So, by default, have one blank paper
+    //So, by default, have one blank paper 
     public bool mapOpen = false;
 
     private Coroutine openCloseCorout = null;
