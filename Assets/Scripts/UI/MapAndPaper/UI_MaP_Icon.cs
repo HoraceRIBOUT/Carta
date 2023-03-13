@@ -95,6 +95,10 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
     private void BeginDrag()
     {
+        //To avoid the multiple icon being take
+        if (!himself.blocksRaycasts)
+            return;
+
         UI_MaP_Icon iconToDrag = this;
         if (fromIconZone)
         {
@@ -146,7 +150,10 @@ public class UI_MaP_Icon : UI_MaP_Overing
                 TryDestroyAfterDrag();
             this.transform.SetParent(lastParent);
             this.transform.localPosition = lastPosition;
-            //this.transform.localScale = lastScale;
+            this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
+            //Re add the icon on the paper
+            lastParent_Paper = currentPaper;
+            currentPaper.AddIcon(this);
         }
         lastParent = this.transform.parent;
 
@@ -208,7 +215,6 @@ public class UI_MaP_Icon : UI_MaP_Overing
             lastMouseClickPosition = Vector3.zero;
         }
 
-        Debug.Log("Oh ? Not on it ?" + (OveringMe()?"OveringIt":"NotOvering"));
 
         if (Input.GetMouseButton(0) && lastMouseClickPosition != Vector3.zero)
         {
@@ -237,7 +243,9 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
             if (lastOffset.magnitude > 0)
                 lastOffset = Vector2.Lerp(lastOffset, Vector2.zero, Time.deltaTime * 4);
-
+            
+            GameManager.instance.mapAndPaper.currentPaper.MoveDependingOnMousePosition();
+            //Correct Size
             if (GameManager.instance.mapAndPaper.currentPaper.OveringMe())
                 this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
             else

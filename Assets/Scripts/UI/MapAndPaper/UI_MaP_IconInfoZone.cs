@@ -75,7 +75,6 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
             UI_MaP_Icon iconToReplace = iconsGO[i];
             int xPos = i % 2;
             int yPos = (int)Mathf.Floor(i / 2);
-            Debug.Log("Pos = " + xPos + ", " + yPos);
             iconToReplace.himselfRect.localPosition = new Vector3(
                 xPos * positionX * fullSize.x + marginX * fullSize.x,
                -yPos * positionY * fullSize.y + marginY * fullSize.y,
@@ -143,5 +142,9 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
         return false;
     }
 
+    public float LeftBorderPositionInScreenPercentage()
+    {
+        return rect.anchorMin.x;
+    }
 
 }

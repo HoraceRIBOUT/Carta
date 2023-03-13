@@ -58,10 +58,9 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         public Color color;
     }
 
-
-    [Range(0, 2)]
     [SerializeField] private float iconMove_Amplitude = 1;
     private Vector3 iconMove_Speed = Vector3.zero;
+    private Vector3 lastMovement;
 
     public void Start()
     {
@@ -84,6 +83,8 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         itemAndIcons.Add(info);
 
         iconsGO.Add(newIcon);
+
+        currentSpeedIntensity = 0;
     }
     public void RemoveIcon(UI_MaP_Icon newIcon)
     {
@@ -137,24 +138,26 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             desirePosition = ClampedPosition(desirePosition);
             this.transform.position = desirePosition;
 
-            Vector3 movement = this.transform.position - desirePosition;
-            iconMove_Speed = Vector3.Lerp(iconMove_Speed, movement, Time.deltaTime);
+            lastMovement = this.transform.position - desirePosition;
         }
         else
         {
-
+            lastMovement = Vector3.zero;
         }
 
         if(iconMove_Speed != Vector3.zero)
         {
-            iconMove_Speed = Vector3.Lerp(iconMove_Speed, Vector3.zero, Time.deltaTime);
-            if (iconMove_Speed.magnitude < 0.001f)
-                iconMove_Speed = Vector3.zero;
+            //Mean it's frame dependant
+            iconMove_Speed = Vector3.Lerp(iconMove_Speed, lastMovement, Time.deltaTime);
+            //if (iconMove_Speed.magnitude < 0.001f)
+            //    iconMove_Speed = Vector3.zero;
             for (int i = 0; i < iconsGO.Count; i++)
             {
                 UI_MaP_Icon ic = iconsGO[i];
                 ItemAndIconPos icP = itemAndIcons[i];
-                ic.transform.position = this.transform.position + (Vector3)icP.positionRelative;// * this.transform.localScale.x + iconMove_Speed * iconMove_Amplitude;
+                //ic.transform.position = this.transform.position + (Vector3)icP.positionRelative;
+                ic.transform.position = this.transform.position + (Vector3)icP.positionRelative + iconMove_Speed * iconMove_Amplitude * this.transform.localScale.x;
+                // * this.transform.localScale.x + iconMove_Speed * iconMove_Amplitude;
             }
         }
 
@@ -225,6 +228,57 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         }
 
         return false;
+    }
+
+
+    [Header("Icon move paper by border")]
+    public AnimationCurve paperBorderMoveX;
+    public AnimationCurve paperBorderMoveY;
+    public float moveSpeedMax = 10f;
+    [Range(0,1)] public float currentSpeedIntensity = 0;
+
+    public void MoveDependingOnMousePosition()
+    {
+        if (GameManager.instance.mapAndPaper.iconZone.OveringMe())
+        {
+            if (currentSpeedIntensity > 0)
+                currentSpeedIntensity = Mathf.Max(0, currentSpeedIntensity - Time.deltaTime * 4);
+            return;
+        }
+        //When draggedIcon is on the border of the screen, move the paper.
+        
+        Vector2 mousePos = Input.mousePosition;
+        mousePos.x /= Screen.width;
+        mousePos.y /= Screen.height;
+
+        float borderX = GameManager.instance.mapAndPaper.iconZone.LeftBorderPositionInScreenPercentage();
+
+        Vector3 fullSpeedSpeed = Vector2.zero;
+
+
+        fullSpeedSpeed.y = paperBorderMoveY.Evaluate(mousePos.y);
+        mousePos.x /= borderX;
+        if (mousePos.x > 1)
+            fullSpeedSpeed.x = 0;
+        else
+            fullSpeedSpeed.x = paperBorderMoveX.Evaluate(mousePos.x);
+
+        if (fullSpeedSpeed != Vector3.zero)
+        {
+            if(currentSpeedIntensity < 1)
+                currentSpeedIntensity = Mathf.Min(1, currentSpeedIntensity + Time.deltaTime * 0.5f);
+        }
+        else
+        {
+            if (currentSpeedIntensity > 0)
+                currentSpeedIntensity = Mathf.Max(0, currentSpeedIntensity - Time.deltaTime * 4);
+        }
+
+        Debug.Log("Full speed : " + fullSpeedSpeed + " (with " + mousePos + ")" + currentSpeedIntensity);
+
+        this.transform.position += Vector3.Lerp(Vector3.zero, fullSpeedSpeed * moveSpeedMax, currentSpeedIntensity);
+
+        this.transform.position = ClampedPosition(this.transform.position);
     }
 
 }
