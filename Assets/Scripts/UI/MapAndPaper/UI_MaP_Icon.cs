@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_MaP_Icon : UI_MaP_Overing
+public class UI_MaP_Icon : UI_MaP_Drag
 {
     [Header("Data")]
     //Data is scriptables
@@ -12,7 +12,6 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
     [Header("Element")]
     //Position and info :
-    public CanvasGroup himself;
     public RectTransform himselfRect;
     public CanvasGroup editionPart;
     public CanvasGroup editNOTPart;
@@ -25,18 +24,10 @@ public class UI_MaP_Icon : UI_MaP_Overing
     public TMPro.TMP_InputField desc_textField;
     public RectTransform editBGRect;
 
-    [Header("For prog")]
-    [SerializeField] private Vector2 lastPosition;
-    [SerializeField] private Vector3 lastMouseClickPosition = Vector3.zero;
-    [SerializeField] private Transform lastParent;
-    [SerializeField] private UI_MaP_Paper lastParent_Paper;
-    [SerializeField] private Vector2 lastOffset;
+
     [SerializeField] private bool editMode = false;
-    [SerializeField] private bool dragOn = false;
     //Somehow, relationship
 
-    public bool fromIconZone = false; 
-    public float baseSize = 0.33f;
     [Range(0, 1)] public float mouseDistanceToCreateClone = 0.1f;
 
 
@@ -45,7 +36,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
         iconRect = iconImage.transform.parent.GetComponent<RectTransform>();
 
         this.name = "Icon " + data.id +  (onIconZone?" fromZone":" for page.");
-        fromIconZone = onIconZone;
+        fromDragZone = onIconZone;
         this.data = data;
 
         //Icon text
@@ -59,7 +50,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
 
         himselfRect = this.GetComponent<RectTransform>();
 
-        if (fromIconZone)
+        if (fromDragZone)
             LaunchEditMode();
         else
             QuitEditMode();
@@ -93,92 +84,20 @@ public class UI_MaP_Icon : UI_MaP_Overing
         }
     }
 
-    private void BeginDrag()
+    
+
+    protected override UI_MaP_Drag CreateClone()
     {
-        //To avoid the multiple icon being take
-        if (!himself.blocksRaycasts)
-            return;
-
-        UI_MaP_Icon iconToDrag = this;
-        if (fromIconZone)
-        {
-            //If taken from the iconList :
-            //  should create a new one, and the new one is the one being dragged.
-            //  
-            UI_MaP_Icon ic = Instantiate(this, GameManager.instance.mapAndPaper.iconZone.iconParent);
-            ic.Create(data, false);
-            ic.transform.position = this.transform.position;
-            ic.transform.localScale = Vector3.one;
-
-            iconToDrag = ic;
-        }
-        //When we will have a custom mouse for this menu : take the "lastPos" of the mouse , to avoid the "BeginDrag" being to late
-        Vector2 mousePos = Input.mousePosition; // for now, only the real mouse (later, the mouse can be move by joystick)
-        iconToDrag.lastOffset = (Vector2)this.transform.position - mousePos;
-        iconToDrag.lastPosition = this.transform.localPosition;
-
-        iconToDrag.transform.SetParent(GameManager.instance.mapAndPaper.aboveMaP);
-        if (iconToDrag.lastParent_Paper != null)
-        {
-            iconToDrag.lastParent_Paper.RemoveIcon(iconToDrag);
-            iconToDrag.lastParent_Paper = null;
-        }
-
-        iconToDrag.himself.blocksRaycasts = false;
-        iconToDrag.dragOn = true;
-        //Debug.Log("Start drag. " + this.name, this.gameObject);
-
-        GameManager.instance.mapAndPaper.currentPaper.ChangeRaycastBlockForIcon(false);
-    }
-    private void EndDrag()
-    {
-        UI_MaP_Paper currentPaper = GameManager.instance.mapAndPaper.currentPaper;
-        //Need to see what under it. 
-        if (GameManager.instance.mapAndPaper.iconZone.OveringMe())
-        {
-            TryDestroyAfterDrag();
-        }
-        else if(currentPaper.OveringMe())
-        {
-            this.transform.SetParent(currentPaper.iconParent);
-            lastParent_Paper = currentPaper;
-            currentPaper.AddIcon(this);
-        }
-        else
-        {
-            if (lastParent == null)
-                TryDestroyAfterDrag();
-            this.transform.SetParent(lastParent);
-            this.transform.localPosition = lastPosition;
-            this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
-            //Re add the icon on the paper
-            lastParent_Paper = currentPaper;
-            currentPaper.AddIcon(this);
-        }
-        lastParent = this.transform.parent;
-
-        //if drag on the icon list : 
-        //  delete it.
-        //else : if on the paper 
-        //  add to the paper list AND register at the paper script that you where add at this adress (transformPos)
-        //      (paper will need to made a conversion to taka account of offset + zoom)
-
-        //else : retur to last pos. Immediatly. (or maybe a "SHLIIIIING" in like, half a second (coroutine + lerp))
-
-        himself.blocksRaycasts = true;
-
-        dragOn = false;
-        //Debug.Log("Finish drag." + this.name, this.gameObject);
-        GameManager.instance.mapAndPaper.currentPaper.ChangeRaycastBlockForIcon(true);
+        UI_MaP_Icon ic = Instantiate(this, GameManager.instance.mapAndPaper.iconZone.iconParent);
+        ic.Create(data, false);
+        ic.transform.position = this.transform.position;
+        ic.transform.localScale = Vector3.one;
+        ic.firstDrag = true;
+        return ic;
     }
 
-    void TryDestroyAfterDrag()
-    {
-        if (fromIconZone)
-            Debug.LogError("!!!Should not be Dragging !!! ", this.gameObject);
-        else
-            Destroy(this.gameObject);
-    }
+
+    
 
     public bool showDebug = false;
     public void Update()
@@ -200,7 +119,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (!fromIconZone)
+            if (!fromDragZone)
             {
                 if (lastMouseClickPosition != Vector3.zero)
                 {
@@ -227,7 +146,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
             }
         }
 
-        if (!fromIconZone && !OveringMe() && editMode)
+        if (!fromDragZone && !OveringMe() && editMode)
         {
             QuitEditMode();
         }
@@ -244,7 +163,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
             if (lastOffset.magnitude > 0)
                 lastOffset = Vector2.Lerp(lastOffset, Vector2.zero, Time.deltaTime * 4);
             
-            GameManager.instance.mapAndPaper.currentPaper.MoveDependingOnMousePosition();
+            GameManager.instance.mapAndPaper.currentPaper.MoveDependingOnMousePosition(this);
             //Correct Size
             if (GameManager.instance.mapAndPaper.currentPaper.OveringMe())
                 this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
@@ -304,7 +223,7 @@ public class UI_MaP_Icon : UI_MaP_Overing
     {
         Vector2 mousePos = Input.mousePosition;
         float zoom = this.transform.localScale.x;
-        if (!fromIconZone)
+        if (!fromDragZone)
         {
             zoom *= GameManager.instance.mapAndPaper.currentPaper.transform.localScale.x;
         }

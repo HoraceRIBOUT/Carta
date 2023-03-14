@@ -75,6 +75,21 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         rectTr.localPosition = Vector3.zero;
     }
 
+    public void AddDrag(UI_MaP_Drag newDrag)
+    {
+        if (newDrag is UI_MaP_Icon)
+            AddIcon((UI_MaP_Icon)newDrag);
+        else //if(newDrag is UI_MaP_Element)
+            AddElement((UI_MaP_Element)newDrag);
+    }
+    public void RemoveDrag(UI_MaP_Drag newDrag)
+    {
+        if(newDrag is UI_MaP_Icon)
+            RemoveIcon((UI_MaP_Icon)newDrag);
+        else //if(newDrag is UI_MaP_Element)
+            RemoveElement((UI_MaP_Element)newDrag);
+    }
+
     public void AddIcon(UI_MaP_Icon newIcon)
     {
         ItemAndIconPos info = new ItemAndIconPos();
@@ -103,6 +118,10 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         elements.Add(info);
 
         elementsGO.Add(newElement);
+    }
+    public void RemoveElement(UI_MaP_Element newElement)
+    {
+        elementsGO.Remove(newElement);
     }
 
     //remove the animation so we can move it on LateUpdate
@@ -237,7 +256,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     public float moveSpeedMax = 10f;
     [Range(0,1)] public float currentSpeedIntensity = 0;
 
-    public void MoveDependingOnMousePosition()
+    public void MoveDependingOnMousePosition(UI_MaP_Drag dragObject)
     {
         if (GameManager.instance.mapAndPaper.iconZone.OveringMe())
         {
@@ -273,6 +292,23 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             if (currentSpeedIntensity > 0)
                 currentSpeedIntensity = Mathf.Max(0, currentSpeedIntensity - Time.deltaTime * 4);
         }
+
+        if (dragObject.firstDrag)
+        {
+            dragObject.firstDrag = false;
+            if (mousePos.x > .6 && fullSpeedSpeed.x != 0)
+            {
+                currentSpeedIntensity = -1;
+            }
+        }
+        else if(currentSpeedIntensity < 0)
+        {
+            if (mousePos.x < .6 || fullSpeedSpeed.x == 0)
+            {
+                currentSpeedIntensity = Mathf.Max(0, currentSpeedIntensity);
+            }
+        }
+
 
         Debug.Log("Full speed : " + fullSpeedSpeed + " (with " + mousePos + ")" + currentSpeedIntensity);
 
