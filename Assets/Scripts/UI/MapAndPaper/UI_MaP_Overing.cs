@@ -7,7 +7,7 @@ public abstract class UI_MaP_Overing : MonoBehaviour
 {
     /// <summary>
     /// [OBSOLETE] use OveringMe() when you can
-    /// </summary>
+    /// </summary>icon
     public bool overing = false; //this value is now obsolet : use OveringMe()
 
     public void MouseEnterZone()

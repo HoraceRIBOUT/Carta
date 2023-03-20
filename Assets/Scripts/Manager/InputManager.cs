@@ -16,6 +16,13 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.mapAndPaper.currentlyEditingText)
+        {
+            //Only test the "enter", ignore everything else
+            return;
+        }
+
+
         //Need to be add : pause.
         //Four state for now :
         if (GameManager.instance.inventory.inventoryDeployed)

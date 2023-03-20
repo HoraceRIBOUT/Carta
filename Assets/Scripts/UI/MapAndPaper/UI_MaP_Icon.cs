@@ -18,22 +18,17 @@ public class UI_MaP_Icon : UI_MaP_Drag
 
     [Header("For populate part")]
     public Image iconImage;
-    [Tooltip("Define by screen percentage")]public Vector2 shadowDistance = new Vector2(0.01f, 0.005f);
-    private RectTransform iconRect;
     public TMPro.TMP_InputField name_textField;
     public TMPro.TMP_InputField desc_textField;
     public RectTransform editBGRect;
 
-
     [SerializeField] private bool editMode = false;
     //Somehow, relationship
-
-    [Range(0, 1)] public float mouseDistanceToCreateClone = 0.1f;
 
 
     public void Create(IconData data, bool onIconZone)
     {
-        iconRect = iconImage.transform.parent.GetComponent<RectTransform>();
+        visualRect = iconImage.transform.parent.GetComponent<RectTransform>();
 
         this.name = "Icon " + data.id +  (onIconZone?" fromZone":" for page.");
         fromDragZone = onIconZone;
@@ -42,6 +37,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
         //Icon text
         iconImage.sprite = data.spriteLittleIcon;
         //Icon image
+        Debug.Log("Data : " + data.nameText + " and " + data.descText);
         name_textField.SetTextWithoutNotify(data.nameText);
         desc_textField.SetTextWithoutNotify(data.descText);
         //Misc too
@@ -67,6 +63,9 @@ public class UI_MaP_Icon : UI_MaP_Drag
 
     public void OnNameInputFieldChange()
     {
+        if (!GameManager.instance.mapAndPaper.currentlyEditingText)
+            return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
+
         data.nameText = name_textField.text;
         //if (!fromIconZone)
         {
@@ -76,6 +75,9 @@ public class UI_MaP_Icon : UI_MaP_Drag
     }
     public void OnDescInputFieldChange()
     {
+        if (!GameManager.instance.mapAndPaper.currentlyEditingText)
+            return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
+
         data.descText = desc_textField.text;
         //if (!fromIconZone)
         {
@@ -84,7 +86,16 @@ public class UI_MaP_Icon : UI_MaP_Drag
         }
     }
 
-    
+    public void OnSelectCustomField()
+    {
+        GameManager.instance.mapAndPaper.currentlyEditingText = true;
+    }
+    public void OnDeselectCustomField()
+    {
+        GameManager.instance.mapAndPaper.currentlyEditingText = false;
+    }
+
+
 
     protected override UI_MaP_Drag CreateClone()
     {
@@ -97,54 +108,21 @@ public class UI_MaP_Icon : UI_MaP_Drag
     }
 
 
-    
-
-    public bool showDebug = false;
-    public void Update()
+    protected override void FinishClickOnIt_WhileOnPaper()
     {
-        if (showDebug)
-            Debug.Log(OveringMe()?"OveringMe " : "NOTvering me.");
+        if (lastMouseClickPosition != Vector3.zero)
+        {
+            GameManager.instance.mapAndPaper.currentPaper.QuitEditModeForIcon();
+            LaunchEditMode();
+        }
+        base.FinishClickOnIt_WhileOnPaper();
 
-        InputManagement();
-
-        PlacementManagement();
     }
 
-    void InputManagement()
+
+    protected override void InputManagement()
     {
-        if (OveringMe() && Input.GetMouseButtonDown(0))
-        {
-            //create start point
-            lastMouseClickPosition = Input.mousePosition;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            if (!fromDragZone)
-            {
-                if (lastMouseClickPosition != Vector3.zero)
-                {
-                    GameManager.instance.mapAndPaper.currentPaper.QuitEditModeForIcon();
-                    LaunchEditMode();
-                }
-                if (dragOn)
-                {
-                    EndDrag();
-                }
-            }
-            lastMouseClickPosition = Vector3.zero;
-        }
-
-
-        if (Input.GetMouseButton(0) && lastMouseClickPosition != Vector3.zero)
-        {
-            float distance = Screen.width * mouseDistanceToCreateClone;
-            if ((lastMouseClickPosition - Input.mousePosition).magnitude > distance)
-            {
-                BeginDrag();
-                //And stop trying to see that.
-                lastMouseClickPosition = Vector3.zero;
-            }
-        }
+        base.InputManagement();
 
         if (!fromDragZone && !OveringMe() && editMode)
         {
@@ -153,23 +131,9 @@ public class UI_MaP_Icon : UI_MaP_Drag
 
     }
 
-    void PlacementManagement()
+    protected override void PlacementManagement()
     {
-        if (dragOn)
-        {
-            Vector2 mousePos = Input.mousePosition; // for now, only the real mouse (later, the mouse can be move by joystick)
-            this.transform.position = mousePos + lastOffset;
-
-            if (lastOffset.magnitude > 0)
-                lastOffset = Vector2.Lerp(lastOffset, Vector2.zero, Time.deltaTime * 4);
-            
-            GameManager.instance.mapAndPaper.currentPaper.MoveDependingOnMousePosition(this);
-            //Correct Size
-            if (GameManager.instance.mapAndPaper.currentPaper.OveringMe())
-                this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
-            else
-                this.transform.localScale = Vector3.one;
-        }
+        base.PlacementManagement();
 
         //Update visual for EDIT MODE
         if (editMode)
@@ -189,6 +153,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
             }
         }
 
+
         if (dragOn)
         {
             Vector2 targetSize = new Vector2(Screen.width * shadowDistance.x, Screen.height * shadowDistance.y);
@@ -199,6 +164,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
             Vector2 targetSize = Vector2.zero;
             iconImage.transform.localPosition = Vector2.Lerp(iconImage.transform.localPosition, targetSize, Time.deltaTime * 4);
         }
+
     }
 
 
@@ -216,10 +182,12 @@ public class UI_MaP_Icon : UI_MaP_Drag
         editMode = false;
         editionPart.interactable = false;
         editionPart.blocksRaycasts = false;
+
+        GameManager.instance.mapAndPaper.currentlyEditingText = false;
     }
 
 
-    public bool OveringMe()
+    public override bool OveringMe()
     {
         Vector2 mousePos = Input.mousePosition;
         float zoom = this.transform.localScale.x;
@@ -239,10 +207,10 @@ public class UI_MaP_Icon : UI_MaP_Drag
         else
         {
             //Only icon
-            minX = iconRect.transform.position.x - iconRect.rect.width  * zoom / 2;
-            maxX = iconRect.transform.position.x + iconRect.rect.width  * zoom / 2;
-            minY = iconRect.transform.position.y - iconRect.rect.height * zoom / 2;
-            maxY = iconRect.transform.position.y + iconRect.rect.height * zoom / 2;
+            minX = visualRect.transform.position.x - visualRect.rect.width  * zoom / 2;
+            maxX = visualRect.transform.position.x + visualRect.rect.width  * zoom / 2;
+            minY = visualRect.transform.position.y - visualRect.rect.height * zoom / 2;
+            maxY = visualRect.transform.position.y + visualRect.rect.height * zoom / 2;
 
             //Debug.Log(mousePos + " vs : " + rectTr.rect.x + " , " + rectTr.rect.y + " and " + minY + " ---> " + maxY);
         }

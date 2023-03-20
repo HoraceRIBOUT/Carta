@@ -8,9 +8,11 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
 
 
     public UI_MaP_Icon iconPrefab;
+    public UI_MaP_Element elemPrefab;
 
     [Header("Normally, set by game")]
     public List<pnj.pnjID> pnjToDeploy = new List<pnj.pnjID>();
+    public int currentTabIndex = 0;
 
     [Header("Data")]
     public List<IconData> dataFromPnj;
@@ -23,6 +25,25 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
     [Range(-1, 1)] [Sirenix.OdinInspector.OnValueChanged("ChangeSize")] public float size      = 0.1f;
     Vector2 fullSize;
     public RectTransform dolly;
+
+    [Sirenix.OdinInspector.Button()]
+    public void Switch()
+    {
+        currentTabIndex = 1 - currentTabIndex; //easy way to switch it because there's only too for now
+        Switch(currentTabIndex);
+    }
+
+    /// <summary>
+    /// Index 0 : icone. Index 1 : element.
+    /// </summary>
+    /// <param name="tabIndex"></param>
+    public void Switch(int tabIndex)
+    {
+        //TO DO
+        foreach(var ic in iconsGO)            ic.gameObject.SetActive(tabIndex==0);
+        foreach(var el in elementsGO)         el.gameObject.SetActive(tabIndex==1);
+        currentTabIndex = tabIndex;
+    }
 
     public void Start()
     {
@@ -86,6 +107,54 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
                 fullSize.x * size);
         }
     }
+
+
+
+    [Sirenix.OdinInspector.Button]
+    public void UpdateElementList()
+    {
+        fullSize = dolly.rect.size;
+
+        if (elementsGO.Count == 0) 
+        {
+            for (int i = 0; i < System.Enum.GetValues(typeof(UI_MaP_Paper.Element)).Length; i++)
+            {
+                UI_MaP_Paper.Element id = (UI_MaP_Paper.Element)i;
+
+                UI_MaP_Element newElement = Instantiate(elemPrefab);
+                newElement.transform.SetParent(iconParent);
+                newElement.Create(id, true);
+
+                elementsGO.Add(newElement);
+            }
+            UpdateElementPosition();
+        }
+        
+    }
+
+    public void UpdateElementPosition()
+    {
+        fullSize = dolly.rect.size;
+
+        for (int i = 0; i < elementsGO.Count; i++)
+        {
+            UI_MaP_Element elemToReplace = elementsGO[i];
+            int xPos = i % 2;
+            int yPos = (int)Mathf.Floor(i / 2);
+            elemToReplace.himselfRect.localPosition = new Vector3(
+                xPos * positionX * fullSize.x + marginX * fullSize.x,
+               -yPos * positionY * fullSize.y + marginY * fullSize.y,
+                0);
+            elemToReplace.transform.localRotation = Quaternion.identity;
+            elemToReplace.transform.localScale = Vector3.one;
+            elemToReplace.himselfRect.sizeDelta = new Vector2(
+                fullSize.x * size,
+                fullSize.x * size);
+        }
+        Debug.Log("Place at the right place");
+    }
+
+
 
     public bool IconAlreadyDeployed(pnj.pnjID pnjToTest)
     {

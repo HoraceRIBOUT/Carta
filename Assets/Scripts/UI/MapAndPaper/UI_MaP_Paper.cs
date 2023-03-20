@@ -15,7 +15,6 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     private List<TextPos>           texts           = new List<TextPos>();
 
     //And here, it have a reference to the GAMEOBJECT created to represent the data. Seems simple enough.
-    private List<UI_MaP_Element>    elementsGO      = new List<UI_MaP_Element>();
     private List<TMPro.TMP_Text>    textsGO         = new List<TMPro.TMP_Text>();
 
     [Header("Input")]
@@ -29,11 +28,12 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
     public enum Element
     {
-        line,
-        crochet,
-        upCrochet,
-        crochet_part,
-        line_part,
+        adelphes,
+        adelphe,
+        couple,
+        parent,
+        parentWithSon,
+        heart,
         //everythingelse
     }
     class ItemAndIconPos
@@ -41,7 +41,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         public Vector2 positionRelative;
         public IconData data; //here, a reference to the data, not to the point.
     }
-    class ElementPos
+    public class ElementPos
     {
         public Vector2 positionRelative;
         public Vector3 scaleRelative;
@@ -77,6 +77,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
     public void AddDrag(UI_MaP_Drag newDrag)
     {
+        Debug.Log("Add drag : " + newDrag.name);
         if (newDrag is UI_MaP_Icon)
             AddIcon((UI_MaP_Icon)newDrag);
         else //if(newDrag is UI_MaP_Element)
@@ -114,7 +115,6 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         //rot
         //scale
         info.positionRelative = newElement.transform.position - this.transform.position;//need to have a position correct so ?
-        Debug.Log("");
         elements.Add(info);
 
         elementsGO.Add(newElement);
@@ -136,7 +136,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     private void MovePaper()
     {
         //Overing me AND no icon (or element) are overed AND list icon zone is not overred too
-        if (OveringMe() && !GameManager.instance.mapAndPaper.iconZone.OveringMe() && !AnyIconOvered() && Input.GetMouseButtonDown(0))
+        if (OveringMe() && !GameManager.instance.mapAndPaper.iconZone.OveringMe() && !AnyDragOvered() && Input.GetMouseButtonDown(0))
         {
             beingDragAround = true;
             //Start drag the paper
@@ -310,7 +310,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         }
 
 
-        Debug.Log("Full speed : " + fullSpeedSpeed + " (with " + mousePos + ")" + currentSpeedIntensity);
+        //Debug.Log("Full speed : " + fullSpeedSpeed + " (with " + mousePos + ")" + currentSpeedIntensity);
 
         this.transform.position += Vector3.Lerp(Vector3.zero, fullSpeedSpeed * moveSpeedMax, currentSpeedIntensity);
 

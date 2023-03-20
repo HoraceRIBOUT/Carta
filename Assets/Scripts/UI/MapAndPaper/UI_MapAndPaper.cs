@@ -11,6 +11,7 @@ public class UI_MapAndPaper : MonoBehaviour
     public UI_MaP_IconInfoZone iconZone;
     //So, by default, have one blank paper 
     public bool mapOpen = false;
+    public bool currentlyEditingText = false;
 
     private Coroutine openCloseCorout = null;
     [SerializeField] private Animator _anima;
@@ -49,6 +50,8 @@ public class UI_MapAndPaper : MonoBehaviour
         openCloseCorout = StartCoroutine(OpenCloseMap());
 
         iconZone.UpdateIconList();
+        iconZone.UpdateElementList();
+        iconZone.Switch(0);
         GameManager.instance.playerMove.InventoryAndMenu();
 
         GameManager.instance.dialogMng.InventoryOrMapOpen();
@@ -79,6 +82,7 @@ public class UI_MapAndPaper : MonoBehaviour
         }
 
         GameManager.instance.dialogMng.InventoryOrMapClose();
+        currentlyEditingText = false;
     }
 
     private IEnumerator OpenCloseMap()
