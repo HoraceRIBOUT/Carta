@@ -6,9 +6,8 @@ using UnityEngine.UI;
 public class UI_MaP_Element : UI_MaP_Drag
 {
     //Data : 
-    //what element it is (just the sprite)
-    //what transform rect it is (pos, scale and scale + size in pixel)
     public UI_MaP_Paper.Element data;
+    public UI_MapAndPaper.ElementSpec spec;
 
     public RectTransform himselfRect;
     [SerializeField] private Image spriteRdr;
@@ -36,6 +35,7 @@ public class UI_MaP_Element : UI_MaP_Drag
         spriteRdr_shadow.sprite = spriteList[(int)newData];
         spriteRect = spriteRdr.GetComponent<RectTransform>();
         data = newData;
+        spec = GameManager.instance.mapAndPaper.GetSpecFromElement(newData);
     }
 
     protected override void PlacementManagement()
@@ -64,4 +64,69 @@ public class UI_MaP_Element : UI_MaP_Drag
         this.transform.localRotation = Quaternion.Euler(data.rotationRelative);
         this.transform.localScale = data.scaleRelative;
     }
+
+    public override bool OveringMe()
+    {
+        Vector2 mousePos = Input.mousePosition;
+        float zoom = this.transform.localScale.x;
+        if (!fromDragZone)
+        {
+            zoom *= GameManager.instance.mapAndPaper.currentPaper.transform.localScale.x;
+        }
+
+        //Only icon
+        float minX = visualRect.transform.position.x - visualRect.rect.width  * (0.5f - spec.minMaxForClickX.x) * 2 * zoom/2; 
+        float maxX = visualRect.transform.position.x + visualRect.rect.width  * (spec.minMaxForClickX.y - 0.5f) * 2 * zoom/2;
+        float minY = visualRect.transform.position.y - visualRect.rect.height * (0.5f - spec.minMaxForClickY.x) * 2 * zoom/2;
+        float maxY = visualRect.transform.position.y + visualRect.rect.height * (spec.minMaxForClickY.y - 0.5f) * 2 * zoom/2;
+
+
+
+        if (minX < mousePos.x &&
+            maxX > mousePos.x &&
+            minY < mousePos.y &&
+            maxY > mousePos.y)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public RectTransform dbg_ElementUP;
+    public RectTransform dbg_ElementDO;
+    public RectTransform dbg_ElementLE;
+    public RectTransform dbg_ElementRI;
+    [Sirenix.OdinInspector.Button()]
+    public void dbg_ResizeRectToBeTheClickingBordure()
+    {
+        float zoom = this.transform.localScale.x;
+        if (!fromDragZone && GameManager.instance != null)
+        {
+            zoom *= GameManager.instance.mapAndPaper.currentPaper.transform.localScale.x;
+        }
+        if(visualRect == null)
+        {
+            visualRect = himselfRect.GetChild(0).GetComponent<RectTransform>();
+        }
+
+        //Only icon
+        float minX = visualRect.transform.position.x - visualRect.rect.width  * (0.5f - spec.minMaxForClickX.x) * 2 * zoom / 2;
+        float maxX = visualRect.transform.position.x + visualRect.rect.width  * (spec.minMaxForClickX.y - 0.5f) * 2 * zoom / 2;
+        float minY = visualRect.transform.position.y - visualRect.rect.height * (0.5f - spec.minMaxForClickY.x) * 2 * zoom / 2;
+        float maxY = visualRect.transform.position.y + visualRect.rect.height * (spec.minMaxForClickY.y - 0.5f) * 2 * zoom / 2;
+
+
+        Vector2 newSize = new Vector2(maxX - minX, maxY - minY);
+        Vector2 newPos = new Vector2(maxX + minX, maxY + minY); 
+        newPos /= 2f;
+        dbg_ElementUP.localPosition = new Vector2(maxX, maxY);
+        dbg_ElementDO.localPosition = new Vector2(minX, minY);
+        dbg_ElementRI.localPosition = new Vector2(maxX, minY);
+        dbg_ElementLE.localPosition = new Vector2(minX, maxY);
+        //dbg_Element.sizeDelta = newSize;
+        Debug.Log("Ok so :" + newPos + " and" + newSize + " mouse is on " + Input.mousePosition);
+    }
+
 }

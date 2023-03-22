@@ -92,4 +92,44 @@ public class UI_MapAndPaper : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         openCloseCorout = null;
     }
+
+
+
+    [System.Serializable]
+    public class ElementSpec
+    {
+        public UI_MaP_Paper.Element id;
+        public Vector2 minMaxForClickX = Vector2.one;
+        public Vector2 minMaxForClickY = Vector2.one;
+        public Vector2 center = Vector2.one / 2;
+    }
+    public List<ElementSpec> specList = new List<ElementSpec>();
+
+    public ElementSpec GetSpecFromElement(UI_MaP_Paper.Element id)
+    {
+        foreach(var spec in specList)
+        {
+            if(spec.id == id)
+            {
+                return spec;
+            }
+        }
+        Debug.LogError("Could not find any spec for " + id);
+        return null;
+    }
+    [Sirenix.OdinInspector.Button]
+    public void PopulateMissingId()
+    {
+        for (int i = 0; i < System.Enum.GetValues(typeof(UI_MaP_Paper.Element)).Length; i++)
+        {
+            UI_MaP_Paper.Element id = (UI_MaP_Paper.Element)i;
+            if (GetSpecFromElement(id) == null)
+            {
+                ElementSpec newSpec = new ElementSpec();
+                newSpec.id = id;
+                specList.Add(newSpec);
+            }
+        }
+    }
+
 }

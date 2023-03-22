@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class UI_MaP_Paper : UI_MaP_IconDropZone
 {
-    public Transform elementParent;
     private RectTransform rectTr;
 
     //Normally, it's only data here. (maybe the zoom ? well, no, even that... more like the bound maybe ?)

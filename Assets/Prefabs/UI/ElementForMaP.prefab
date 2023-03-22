@@ -140,9 +140,14 @@ MonoBehaviour:
   firstDrag: 0
   shadowDistance: {x: -0.01, y: 0.005}
   mouseDistanceToCreateClone: 0.03
-  baseSize: 0.66
+  baseSize: 1
   showDebug: 0
   data: 0
+  spec:
+    id: 0
+    minMaxForClickX: {x: 1, y: 1}
+    minMaxForClickY: {x: 1, y: 1}
+    center: {x: 0.5, y: 0.5}
   himselfRect: {fileID: 5460969201844064023}
   spriteRdr: {fileID: 5460969202632055886}
   spriteRdr_shadow: {fileID: 187644502971073116}
@@ -153,6 +158,10 @@ MonoBehaviour:
   - {fileID: -1512769756, guid: 9e03d110128bde743b51d71236a7f414, type: 3}
   - {fileID: 545227996, guid: 9e03d110128bde743b51d71236a7f414, type: 3}
   - {fileID: 727205666, guid: 9e03d110128bde743b51d71236a7f414, type: 3}
+  dbg_ElementUP: {fileID: 0}
+  dbg_ElementDO: {fileID: 0}
+  dbg_ElementLE: {fileID: 0}
+  dbg_ElementRI: {fileID: 0}
 --- !u!225 &5460969201844064022
 CanvasGroup:
   m_ObjectHideFlags: 0

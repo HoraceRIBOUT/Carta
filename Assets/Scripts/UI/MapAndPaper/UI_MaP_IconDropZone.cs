@@ -5,6 +5,7 @@ using UnityEngine;
 public class UI_MaP_IconDropZone : UI_MaP_Overing
 {
     public Transform iconParent;
+    public Transform elementParent;
     protected List<UI_MaP_Icon> iconsGO = new List<UI_MaP_Icon>();
     protected List<UI_MaP_Element> elementsGO = new List<UI_MaP_Element>();
 

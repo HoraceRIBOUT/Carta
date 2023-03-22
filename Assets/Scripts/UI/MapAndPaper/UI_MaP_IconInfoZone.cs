@@ -122,7 +122,7 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
                 UI_MaP_Paper.Element id = (UI_MaP_Paper.Element)i;
 
                 UI_MaP_Element newElement = Instantiate(elemPrefab);
-                newElement.transform.SetParent(iconParent);
+                newElement.transform.SetParent(elementParent);
                 newElement.Create(id, true);
 
                 elementsGO.Add(newElement);

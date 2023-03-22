@@ -15,7 +15,7 @@ public class FontSizeRatio : MonoBehaviour
     public float ratio = 0.33f;
 
     public bool alwaysUpdateSize = false;
-    [Range(0, 1)]
+    //[Range(0, 1)]
     [Sirenix.OdinInspector.OnValueChanged("Resize")]
     public float scaleur = 1;
 
