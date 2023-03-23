@@ -96,8 +96,8 @@ public class CreateCSV : MonoBehaviour
 
 
 
-
     #region Read CSV To Create Dialog
+#if UNITY_EDITOR
     [MenuItem("OrangeLetter/Generate/Dialog From CSV")]
     public static void LoadCSVToDialog()
     {
@@ -397,7 +397,6 @@ public class CreateCSV : MonoBehaviour
 
         string largestPath = "Assets/Data/Dialog/";
         Debug.Log("Go seek in  " + largestPath);
-#if UNITY_EDITOR
         foreach (var filePath in Directory.EnumerateFiles(largestPath, "*.asset", SearchOption.AllDirectories))
         {
             string fileName = Path.GetFileNameWithoutExtension(filePath.Trim());
@@ -409,9 +408,7 @@ public class CreateCSV : MonoBehaviour
                 dico.Add(fileName, dial);
         }
         Debug.Log("Finish seek but found " + dico.Count + " files.");
-#else
-        Debug.LogError("GetDialogFromString() should not be call on runtime.");
-#endif
+
         foreach (DialogToFixLater dialStruc in toFixLater)
         {
             dialStruc.Fix(dico, dialogOnThisCSV);
@@ -425,6 +422,7 @@ public class CreateCSV : MonoBehaviour
         toFixLater.Clear();
         dialogOnThisCSV.Clear();
     }
+#endif
 
     #endregion
 
@@ -517,9 +515,9 @@ public class CreateCSV : MonoBehaviour
         //on suis le nom du "dialogName" pour voir si y a un nom en particulier à suivre ???
         //où on fouille tout ?
         //... compliqué !
+#if UNITY_EDITOR
         string largestPath = "Assets/Data/Dialog/";
 
-#if UNITY_EDITOR
         foreach(var filePath in Directory.EnumerateFiles(largestPath))
         {
             string fileName = filePath.Remove(0, largestPath.Length).Trim();

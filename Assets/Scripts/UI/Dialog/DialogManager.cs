@@ -523,6 +523,7 @@ public class DialogManager : MonoBehaviour
         }
         Debug.Log("Finish seek but found " + allDialog.Count + " files.");
     }
+#endif
 
     private void FillAllDialogDico()
     {
@@ -538,18 +539,19 @@ public class DialogManager : MonoBehaviour
     {
         Debug.Log("AllDialog " + (allDialog == null ? "is null." : "have " + allDialog.Count + " files."));
     }
-#endif
 
     public Dialog GetDialByName(string name)
     {
         return allDialogDico[name];
     }
 
-public void InventoryOrMapOpen()
+    public void InventoryOrMapOpen()
     {
+
     }
     public void InventoryOrMapClose()
     {
+
     }
 
 }

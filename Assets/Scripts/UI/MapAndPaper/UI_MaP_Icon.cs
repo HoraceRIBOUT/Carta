@@ -63,6 +63,8 @@ public class UI_MaP_Icon : UI_MaP_Drag
 
     public void OnNameInputFieldChange()
     {
+        Debug.Log("Edit Name !?" + (!GameManager.instance.mapAndPaper.currentlyEditingText?"return":"continue") );
+
         if (!GameManager.instance.mapAndPaper.currentlyEditingText)
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
 

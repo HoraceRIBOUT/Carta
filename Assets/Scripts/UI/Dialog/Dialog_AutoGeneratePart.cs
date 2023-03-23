@@ -33,7 +33,9 @@ namespace Step
 		public bool alreadyRead = false;
 		public string title { get { return "Step " + index; } }
 		[Sirenix.OdinInspector.Title("$title")]
+#if UNITY_EDITOR
 		[Sirenix.OdinInspector.GUIColor("GetEnumColor")]
+#endif
 		public stepType type;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.dialog)]
 		public Step_Dialog dialog_Data;
@@ -101,12 +103,15 @@ namespace Step
 				return null;
 			}
 		}
-		
+
+#if UNITY_EDITOR
 		public Color GetEnumColor()
 		{
 			Sirenix.Utilities.Editor.GUIHelper.RequestRepaint();
 			return Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);
 		}
+#endif
+
 		public static Step SetUpStepFromLine(string[] lineSplit)
 		{
 			stepType stepType = CreateCSV.GetStepTypeFromLine(lineSplit[3]);

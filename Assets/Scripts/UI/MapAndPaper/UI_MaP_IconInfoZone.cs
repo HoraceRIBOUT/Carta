@@ -71,7 +71,7 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
         for (int i = 0; i < pnjToDeploy.Count; i++)
         {
             if (IconAlreadyDeployed(pnjToDeploy[i]))
-            {
+            {   
                 continue;
             }
 
@@ -105,6 +105,8 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
             iconToReplace.himselfRect.sizeDelta = new Vector2(
                 fullSize.x * size,
                 fullSize.x * size);
+
+            iconToReplace.ReUpdateFromData();
         }
     }
 
@@ -214,6 +216,15 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
     public float LeftBorderPositionInScreenPercentage()
     {
         return rect.anchorMin.x;
+    }
+
+    private void OnDestroy()
+    {
+        foreach(IconData data in dataFromPnj)
+        {
+            data.nameText = "";
+            data.descText = "";
+        }
     }
 
 }

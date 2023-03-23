@@ -23,13 +23,13 @@ public class GameManager : MonoBehaviour
     public DialogManager dialogMng;
     public UI_Inventory inventory;
     public UI_MapAndPaper mapAndPaper;
-
+    public UnityEngine.UI.Image blackScreenForQuit; //for demo only, need a pause menu
 
 
     private float quitButton = 0;
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Escape))
         {
             if (quitButton > 1)
                 Application.Quit();
@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
         {
             quitButton = 0;
         }
+        blackScreenForQuit.color = Color.Lerp(Color.clear, Color.black, quitButton * quitButton);
+
 
         if (Input.GetKey(KeyCode.S))
         { 

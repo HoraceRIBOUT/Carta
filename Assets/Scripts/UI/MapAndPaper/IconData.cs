@@ -13,6 +13,7 @@ public class IconData : ScriptableObject
     public string nameText;
     public string descText;
 
+
     //Relationship  and how to link
 
 
@@ -32,4 +33,5 @@ public class IconData : ScriptableObject
         saveData.descText = descText;
         return saveData;
     }
+
 }
