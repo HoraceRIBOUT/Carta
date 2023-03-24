@@ -270,7 +270,7 @@ MonoBehaviour:
   lastOffset: {x: 0, y: 0}
   fromDragZone: 0
   firstDrag: 0
-  shadowDistance: {x: -0.01, y: 0.01}
+  shadowDistance: {x: 0, y: 0.01}
   mouseDistanceToCreateClone: 0.03
   baseSize: 0.66
   showDebug: 0

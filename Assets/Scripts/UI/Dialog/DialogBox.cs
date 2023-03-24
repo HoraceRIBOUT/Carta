@@ -29,7 +29,7 @@ public class DialogBox : MonoBehaviour
         printDial = StartCoroutine(PrintDialogText(text));
         printText_inSkipCase = text;
         animator.SetBool("Open", true);
-        this.transform.SetSiblingIndex(2);
+        this.transform.SetSiblingIndex(GameManager.instance.dialogMng.dialogTexts.Count - 1);
         step = 1; // Open
     }
 
@@ -40,7 +40,7 @@ public class DialogBox : MonoBehaviour
         //Do "Next" only if not ready
 
         animator.SetTrigger("Next");
-        this.transform.SetSiblingIndex(2-step);
+        //this.transform.SetSiblingIndex(2-step);
         step++; 
 
         if(step > 2)//Step 0 : available / Step 1 : openMiddle / Step 2 : goesOnBack / Step 3 : quit out and loop back
