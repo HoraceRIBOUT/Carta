@@ -152,6 +152,8 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
             elemToReplace.himselfRect.sizeDelta = new Vector2(
                 fullSize.x * size,
                 fullSize.x * size);
+
+            elemToReplace.ReplaceTextField();
         }
         Debug.Log("Place at the right place");
     }

@@ -14,6 +14,7 @@ public class UI_MaP_Element : UI_MaP_Drag
     [SerializeField] private Image spriteRdr_shadow;
     RectTransform spriteRect;
     [SerializeField] private List<Sprite> spriteList;//for now, here. TO DO : refacto this later to place it in a more logic place.
+    [SerializeField] private TMPro.TMP_InputField customText;
 
     protected override UI_MaP_Drag CreateClone()
     {
@@ -36,6 +37,26 @@ public class UI_MaP_Element : UI_MaP_Drag
         spriteRect = spriteRdr.GetComponent<RectTransform>();
         data = newData;
         spec = GameManager.instance.mapAndPaper.GetSpecFromElement(newData);
+        customText.SetTextWithoutNotify(spec.textContent_Default);
+        ReplaceTextField();
+    }
+
+    public void ReplaceTextField()
+    {
+        Vector2 localTextPos;
+        localTextPos.x = (spec.textPos.x - 0.5f) * visualRect.rect.width;
+        localTextPos.y = (spec.textPos.y - 0.5f) * visualRect.rect.height;
+        customText.transform.localPosition = localTextPos;
+        //Debug.Log(this.gameObject.name + " is at " + localTextPos);
+
+        if (spec.textPos.x < 0.25f)
+        {
+            customText.textComponent.alignment = TMPro.TextAlignmentOptions.Right;
+        }
+        if (spec.textPos.x > 0.75f)
+        {
+            customText.textComponent.alignment = TMPro.TextAlignmentOptions.Left;
+        }
     }
 
     protected override void PlacementManagement()
@@ -93,7 +114,7 @@ public class UI_MaP_Element : UI_MaP_Drag
         return false;
     }
 
-
+/*
     public RectTransform dbg_ElementUP;
     public RectTransform dbg_ElementDO;
     public RectTransform dbg_ElementLE;
@@ -127,6 +148,6 @@ public class UI_MaP_Element : UI_MaP_Drag
         dbg_ElementLE.localPosition = new Vector2(minX, maxY);
         //dbg_Element.sizeDelta = newSize;
         Debug.Log("Ok so :" + newPos + " and" + newSize + " mouse is on " + Input.mousePosition);
-    }
+    }*/
 
 }

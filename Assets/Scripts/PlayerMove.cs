@@ -191,10 +191,8 @@ public class PlayerMove : MonoBehaviour
                 Vector3 speedAtWallMagnitude = (lastSpeed.magnitude > wallSpeed ? lastSpeed.normalized * wallSpeed : lastSpeed);
                 lastSpeed = Vector3.Lerp(speedAtWallMagnitude, lastSpeed, dotNormalToUp);
             }
-            if (HorizontalMagnitude(lastSpeed) > groundSpeed)
-            {
-                lastSpeed = HorizontalClamp(lastSpeed, groundSpeed);
-            }
+
+            lastSpeed = HorizontalClamp(lastSpeed, groundSpeed);
         }
 
         //will also handle wall sticking
@@ -707,6 +705,8 @@ public class PlayerMove : MonoBehaviour
     }
     public static Vector3 HorizontalClamp(Vector3 vec, float lenghtMax)
     {
+        if (HorizontalMagnitude(vec) <= lenghtMax)
+            return vec;
         float yMem = vec.y;
         vec.y = 0;
         vec = vec.normalized * lenghtMax;

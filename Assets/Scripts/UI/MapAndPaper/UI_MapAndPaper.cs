@@ -101,7 +101,8 @@ public class UI_MapAndPaper : MonoBehaviour
         public UI_MaP_Paper.Element id;
         public Vector2 minMaxForClickX = Vector2.one;
         public Vector2 minMaxForClickY = Vector2.one;
-        public Vector2 center = Vector2.one / 2;
+        public Vector2 textPos = Vector2.one / 2;
+        public string textContent_Default = "";
     }
     public List<ElementSpec> specList = new List<ElementSpec>();
 
