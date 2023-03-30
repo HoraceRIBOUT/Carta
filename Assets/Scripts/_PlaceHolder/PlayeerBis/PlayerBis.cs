@@ -20,6 +20,9 @@ public class PlayerBis : MonoBehaviour
     [Space]
     public Vector3 lastSpeed = Vector3.zero;
     public Vector3 acceleration = Vector3.zero;
+    public float emptyLookDistance = 0.2f;
+    public List<Vector3> emptyLookRaycastDirections = new List<Vector3> { Vector3.right, Vector3.down, Vector3.left };
+    public float emptyLookIntensity = 0.1f;
 
     [Header("Jump")]
     public float jumpForce = 10f;
@@ -30,8 +33,8 @@ public class PlayerBis : MonoBehaviour
 
 
     [Header("Wall and ground")]
-    public List<PlayerMove.wallAndGround_Info> wallAndGround = new List<PlayerMove.wallAndGround_Info>();
-    public List<PlayerMove.wallAndGround_Info> wallButGroundOnly = new List<PlayerMove.wallAndGround_Info>();
+    public List<wallAndGround_Info> wallAndGround = new List<wallAndGround_Info>();
+    //public List<wallAndGround_Info> wallButGroundOnly = new List<wallAndGround_Info>();
     public Vector3 currentNormal = Vector3.up;
     private Vector3 lastNormal = Vector3.up;
     public float checkGroundDistance = 0.2f;
@@ -48,6 +51,52 @@ public class PlayerBis : MonoBehaviour
     public Vector3 speedWhenInterupt;
 
 
+    [System.Serializable]
+    public class wallAndGround_Info
+    {
+        public int id;
+        public GameObject gO;
+        private Vector3 _lastNormal;
+        public Vector3 lastNormal
+        {
+            get { return _lastNormal; }
+            set
+            {
+                _lastNormal = value;
+                dotValue_Up = Vector3.Dot(value, Vector3.up);
+            }
+        }
+        /// <summary>
+        /// Dot value at 1 mean it's flat ground, at 0, it's a wall, at -1, it's a roof
+        /// </summary>
+        public float dotValue_Up;
+
+        public wallAndGround_Info(GameObject newWall, Vector3 impactNormal)
+        {
+            id = newWall.GetInstanceID();
+            gO = newWall;
+            _lastNormal = impactNormal;
+            dotValue_Up = Vector3.Dot(impactNormal, Vector3.up);
+        }
+        public static bool operator ==(wallAndGround_Info obj1, wallAndGround_Info obj2)
+        {
+            return obj1.id == obj2.id;
+        }
+        public static bool operator !=(wallAndGround_Info obj1, wallAndGround_Info obj2)
+        {
+            return obj1.id != obj2.id;
+        }
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,19 +105,24 @@ public class PlayerBis : MonoBehaviour
         cameraTr = GameManager.instance.cameraMng.falseCamera.transform;
     }
 
+    void ResetButton()
+    {
+        if (GameManager.instance.mapAndPaper != null)
+        {
+            if (GameManager.instance.mapAndPaper.mapOpen)
+            {
+                return;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+            ResetAll();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (GameManager.instance.mapAndPaper != null)
-            {
-                if (!GameManager.instance.mapAndPaper.mapOpen)
-                    ResetAll();
-            }
-            else
-                ResetAll();
-        }
+        ResetButton();
 
         if (talking)
             return;
@@ -166,6 +220,8 @@ public class PlayerBis : MonoBehaviour
                 lastSpeed = Vector3.Lerp(speedAtWallMagnitude, lastSpeed, dotNormalToUp);
             }
 
+            lastSpeed += RayCastToFindAnythingInFrontOfUs(inputDirection) * emptyLookIntensity;
+
             lastSpeed = PlayerMove.HorizontalClamp(lastSpeed, groundSpeed);
         }
 
@@ -186,13 +242,21 @@ public class PlayerBis : MonoBehaviour
 
         JumpManagement();
     }
-
-    private List<PlayerMove.wallAndGround_Info> getGroundAndWall()
+    
+    private int GetSurfaceCount()
     {
         if (grapleMode_eff)
-            return wallAndGround;
-        else
-            return wallButGroundOnly;
+            return wallAndGround.Count;
+
+        int count = 0;
+        foreach (var surface in wallAndGround)
+        {
+            if(surface.dotValue_Up > 0)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
     private Vector3 GetGroundMove(Vector2 inputDirection)
@@ -235,6 +299,63 @@ public class PlayerBis : MonoBehaviour
 
         return res;
     }
+
+
+
+    public Vector3 RayCastToFindAnythingInFrontOfUs(Vector2 inputDir)
+    {
+        Vector3 ray = cameraTr.forward * inputDir.y + cameraTr.right * inputDir.x; //so, chjeck where the player "look" and indicate with his joystick
+        ray = Vector3.ProjectOnPlane(ray, Vector3.up);
+        ray = ray.normalized * emptyLookDistance;
+        RaycastHit info;
+        Debug.DrawRay(this.transform.position, ray, Color.yellow);
+        float distance = emptyLookDistance; //need to think about this distance : nextStep ? further ? far away ? half my size maybe ?
+        if (Physics.Raycast(this.transform.position, ray, out info, distance, layerMask.value))
+        {
+            //TOUCHEd !!!
+            //ok, so, what we do ?
+            //we use that as a reference ?
+            //or just don't care and use that as an info ?
+            return Vector3.zero;
+        }
+        else
+        {
+            Vector3 res = Vector3.zero;
+            //OH OH ! Here we comes !
+            Vector3 startPos = this.transform.position + ray;
+            Quaternion rotationToAdd = Quaternion.FromToRotation(Vector3.forward, ray.normalized);
+
+            foreach (Vector3 dir in emptyLookRaycastDirections)
+            {
+                Vector3 rotatedVector = rotationToAdd * dir;
+                Debug.DrawRay(startPos, rotatedVector, Color.black);
+                distance = rotatedVector.magnitude; //need to think about this distance : nextStep ? further ? far away ? half my size maybe ?
+                if (Physics.Raycast(startPos, rotatedVector, out info, distance, layerMask.value))
+                {
+                    //Ok, so, here, if we touched, change the speed !
+                    //to go to the inverse direction ?
+                    float intensity01 = (distance - info.distance) / distance; //maybe make it a Pow(x,2) to add more influence?
+
+                    res += intensity01 * -rotatedVector;
+                }
+            }
+
+            float intensityNeeded = 0f;
+            foreach (wallAndGround_Info touchWall in wallAndGround)
+            {
+                intensityNeeded += Vector3.Dot(touchWall.lastNormal, -ray.normalized);
+                Debug.Log("touchWall.lastNormal = " + touchWall.lastNormal + " -ray = " + -ray.normalized);
+            }
+            intensityNeeded = Mathf.Clamp01(intensityNeeded);
+
+            res *= intensityNeeded;
+            Debug.Log("We offset !" + res + " intensityNeeded = " + intensityNeeded);
+            Debug.DrawRay(this.transform.position, res, Color.red);
+            return res;
+        }
+    }
+
+
 
 
     private void JumpManagement()
@@ -330,7 +451,7 @@ public class PlayerBis : MonoBehaviour
             return;
 
 
-        if (getGroundAndWall().Count == 0 && _rgbd.velocity.y < 0)
+        if (GetSurfaceCount() == 0 && _rgbd.velocity.y < 0)
         {
             _rgbd.velocity += Vector3.down * gravityOnFalling * Time.fixedDeltaTime;
         }
@@ -371,6 +492,7 @@ public class PlayerBis : MonoBehaviour
                         }
                         else
                         {
+                            //Indice 1 : maybe here ?
                             //We touch a new wall, but it's not blocking the player entierely. 
                             //So, we can perhaps move forward afterall ? Let's try change the speed direction !
 
@@ -424,38 +546,31 @@ public class PlayerBis : MonoBehaviour
     private bool WallAlreadyTouching(GameObject obj)
     {
         //Check in wall and ground, to be sure to not forget to remove one element
-        foreach (PlayerMove.wallAndGround_Info wall in wallAndGround)
+        foreach (wallAndGround_Info wall in wallAndGround)
         {
             if (wall.id == obj.GetInstanceID())
                 return true;
         }
         return false;
     }
-    private int WallIndex(GameObject obj)
-    {
-        for (int i = 0; i < getGroundAndWall().Count; i++)
-        {
-            PlayerMove.wallAndGround_Info wall = getGroundAndWall()[i];
-            if (wall.id == obj.GetInstanceID())
-                return i;
-        }
-        return -1;
-    }
+    //private int WallIndex(GameObject obj)
+    //{
+    //    for (int i = 0; i < getGroundAndWall().Count; i++)
+    //    {
+    //        wallAndGround_Info wall = getGroundAndWall()[i];
+    //        if (wall.id == obj.GetInstanceID())
+    //            return i;
+    //    }
+    //    return -1;
+    //}
     private void AddWall(GameObject obj, Vector3 normal)
     {
         coyoteTimer = 0;
 
         //Debug.Log("Gain : " + obj.name + " with a normal of " + normal + " dot : "+ Vector3.Dot(normal, Vector3.up));
-        PlayerMove.wallAndGround_Info newWall = new PlayerMove.wallAndGround_Info(obj, normal);
+        wallAndGround_Info newWall = new wallAndGround_Info(obj, normal);
         wallAndGround.Add(newWall);
-        if (Vector3.Dot(normal, Vector3.up) > 0)
-        {
-            wallButGroundOnly.Add(newWall);
-
-            RecalculateNormal();
-            TransposeSpeedToNewCurrentNormal();
-        }
-        else if (grapleMode_eff)
+        if (grapleMode_eff || newWall.dotValue_Up > 0) 
         {
             RecalculateNormal();
             TransposeSpeedToNewCurrentNormal();
@@ -468,7 +583,7 @@ public class PlayerBis : MonoBehaviour
         int index = -1;
         for (int i = 0; i < wallAndGround.Count; i++)
         {
-            PlayerMove.wallAndGround_Info wall = wallAndGround[i];
+            wallAndGround_Info wall = wallAndGround[i];
             if (wall.id == obj.GetInstanceID())
             {
                 index = i;
@@ -476,27 +591,24 @@ public class PlayerBis : MonoBehaviour
             }
         }
         wallAndGround.RemoveAt(index);
-
-        index = -1;
-        for (int i = 0; i < wallButGroundOnly.Count; i++)
-        {
-            PlayerMove.wallAndGround_Info wall = wallButGroundOnly[i];
-            if (wall.id == obj.GetInstanceID())
-            {
-                index = i;
-                break;
-            }
-        }
-        if (index != -1)
-            wallButGroundOnly.RemoveAt(index);
-
+        
 
         if (grapleMode_eff && wallAndGround.Count == 0)
         {
             coyoteTimer = coyoteTiming;
         }
-        else if (!grapleMode_eff && wallButGroundOnly.Count == 0)
+        else if (!grapleMode_eff)
         {
+            //Else, we launch coyote time ONLY if no ground (ground have a dotValue of 1 , ground a dotValue of 0)
+            //                                              (a dotValue of 0.25f is like a 20° angle)
+            for (int i = 0; i < wallAndGround.Count; i++)
+            {
+                wallAndGround_Info wall = wallAndGround[i];
+                if (wall.dotValue_Up > 0.25f)
+                {
+                    return;
+                }
+            }
             coyoteTimer = coyoteTiming;
         }
     }
@@ -517,7 +629,7 @@ public class PlayerBis : MonoBehaviour
 
     private void TakeMeanOfAllTouchedSurface()
     {
-        int count = getGroundAndWall().Count;
+        int count = GetSurfaceCount();
         if (count == 0)
         {
             //If coyote timer still up, don't change normal
@@ -527,20 +639,27 @@ public class PlayerBis : MonoBehaviour
         }
         if (count == 1)
         {
-            //To avoid a lot of calculus
+            wallAndGround_Info onlySurface = wallAndGround[0];
+            if (!grapleMode_eff && onlySurface.dotValue_Up <= 0.1f)
+            {
+                //Same as "no surface"
+                if (coyoteTimer <= 0)
+                    currentNormal = Vector3.up;
+                return;
+            }
             //Update lastNormal if normal have change (look in the direction of the last normal seen)
-            Vector3 ray = -getGroundAndWall()[0].lastNormal;
+            Vector3 ray = -onlySurface.lastNormal;
             RaycastHit info;
             Debug.DrawRay(this.transform.position, ray, Color.yellow, 5f);
             if (Physics.Raycast(this.transform.position, ray, out info, raycastDist, layerMask.value))
             {
-                if (info.collider.gameObject.GetInstanceID() == getGroundAndWall()[0].id)
+                if (info.collider.gameObject.GetInstanceID() == onlySurface.id)
                 {
-                    getGroundAndWall()[0].lastNormal = info.normal;
+                    wallAndGround[0].lastNormal = info.normal;//goes by "getGroundAndWall()[0]" for more security
                 }
             }
 
-            currentNormal = getGroundAndWall()[0].lastNormal;
+            currentNormal = wallAndGround[0].lastNormal;
             return;
         }
 
@@ -564,10 +683,11 @@ public class PlayerBis : MonoBehaviour
 
         Vector3 upSumm = Vector3.zero;
         float ponderationSum = 0;
-        List<PlayerMove.wallAndGround_Info> list = getGroundAndWall();
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < wallAndGround.Count; i++)
         {
-            PlayerMove.wallAndGround_Info wall = list[i];
+            wallAndGround_Info wall = wallAndGround[i];
+            if (!grapleMode_eff && wall.dotValue_Up <= 0.1f) //maybe colaborate but with even lowest effect ? for now, go for "not colaborate"
+                continue;
             //Just verify the lastnormal :
             //One raycast per touched surface
             Vector3 ray = -wall.lastNormal;
@@ -577,7 +697,7 @@ public class PlayerBis : MonoBehaviour
             {
                 if (info.collider.gameObject.GetInstanceID() == wall.id)
                 {
-                    list[i].lastNormal = info.normal;
+                    wallAndGround[i].lastNormal = info.normal;
                 }
             }
 
@@ -592,30 +712,30 @@ public class PlayerBis : MonoBehaviour
         currentNormal = upSumm / ponderationSum;
     }
 
-    private void ChooseMostVerticalWall()
-    {
-        if (coyoteTimer > 0)
-        {
-            //keep last current Normal
-            return;
-        }
+    //private void ChooseMostVerticalWall()
+    //{
+    //    if (coyoteTimer > 0)
+    //    {
+    //        //keep last current Normal
+    //        return;
+    //    }
 
-        if (getGroundAndWall().Count == 0)
-        {
-            currentNormal = Vector3.up;
-            return;
-        }
+    //    if (getGroundAndWall().Count == 0)
+    //    {
+    //        currentNormal = Vector3.up;
+    //        return;
+    //    }
 
-        Vector3 normalSum = Vector3.zero;
-        foreach (PlayerMove.wallAndGround_Info oneWallOrGround in getGroundAndWall())
-        {
-            normalSum += oneWallOrGround.lastNormal;
-        }
+    //    Vector3 normalSum = Vector3.zero;
+    //    foreach (wallAndGround_Info oneWallOrGround in getGroundAndWall())
+    //    {
+    //        normalSum += oneWallOrGround.lastNormal;
+    //    }
 
-        currentNormal = (normalSum / getGroundAndWall().Count).normalized;
-        return;
+    //    currentNormal = (normalSum / getGroundAndWall().Count).normalized;
+    //    return;
 
-    }
+    //}
 
 
     private void CheckGround()
@@ -664,4 +784,7 @@ public class PlayerBis : MonoBehaviour
         lastSpeed = Vector3.zero;
         canJump = false;
     }
+
+    
+
 }

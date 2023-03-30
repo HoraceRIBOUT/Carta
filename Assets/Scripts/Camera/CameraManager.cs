@@ -227,7 +227,7 @@ public class CameraManager : MonoBehaviour
         Vector3 ray = playerCamPoint.position - target.transform.position;
         float raycastDist = ray.magnitude;
         RaycastHit info;
-        Debug.DrawRay(target.transform.position, ray, Color.yellow, 5f);
+        //Debug.DrawRay(target.transform.position, ray, Color.yellow, 5f);
         if (Physics.Raycast(target.transform.position, ray, out info, raycastDist, layerMask.value))
         {
             distanceTarget = Mathf.Clamp(info.distance, distance_min, raycastDist);

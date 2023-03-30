@@ -20,6 +20,9 @@ public class PlayerMove : MonoBehaviour
     [Space]
     public Vector3 lastSpeed = Vector3.zero;
     public Vector3 acceleration = Vector3.zero;
+    public float emptyLookDistance = 0.2f;
+    public List<Vector3> emptyLookRaycastDirections = new List<Vector3> { Vector3.right, Vector3.down, Vector3.left };
+    public float emptyLookIntensity = 0.1f;
 
     [Header("Jump")]
     public float jumpForce = 10f;
@@ -88,14 +91,26 @@ public class PlayerMove : MonoBehaviour
         cameraTr = GameManager.instance.cameraMng.falseCamera.transform;
     }
 
+
+    void ResetButton()
+    {
+        if (GameManager.instance.mapAndPaper != null)
+        {
+            if (GameManager.instance.mapAndPaper.mapOpen )
+            {
+                return;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+            ResetAll();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.instance.mapAndPaper.mapOpen && Input.GetKeyDown(KeyCode.R))
-        {
-            ResetAll();
-        }
-
+        ResetButton();
+        
         if (talking)
             return;
 
@@ -192,6 +207,8 @@ public class PlayerMove : MonoBehaviour
                 lastSpeed = Vector3.Lerp(speedAtWallMagnitude, lastSpeed, dotNormalToUp);
             }
 
+            lastSpeed += RayCastToFindAnythingInFrontOfUs(inputDirection) * emptyLookIntensity;
+
             lastSpeed = HorizontalClamp(lastSpeed, groundSpeed);
         }
 
@@ -261,6 +278,63 @@ public class PlayerMove : MonoBehaviour
 
         return res;
     }
+
+
+
+    public Vector3 RayCastToFindAnythingInFrontOfUs(Vector2 inputDir)
+    {
+        Vector3 ray = cameraTr.forward * inputDir.y + cameraTr.right * inputDir.x; //so, chjeck where the player "look" and indicate with his joystick
+        ray = Vector3.ProjectOnPlane(ray, Vector3.up);
+        ray = ray.normalized * emptyLookDistance;
+        RaycastHit info;
+        Debug.DrawRay(this.transform.position, ray, Color.yellow);
+        float distance = emptyLookDistance; //need to think about this distance : nextStep ? further ? far away ? half my size maybe ?
+        if (Physics.Raycast(this.transform.position, ray, out info, distance, layerMask.value))
+        {
+            //TOUCHEd !!!
+            //ok, so, what we do ?
+            //we use that as a reference ?
+            //or just don't care and use that as an info ?
+            return Vector3.zero;
+        }
+        else
+        {
+            Vector3 res = Vector3.zero;
+            //OH OH ! Here we comes !
+            Vector3 startPos = this.transform.position + ray;
+            Quaternion rotationToAdd = Quaternion.FromToRotation(Vector3.forward, ray.normalized);
+
+            foreach (Vector3 dir in emptyLookRaycastDirections)
+            {
+                Vector3 rotatedVector = rotationToAdd * dir;
+                Debug.DrawRay(startPos, rotatedVector, Color.black);
+                distance = rotatedVector.magnitude; //need to think about this distance : nextStep ? further ? far away ? half my size maybe ?
+                if (Physics.Raycast(startPos, rotatedVector, out info, distance, layerMask.value))
+                {
+                    //Ok, so, here, if we touched, change the speed !
+                    //to go to the inverse direction ?
+                    float intensity01 = (distance - info.distance) / distance; //maybe make it a Pow(x,2) to add more influence?
+                    
+                    res += intensity01 * -rotatedVector;
+                }
+            }
+
+            float intensityNeeded = 0f;
+            foreach (wallAndGround_Info touchWall in wallAndGround)
+            {
+                intensityNeeded += Vector3.Dot(touchWall.lastNormal, -ray.normalized);
+                Debug.Log("touchWall.lastNormal = " + touchWall.lastNormal + " -ray = " + -ray.normalized);
+            }
+            intensityNeeded = Mathf.Clamp01(intensityNeeded);
+
+            res *= intensityNeeded;
+            Debug.Log("We offset !" + res + " intensityNeeded = "+ intensityNeeded);
+            Debug.DrawRay(this.transform.position, res, Color.red);
+            return res;
+        }
+    }
+
+
 
 
     private void JumpManagement()
@@ -397,6 +471,7 @@ public class PlayerMove : MonoBehaviour
                         }
                         else
                         {
+                            //Indice 1 : maybe here ?
                             //We touch a new wall, but it's not blocking the player entierely. 
                             //So, we can perhaps move forward afterall ? Let's try change the speed direction !
                             
@@ -553,7 +628,6 @@ public class PlayerMove : MonoBehaviour
         }
         if (count == 1)
         {
-            //To avoid a lot of calculus
             //Update lastNormal if normal have change (look in the direction of the last normal seen)
             Vector3 ray = -getGroundAndWall()[0].lastNormal;
             RaycastHit info;
