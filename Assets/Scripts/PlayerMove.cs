@@ -207,7 +207,8 @@ public class PlayerMove : MonoBehaviour
                 lastSpeed = Vector3.Lerp(speedAtWallMagnitude, lastSpeed, dotNormalToUp);
             }
 
-            lastSpeed += RayCastToFindAnythingInFrontOfUs(inputDirection) * emptyLookIntensity;
+            if(inputDirection.magnitude > 0.005f) //avoid unnescessary computation
+                lastSpeed += RayCastToFindAnythingInFrontOfUs(inputDirection) * emptyLookIntensity;
 
             lastSpeed = HorizontalClamp(lastSpeed, groundSpeed);
         }

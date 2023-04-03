@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -0.0000076293945, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2035183744
 CanvasRenderer:
@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 1571208532174853869}
   - component: {fileID: 1571208532174853859}
   - component: {fileID: 1571208532174853868}
+  - component: {fileID: 8156431349376041815}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -205,6 +206,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8156431349376041815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571208532174853870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1
 --- !u!1 &1571208532423542029
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,8 +527,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.399998
-  m_fontSizeBase: 32.399998
+  m_fontSize: 15.69
+  m_fontSizeBase: 15.69
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -689,7 +704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2715348612521583194, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSize
-      value: 21.6
+      value: 10.46
       objectReference: {fileID: 0}
     - target: {fileID: 2715348612521583194, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontColor.a
@@ -709,7 +724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2715348612521583194, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSizeBase
-      value: 21.6
+      value: 10.46
       objectReference: {fileID: 0}
     - target: {fileID: 2715348612521583194, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -793,7 +808,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093974885416030549, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnSelectCustomField
+      value: OnSelectCustomField_Desc
       objectReference: {fileID: 0}
     - target: {fileID: 3093974885416030549, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -857,11 +872,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4004702155748439156, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSize
-      value: 21.6
+      value: 10.46
       objectReference: {fileID: 0}
     - target: {fileID: 4004702155748439156, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSizeMax
-      value: 21.6
+      value: 10.46
       objectReference: {fileID: 0}
     - target: {fileID: 4004702155748439156, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSizeBase
@@ -993,11 +1008,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9190609945686863990, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSize
-      value: 27
+      value: 13.075
       objectReference: {fileID: 0}
     - target: {fileID: 9190609945686863990, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSizeBase
-      value: 27
+      value: 13.075
       objectReference: {fileID: 0}
     - target: {fileID: 9190609945686863992, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_AnchorMin.y
@@ -1088,7 +1103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2715348612521583194, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSize
-      value: 32.399998
+      value: 15.69
       objectReference: {fileID: 0}
     - target: {fileID: 2715348612521583194, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontColor.a
@@ -1108,7 +1123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2715348612521583194, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSizeBase
-      value: 32.399998
+      value: 15.69
       objectReference: {fileID: 0}
     - target: {fileID: 2715348612521583194, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -1172,7 +1187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093974885416030549, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnSelectCustomField
+      value: OnSelectCustomField_Name
       objectReference: {fileID: 0}
     - target: {fileID: 3093974885416030549, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1236,11 +1251,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4004702155748439156, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSize
-      value: 32.399998
+      value: 15.69
       objectReference: {fileID: 0}
     - target: {fileID: 4004702155748439156, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSizeMax
-      value: 32.399998
+      value: 15.69
       objectReference: {fileID: 0}
     - target: {fileID: 4004702155748439156, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSizeBase
@@ -1364,11 +1379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9190609945686863990, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSize
-      value: 32.399998
+      value: 15.69
       objectReference: {fileID: 0}
     - target: {fileID: 9190609945686863990, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_fontSizeBase
-      value: 32.399998
+      value: 15.69
       objectReference: {fileID: 0}
     - target: {fileID: 9190609945686863992, guid: 9a42234217cb78f46b0df55cddcaec42, type: 3}
       propertyPath: m_AnchorMin.y

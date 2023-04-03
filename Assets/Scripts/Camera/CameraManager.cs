@@ -110,10 +110,12 @@ public class CameraManager : MonoBehaviour
             );
             //TO DO : Probably need to add a lerp to help if use by joystick. So might use two separate term
             //joystickMove
+            Vector2 currentInput = (mouseMove.magnitude > joystickMove.magnitude ? mouseMove : joystickMove);
 
-            lastXAxisValue += rotationSpeed.x * mouseMove.x;
+
+            lastXAxisValue += rotationSpeed.x * currentInput.x;
             lastXAxisValue = (lastXAxisValue + 1) % 1; //sometimes, modulo doesn't work on negative value, so, adding one clear this.
-            lastYAxisValue += rotationSpeed.y * mouseMove.y;
+            lastYAxisValue += rotationSpeed.y * currentInput.y;
             lastYAxisValue = Mathf.Clamp(lastYAxisValue, -1, 1);
 
             //ok value inputed, rotate it

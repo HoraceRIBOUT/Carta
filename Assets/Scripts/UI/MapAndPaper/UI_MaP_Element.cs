@@ -14,6 +14,7 @@ public class UI_MaP_Element : UI_MaP_Drag
     [SerializeField] private Image spriteRdr_shadow;
     RectTransform spriteRect;
     [SerializeField] private List<Sprite> spriteList;//for now, here. TO DO : refacto this later to place it in a more logic place.
+    [SerializeField] private bool showText;
     [SerializeField] private TMPro.TMP_InputField customText;
 
     protected override UI_MaP_Drag CreateClone()
@@ -22,6 +23,8 @@ public class UI_MaP_Element : UI_MaP_Drag
         el.Create(data, false);
         el.transform.position = this.transform.position;
         el.transform.localScale = Vector3.one;
+        el.showText = showText;
+        el.DisplayText(showText);
         el.firstDrag = true;
         return el;
     }
@@ -39,6 +42,8 @@ public class UI_MaP_Element : UI_MaP_Drag
         spec = GameManager.instance.mapAndPaper.GetSpecFromElement(newData);
         customText.SetTextWithoutNotify(spec.textContent_Default);
         ReplaceTextField();
+        showText = GameManager.instance.mapAndPaper.iconZone.showText;
+        DisplayText(showText);
     }
 
     public void ReplaceTextField()
@@ -57,6 +62,14 @@ public class UI_MaP_Element : UI_MaP_Drag
         {
             customText.textComponent.alignment = TMPro.TextAlignmentOptions.Left;
         }
+    }
+
+    public void DisplayText(bool on)
+    {
+        Debug.Log(on ? "show" : "hide");
+        customText.interactable = on;
+        customText.gameObject.SetActive(on);
+        showText = on;
     }
 
     protected override void PlacementManagement()

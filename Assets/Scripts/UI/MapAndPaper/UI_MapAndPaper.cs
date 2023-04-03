@@ -11,7 +11,11 @@ public class UI_MapAndPaper : MonoBehaviour
     public UI_MaP_IconInfoZone iconZone;
     //So, by default, have one blank paper 
     public bool mapOpen = false;
-    public bool currentlyEditingText = false;
+    public TMPro.TMP_InputField currentEditText = null;
+    public bool IsEditingText()
+    {
+        return currentEditText != null;
+    }
 
     private Coroutine openCloseCorout = null;
     [SerializeField] private Animator _anima;
@@ -51,7 +55,7 @@ public class UI_MapAndPaper : MonoBehaviour
 
         iconZone.UpdateIconList();
         iconZone.UpdateElementList();
-        iconZone.Switch(0);
+        //iconZone.Switch(0);   //don't switch, because the button switch some other item too
         GameManager.instance.playerMove.InventoryAndMenu();
 
         GameManager.instance.dialogMng.InventoryOrMapOpen();
@@ -82,7 +86,11 @@ public class UI_MapAndPaper : MonoBehaviour
         }
 
         GameManager.instance.dialogMng.InventoryOrMapClose();
-        currentlyEditingText = false;
+        if (IsEditingText())
+        {
+            currentEditText.DeactivateInputField();
+            currentEditText = null;
+        }
     }
 
     private IEnumerator OpenCloseMap()

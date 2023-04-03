@@ -63,9 +63,9 @@ public class UI_MaP_Icon : UI_MaP_Drag
 
     public void OnNameInputFieldChange()
     {
-        Debug.Log("Edit Name !?" + (!GameManager.instance.mapAndPaper.currentlyEditingText?"return":"continue") );
+        Debug.Log("Edit Name !?" + (!GameManager.instance.mapAndPaper.IsEditingText()?"return":"continue") );
 
-        if (!GameManager.instance.mapAndPaper.currentlyEditingText)
+        if (!GameManager.instance.mapAndPaper.IsEditingText())
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
 
         data.nameText = name_textField.text;
@@ -77,7 +77,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
     }
     public void OnDescInputFieldChange()
     {
-        if (!GameManager.instance.mapAndPaper.currentlyEditingText)
+        if (!GameManager.instance.mapAndPaper.IsEditingText())
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
 
         data.descText = desc_textField.text;
@@ -88,13 +88,20 @@ public class UI_MaP_Icon : UI_MaP_Drag
         }
     }
 
-    public void OnSelectCustomField()
+    public void OnSelectCustomField_Name()
     {
-        GameManager.instance.mapAndPaper.currentlyEditingText = true;
+        Debug.Log("Select input field (name)");
+           GameManager.instance.mapAndPaper.currentEditText = name_textField;
+    }
+    public void OnSelectCustomField_Desc()
+    {
+        Debug.Log("Select input field (desc)");
+        GameManager.instance.mapAndPaper.currentEditText = desc_textField;
     }
     public void OnDeselectCustomField()
     {
-        GameManager.instance.mapAndPaper.currentlyEditingText = false;
+        Debug.Log("Unselect input field.");
+        GameManager.instance.mapAndPaper.currentEditText = null;
     }
 
 
@@ -129,6 +136,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
         if (!fromDragZone && !OveringMe() && editMode)
         {
             QuitEditMode();
+            TryQuitTextEdition();
         }
 
     }
@@ -184,8 +192,18 @@ public class UI_MaP_Icon : UI_MaP_Drag
         editMode = false;
         editionPart.interactable = false;
         editionPart.blocksRaycasts = false;
+    }
 
-        GameManager.instance.mapAndPaper.currentlyEditingText = false;
+    public void TryQuitTextEdition()
+    {
+        if (GameManager.instance.mapAndPaper.IsEditingText())
+        {
+            if (GameManager.instance.mapAndPaper.currentEditText == desc_textField || GameManager.instance.mapAndPaper.currentEditText == name_textField)
+            {
+                GameManager.instance.mapAndPaper.currentEditText.DeactivateInputField();
+                GameManager.instance.mapAndPaper.currentEditText = null;
+            }
+        }
     }
 
 
