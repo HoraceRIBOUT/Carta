@@ -152,7 +152,10 @@ public abstract class UI_MaP_Drag : UI_MaP_Overing
         else
         {
             if (lastParent == null)
+            {
                 TryDestroyAfterDrag();
+                return;
+            }
             this.transform.SetParent(lastParent);
             this.transform.localPosition = lastPosition;
             this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
@@ -182,7 +185,11 @@ public abstract class UI_MaP_Drag : UI_MaP_Overing
         if (fromDragZone)
             Debug.LogError("!!!Should not be Dragging !!! ", this.gameObject);
         else
+        {
+            if (lastParent_Paper != null)
+                lastParent_Paper.RemoveDrag(this);
             Destroy(this.gameObject);
+        }
     }
 
     protected abstract UI_MaP_Drag CreateClone();

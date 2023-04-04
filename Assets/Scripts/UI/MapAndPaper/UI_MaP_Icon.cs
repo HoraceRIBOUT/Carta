@@ -63,10 +63,11 @@ public class UI_MaP_Icon : UI_MaP_Drag
 
     public void OnNameInputFieldChange()
     {
-        Debug.Log("Edit Name !?" + (!GameManager.instance.mapAndPaper.IsEditingText()?"return":"continue") );
+        Debug.Log("Edit Name !?" + (GameManager.instance.mapAndPaper.currentEditText != name_textField ? "return":"continue") );
 
-        if (!GameManager.instance.mapAndPaper.IsEditingText())
+        if (!name_textField.IsActive())
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
+        GameManager.instance.mapAndPaper.currentEditText = name_textField;
 
         data.nameText = name_textField.text;
         //if (!fromIconZone)
@@ -77,8 +78,9 @@ public class UI_MaP_Icon : UI_MaP_Drag
     }
     public void OnDescInputFieldChange()
     {
-        if (!GameManager.instance.mapAndPaper.IsEditingText())
+        if (!name_textField.IsActive())
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
+        GameManager.instance.mapAndPaper.currentEditText = desc_textField;
 
         data.descText = desc_textField.text;
         //if (!fromIconZone)
