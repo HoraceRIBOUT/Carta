@@ -8,13 +8,23 @@ public class UI_MapAndPaper : MonoBehaviour
 {
     [ReadOnly] [SerializeField] private List<UI_MaP_Paper> papers = new List<UI_MaP_Paper>();
     public UI_MaP_Paper currentPaper;
-    public UI_MaP_IconInfoZone iconZone;
+    public UI_MaP_IconInfoZone sideTab;
     //So, by default, have one blank paper 
     public bool mapOpen = false;
     public TMPro.TMP_InputField currentEditText = null;
     public bool IsEditingText()
     {
         return currentEditText != null;
+    }
+    public void StopEditingText()
+    {
+        if(currentEditText != null)
+        {
+            Debug.Log("I call you ! Deactivation !");
+            currentEditText.DeactivateInputField();
+            Debug.Log("I called deactivation ! It's gfinish !");
+            currentEditText = null;
+        }
     }
 
     private Coroutine openCloseCorout = null;
@@ -32,6 +42,10 @@ public class UI_MapAndPaper : MonoBehaviour
         {
             wholeOpacity.alpha = 1;
         }
+
+        //For now :
+        if(!papers.Contains(currentPaper))
+            papers.Add(currentPaper);
     }
 
     public void IM_Open()
@@ -53,8 +67,8 @@ public class UI_MapAndPaper : MonoBehaviour
         mapOpen = true;
         openCloseCorout = StartCoroutine(OpenCloseMap());
 
-        iconZone.UpdateIconList();
-        iconZone.UpdateElementList();
+        sideTab.UpdateIconList();
+        sideTab.UpdateElementList();
         //iconZone.Switch(0);   //don't switch, because the button switch some other item too
         GameManager.instance.playerMove.InventoryAndMenu();
 
@@ -86,11 +100,7 @@ public class UI_MapAndPaper : MonoBehaviour
         }
 
         GameManager.instance.dialogMng.InventoryOrMapClose();
-        if (IsEditingText())
-        {
-            currentEditText.DeactivateInputField();
-            currentEditText = null;
-        }
+        StopEditingText();
     }
 
     private IEnumerator OpenCloseMap()
@@ -102,7 +112,51 @@ public class UI_MapAndPaper : MonoBehaviour
     }
 
 
+    public List<IconData.Icon_SaveData> GetIconSaveData()
+    {
+        return sideTab.GetSaveData();
+    }
+    public List<UI_MaP_Paper.Paper_SaveData> GetPaperSaveData()
+    {
+        List<UI_MaP_Paper.Paper_SaveData> res = new List<UI_MaP_Paper.Paper_SaveData>();
+        foreach(UI_MaP_Paper paper in papers)
+        {
+            res.Add(paper.GetSaveData());
+        }
+        return res;
+    }
 
+
+    public void ApplySaveData(List<UI_MaP_Paper.Paper_SaveData> papersData, List<IconData.Icon_SaveData> iconsData)
+    {
+        if(iconsData == null)
+        {
+            Debug.LogError("No icons get load");
+        }
+        //Do for icons before paper
+        foreach (var iconData in iconsData)
+        {
+            //Apply data in them
+
+            IconData data = sideTab.GetDataForThisPJN(iconData.id);
+            data.descText = iconData.descText;
+            data.nameText = iconData.nameText;
+        }
+
+        //Clean all papers
+        //TO DO : 
+        foreach (var paperData in papersData)
+        {
+            //do thing
+        }
+        //For now : 
+        currentPaper.ApplySaveData(papersData[0]);
+
+
+    }
+
+
+    #region Element Specificity
     [System.Serializable]
     public class ElementSpec
     {
@@ -140,5 +194,5 @@ public class UI_MapAndPaper : MonoBehaviour
             }
         }
     }
-
+    #endregion
 }

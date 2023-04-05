@@ -207,6 +207,9 @@ public class InputManager : MonoBehaviour
 
     void Try_OpenMapAndPaper()
     {
+        if (Input.GetKey(KeyCode.J)) //it's the letter for save 
+            return;
+
         //For now, always, no limit.
         if (Input.GetKeyDown(KeyCode.Alpha1) 
             || Input.GetKeyDown(KeyCode.Alpha2) 

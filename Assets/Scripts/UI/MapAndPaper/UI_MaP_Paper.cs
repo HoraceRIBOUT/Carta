@@ -9,12 +9,8 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     private RectTransform rectTr;
 
     //Normally, it's only data here. (maybe the zoom ? well, no, even that... more like the bound maybe ?)
-    private List<ItemAndIconPos>    itemAndIcons    = new List<ItemAndIconPos>();
-    private List<ElementPos>        elements        = new List<ElementPos>();
-    private List<TextPos>           texts           = new List<TextPos>();
-
-    //And here, it have a reference to the GAMEOBJECT created to represent the data. Seems simple enough.
-    private List<TMPro.TMP_Text>    textsGO         = new List<TMPro.TMP_Text>();
+    private List<IconPos>    iconsPos       = new List<IconPos>();
+    private List<ElementPos> elementsPos    = new List<ElementPos>();
 
     [Header("Input")]
     public bool beingDragAround = false;
@@ -35,26 +31,46 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         heart,
         //everythingelse
     }
-    class ItemAndIconPos
+    [System.Serializable]
+    public class IconPos
     {
+        [System.NonSerialized]
         public Vector2 positionRelative;
+        [System.NonSerialized]
         public IconData data; //here, a reference to the data, not to the point.
+        
+        //Data just when save
+        public float positionRelative_x, positionRelative_y;
+        public float sizeDelta_x, sizeDelta_y;
+        public void SetSizeDelta(Vector2 sizeDelta) { sizeDelta_x = sizeDelta.x; sizeDelta_y = sizeDelta.y; }
+        public Vector2 GetSizeDelta() { return new Vector2(sizeDelta_x, sizeDelta_y); }
+        public IconData.Icon_SaveData saveData;
+
     }
+    [System.Serializable]
     public class ElementPos
     {
-        public Vector2 positionRelative;
-        public Vector3 scaleRelative;
-        public Vector3 rotationRelative;
-        public Element data;
-        public Color color;
-    }
-    class TextPos
-    {
-        public Vector2 positionRelative;
-        public Vector3 scaleRelative;
-        public Vector3 rotationRelative;
-        public string textItself;
-        public Color color;
+        public float positionRelative_x, positionRelative_y;
+        public void SetPositionRelative(Vector2 pos)
+        {
+            positionRelative_x = pos.x;
+            positionRelative_y = pos.y;
+        }
+        public Vector2 GetPositionRelative()
+        {
+            return new Vector2(positionRelative_x, positionRelative_y);
+        }
+        public float scaleRelative_x, scaleRelative_y, scaleRelative_z;
+        public float sizeDelta_x, sizeDelta_y;
+        public void SetSizeDelta(Vector2 sizeDelta) { sizeDelta_x = sizeDelta.x; sizeDelta_y = sizeDelta.y; }
+        public Vector2 GetSizeDelta() { return new Vector2(sizeDelta_x, sizeDelta_y); }
+        public float rotationRelative_x, rotationRelative_y, rotationRelative_z;
+        public Element id;
+        public float color_r, color_g, color_b, color_a;
+        public void SetColor(Color col) { color_r = col.r; color_g = col.g; color_b = col.b; color_a = col.a; }
+        public Color GetColor() { return new Color(color_r, color_g, color_b, color_a); }
+        public bool showText;
+        public string text;
     }
 
     [SerializeField] private float iconMove_Amplitude = 1;
@@ -92,35 +108,39 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
     public void AddIcon(UI_MaP_Icon newIcon)
     {
-        ItemAndIconPos info = new ItemAndIconPos();
+        IconPos info = new IconPos();
         info.data = newIcon.data;
-        info.positionRelative = newIcon.transform.position - this.transform.position;
-        itemAndIcons.Add(info);
+        info.positionRelative = newIcon.himselfRect.anchoredPosition;
+        iconsPos.Add(info);
 
         iconsGO.Add(newIcon);
 
         currentSpeedIntensity = 0;
     }
-    public void RemoveIcon(UI_MaP_Icon newIcon)
+    public void RemoveIcon(UI_MaP_Icon toDelete)
     {
-        iconsGO.Remove(newIcon);
+        int index = iconsGO.IndexOf(toDelete);
+        iconsPos.RemoveAt(index);
+        iconsGO.RemoveAt(index);
     }
     public void AddElement(UI_MaP_Element newElement)
     {
         ElementPos info = new ElementPos();
-        info.data = newElement.data;
+        info.id = newElement.data;
         //and other thing
         //pos
         //rot
         //scale
-        info.positionRelative = newElement.transform.position - this.transform.position;//need to have a position correct so ?
-        elements.Add(info);
+        info.SetPositionRelative(newElement.transform.position - this.transform.position);
+        elementsPos.Add(info);
 
         elementsGO.Add(newElement);
     }
-    public void RemoveElement(UI_MaP_Element newElement)
+    public void RemoveElement(UI_MaP_Element toDelete)
     {
-        elementsGO.Remove(newElement);
+        int index = elementsGO.IndexOf(toDelete);
+        elementsPos.RemoveAt(index);
+        elementsGO.RemoveAt(index);
     }
 
     //remove the animation so we can move it on LateUpdate
@@ -135,7 +155,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     private void MovePaper()
     {
         //Overing me AND no icon (or element) are overed AND list icon zone is not overred too
-        if (OveringMe() && !GameManager.instance.mapAndPaper.iconZone.OveringMe() && !AnyDragOvered() && Input.GetMouseButtonDown(0))
+        if (OveringMe() && !GameManager.instance.mapAndPaper.sideTab.OveringMe() && !AnyDragOvered() && Input.GetMouseButtonDown(0))
         {
             beingDragAround = true;
             //Start drag the paper
@@ -172,9 +192,9 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             for (int i = 0; i < iconsGO.Count; i++)
             {
                 UI_MaP_Icon ic = iconsGO[i];
-                ItemAndIconPos icP = itemAndIcons[i];
+                IconPos icP = iconsPos[i];
                 //ic.transform.position = this.transform.position + (Vector3)icP.positionRelative;
-                ic.transform.position = this.transform.position + (Vector3)icP.positionRelative + iconMove_Speed * iconMove_Amplitude * this.transform.localScale.x;
+                //ic.transform.position = this.transform.position + (Vector3)icP.positionRelative + iconMove_Speed * iconMove_Amplitude * this.transform.localScale.x;
                 // * this.transform.localScale.x + iconMove_Speed * iconMove_Amplitude;
             }
         }
@@ -257,7 +277,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
     public void MoveDependingOnMousePosition(UI_MaP_Drag dragObject)
     {
-        if (GameManager.instance.mapAndPaper.iconZone.OveringMe())
+        if (GameManager.instance.mapAndPaper.sideTab.OveringMe())
         {
             if (currentSpeedIntensity > 0)
                 currentSpeedIntensity = Mathf.Max(0, currentSpeedIntensity - Time.deltaTime * 4);
@@ -269,7 +289,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         mousePos.x /= Screen.width;
         mousePos.y /= Screen.height;
 
-        float borderX = GameManager.instance.mapAndPaper.iconZone.LeftBorderPositionInScreenPercentage();
+        float borderX = GameManager.instance.mapAndPaper.sideTab.LeftBorderPositionInScreenPercentage();
 
         Vector3 fullSpeedSpeed = Vector2.zero;
 
@@ -314,6 +334,88 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         this.transform.position += Vector3.Lerp(Vector3.zero, fullSpeedSpeed * moveSpeedMax, currentSpeedIntensity);
 
         this.transform.position = ClampedPosition(this.transform.position);
+    }
+
+
+
+
+    [System.Serializable]
+    public class Paper_SaveData
+    {
+        public List<IconPos> iconsData = new List<IconPos>();
+        public List<ElementPos> elementsData = new List<ElementPos>();
+    }
+
+    public Paper_SaveData GetSaveData()
+    {
+        Paper_SaveData res = new Paper_SaveData();
+        for (int i = 0; i < iconsPos.Count; i++)
+        {
+            IconPos ic = iconsPos[i];
+            ic.saveData = ic.data.GetSerialazableIconData();
+            ic.positionRelative_x = ic.positionRelative.x;
+            ic.positionRelative_y = ic.positionRelative.y;
+            Debug.Log("Icon pos = " + ic.positionRelative);
+
+            ic.SetSizeDelta(iconsGO[i].himselfRect.sizeDelta);
+        }
+        res.iconsData = new List<IconPos>(iconsPos);
+
+        for (int i = 0; i < elementsPos.Count; i++)
+        {
+            ElementPos el = elementsPos[i];
+            el.text = elementsGO[i].GetText();
+            el.showText = elementsGO[i].ShowText;
+            el.SetSizeDelta(elementsGO[i].himselfRect.sizeDelta);
+            el.SetColor(elementsGO[i].Color);
+        }
+        res.elementsData = new List<ElementPos>(elementsPos);
+        return res;
+    }
+
+    public void ApplySaveData(Paper_SaveData savedData)
+    {
+        //TO DO : 
+        Debug.Log("SavedData ?" + savedData.iconsData.Count);
+
+        foreach (var ic_data in savedData.iconsData)
+        {
+            //Create
+            UI_MaP_Icon newIcon = Instantiate(GameManager.instance.mapAndPaper.sideTab.iconPrefab);
+            ic_data.data = GameManager.instance.mapAndPaper.sideTab.GetDataForThisPJN(ic_data.saveData.id);
+            newIcon.Create(ic_data.data, false);
+
+            //then replace : 
+            newIcon.transform.SetParent(iconParent);
+            newIcon.transform.localScale = this.transform.localScale * newIcon.baseSize;
+            //
+            ic_data.positionRelative = new Vector2(ic_data.positionRelative_x, ic_data.positionRelative_y);
+            Debug.Log("Ic position when load : "+ ic_data.positionRelative);
+            newIcon.himselfRect.anchoredPosition = ic_data.positionRelative;
+            newIcon.himselfRect.sizeDelta = ic_data.GetSizeDelta(); //MAYBE : get it in dependencies of the papers size, to avoid problem later with different screen size ?
+            //newIcon.himselfRect.sizeDelta = el_data.GetSizeDelta(); //MAYBE : get it in dependencies of the papers size, to avoid problem later with different screen size ?
+
+
+            //Then add on paper code
+            AddIcon(newIcon);
+        }
+
+        foreach (var el_data in savedData.elementsData)
+        {
+            //Create
+            UI_MaP_Element newElement = Instantiate(GameManager.instance.mapAndPaper.sideTab.elemPrefab);
+            newElement.Create(el_data.id, false, el_data.showText);
+
+            //then replace : 
+            newElement.transform.SetParent(elementParent);
+            newElement.transform.localScale = this.transform.localScale * newElement.baseSize;
+            newElement.himselfRect.sizeDelta = el_data.GetSizeDelta(); //MAYBE : get it in dependencies of the papers size, to avoid problem later with different screen size ?
+            newElement.ReplaceOnpaper(el_data);
+
+            //Then add on paper code
+            AddElement(newElement);
+        }
+
     }
 
 }

@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
             blackScreenForQuit.color = Color.Lerp(Color.clear, Color.black, quitButton * quitButton);
 
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.J))
         { 
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {

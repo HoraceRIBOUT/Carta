@@ -17,19 +17,21 @@ public class UI_MaP_Element : UI_MaP_Drag
     [SerializeField] private bool showText;
     [SerializeField] private TMPro.TMP_InputField customText;
 
+    public bool ShowText { get => showText; private set => showText = value; }
+    public Color Color { get => spriteRdr.color; private set => spriteRdr.color = value; }
+
     protected override UI_MaP_Drag CreateClone()
     {
-        UI_MaP_Element el = Instantiate(this, GameManager.instance.mapAndPaper.iconZone.iconParent);
-        el.Create(data, false);
+        UI_MaP_Element el = Instantiate(this, GameManager.instance.mapAndPaper.sideTab.iconParent);
+        el.Create(data, false, ShowText);
         el.transform.position = this.transform.position;
         el.transform.localScale = Vector3.one;
-        el.showText = showText;
-        el.DisplayText(showText);
+        el.DisplayText(ShowText);
         el.firstDrag = true;
         return el;
     }
 
-    public void Create(UI_MaP_Paper.Element newData, bool createOnZone)
+    public void Create(UI_MaP_Paper.Element newData, bool createOnZone, bool textShown)
     {
         fromDragZone = createOnZone;
 
@@ -42,8 +44,8 @@ public class UI_MaP_Element : UI_MaP_Drag
         spec = GameManager.instance.mapAndPaper.GetSpecFromElement(newData);
         customText.SetTextWithoutNotify(spec.textContent_Default);
         ReplaceTextField();
-        showText = GameManager.instance.mapAndPaper.iconZone.showText;
-        DisplayText(showText);
+        ShowText = textShown;
+        DisplayText(ShowText);
     }
 
     public void ReplaceTextField()
@@ -69,7 +71,7 @@ public class UI_MaP_Element : UI_MaP_Drag
         Debug.Log(on ? "show" : "hide");
         customText.interactable = on;
         customText.gameObject.SetActive(on);
-        showText = on;
+        ShowText = on;
     }
 
     protected override void PlacementManagement()
@@ -88,15 +90,23 @@ public class UI_MaP_Element : UI_MaP_Drag
         }
     }
 
-
-    public void ReplaceOnpaper(UI_MaP_Paper.ElementPos data)
+    public string GetText()
     {
-        spriteRdr.color = data.color;
-        spriteRdr.sprite = spriteList[(int)data.data]; 
-        spriteRdr_shadow.sprite = spriteList[(int)data.data];
-        this.transform.localPosition = data.positionRelative;
-        this.transform.localRotation = Quaternion.Euler(data.rotationRelative);
-        this.transform.localScale = data.scaleRelative;
+        return customText.text;
+    }
+
+    public void ReplaceOnpaper(UI_MaP_Paper.ElementPos savedData)
+    {
+        data = savedData.id;
+        spriteRdr.color = savedData.GetColor();
+        spriteRdr.sprite = spriteList[(int)savedData.id]; 
+        spriteRdr_shadow.sprite = spriteList[(int)savedData.id];
+        this.transform.localPosition = savedData.GetPositionRelative();
+        //this.transform.localRotation = Quaternion.Euler(savedData.rotationRelative);
+        //this.transform.localScale = savedData.scaleRelative;
+        
+        DisplayText(savedData.showText);
+        customText.SetTextWithoutNotify(savedData.text);
     }
 
     public override bool OveringMe()

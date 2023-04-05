@@ -92,8 +92,6 @@ public abstract class UI_MaP_Drag : UI_MaP_Overing
             else
                 this.transform.localScale = Vector3.one;
         }
-
-
     }
 
 
@@ -139,7 +137,7 @@ public abstract class UI_MaP_Drag : UI_MaP_Overing
         Debug.Log("EndDrag : " + this.name, this.gameObject);
         UI_MaP_Paper currentPaper = GameManager.instance.mapAndPaper.currentPaper;
         //Need to see what under it. 
-        if (GameManager.instance.mapAndPaper.iconZone.OveringMe())
+        if (GameManager.instance.mapAndPaper.sideTab.OveringMe())
         {
             TryDestroyAfterDrag();
         }

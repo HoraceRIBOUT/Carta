@@ -146,7 +146,7 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
 
                 UI_MaP_Element newElement = Instantiate(elemPrefab);
                 newElement.transform.SetParent(elementParent);
-                newElement.Create(id, true);
+                newElement.Create(id, true, showText);
 
                 elementsGO.Add(newElement);
             }
@@ -203,6 +203,17 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
         Debug.LogError(id + " is not in the data list. Please, add the IconData scriptable in the list on the ListIcon gameObject.");
         return null;
     }
+
+    public List<IconData.Icon_SaveData> GetSaveData()
+    {
+        List<IconData.Icon_SaveData> res = new List<IconData.Icon_SaveData>();
+        foreach (UI_MaP_Icon icon in iconsGO)
+        {
+            res.Add(icon.data.GetSerialazableIconData());
+        }
+        return res;
+    }
+
 
     public void AddIconIfNeeded(pnj.pnjID iconId)
     {

@@ -63,30 +63,33 @@ public class UI_MaP_Icon : UI_MaP_Drag
 
     public void OnNameInputFieldChange()
     {
-        Debug.Log("Edit Name !?" + (GameManager.instance.mapAndPaper.currentEditText != name_textField ? "return":"continue") );
+        Debug.Log("Edit Name !?" + (!name_textField.isFocused ? "return":"continue")  + "(oh, and also :"+(GameManager.instance.mapAndPaper.currentEditText != name_textField?" it's this name who get modify":"nope, not this one.") +" )");
 
-        if (!name_textField.IsActive())
+        if (!name_textField.isFocused)
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
         GameManager.instance.mapAndPaper.currentEditText = name_textField;
+        Debug.Log("Become name", this.gameObject);
 
         data.nameText = name_textField.text;
         //if (!fromIconZone)
         {
             GameManager.instance.mapAndPaper.currentPaper.ReUpdateIconFromData();
-            GameManager.instance.mapAndPaper.iconZone.ReUpdateIconFromData();
+            GameManager.instance.mapAndPaper.sideTab.ReUpdateIconFromData();
         }
     }
     public void OnDescInputFieldChange()
     {
-        if (!name_textField.IsActive())
+        Debug.Log("desc_textField : "+ desc_textField.isFocused + " yep.");
+        if (!desc_textField.isFocused)
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
         GameManager.instance.mapAndPaper.currentEditText = desc_textField;
+        Debug.Log("Become desc", this.gameObject);
 
         data.descText = desc_textField.text;
         //if (!fromIconZone)
         {
             GameManager.instance.mapAndPaper.currentPaper.ReUpdateIconFromData();
-            GameManager.instance.mapAndPaper.iconZone.ReUpdateIconFromData();
+            GameManager.instance.mapAndPaper.sideTab.ReUpdateIconFromData();
         }
     }
 
@@ -94,23 +97,25 @@ public class UI_MaP_Icon : UI_MaP_Drag
     {
         Debug.Log("Select input field (name)");
            GameManager.instance.mapAndPaper.currentEditText = name_textField;
+        Debug.Log("Become name", this.gameObject);
     }
     public void OnSelectCustomField_Desc()
     {
         Debug.Log("Select input field (desc)");
         GameManager.instance.mapAndPaper.currentEditText = desc_textField;
+        Debug.Log("Become desc", this.gameObject);
     }
     public void OnDeselectCustomField()
     {
         Debug.Log("Unselect input field.");
-        GameManager.instance.mapAndPaper.currentEditText = null;
+        GameManager.instance.mapAndPaper.StopEditingText();
     }
 
 
 
     protected override UI_MaP_Drag CreateClone()
     {
-        UI_MaP_Icon ic = Instantiate(this, GameManager.instance.mapAndPaper.iconZone.iconParent);
+        UI_MaP_Icon ic = Instantiate(this, GameManager.instance.mapAndPaper.sideTab.iconParent);
         ic.Create(data, false);
         ic.transform.position = this.transform.position;
         ic.transform.localScale = Vector3.one;
@@ -138,7 +143,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
         if (!fromDragZone && !OveringMe() && editMode)
         {
             QuitEditMode();
-            TryQuitTextEdition();
+            ForceQuitTextEdition();
         }
 
     }
@@ -206,6 +211,11 @@ public class UI_MaP_Icon : UI_MaP_Drag
                 GameManager.instance.mapAndPaper.currentEditText = null;
             }
         }
+    }
+    public void ForceQuitTextEdition()
+    {
+        Debug.Log("Force quit the text edition");
+        GameManager.instance.mapAndPaper.StopEditingText();
     }
 
 

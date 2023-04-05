@@ -31,8 +31,11 @@ public class SaveAndLoad : MonoBehaviour
         public float timeOfTheDay;
 
         //element and page (mostly allready Serializable ?)
+        public List<UI_MaP_Paper.Paper_SaveData> papersSave;
+        public List<IconData.Icon_SaveData> iconsSave;
 
-        public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, float _timeOfTheDay, List<pnj.PNJ_SaveData> _pnjSave)
+        public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, float _timeOfTheDay,
+            List<pnj.PNJ_SaveData> _pnjSave, List<UI_MaP_Paper.Paper_SaveData> _papersSave, List<IconData.Icon_SaveData> _iconsSave)
         {
             inventory_all = _inventory_all;
             inventory_current = _inventory_current;
@@ -41,6 +44,8 @@ public class SaveAndLoad : MonoBehaviour
             posWhenQuit_z = _posWhenQuit.z;
             timeOfTheDay = _timeOfTheDay;
             pnjSave = _pnjSave;
+            papersSave = _papersSave;
+            iconsSave = _iconsSave;
         }
 
         public Vector3 posWhenQuit()
@@ -71,6 +76,8 @@ public class SaveAndLoad : MonoBehaviour
 
         //Open in windows explorer
         Application.OpenURL(Path.GetDirectoryName(path));
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         Debug.Log("Finish save data");
     }
     public static void LoadData(int slotNumber)
@@ -96,7 +103,10 @@ public class SaveAndLoad : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Gather the data (save)
+    /// </summary>
+    /// <returns></returns>
 
     private static Global_SaveData GatherDataToSave()
     {
@@ -141,13 +151,21 @@ public class SaveAndLoad : MonoBehaviour
 
         //UI : MaP 
         // - icon and text associate
+        List<IconData.Icon_SaveData> iconsSave = GameManager.instance.mapAndPaper.GetIconSaveData();
         // - page
-
+        List<UI_MaP_Paper.Paper_SaveData> papersList = GameManager.instance.mapAndPaper.GetPaperSaveData();
         //
 
-        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave);
+        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave, papersList, iconsSave);
         return data;
     }
+
+
+
+    /// <summary>
+    /// Apply the data (load)
+    /// </summary>
+    /// <param name="data"></param>
 
     private static void ApplyLoadedData(Global_SaveData data)
     {
@@ -187,6 +205,7 @@ public class SaveAndLoad : MonoBehaviour
         FindObjectOfType<SkyManager>().timeOfTheDay = data.timeOfTheDay;
 
         //MaP :
+        GameManager.instance.mapAndPaper.ApplySaveData(data.papersSave, data.iconsSave);
 
     }
 }
