@@ -33,9 +33,10 @@ public class SaveAndLoad : MonoBehaviour
         //element and page (mostly allready Serializable ?)
         public List<UI_MaP_Paper.Paper_SaveData> papersSave;
         public List<IconData.Icon_SaveData> iconsSave;
+        public List<pnj.pnjID> pnjAlreadyMet;
 
         public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, float _timeOfTheDay,
-            List<pnj.PNJ_SaveData> _pnjSave, List<UI_MaP_Paper.Paper_SaveData> _papersSave, List<IconData.Icon_SaveData> _iconsSave)
+            List<pnj.PNJ_SaveData> _pnjSave, List<UI_MaP_Paper.Paper_SaveData> _papersSave, List<IconData.Icon_SaveData> _iconsSave, List<pnj.pnjID> _pnjAlreadyMet)
         {
             inventory_all = _inventory_all;
             inventory_current = _inventory_current;
@@ -46,6 +47,7 @@ public class SaveAndLoad : MonoBehaviour
             pnjSave = _pnjSave;
             papersSave = _papersSave;
             iconsSave = _iconsSave;
+            pnjAlreadyMet = _pnjAlreadyMet;
         }
 
         public Vector3 posWhenQuit()
@@ -152,11 +154,12 @@ public class SaveAndLoad : MonoBehaviour
         //UI : MaP 
         // - icon and text associate
         List<IconData.Icon_SaveData> iconsSave = GameManager.instance.mapAndPaper.GetIconSaveData();
+        List<pnj.pnjID> pnjAlreadyMet = GameManager.instance.mapAndPaper.sideTab.pnjToDeploy;
         // - page
-        List<UI_MaP_Paper.Paper_SaveData> papersList = GameManager.instance.mapAndPaper.GetPaperSaveData();
+        List <UI_MaP_Paper.Paper_SaveData> papersList = GameManager.instance.mapAndPaper.GetPaperSaveData();
         //
 
-        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave, papersList, iconsSave);
+        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave, papersList, iconsSave, pnjAlreadyMet);
         return data;
     }
 
@@ -206,6 +209,7 @@ public class SaveAndLoad : MonoBehaviour
 
         //MaP :
         GameManager.instance.mapAndPaper.ApplySaveData(data.papersSave, data.iconsSave);
+        GameManager.instance.mapAndPaper.sideTab.pnjToDeploy = data.pnjAlreadyMet;
 
     }
 }

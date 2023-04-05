@@ -95,6 +95,21 @@ public class UI_MaP_Element : UI_MaP_Drag
         return customText.text;
     }
 
+    public void OnInputFieldChange()
+    {
+        if (!customText.isFocused)
+            return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
+        GameManager.instance.mapAndPaper.currentEditText = customText;
+    }
+    public void OnSelectCustomField()
+    {
+        GameManager.instance.mapAndPaper.currentEditText = customText;
+    }
+    public void OnDeselectCustomField()
+    {
+        GameManager.instance.mapAndPaper.StopEditingText();
+    }
+
     public void ReplaceOnpaper(UI_MaP_Paper.ElementPos savedData)
     {
         data = savedData.id;
@@ -108,6 +123,14 @@ public class UI_MaP_Element : UI_MaP_Drag
         DisplayText(savedData.showText);
         customText.SetTextWithoutNotify(savedData.text);
     }
+
+
+
+
+
+
+
+
 
     public override bool OveringMe()
     {

@@ -411,6 +411,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             newElement.transform.localScale = this.transform.localScale * newElement.baseSize;
             newElement.himselfRect.sizeDelta = el_data.GetSizeDelta(); //MAYBE : get it in dependencies of the papers size, to avoid problem later with different screen size ?
             newElement.ReplaceOnpaper(el_data);
+            newElement.ReplaceTextField();//just in case
 
             //Then add on paper code
             AddElement(newElement);
