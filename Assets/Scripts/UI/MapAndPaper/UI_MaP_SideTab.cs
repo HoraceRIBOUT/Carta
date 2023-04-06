@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
+public class UI_MaP_SideTab : UI_MaP_IconDropZone
 {
     public RectTransform rect;
 
 
     public UI_MaP_Icon iconPrefab;
     public UI_MaP_Element elemPrefab;
+    [Header("Scroll")]
+    public float mouseScrollSpeed = 1;
+    public Vector2 mouseScrollMinMax = new Vector2(0.8f, 5f);
+    private Vector3 startLocalPosition_ic = Vector2.zero;
+    private Vector3 startLocalPosition_el = Vector2.zero;
 
     [Header("Normally, set by game")]
     public List<pnj.pnjID> pnjToDeploy = new List<pnj.pnjID>();
@@ -57,6 +62,32 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
     {
         rect = GetComponent<RectTransform>();
         fullSize = dolly.rect.size;
+        startLocalPosition_ic = iconParent.transform.localPosition;
+        startLocalPosition_el = elementParent.transform.localPosition;
+    }
+
+    public void Update()
+    {
+        if (Input.mouseScrollDelta.y != 0 && OveringMe())
+        {
+            float ySize = rect.rect.height;
+
+            Transform transformToScroll = (currentTabIndex == 0 ? iconParent.transform  : elementParent.transform);
+            Vector3  startLocalPosition = (currentTabIndex == 0 ? startLocalPosition_ic : startLocalPosition_el);
+            //define : mouseScrollMinMax by the number of element in it (iconsGO vs elementGO, roughly the same size)
+
+            Debug.Log("Scrool ! " + Input.mouseScrollDelta.y + " rect ? " + ySize);
+            transformToScroll.transform.localPosition += Input.mouseScrollDelta.y * -mouseScrollSpeed * ySize * Time.deltaTime * Vector3.up;
+
+            if (transformToScroll.transform.localPosition.y < startLocalPosition.y + mouseScrollMinMax.x * ySize)
+            {
+                transformToScroll.transform.localPosition = startLocalPosition + Vector3.up * mouseScrollMinMax.x * ySize;
+            }
+            else if (transformToScroll.transform.localPosition.y > startLocalPosition.y + mouseScrollMinMax.y * ySize)
+            {
+                transformToScroll.transform.localPosition = startLocalPosition + Vector3.up * mouseScrollMinMax.y * ySize;
+            }
+        }
     }
 
     public void ChangeSize_Icon()
@@ -110,6 +141,7 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
 
     public void UpdateIconPosition()
     {
+        startLocalPosition_ic = iconParent.transform.localPosition;
         for (int i = 0; i < iconsGO.Count; i++)
         {
             UI_MaP_Icon iconToReplace = iconsGO[i];
@@ -157,6 +189,7 @@ public class UI_MaP_IconInfoZone : UI_MaP_IconDropZone
 
     public void UpdateElementPosition()
     {
+        startLocalPosition_el = elementParent.transform.localPosition;
         for (int i = 0; i < elementsGO.Count; i++)
         {
             UI_MaP_Element elemToReplace = elementsGO[i];

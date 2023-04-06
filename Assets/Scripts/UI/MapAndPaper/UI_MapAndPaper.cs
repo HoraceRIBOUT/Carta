@@ -8,7 +8,7 @@ public class UI_MapAndPaper : MonoBehaviour
 {
     [ReadOnly] [SerializeField] private List<UI_MaP_Paper> papers = new List<UI_MaP_Paper>();
     public UI_MaP_Paper currentPaper;
-    public UI_MaP_IconInfoZone sideTab;
+    public UI_MaP_SideTab sideTab;
     //So, by default, have one blank paper 
     public bool mapOpen = false;
     public TMPro.TMP_InputField currentEditText = null;
@@ -161,6 +161,7 @@ public class UI_MapAndPaper : MonoBehaviour
     public class ElementSpec
     {
         public UI_MaP_Paper.Element id;
+        public Sprite sprite;
         public Vector2 minMaxForClickX = Vector2.one;
         public Vector2 minMaxForClickY = Vector2.one;
         public Vector2 textPos = Vector2.one / 2;

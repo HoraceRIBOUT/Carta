@@ -29,6 +29,10 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         parent,
         parentWithSon,
         heart,
+        text,
+        square,
+        circle,
+        arrow,
         //everythingelse
     }
     [System.Serializable]
@@ -73,7 +77,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         public string text;
     }
 
-    [SerializeField] private float iconMove_Amplitude = 1;
+    //[SerializeField] private float iconMove_Amplitude = 1;
     private Vector3 iconMove_Speed = Vector3.zero;
     private Vector3 lastMovement;
 
@@ -199,7 +203,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             }
         }
 
-        if (Input.mouseScrollDelta.y != 0)
+        if (Input.mouseScrollDelta.y != 0 && OveringMe())
         {
             this.transform.localScale += Input.mouseScrollDelta.y * mouseScrollSpeed * Time.deltaTime * Vector3.one;
 

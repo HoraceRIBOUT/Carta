@@ -13,7 +13,6 @@ public class UI_MaP_Element : UI_MaP_Drag
     [SerializeField] private Image spriteRdr;
     [SerializeField] private Image spriteRdr_shadow;
     RectTransform spriteRect;
-    [SerializeField] private List<Sprite> spriteList;//for now, here. TO DO : refacto this later to place it in a more logic place.
     [SerializeField] private bool showText;
     [SerializeField] private TMPro.TMP_InputField customText;
 
@@ -37,12 +36,17 @@ public class UI_MaP_Element : UI_MaP_Drag
 
         himselfRect = this.GetComponent<RectTransform>();
         visualRect = himselfRect.GetChild(0).GetComponent<RectTransform>();
-        spriteRdr.sprite = spriteList[(int)newData]; 
-        spriteRdr_shadow.sprite = spriteList[(int)newData];
         spriteRect = spriteRdr.GetComponent<RectTransform>();
         data = newData;
-        spec = GameManager.instance.mapAndPaper.GetSpecFromElement(newData);
-        customText.SetTextWithoutNotify(spec.textContent_Default);
+
+        SetFromSpec(newData);
+        if (newData == UI_MaP_Paper.Element.text)
+        {
+            spriteRdr.color = Color.clear;
+            visualRect.GetComponent<Image>().enabled = false;
+            textShown = true;
+        }
+
         ReplaceTextField();
         ShowText = textShown;
         DisplayText(ShowText);
@@ -68,6 +72,9 @@ public class UI_MaP_Element : UI_MaP_Drag
 
     public void DisplayText(bool on)
     {
+        if (data == UI_MaP_Paper.Element.text)
+            on = true; //always show text
+
         Debug.Log(on ? "show" : "hide");
         customText.interactable = on;
         customText.gameObject.SetActive(on);
@@ -114,8 +121,7 @@ public class UI_MaP_Element : UI_MaP_Drag
     {
         data = savedData.id;
         spriteRdr.color = savedData.GetColor();
-        spriteRdr.sprite = spriteList[(int)savedData.id]; 
-        spriteRdr_shadow.sprite = spriteList[(int)savedData.id];
+        SetFromSpec(savedData.id);
         this.transform.localPosition = savedData.GetPositionRelative();
         //this.transform.localRotation = Quaternion.Euler(savedData.rotationRelative);
         //this.transform.localScale = savedData.scaleRelative;
@@ -124,7 +130,13 @@ public class UI_MaP_Element : UI_MaP_Drag
         customText.SetTextWithoutNotify(savedData.text);
     }
 
-
+    public void SetFromSpec(UI_MaP_Paper.Element data)
+    {
+        spec = GameManager.instance.mapAndPaper.GetSpecFromElement(data);
+        spriteRdr.sprite = spec.sprite;
+        spriteRdr_shadow.sprite = spec.sprite;
+        customText.SetTextWithoutNotify(spec.textContent_Default);
+    }
 
 
 
