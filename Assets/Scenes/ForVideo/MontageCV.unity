@@ -3623,9 +3623,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1733650209}
-  - component: {fileID: 1733650208}
-  - component: {fileID: 1733650207}
   - component: {fileID: 1733650206}
+  - component: {fileID: 1733650207}
+  - component: {fileID: 1733650208}
   m_Layer: 0
   m_Name: PlayerThird
   m_TagString: Untagged
@@ -3646,24 +3646,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rgbd: {fileID: 1733650207}
-  speed: 10
+  speedGain: 15
+  speedMax: 8
   jumpForce: 4
   verticalBonusForHorizontalJump: 0.3
   canJump: 1
   lastUpVector: {x: 0, y: 1, z: 0}
   contacts: []
-  debugValue: 0
+  emptyLookDistance: 0.5
+  emptyLookRaycastDirections:
+  - {x: 0.2, y: 0, z: 0}
+  - {x: 0, y: -0.5, z: 0}
+  - {x: -0.2, y: 0, z: 0}
+  emptyLookIntensity: 3
+  grapleMode: 1
+  grapleMode_eff: 0
+  grappleVisual_On: {fileID: 286511798}
+  grappleVisual_Off: {fileID: 157012853}
   maxDist: 0.5
   layerMaskContact:
     serializedVersion: 2
     m_Bits: 65
+  debugValue: 0
   gravityIntensity: 9.81
   wallGravity: 4.905
   gravityIntensity_FallAdd: 4.905
   layerOnCollision: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
   raycastDist: 0.15
 --- !u!54 &1733650207
 Rigidbody:
