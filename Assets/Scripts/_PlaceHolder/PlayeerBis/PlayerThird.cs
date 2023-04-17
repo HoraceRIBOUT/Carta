@@ -13,6 +13,7 @@ public class PlayerThird : MonoBehaviour
     public float speedGain = 10;
     public float speedMax = 5;
     private Vector3 lastSpeed;
+    public float slowDownMultiplier = 0.2f;
 
 
     [Header("Jump")]
@@ -151,13 +152,20 @@ public class PlayerThird : MonoBehaviour
             _rgbd.velocity += acceleration;
 
         _rgbd.velocity= Clamp_AxisIgnored(_rgbd.velocity, speedMax, upVector);
-        
+
+        //we can now  make the drag here :
+        _rgbd.velocity = _rgbd.velocity * Mathf.Pow(slowDownMultiplier, Time.deltaTime);
 
         Debug.DrawRay(this.transform.position, _rgbd.velocity, Color.blue);
         Debug.DrawRay(this.transform.position + _rgbd.velocity, acceleration, Color.green);
         //Debug.DrawRay(this.transform.position, forwardCam, Color.yellow);
         //Debug.DrawRay(this.transform.position, rightCam, Color.yellow / 2f);
         lastSpeed = _rgbd.velocity;
+
+
+
+
+
     }
 
     public Vector3 SetVectorUpForMultipleElement(Vector3 direction)
