@@ -5,15 +5,16 @@ using Sirenix.OdinInspector;
 
 public class PlayerThird : MonoBehaviour
 {
+    [Header("Component")]
+    public CapsuleCollider _capsule;
+    public Rigidbody _rgbd;
     private Transform cameraTr;
 
-    //
-
-    public Rigidbody _rgbd;
+    [Header("Data")]
     public float speedGain = 10;
     public float speedMax = 5;
-    private Vector3 lastSpeed;
     public float slowDownMultiplier = 0.2f;
+    private Vector3 lastSpeed;
 
 
     [Header("Jump")]
@@ -40,6 +41,7 @@ public class PlayerThird : MonoBehaviour
     void Update()
     {
         HandleGrappleWallMode();
+        CrouchManagement();
 
         UpdateContact();
         MovementManagement();
@@ -131,6 +133,7 @@ public class PlayerThird : MonoBehaviour
         Vector3 acceleration = inputDir.x * rightCam + inputDir.y * forwardCam;
 
 
+        //Ok, revoir the "grapple mode"
         if (!grapleMode_eff)
         {
             float ySpeed = acceleration.y;
@@ -214,7 +217,7 @@ public class PlayerThird : MonoBehaviour
         angle *= Mathf.Sign(Vector3.Dot(Vector3.Cross(Vector3.up, flatenedWallNorm), flatenedForwardV));
         ///Ca va nous donner un angle.
         ///Cette angle, on va l'appliquer au UPVECTOR noirmalisé sur le mur 
-        Vector3 wallUpVector = Vector3.ProjectOnPlane(Vector3.up, wallNormal).normalized;
+        Vector3 wallUpVector = GetUpOfTheSurface(wallNormal);
         Debug.DrawRay(this.transform.position, wallUpVector, Color.grey);
                     //if wallNormal is Vector3.up, it should be nullify in the global code
 
@@ -247,6 +250,11 @@ public class PlayerThird : MonoBehaviour
             }
             //Debug.DrawRay(info.gO.transform.position, info.lastNormal, Color.green);
         }
+    }
+
+    public static Vector3 GetUpOfTheSurface(Vector3 wallNormal)
+    {
+        return Vector3.ProjectOnPlane(Vector3.up, wallNormal).normalized;
     }
 
     public bool AlreadyInContact(GameObject gO)
@@ -354,6 +362,7 @@ public class PlayerThird : MonoBehaviour
     public void GravityManagement()
     {
         Vector3 localUp = Vector3.up;
+        //Ok, revoir the "grapple mode"
         if (grapleMode_eff)
         {
             localUp = lastUpVector;
@@ -367,6 +376,44 @@ public class PlayerThird : MonoBehaviour
         _rgbd.velocity += -localUp * gravitySum * Time.deltaTime;
 
 //maybe here : RayCastToFindAnythingInFrontOfUs(dir(2D));
+    }
+
+
+
+    [Header("Crouching")]
+    public bool crouching = false;
+    public float crouchDefaultSize = 1f;
+    public float crouchGravity = 10f;
+    public GameObject crouch_CrGO;
+    public GameObject crouch_UpGO;
+
+    public void CrouchManagement()
+    {
+        if (Input.GetKey(KeyCode.Joystick1Button3)
+            || Input.GetKey(KeyCode.LeftShift)
+            || Input.GetKey(KeyCode.RightShift))
+        {
+            if (!crouching)
+            {
+                _capsule.height = 1;
+                _capsule.center = Vector3.down * (crouchDefaultSize - 1f) * 0.5f;
+                crouch_CrGO.SetActive(true);
+                crouch_UpGO.SetActive(false);
+            }
+
+            lastSpeed += Vector3.down * crouchGravity * Time.deltaTime;
+            _rgbd.velocity = lastSpeed;
+
+            crouching = true; //for the Quit Wall --> reverse speed
+        }
+        else if (crouching)
+        {
+            _capsule.height = crouchDefaultSize;
+            _capsule.center = Vector3.zero;
+            crouch_CrGO.SetActive(false);
+            crouch_UpGO.SetActive(true);
+            crouching = false;
+        }
     }
 
 
@@ -407,19 +454,32 @@ public class PlayerThird : MonoBehaviour
         //ok, for now, we fully transpose the speed !
 
         //Mauvaise idée : 
-            // lorsqu'atterrie sur sol, glisse dans nimporte quelle direction
-            // lorsque cogne mur, part parfois sur côté, parfois devant, parfois derrière etc...
-            //donc la projection pur et simple, pas ouf
-            // et la conservation de vitesse pas une bonne idée 
-
-        //Debug.DrawRay(this.transform.position, lastSpeed, Color.blue, 20f);
+        // lorsqu'atterrie sur sol, glisse dans nimporte quelle direction
+        // lorsque cogne mur, part parfois sur côté, parfois devant, parfois derrière etc...
+        //donc la projection pur et simple, pas ouf
+        // et la conservation de vitesse pas une bonne idée 
+        
+        Vector3 newSpeed = Vector3.ProjectOnPlane(lastSpeed, col.lastNormal);
+        //the up of the surface
+        Vector3 upOfTheWall = GetUpOfTheSurface(col.lastNormal);
+        //the intensity of this up
+        //0 if ground, 1 if wall more if roof
+        float wallIntensity = 1 - Vector3.Dot(Vector3.up, col.lastNormal);
+        float intensity = -Vector3.Dot(lastSpeed, col.lastNormal);
+        newSpeed += upOfTheWall * intensity * wallIntensity;
+        Debug.DrawRay(this.transform.position, upOfTheWall * intensity * wallIntensity, Color.yellow, 20f);
+        _rgbd.velocity = newSpeed;
+        Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed);
+        Debug.DrawRay(this.transform.position, lastSpeed, Color.blue, 20f);
+        Debug.DrawRay(this.transform.position, newSpeed, Color.cyan, 20f);
         //Vector3 newSpeed = Vector3.ProjectOnPlane(lastSpeed, col.lastNormal).normalized;
         //newSpeed *= lastSpeed.magnitude;
-        //Debug.DrawRay(this.transform.position, newSpeed, Color.cyan + Color.red, 20f);
+        //
         //
         //float dotVal = Mathf.Abs(Vector3.Dot(lastSpeed, col.lastNormal));
         //_rgbd.velocity = Vector3.Lerp(_rgbd.velocity, newSpeed, dotVal);
         //Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed + " choose : " + dotVal);
+
 
         //later, will probably make a little dot ?
     }
