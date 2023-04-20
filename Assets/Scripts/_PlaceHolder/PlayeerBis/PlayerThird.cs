@@ -19,7 +19,7 @@ public class PlayerThird : MonoBehaviour
 
     [Header("Jump")]
     public float jumpForce = 10f;
-    public float verticalBonusForHorizontalJump = 0.3f;
+    public AnimationCurve verticalBonusForHorizontalJump;
     [ReadOnly] public bool canJump = true;
 
     [Header("Other data")] [ReadOnly]
@@ -92,8 +92,8 @@ public class PlayerThird : MonoBehaviour
             Input.GetAxis("Vertical")
             );
 
-        Vector3 forwardCam = GameManager.instance.cameraMng.mainCamera.transform.forward;
-        Vector3 rightCam = GameManager.instance.cameraMng.mainCamera.transform.right;
+        Vector3 forwardCam_Gr = GameManager.instance.cameraMng.mainCamera.transform.forward;
+        Vector3 groundRight = GameManager.instance.cameraMng.mainCamera.transform.right;
         Vector3 upVector = lastUpVector;
 
         //Decide which UpVector we are gonna use
@@ -109,46 +109,50 @@ public class PlayerThird : MonoBehaviour
         else
         {
             //ok, so, for now, just take the vector who is touch by joyLook.
-            Vector3 direction = forwardCam * inputDir.y + rightCam * inputDir.x;
+            Vector3 direction = forwardCam_Gr * inputDir.y + groundRight * inputDir.x;
             upVector = SetVectorUpForMultipleElement(direction);
             Debug.DrawRay(this.transform.position, upVector, Color.red + Color.blue);
         }
 
         
 
-        Vector3 groundForward = Vector3.ProjectOnPlane(forwardCam, upVector).normalized;
+        Vector3 groundForward = Vector3.ProjectOnPlane(forwardCam_Gr, upVector).normalized;
         //this is the ground forward 
-        Vector3 wallForward = ConvertForwardToWall(upVector, forwardCam);
+        Vector3 wallForward = ConvertForwardToWall(upVector, forwardCam_Gr);
         //Change forward if we are on a wall :
         float clampedDotValue = Mathf.Clamp01(Vector3.Dot(upVector, Vector3.up));
 
         //debugValue = clampedDotValue;
-        //Debug.DrawRay(this.transform.position, groundForward, Color.white);
-        forwardCam = Vector3.Lerp(wallForward, groundForward, clampedDotValue);
-        rightCam = Vector3.Cross(upVector, forwardCam).normalized;
+        Debug.DrawRay(this.transform.position, groundForward, Color.white);
+        groundRight = Vector3.Cross(upVector, groundForward).normalized;
+        Vector3 wallRight = Vector3.Cross(upVector, wallForward).normalized;
 
         //
         lastUpVector = upVector;
 
-        Vector3 acceleration = inputDir.x * rightCam + inputDir.y * forwardCam;
-
+        Vector3 accelerationGround = inputDir.x * groundRight + inputDir.y * groundForward;
+        Vector3 accelerationWall   = inputDir.x * wallRight   + inputDir.y * wallForward;
+        Debug.DrawRay(this.transform.position, accelerationGround, Color.red);
+        Debug.DrawRay(this.transform.position, accelerationWall, Color.yellow);
 
         //Ok, revoir the "grapple mode"
         if (!grapleMode_eff)
         {
-            float ySpeed = acceleration.y;
-            if (ySpeed > 0)
+            float yAcc = accelerationWall.y;
+            if (yAcc > 0)
             {
                 //Transform the y part into vertical velocity
                 //let's gooo
-                acceleration.y = 0;
+                accelerationWall.y = 0;
                 //ok let's try by giving the ySpeed into the horizontal speed
-                acceleration *= ySpeed;
+                accelerationWall *= yAcc;
+                Debug.Log("Flattened the acceleration");
             }
         }
 
+        Vector3 acceleration = Vector3.Lerp(accelerationWall, accelerationGround, clampedDotValue);
 
-        //acceleration += RayCastToFindAnythingInFrontOfUs(inputDir);
+        acceleration += RayCastToFindAnythingInFrontOfUs(inputDir);
         acceleration *= speedGain * Time.deltaTime;
 
         if(!Input.GetKey(KeyCode.LeftShift))
@@ -176,7 +180,6 @@ public class PlayerThird : MonoBehaviour
         Debug.DrawRay(this.transform.position, direction.normalized * maxDist, Color.red);
         if (Physics.Raycast(this.transform.position, direction, out RaycastHit raycastInfo, maxDist, layerMaskContact))
         {
-            Debug.Log("Si si je touche là, ouesh !");
             if (AlreadyInContact(raycastInfo.collider.gameObject))
             {
                 //normallly, we goes directly by "'GetContact" then test if it's null or not, but get some bug where the simple "null test" return an error
@@ -212,13 +215,13 @@ public class PlayerThird : MonoBehaviour
         Vector3 flatenedWallNorm = Vector3.ProjectOnPlane(-wallNormal, Vector3.up).normalized;
         Vector3 flatenedForwardV = Vector3.ProjectOnPlane(forwardCam, Vector3.up).normalized;
         float angle = Vector3.Angle(flatenedWallNorm, flatenedForwardV);
-        Debug.DrawRay(this.transform.position, flatenedWallNorm, Color.cyan);
-        Debug.DrawRay(this.transform.position, flatenedForwardV, Color.magenta);
+        //Debug.DrawRay(this.transform.position, flatenedWallNorm, Color.cyan);
+        //Debug.DrawRay(this.transform.position, flatenedForwardV, Color.magenta);
         angle *= Mathf.Sign(Vector3.Dot(Vector3.Cross(Vector3.up, flatenedWallNorm), flatenedForwardV));
         ///Ca va nous donner un angle.
         ///Cette angle, on va l'appliquer au UPVECTOR noirmalisé sur le mur 
         Vector3 wallUpVector = GetUpOfTheSurface(wallNormal);
-        Debug.DrawRay(this.transform.position, wallUpVector, Color.grey);
+        //Debug.DrawRay(this.transform.position, wallUpVector, Color.grey);
                     //if wallNormal is Vector3.up, it should be nullify in the global code
 
         //// autour de l'axe wallNormal !
@@ -228,7 +231,9 @@ public class PlayerThird : MonoBehaviour
         res = rotation * wallUpVector;
         // tu le cross avec le wallNormal, tu obtiens la droite.
         //gg 
-        
+
+
+
         Debug.DrawRay(this.transform.position, res, Color.black);
         return res;
     }
@@ -281,58 +286,51 @@ public class PlayerThird : MonoBehaviour
     }
 
 
-    //public Vector3 RayCastToFindAnythingInFrontOfUs(Vector2 inputDir)
-    //{
-    //    Vector3 ray = cameraTr.forward * inputDir.y + cameraTr.right * inputDir.x; //so, chjeck where the player "look" and indicate with his joystick
-    //    ray = Vector3.ProjectOnPlane(ray, Vector3.up);
-    //    ray = ray.normalized * emptyLookDistance;
-    //    RaycastHit info;
-    //    Debug.DrawRay(this.transform.position, ray, Color.yellow);
-    //    float distance = emptyLookDistance; //need to think about this distance : nextStep ? further ? far away ? half my size maybe ?
-    //    if (Physics.Raycast(this.transform.position, ray, out RaycastHit raycastInfo, maxDist, layerMaskContact))
-    //    {
-    //        Debug.Log("Vas y ouesh tu m'vener");
-    //    }
+    public Vector3 RayCastToFindAnythingInFrontOfUs(Vector2 inputDir)
+    {
+        //if the player don't move much, just ignore this step
+        if (inputDir.magnitude < 0.5f)
+            return Vector3.zero;
 
-    //    if (Physics.Raycast(this.transform.position, ray, out info, distance, layerMaskContact))
-    //    {
-    //        Debug.Log("TOUUUUCHE ! Pitie ! TOUCHE !!!");
-    //        //TOUCHEd !!!
-    //        //ok, so, what we do ?
-    //        //we use that as a reference ?
-    //        //or just don't care and use that as an info ?
-    //        return Vector3.zero;
-    //    }
-    //    else
-    //    {
-    //        Vector3 res = Vector3.zero;
-    //        //OH OH ! Here we comes !
-    //        Vector3 startPos = this.transform.position + ray;
-    //        Quaternion rotationToAdd = Quaternion.FromToRotation(Vector3.forward, ray.normalized);
+        Vector3 ray = cameraTr.forward * inputDir.y + cameraTr.right * inputDir.x; //so, check where the player "look" and indicate with his joystick
+        ray = Vector3.ProjectOnPlane(ray, Vector3.up);
+        ray = ray.normalized * emptyLookDistance;
+        RaycastHit info;
+        Debug.DrawRay(this.transform.position, ray, Color.yellow);
+        float distance = emptyLookDistance; 
 
-    //        int i = 0;
-    //        foreach (Vector3 dir in emptyLookRaycastDirections)
-    //        {
-    //            Vector3 rotatedVector = rotationToAdd * dir;
-    //            Debug.DrawRay(startPos, rotatedVector, Color.Lerp(Color.black, Color.white, (i++ * 1f / emptyLookRaycastDirections.Count)));
-    //            distance = rotatedVector.magnitude; //need to think about this distance : nextStep ? further ? far away ? half my size maybe ?
-    //            if (Physics.Raycast(startPos, rotatedVector, out info, distance, layerMaskContact))
-    //            {
-    //                Debug.Log("Je vais te... mais TOuUUUUUUUCHE !");
-    //                //Ok, so, here, if we touched, change the speed !
-    //                //to go to the inverse direction ?
-    //                float intensity01 = (distance - info.distance) / distance; //maybe make it a Pow(x,2) to add more influence?
+        if (Physics.Raycast(this.transform.position, ray, out info, distance, layerMaskContact))
+        {
+            return Vector3.zero;
+        }
+        else
+        {
+            Vector3 res = Vector3.zero;
+            //Try to find other collision around, that we already touch too, and so, try to go away from them
+            Vector3 startPos = this.transform.position + ray;
+            Quaternion rotationToAdd = Quaternion.FromToRotation(Vector3.forward, ray.normalized);
 
-    //                Debug.Log("We offset (ponctuel) !" + intensity01 + " * " + (-rotatedVector));
-    //                res += intensity01 * -rotatedVector;
-    //            }
-    //        }
-    //        res *= emptyLookIntensity;
-    //        Debug.Log("We offset (tota) !" + res);
-    //        Debug.DrawRay(this.transform.position, res, Color.red);
-    //        return res;
-    //    }
-    //}
+            int i = 0;
+            foreach (Vector3 dir in emptyLookRaycastDirections)
+            {
+                Vector3 rotatedVector = rotationToAdd * dir;
+                Debug.DrawRay(startPos, rotatedVector, Color.Lerp(Color.black, Color.white, (i++ * 1f / emptyLookRaycastDirections.Count)));
+                distance = rotatedVector.magnitude; //need to think about this distance : nextStep ? further ? far away ? half my size maybe ?
+                if (Physics.Raycast(startPos, rotatedVector, out info, distance, layerMaskContact))
+                {
+                    //Ok, so, here, if we touched, change the speed !
+                    //to go to the inverse direction ?
+                    float intensity01 = (distance - info.distance) / distance; //maybe make it a Pow(x,2) to add more influence?
+                    
+                    res += intensity01 * -rotatedVector;
+                }
+            }
+            res *= emptyLookIntensity;
+            Debug.Log("We offset (tota) !" + res);
+            Debug.DrawRay(this.transform.position, res, Color.red);
+            return res;
+        }
+    }
 
 
 
@@ -346,9 +344,16 @@ public class PlayerThird : MonoBehaviour
             if (canJump)
             {
                 _rgbd.velocity = PlayerMove.HorizontalOnly(_rgbd.velocity);
-                Vector3 jumpDirection = lastUpVector;
                 //Will have to "incline" the jump toward : the koystock direction + the normal of the ground
-                _rgbd.AddForce(jumpForce * jumpDirection, ForceMode.Impulse);
+                Vector3 jumpDirection = lastUpVector;
+                float value = Vector3.Dot(Vector3.up, lastUpVector.normalized);
+                //if the normal is the same as the Up : return zero
+                //if the normal is 0 with up : return a up
+                //if the normal  is downward (-1) : return a -1
+                value = verticalBonusForHorizontalJump.Evaluate(value);
+                jumpDirection += Vector3.up * value;
+
+                _rgbd.AddForce(jumpForce * jumpDirection.normalized, ForceMode.Impulse);
                 canJump = false;
             }
         }
@@ -362,7 +367,6 @@ public class PlayerThird : MonoBehaviour
     public void GravityManagement()
     {
         Vector3 localUp = Vector3.up;
-        //Ok, revoir the "grapple mode"
         if (grapleMode_eff)
         {
             localUp = lastUpVector;
@@ -374,6 +378,7 @@ public class PlayerThird : MonoBehaviour
             gravitySum += gravityIntensity_FallAdd;
 
         _rgbd.velocity += -localUp * gravitySum * Time.deltaTime;
+        lastSpeed = _rgbd.velocity;
 
 //maybe here : RayCastToFindAnythingInFrontOfUs(dir(2D));
     }
@@ -467,11 +472,12 @@ public class PlayerThird : MonoBehaviour
         float wallIntensity = 1 - Vector3.Dot(Vector3.up, col.lastNormal);
         float intensity = -Vector3.Dot(lastSpeed, col.lastNormal);
         newSpeed += upOfTheWall * intensity * wallIntensity;
-        Debug.DrawRay(this.transform.position, upOfTheWall * intensity * wallIntensity, Color.yellow, 20f);
+        
+
+        lastSpeed = newSpeed;
         _rgbd.velocity = newSpeed;
         Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed);
-        Debug.DrawRay(this.transform.position, lastSpeed, Color.blue, 20f);
-        Debug.DrawRay(this.transform.position, newSpeed, Color.cyan, 20f);
+
         //Vector3 newSpeed = Vector3.ProjectOnPlane(lastSpeed, col.lastNormal).normalized;
         //newSpeed *= lastSpeed.magnitude;
         //
@@ -501,19 +507,15 @@ public class PlayerThird : MonoBehaviour
 
     public Vector3 Clamp_AxisIgnored(Vector3 vector, float maxLenght, Vector3 axisToIgnore)
     {
-	Debug.DrawRay(Vector3.zero, vector, Color.blue);
-	Debug.DrawRay(Vector3.zero, axisToIgnore, Color.green);
         Vector3 projection = Vector3.ProjectOnPlane(vector, axisToIgnore);
-	if(projection.magnitude <= maxLenght)
-	{
-		return vector;
-	}
-	Vector3 alongAxisValue = vector - projection;
-	projection.Normalize();
-	projection *= maxLenght;
-	projection += alongAxisValue;
-	Debug.DrawRay(Vector3.zero, alongAxisValue, Color.yellow);
-	Debug.DrawRay(Vector3.zero, projection, Color.cyan);
-	return projection;
+        if (projection.magnitude <= maxLenght)
+        {
+            return vector;
+        }
+        Vector3 alongAxisValue = vector - projection;
+        projection.Normalize();
+        projection *= maxLenght;
+        projection += alongAxisValue;
+        return projection;
     }
 }

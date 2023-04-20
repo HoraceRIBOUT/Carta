@@ -2190,7 +2190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe732567a84ac94ca423766a44b043d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMove: {fileID: 2060721970}
+  playerMove: {fileID: 0}
   cameraMng: {fileID: 1738812513}
   dialogMng: {fileID: 0}
   inventory: {fileID: 0}
@@ -4349,17 +4349,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5315c8207ba6a448b1a1011c1516295, type: 3}
---- !u!114 &2060721970 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6459757362387403777, guid: 146813b2df37f844a975f737e092b56e, type: 3}
+--- !u!4 &2060721974 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6459757362387403807, guid: 146813b2df37f844a975f737e092b56e, type: 3}
   m_PrefabInstance: {fileID: 6459757364169202480}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d91c3ca336399479864f8a11d1f59a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2083316961
 GameObject:
   m_ObjectHideFlags: 0
@@ -5384,7 +5378,7 @@ PrefabInstance:
     - target: {fileID: 4957181889182490616, guid: de518723b5655dd4da384d747edb7ef8, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 5212808109082574376}
+      objectReference: {fileID: 2060721974}
     - target: {fileID: 4957181889182490616, guid: de518723b5655dd4da384d747edb7ef8, type: 3}
       propertyPath: mainCamera
       value: 
@@ -5716,7 +5710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &5212808109082574389
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5759,13 +5753,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6133ff49917f00f44a7ef1afbd321715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _capsule: {fileID: 5212808109082574389}
-  _rgbd: {fileID: 5212808109082574391}
+  _capsule: {fileID: 0}
+  _rgbd: {fileID: 0}
   speedGain: 25
   speedMax: 13
   slowDownMultiplier: 0.05
   jumpForce: 6
-  verticalBonusForHorizontalJump: 0.3
+  verticalBonusForHorizontalJump:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   canJump: 1
   lastUpVector: {x: 0, y: 1, z: 0}
   contacts: []
@@ -5777,8 +5776,8 @@ MonoBehaviour:
   emptyLookIntensity: 3
   grapleMode: 1
   grapleMode_eff: 0
-  grappleVisual_On: {fileID: 1293155708611845512}
-  grappleVisual_Off: {fileID: 1293155707597666790}
+  grappleVisual_On: {fileID: 0}
+  grappleVisual_Off: {fileID: 0}
   maxDist: 0.5
   layerMaskContact:
     serializedVersion: 2
@@ -5788,10 +5787,10 @@ MonoBehaviour:
   wallGravity: 4.905
   gravityIntensity_FallAdd: 9.81
   crouching: 0
-  crouchDefaultSize: 2
+  crouchDefaultSize: 1
   crouchGravity: 10
-  crouch_CrGO: {fileID: 1293155706854456571}
-  crouch_UpGO: {fileID: 5212808108031150293}
+  crouch_CrGO: {fileID: 0}
+  crouch_UpGO: {fileID: 0}
   layerOnCollision: 
   raycastDist: 0.15
 --- !u!4 &5212808109338858049
@@ -5922,7 +5921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6459757362387403806, guid: 146813b2df37f844a975f737e092b56e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6459757362387403807, guid: 146813b2df37f844a975f737e092b56e, type: 3}
       propertyPath: m_RootOrder
