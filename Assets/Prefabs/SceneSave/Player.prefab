@@ -734,12 +734,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _capsule: {fileID: 6459757362387403778}
   _rgbd: {fileID: 6459757362387403776}
-  speedGain: 25
-  speedMax: 13
+  speedGain: 20
+  speedMax: 4.5
   slowDownMultiplier: 0.05
   jumpForce: 6
-  verticalBonusForHorizontalJump: 0.3
+  verticalBonusForHorizontalJump:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -1
+      value: -1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   canJump: 1
+  coyoteTiming: 0.1
   lastUpVector: {x: 0, y: 1, z: 0}
   contacts: []
   emptyLookDistance: 0.5
@@ -748,6 +781,8 @@ MonoBehaviour:
   - {x: 0, y: -0.19, z: 0}
   - {x: -0.2, y: 0, z: 0}
   emptyLookIntensity: 3
+  talking: 0
+  speedWhenInterupt: {x: 0, y: 0, z: 0}
   grapleMode: 1
   grapleMode_eff: 0
   grappleVisual_On: {fileID: 996632511}
@@ -758,11 +793,11 @@ MonoBehaviour:
     m_Bits: 65
   debugValue: 0
   gravityIntensity: 9.81
-  wallGravity: 4.905
+  wallGravity: 9.81
   gravityIntensity_FallAdd: 9.81
   crouching: 0
-  crouchDefaultSize: 1
-  crouchGravity: 10
+  crouchDefaultSize: 2
+  crouchGravity: 19.62
   crouch_CrGO: {fileID: 1377863372}
   crouch_UpGO: {fileID: 6459757363473527522}
   layerOnCollision: 

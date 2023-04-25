@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public PlayerMove playerMove;
+    public PlayerMovement playerMove;
     public CameraManager cameraMng;
     public DialogManager dialogMng;
     public UI_Inventory inventory;

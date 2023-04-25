@@ -9,7 +9,7 @@ public class InteractionZone : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerMove>() != null)
+        if (other.gameObject.GetComponent<PlayerMovement>() != null)
         {
             father.playerOnReach = true;
         }
@@ -17,7 +17,7 @@ public class InteractionZone : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerMove>() != null)
+        if (other.gameObject.GetComponent<PlayerMovement>() != null)
         {
             father.playerOnReach = false;
         }

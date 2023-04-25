@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PropagateCollision : MonoBehaviour
 {
-    public PlayerMove parentToWarn;
+    public PlayerMovement parentToWarn;
     private void OnCollisionEnter(Collision collision)
     {
         parentToWarn.OnCollisionEnter(collision);

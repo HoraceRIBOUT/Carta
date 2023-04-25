@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class PlayerThird : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Component")]
     public CapsuleCollider _capsule;
@@ -22,24 +22,102 @@ public class PlayerThird : MonoBehaviour
     public AnimationCurve verticalBonusForHorizontalJump;
     [ReadOnly] public bool canJump = true;
 
+    [Header("Coyote")]
+    public float coyoteTiming = 0.1f;
+    private float coyoteTimer = 0.1f;
+
     [Header("Other data")] [ReadOnly]
     public Vector3 lastUpVector = Vector3.up;
     [ReadOnly]
-    public List<PlayerMove.wallAndGround_Info> contacts = new List<PlayerMove.wallAndGround_Info>();
+    public List<wallAndGround_Info> contacts = new List<wallAndGround_Info>();
 
     [Header("Corridor redirector")]
     public float emptyLookDistance = 0.2f;
     public List<Vector3> emptyLookRaycastDirections = new List<Vector3> { Vector3.right, Vector3.down, Vector3.left };
     public float emptyLookIntensity = 0.1f;
 
+    [Header("Talk")]
+    [ReadOnly] public bool talking = false;
+    [ReadOnly] public Vector3 speedWhenInterupt;
+
+
+
+    [System.Serializable]
+    public class wallAndGround_Info
+    {
+        public int id;
+        public GameObject gO;
+        public Vector3 lastNormal;
+
+        public wallAndGround_Info(GameObject newWall, Vector3 impactNormal)
+        {
+            id = newWall.GetInstanceID();
+            gO = newWall;
+            lastNormal = impactNormal;
+        }
+        public static bool operator ==(wallAndGround_Info obj1, wallAndGround_Info obj2)
+        {
+            return obj1.id == obj2.id;
+        }
+        public static bool operator !=(wallAndGround_Info obj1, wallAndGround_Info obj2)
+        {
+            return obj1.id != obj2.id;
+        }
+        public static bool operator ==(wallAndGround_Info obj1, GameObject obj2)
+        {
+            return obj1.id == obj2.GetInstanceID();
+        }
+        public static bool operator !=(wallAndGround_Info obj1, GameObject obj2)
+        {
+            return obj1.id != obj2.GetInstanceID();
+        }
+        public static bool operator ==(GameObject obj1, wallAndGround_Info obj2)
+        {
+            return obj2.id == obj1.GetInstanceID();
+        }
+        public static bool operator !=(GameObject obj1, wallAndGround_Info obj2)
+        {
+            return obj2.id != obj1.GetInstanceID();
+        }
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
+
+
+
     public void Start()
     {
         cameraTr = GameManager.instance.cameraMng.falseCamera.transform;
     }
 
+
+    void ResetButton()
+    {
+        if (GameManager.instance.mapAndPaper != null)
+        {
+            if (GameManager.instance.mapAndPaper.mapOpen)
+            {
+                return;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+            ResetAll();
+    }
+
     // Update is called once per frame
     void Update()
     {
+        ResetButton();
+
+        if (talking)
+            return;
         HandleGrappleWallMode();
         CrouchManagement();
 
@@ -48,6 +126,9 @@ public class PlayerThird : MonoBehaviour
         JumpManagement();
 
         GravityManagement();
+
+
+        _ContactSafety();
     }
 
 
@@ -99,8 +180,15 @@ public class PlayerThird : MonoBehaviour
         //Decide which UpVector we are gonna use
         if (contacts.Count == 0)
         {
-            //Normally, coyote time here
-            upVector = Vector3.up;
+            if(coyoteTimer >= 0)
+            {
+                coyoteTimer -= Time.deltaTime;
+            }
+            else
+            {
+                //Normally, coyote time here
+                upVector = Vector3.up;
+            }
         }
         else if (contacts.Count == 1)
         {
@@ -111,7 +199,7 @@ public class PlayerThird : MonoBehaviour
             //ok, so, for now, just take the vector who is touch by joyLook.
             Vector3 direction = forwardCam_Gr * inputDir.y + groundRight * inputDir.x;
             upVector = SetVectorUpForMultipleElement(direction);
-            Debug.DrawRay(this.transform.position, upVector, Color.red + Color.blue);
+            //Debug.DrawRay(this.transform.position, upVector, Color.red + Color.blue);
         }
 
         
@@ -123,7 +211,7 @@ public class PlayerThird : MonoBehaviour
         float clampedDotValue = Mathf.Clamp01(Vector3.Dot(upVector, Vector3.up));
 
         //debugValue = clampedDotValue;
-        Debug.DrawRay(this.transform.position, groundForward, Color.white);
+        //Debug.DrawRay(this.transform.position, groundForward, Color.white);
         groundRight = Vector3.Cross(upVector, groundForward).normalized;
         Vector3 wallRight = Vector3.Cross(upVector, wallForward).normalized;
 
@@ -132,8 +220,8 @@ public class PlayerThird : MonoBehaviour
 
         Vector3 accelerationGround = inputDir.x * groundRight + inputDir.y * groundForward;
         Vector3 accelerationWall   = inputDir.x * wallRight   + inputDir.y * wallForward;
-        Debug.DrawRay(this.transform.position, accelerationGround, Color.red);
-        Debug.DrawRay(this.transform.position, accelerationWall, Color.yellow);
+        //Debug.DrawRay(this.transform.position, accelerationGround, Color.red);
+        //Debug.DrawRay(this.transform.position, accelerationWall, Color.yellow);
 
         //Ok, revoir the "grapple mode"
         if (!grapleMode_eff)
@@ -177,13 +265,13 @@ public class PlayerThird : MonoBehaviour
 
     public Vector3 SetVectorUpForMultipleElement(Vector3 direction)
     {
-        Debug.DrawRay(this.transform.position, direction.normalized * maxDist, Color.red);
+        //Debug.DrawRay(this.transform.position, direction.normalized * maxDist, Color.red);
         if (Physics.Raycast(this.transform.position, direction, out RaycastHit raycastInfo, maxDist, layerMaskContact))
         {
             if (AlreadyInContact(raycastInfo.collider.gameObject))
             {
                 //normallly, we goes directly by "'GetContact" then test if it's null or not, but get some bug where the simple "null test" return an error
-                PlayerMove.wallAndGround_Info contactInfo = GetContact(raycastInfo.collider.gameObject);
+                wallAndGround_Info contactInfo = GetContact(raycastInfo.collider.gameObject);
                 return contactInfo.lastNormal;
             }
             //else, it is as if you touch nothing.
@@ -191,7 +279,7 @@ public class PlayerThird : MonoBehaviour
         //if no vector touch, use the most vertical one ! (and if equality, try the Dot with the joylook ???)
         Vector3 upVector = lastUpVector;
         float maxDot = -1;
-        foreach (PlayerMove.wallAndGround_Info info in contacts)
+        foreach (wallAndGround_Info info in contacts)
         {
             float newDot = Vector3.Dot(info.lastNormal, Vector3.up);
             if (maxDot < newDot)
@@ -234,7 +322,7 @@ public class PlayerThird : MonoBehaviour
 
 
 
-        Debug.DrawRay(this.transform.position, res, Color.black);
+        //Debug.DrawRay(this.transform.position, res, Color.black);
         return res;
     }
 
@@ -242,13 +330,13 @@ public class PlayerThird : MonoBehaviour
     public LayerMask layerMaskContact;
     void UpdateContact()
     {
-        foreach (PlayerMove.wallAndGround_Info info in contacts)
+        foreach (wallAndGround_Info info in contacts)
         {
             Vector3 direction = -info.lastNormal;
             //Debug.DrawRay(this.transform.position, direction.normalized * maxDist, Color.red);
             if (Physics.Raycast(this.transform.position, direction, out RaycastHit raycastInfo, maxDist, layerMaskContact))
             {
-                if (raycastInfo.collider.gameObject.GetInstanceID() == info.id)
+                if (raycastInfo.collider.gameObject == info)
                 {
                     info.lastNormal = raycastInfo.normal;
                 }
@@ -264,20 +352,20 @@ public class PlayerThird : MonoBehaviour
 
     public bool AlreadyInContact(GameObject gO)
     {
-        foreach (PlayerMove.wallAndGround_Info info in contacts)
+        foreach (wallAndGround_Info info in contacts)
         {
-            if (info.id == gO.GetInstanceID())
+            if (info == gO)
             {
                 return true;
             }
         }
         return false;
     }
-    public PlayerMove.wallAndGround_Info GetContact(GameObject gO)
+    public wallAndGround_Info GetContact(GameObject gO)
     {
-        foreach (PlayerMove.wallAndGround_Info info in contacts)
+        foreach (wallAndGround_Info info in contacts)
         {
-            if (info.id == gO.GetInstanceID())
+            if (info == gO)
             {
                 return info;
             }
@@ -296,7 +384,7 @@ public class PlayerThird : MonoBehaviour
         ray = Vector3.ProjectOnPlane(ray, Vector3.up);
         ray = ray.normalized * emptyLookDistance;
         RaycastHit info;
-        Debug.DrawRay(this.transform.position, ray, Color.yellow);
+        //Debug.DrawRay(this.transform.position, ray, Color.yellow);
         float distance = emptyLookDistance; 
 
         if (Physics.Raycast(this.transform.position, ray, out info, distance, layerMaskContact))
@@ -314,7 +402,7 @@ public class PlayerThird : MonoBehaviour
             foreach (Vector3 dir in emptyLookRaycastDirections)
             {
                 Vector3 rotatedVector = rotationToAdd * dir;
-                Debug.DrawRay(startPos, rotatedVector, Color.Lerp(Color.black, Color.white, (i++ * 1f / emptyLookRaycastDirections.Count)));
+                //Debug.DrawRay(startPos, rotatedVector, Color.Lerp(Color.black, Color.white, (i++ * 1f / emptyLookRaycastDirections.Count)));
                 distance = rotatedVector.magnitude; //need to think about this distance : nextStep ? further ? far away ? half my size maybe ?
                 if (Physics.Raycast(startPos, rotatedVector, out info, distance, layerMaskContact))
                 {
@@ -326,8 +414,9 @@ public class PlayerThird : MonoBehaviour
                 }
             }
             res *= emptyLookIntensity;
-            Debug.Log("We offset (tota) !" + res);
-            Debug.DrawRay(this.transform.position, res, Color.red);
+            if(res != Vector3.zero)
+                Debug.Log("We offset (tota) !" + res);
+            //Debug.DrawRay(this.transform.position, res, Color.red);
             return res;
         }
     }
@@ -343,7 +432,7 @@ public class PlayerThird : MonoBehaviour
         {
             if (canJump)
             {
-                _rgbd.velocity = PlayerMove.HorizontalOnly(_rgbd.velocity);
+                _rgbd.velocity = PlayerMovement.HorizontalOnly(_rgbd.velocity);
                 //Will have to "incline" the jump toward : the koystock direction + the normal of the ground
                 Vector3 jumpDirection = lastUpVector;
                 float value = Vector3.Dot(Vector3.up, lastUpVector.normalized);
@@ -372,8 +461,8 @@ public class PlayerThird : MonoBehaviour
             localUp = lastUpVector;
         }
 
-        float dotClamped = Mathf.Clamp01(Vector3.Dot(localUp, Vector3.up));
-        float gravitySum = Mathf.Lerp(wallGravity, gravityIntensity, dotClamped);
+        float dotAbs = Vector3.Dot(localUp, Vector3.up); //abs, so if roof, you fall
+        float gravitySum = Mathf.Lerp(wallGravity, gravityIntensity * Mathf.Sign(dotAbs), Mathf.Abs(dotAbs));
         if (contacts.Count == 0 && _rgbd.velocity.y < 0)
             gravitySum += gravityIntensity_FallAdd;
 
@@ -437,9 +526,9 @@ public class PlayerThird : MonoBehaviour
             {
                 //if object is part of decor 
                 //if normal of collision is not too sharp
-                PlayerMove.wallAndGround_Info col = new PlayerMove.wallAndGround_Info(collision.collider.gameObject, impactNormal);
+                wallAndGround_Info col = new wallAndGround_Info(collision.collider.gameObject, impactNormal);
                 if (!contacts.Contains(col))
-                    AddContactAndTransposeSpeed(col);
+                    AddContactAndTransposeSpeed(col, collision.contacts[0]);
                 else
                 {
                     Debug.LogError("Alreday have " + collision.collider.gameObject.name);
@@ -453,9 +542,32 @@ public class PlayerThird : MonoBehaviour
 
     }
 
-    public void AddContactAndTransposeSpeed(PlayerMove.wallAndGround_Info col)
+    public void AddContactAndTransposeSpeed(wallAndGround_Info col, ContactPoint contact)
     {
         contacts.Add(col);
+        coyoteTimer = coyoteTiming;
+
+        Vector3 newUpVector = col.lastNormal;
+
+        //Verify the true normal of that surface (and not the collision normal)
+        //Debug.DrawRay(contact.point, -col.lastNormal, Color.blue,  5f);
+        //Debug.DrawRay(this.transform.position, -col.lastNormal, Color.cyan,  5f);
+        if (Physics.Raycast(this.transform.position, -col.lastNormal, out RaycastHit raycastInfo, maxDist, layerMaskContact))
+        {
+            if (col == raycastInfo.collider.gameObject)
+            {
+                //We touch the same element again, good signe !
+                col.lastNormal = raycastInfo.normal;
+            }
+        }
+        //
+
+        //Now, rearrange the upVector depending on what around and the collision position
+        newUpVector = RaycastSpeedToSeekSurface(newUpVector, col.lastNormal, contact);
+
+
+
+
         //ok, for now, we fully transpose the speed !
 
         //Mauvaise idée : 
@@ -463,14 +575,14 @@ public class PlayerThird : MonoBehaviour
         // lorsque cogne mur, part parfois sur côté, parfois devant, parfois derrière etc...
         //donc la projection pur et simple, pas ouf
         // et la conservation de vitesse pas une bonne idée 
-        
-        Vector3 newSpeed = Vector3.ProjectOnPlane(lastSpeed, col.lastNormal);
+
+        Vector3 newSpeed = Vector3.ProjectOnPlane(lastSpeed, newUpVector);
         //the up of the surface
-        Vector3 upOfTheWall = GetUpOfTheSurface(col.lastNormal);
+        Vector3 upOfTheWall = GetUpOfTheSurface(newUpVector);
         //the intensity of this up
         //0 if ground, 1 if wall more if roof
-        float wallIntensity = 1 - Vector3.Dot(Vector3.up, col.lastNormal);
-        float intensity = -Vector3.Dot(lastSpeed, col.lastNormal);
+        float wallIntensity = 1 - Vector3.Dot(Vector3.up, newUpVector);
+        float intensity = -Vector3.Dot(lastSpeed, newUpVector);
         newSpeed += upOfTheWall * intensity * wallIntensity;
         
 
@@ -478,34 +590,163 @@ public class PlayerThird : MonoBehaviour
         _rgbd.velocity = newSpeed;
         Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed);
 
-        //Vector3 newSpeed = Vector3.ProjectOnPlane(lastSpeed, col.lastNormal).normalized;
+        //Vector3 newSpeed = Vector3.ProjectOnPlane(lastSpeed, newUpVector).normalized;
         //newSpeed *= lastSpeed.magnitude;
         //
         //
-        //float dotVal = Mathf.Abs(Vector3.Dot(lastSpeed, col.lastNormal));
+        //float dotVal = Mathf.Abs(Vector3.Dot(lastSpeed, newUpVector));
         //_rgbd.velocity = Vector3.Lerp(_rgbd.velocity, newSpeed, dotVal);
         //Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed + " choose : " + dotVal);
 
-
-        //later, will probably make a little dot ?
+        
     }
+
+    //Use the current speed to raycast and if it find a touched surface, return the normal of it. Else, try to understand it.
+    public Vector3 RaycastSpeedToSeekSurface(Vector3 collisionVector, Vector3 normal, ContactPoint contact)
+    {
+        //now, try to see how to change the speed :
+        Debug.DrawRay(this.transform.position, lastSpeed.normalized * maxDist, Color.red, 5f);
+        Debug.DrawRay(this.transform.position, _rgbd.velocity.normalized * maxDist, Color.red + Color.yellow, 5f);
+        if (Physics.Raycast(this.transform.position, lastSpeed, out RaycastHit speedcastInfo, maxDist, layerMaskContact))
+        {
+            if (AlreadyInContact(speedcastInfo.collider.gameObject))
+            {
+                //if the speed goes on a wall, use the wall as the new upVector.  
+                return GetContact(speedcastInfo.collider.gameObject).lastNormal;
+            }
+        }
+        //gonna ignore the change if the speed ray touch a surface, and just take that surface (if it's in the contact list)
+
+        //if no surface touch (or surface not in contact)
+        //seek how much we need one of the other
+        Vector3 collisionAngle = contact.point - this.transform.position;
+        //can probably counter the stairs effect, with the distance of this ?
+        float dotValue = Vector3.Dot(lastSpeed.normalized, collisionAngle.normalized);
+
+        //If on wall, keep more the current normal. Else, you can use the coll
+        //problem : strictly use 0 when on wall (I want to be able to move a little) 
+        float secondaryIntensity = Vector3.Dot(lastUpVector, Vector3.up);
+        //
+        Debug.DrawRay(this.transform.position, collisionVector, Color.blue, 5f);
+        Debug.DrawRay(this.transform.position, normal         , Color.cyan, 5f);
+        Debug.DrawRay(this.transform.position + Vector3.up * 0.02f, Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity), Color.black, 5f);
+        Debug.Log("Ok so " + secondaryIntensity);
+        return Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity);
+
+    }
+
 
 
     public void OnCollisionExit(Collision collision)
     {
         for (int i = 0; i < contacts.Count; i++)
         {
-            PlayerMove.wallAndGround_Info info = contacts[i];
-            if (info.id == collision.gameObject.GetInstanceID())
+            wallAndGround_Info info = contacts[i];
+            if (info == collision.gameObject)
             {
                 contacts.Remove(info);
-                break;
+                i--;
             }
         }
     }
 
+    private float __safetyTiming = 5f;
+    private float __safetyTimer = 5f;
+    public void _ContactSafety()
+    {
+        if (__safetyTiming > __safetyTimer)
+        {
+            __safetyTimer += Time.deltaTime;
+            return;
+        }
+        __safetyTimer = 0;
+        Debug.Log("Safety check");
 
-    public Vector3 Clamp_AxisIgnored(Vector3 vector, float maxLenght, Vector3 axisToIgnore)
+        Collider[] cols = Physics.OverlapSphere(this.transform.position, raycastDist * 2, layerMaskContact);
+        List<GameObject> gOTouch = new List<GameObject>();
+        foreach (Collider col in cols)
+            gOTouch.Add(col.gameObject);
+
+        //foreach(GameObject gO in gOTouch) { Debug.Log(" - we see " + gO.name); }
+
+        for (int i = 0; i < contacts.Count; i++)
+        {
+            wallAndGround_Info contact = contacts[i];
+            if (ContactInGameObjectList(gOTouch, contact))
+            {
+                continue;
+            }
+            //else 
+            //This means we don't touch this anymore !
+            Debug.LogError("Have to get rid of "+ contact.gO.name + " because we don't touch it anymore.");
+            contacts.RemoveAt(i);
+            i--;
+        }
+
+    }
+
+    private bool ContactInGameObjectList(List<GameObject> gOTouch, wallAndGround_Info contact)
+    {
+        foreach (GameObject gO in gOTouch)
+        {
+            if (gO == contact)
+            {
+                //Good ! Can break here
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    #region External method
+
+    public void Talk()
+    {
+        InventoryAndMenu();
+    }
+    public void FinishTalk()
+    {
+        FinishMenuing();
+    }
+    public void InventoryAndMenu()
+    {
+        talking = true;
+        speedWhenInterupt = _rgbd.velocity;
+        _rgbd.velocity = Vector3.zero;
+        _rgbd.isKinematic = true;
+
+        Cursor.lockState = CursorLockMode.None;
+    }
+    public void FinishMenuing()
+    {
+        talking = false;
+        _rgbd.isKinematic = false;
+        _rgbd.velocity = speedWhenInterupt;
+
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+
+    //Debug
+
+    public void ResetAll()
+    {
+        this.transform.position = Vector3.up;
+        _rgbd.velocity = Vector3.zero;
+        lastSpeed = Vector3.zero;
+        lastUpVector = Vector3.up;
+        canJump = false;
+    }
+
+    #endregion
+
+
+
+
+
+
+    public static Vector3 Clamp_AxisIgnored(Vector3 vector, float maxLenght, Vector3 axisToIgnore)
     {
         Vector3 projection = Vector3.ProjectOnPlane(vector, axisToIgnore);
         if (projection.magnitude <= maxLenght)
@@ -517,5 +758,30 @@ public class PlayerThird : MonoBehaviour
         projection *= maxLenght;
         projection += alongAxisValue;
         return projection;
+    }
+
+
+
+
+
+    public static Vector3 HorizontalOnly(Vector3 vec)
+    {
+        vec.y = 0;
+        return vec;
+    }
+    public static float HorizontalMagnitude(Vector3 vec)
+    {
+        vec.y = 0;
+        return vec.magnitude;
+    }
+    public static Vector3 HorizontalClamp(Vector3 vec, float lenghtMax)
+    {
+        if (HorizontalMagnitude(vec) <= lenghtMax)
+            return vec;
+        float yMem = vec.y;
+        vec.y = 0;
+        vec = vec.normalized * lenghtMax;
+        vec.y = yMem;
+        return vec;
     }
 }

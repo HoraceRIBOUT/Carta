@@ -22,7 +22,7 @@ public class WaterAndTrash : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        PlayerMove play = collision.gameObject.GetComponent<PlayerMove>();
+        PlayerMovement play = collision.gameObject.GetComponent<PlayerMovement>();
         if (play != null) 
         {
             Vector3 getBackPos = Vector3.up * 5f; //failsafe
@@ -37,6 +37,15 @@ public class WaterAndTrash : MonoBehaviour
                 }
             }
 
+
+            //coroutine : 
+            //stop pmlayer movement
+            //stop camera
+            //fade to black
+            //then shift back
+            //unfade 
+            //and let player control again EXCEPT if dialog ?
+            //
             play.transform.position = getBackPos;
             play._rgbd.velocity = Vector3.zero;
             //camera orientation : point to where the transform is rotate ?

@@ -222,7 +222,7 @@ public class PlayerBis : MonoBehaviour
 
             lastSpeed += RayCastToFindAnythingInFrontOfUs(inputDirection) * emptyLookIntensity;
 
-            lastSpeed = PlayerMove.HorizontalClamp(lastSpeed, groundSpeed);
+            lastSpeed = PlayerMovement.HorizontalClamp(lastSpeed, groundSpeed);
         }
 
         //will also handle wall sticking
@@ -364,7 +364,7 @@ public class PlayerBis : MonoBehaviour
         {
             if (canJump)
             {
-                _rgbd.velocity = PlayerMove.HorizontalOnly(_rgbd.velocity);
+                _rgbd.velocity = PlayerMovement.HorizontalOnly(_rgbd.velocity);
                 lastSpeed = _rgbd.velocity;
                 Vector3 higherThanNormal = currentNormal + Vector3.up * verticalBonusForHorizontalJump;
                 Vector3 jumpDirection = Vector3.Lerp(higherThanNormal.normalized, Vector3.up, Vector3.Dot(currentNormal, Vector3.up));
