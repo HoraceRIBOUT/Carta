@@ -521,6 +521,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.contactCount > 0)
         {
+            //Check the layer :
+            if (((1 << collision.gameObject.layer) & layerMaskContact) == 0)
+            {
+                //It is not on the layer mask, so get ignore
+                return;
+            }
+
             Vector3 impactNormal = collision.contacts[0].normal;
             //if (Vector3.Dot(Vector3.down, impactNormal) <= 0)//So, we can move in the plafond
             {
