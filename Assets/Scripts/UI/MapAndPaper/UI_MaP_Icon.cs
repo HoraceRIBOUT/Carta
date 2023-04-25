@@ -63,12 +63,16 @@ public class UI_MaP_Icon : UI_MaP_Drag
 
     public void OnNameInputFieldChange()
     {
-        Debug.Log("Edit Name !?" + (!name_textField.isFocused ? "return":"continue")  + "(oh, and also :"+(GameManager.instance.mapAndPaper.currentEditText != name_textField?" it's this name who get modify":"nope, not this one.") +" )");
+        Debug.Log("Edit Name !?" + (!name_textField.isFocused ? "return":"continue")  + "(oh, and also :"+(GameManager.instance.mapAndPaper.currentEditText != name_textField?"nope, not this one.": " it's this name who get modify") +" )" + name_textField.text, name_textField.gameObject);
 
         if (!name_textField.isFocused)
+        {
+            if(name_textField.text != data.nameText)
+                name_textField.SetTextWithoutNotify(data.nameText);
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
+        }
         GameManager.instance.mapAndPaper.currentEditText = name_textField;
-        Debug.Log("Become name", this.gameObject);
+        Debug.Log("Become name :: "+name_textField, this.gameObject);
 
         data.nameText = name_textField.text;
         //if (!fromIconZone)
@@ -81,9 +85,13 @@ public class UI_MaP_Icon : UI_MaP_Drag
     {
         Debug.Log("desc_textField : "+ desc_textField.isFocused + " yep.");
         if (!desc_textField.isFocused)
+        {
+            if (desc_textField.text != data.descText)
+                desc_textField.SetTextWithoutNotify(data.descText);
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
+        }
         GameManager.instance.mapAndPaper.currentEditText = desc_textField;
-        Debug.Log("Become desc", this.gameObject);
+        Debug.Log("Become desc :: "+ desc_textField, this.gameObject);
 
         data.descText = desc_textField.text;
         //if (!fromIconZone)
@@ -95,19 +103,19 @@ public class UI_MaP_Icon : UI_MaP_Drag
 
     public void OnSelectCustomField_Name()
     {
-        Debug.Log("Select input field (name)");
-           GameManager.instance.mapAndPaper.currentEditText = name_textField;
-        Debug.Log("Become name", this.gameObject);
+        //Debug.Log("Select input field (name)");
+        GameManager.instance.mapAndPaper.currentEditText = name_textField;
+        Debug.Log("Become name : "+ name_textField, this.gameObject);
     }
     public void OnSelectCustomField_Desc()
     {
-        Debug.Log("Select input field (desc)");
+        //Debug.Log("Select input field (desc)");
         GameManager.instance.mapAndPaper.currentEditText = desc_textField;
-        Debug.Log("Become desc", this.gameObject);
+        Debug.Log("Become desc : " + desc_textField, this.gameObject);
     }
     public void OnDeselectCustomField()
     {
-        Debug.Log("Unselect input field.");
+        //Debug.Log("Unselect input field.");
         GameManager.instance.mapAndPaper.StopEditingText();
     }
 

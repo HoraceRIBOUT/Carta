@@ -409,7 +409,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             newIcon.transform.localScale = this.transform.localScale * newIcon.baseSize;
             //
             ic_data.positionRelative = new Vector2(ic_data.positionRelative_x, ic_data.positionRelative_y);
-            Debug.Log("Ic position when load : "+ ic_data.positionRelative);
+            //Debug.Log("Ic position when load : "+ ic_data.positionRelative);
             newIcon.himselfRect.anchoredPosition = ic_data.positionRelative;
             newIcon.himselfRect.sizeDelta = ic_data.GetSizeDelta(); //MAYBE : get it in dependencies of the papers size, to avoid problem later with different screen size ?
             //newIcon.himselfRect.sizeDelta = el_data.GetSizeDelta(); //MAYBE : get it in dependencies of the papers size, to avoid problem later with different screen size ?

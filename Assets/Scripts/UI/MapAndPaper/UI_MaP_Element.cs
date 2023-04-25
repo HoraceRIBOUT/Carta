@@ -75,7 +75,7 @@ public class UI_MaP_Element : UI_MaP_Drag
         if (data == UI_MaP_Paper.Element.text)
             on = true; //always show text
 
-        Debug.Log(on ? "show" : "hide");
+        //Debug.Log(on ? "show" : "hide");
         customText.interactable = on;
         customText.gameObject.SetActive(on);
         ShowText = on;

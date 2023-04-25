@@ -571,18 +571,8 @@ public class PlayerMovement : MonoBehaviour
 
         //Now, rearrange the upVector depending on what around and the collision position
         newUpVector = RaycastSpeedToSeekSurface(newUpVector, col.lastNormal, contact);
-
-
-
-
-        //ok, for now, we fully transpose the speed !
-
-        //Mauvaise idée : 
-        // lorsqu'atterrie sur sol, glisse dans nimporte quelle direction
-        // lorsque cogne mur, part parfois sur côté, parfois devant, parfois derrière etc...
-        //donc la projection pur et simple, pas ouf
-        // et la conservation de vitesse pas une bonne idée 
-
+        
+    
         Vector3 newSpeed = Vector3.ProjectOnPlane(lastSpeed, newUpVector);
         //the up of the surface
         Vector3 upOfTheWall = GetUpOfTheSurface(newUpVector);
@@ -595,15 +585,8 @@ public class PlayerMovement : MonoBehaviour
 
         lastSpeed = newSpeed;
         _rgbd.velocity = newSpeed;
-        Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed);
+        //Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed);
 
-        //Vector3 newSpeed = Vector3.ProjectOnPlane(lastSpeed, newUpVector).normalized;
-        //newSpeed *= lastSpeed.magnitude;
-        //
-        //
-        //float dotVal = Mathf.Abs(Vector3.Dot(lastSpeed, newUpVector));
-        //_rgbd.velocity = Vector3.Lerp(_rgbd.velocity, newSpeed, dotVal);
-        //Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed + " choose : " + dotVal);
 
         
     }
@@ -637,7 +620,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(this.transform.position, collisionVector, Color.blue, 5f);
         Debug.DrawRay(this.transform.position, normal         , Color.cyan, 5f);
         Debug.DrawRay(this.transform.position + Vector3.up * 0.02f, Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity), Color.black, 5f);
-        Debug.Log("Ok so " + secondaryIntensity);
+        //Debug.Log("Ok so " + secondaryIntensity);
         return Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity);
 
     }
@@ -667,7 +650,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         __safetyTimer = 0;
-        Debug.Log("Safety check");
+        //Debug.Log("Safety check");
 
         Collider[] cols = Physics.OverlapSphere(this.transform.position, raycastDist * 2, layerMaskContact);
         List<GameObject> gOTouch = new List<GameObject>();
