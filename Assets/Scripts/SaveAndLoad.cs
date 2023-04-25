@@ -172,6 +172,11 @@ public class SaveAndLoad : MonoBehaviour
 
     private static void ApplyLoadedData(Global_SaveData data)
     {
+        //Character :
+        //Go reach the closest spawn point to where you quit 
+        //  (for now, just the pos)
+        GameManager.instance.playerMove.transform.position = data.posWhenQuit();
+
         //Character inventory : 
         Dictionary<itemID, Item> inventoryAll = new Dictionary<itemID, Item>();
         foreach (var itemId in data.inventory_all)
@@ -189,6 +194,7 @@ public class SaveAndLoad : MonoBehaviour
             inventory_current.Add(itemId, item);
         }
         GameManager.instance.inventory.inventory_current = inventory_current;
+
         GameManager.instance.inventory.PopulateCurrentItemList();
         GameManager.instance.inventory.UpdateVisual();
 
@@ -200,16 +206,12 @@ public class SaveAndLoad : MonoBehaviour
         }
 
 
-        //Character :
-        //Go reach the closest spawn point to where you quit 
-
 
         //Time of the day :
         FindObjectOfType<SkyManager>().timeOfTheDay = data.timeOfTheDay;
 
         //MaP :
-        GameManager.instance.mapAndPaper.ApplySaveData(data.papersSave, data.iconsSave);
-        GameManager.instance.mapAndPaper.sideTab.pnjToDeploy = data.pnjAlreadyMet;
+        GameManager.instance.mapAndPaper.ApplySaveData(data.papersSave, data.iconsSave, data.pnjAlreadyMet);
 
     }
 }

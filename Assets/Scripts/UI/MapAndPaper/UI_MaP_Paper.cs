@@ -379,10 +379,25 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
     public void ApplySaveData(Paper_SaveData savedData)
     {
-        //TO DO : 
         Debug.Log("SavedData ?" + savedData.iconsData.Count);
+        //Clean old data :
+        foreach (UI_MaP_Icon iconGO in iconsGO)
+        {
+            Destroy(iconGO.gameObject);
+        }
+        iconsGO.Clear();
+        iconsPos.Clear();
+        foreach (UI_MaP_Element elementGO in elementsGO)
+        {
+            Destroy(elementGO.gameObject);
+        }
+        elementsGO.Clear();
+        elementsPos.Clear();
 
-        foreach (var ic_data in savedData.iconsData)
+
+        //Now, create new data
+
+        foreach (IconPos ic_data in savedData.iconsData)
         {
             //Create
             UI_MaP_Icon newIcon = Instantiate(GameManager.instance.mapAndPaper.sideTab.iconPrefab);
@@ -404,7 +419,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             AddIcon(newIcon);
         }
 
-        foreach (var el_data in savedData.elementsData)
+        foreach (ElementPos el_data in savedData.elementsData)
         {
             //Create
             UI_MaP_Element newElement = Instantiate(GameManager.instance.mapAndPaper.sideTab.elemPrefab);

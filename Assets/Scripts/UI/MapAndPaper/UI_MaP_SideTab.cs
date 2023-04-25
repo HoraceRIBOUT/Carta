@@ -115,6 +115,16 @@ public class UI_MaP_SideTab : UI_MaP_IconDropZone
         UpdateElementList();
     }
 
+    public void ApplySaveData(List<pnj.pnjID> pnjAlreadyMet)
+    {
+        foreach (UI_MaP_Icon iconGO in iconsGO)
+        {
+            Destroy(iconGO.gameObject);
+        }
+        iconsGO.Clear();
+        pnjToDeploy = pnjAlreadyMet;
+    }
+
     [Sirenix.OdinInspector.Button]
     public void UpdateIconList()
     {

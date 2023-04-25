@@ -127,7 +127,7 @@ public class UI_MapAndPaper : MonoBehaviour
     }
 
 
-    public void ApplySaveData(List<UI_MaP_Paper.Paper_SaveData> papersData, List<IconData.Icon_SaveData> iconsData)
+    public void ApplySaveData(List<UI_MaP_Paper.Paper_SaveData> papersData, List<IconData.Icon_SaveData> iconsData, List<pnj.pnjID> pnjAlreadyMet)
     {
         if(iconsData == null)
         {
@@ -144,15 +144,15 @@ public class UI_MapAndPaper : MonoBehaviour
         }
 
         //Clean all papers
-        //TO DO : 
-        foreach (var paperData in papersData)
+        foreach (UI_MaP_Paper.Paper_SaveData paperData in papersData)
         {
-            //do thing
+            //TO DO : 
+            //reach and destroy all paper (maybe paper are not instantiate and simply all already exists ? Maybe a little simpler)
+            //and give data to each loaded paper after that
         }
         //For now : 
         currentPaper.ApplySaveData(papersData[0]);
-
-
+        sideTab.ApplySaveData(pnjAlreadyMet);
     }
 
 

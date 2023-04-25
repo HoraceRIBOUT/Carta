@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
         { 
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
+                //Could be cool to close the menu before loading ?
+                //or else just reload the scene ? don't know...
                      if (Input.GetKeyDown(KeyCode.Alpha1))                SaveAndLoad.LoadData(1);
                 else if (Input.GetKeyDown(KeyCode.Alpha2))                SaveAndLoad.LoadData(2);
                 else if (Input.GetKeyDown(KeyCode.Alpha3))                SaveAndLoad.LoadData(3);
