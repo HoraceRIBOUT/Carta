@@ -414,8 +414,8 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
             res *= emptyLookIntensity;
-            if(res != Vector3.zero)
-                Debug.Log("We offset (tota) !" + res);
+            //if(res != Vector3.zero)
+            //    Debug.Log("We offset (tota) !" + res);
             //Debug.DrawRay(this.transform.position, res, Color.red);
             return res;
         }
@@ -584,6 +584,7 @@ public class PlayerMovement : MonoBehaviour
         
 
         lastSpeed = newSpeed;
+        Debug.DrawRay(this.transform.position, _rgbd.velocity.normalized * maxDist, Color.red + Color.yellow, 5f);
         _rgbd.velocity = newSpeed;
         //Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed);
 
@@ -596,7 +597,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //now, try to see how to change the speed :
         Debug.DrawRay(this.transform.position, lastSpeed.normalized * maxDist, Color.red, 5f);
-        Debug.DrawRay(this.transform.position, _rgbd.velocity.normalized * maxDist, Color.red + Color.yellow, 5f);
+        //Debug.DrawRay(this.transform.position, _rgbd.velocity.normalized * maxDist, Color.red + Color.yellow, 5f);
         if (Physics.Raycast(this.transform.position, lastSpeed, out RaycastHit speedcastInfo, maxDist, layerMaskContact))
         {
             if (AlreadyInContact(speedcastInfo.collider.gameObject))
@@ -616,9 +617,10 @@ public class PlayerMovement : MonoBehaviour
         //If on wall, keep more the current normal. Else, you can use the coll
         //problem : strictly use 0 when on wall (I want to be able to move a little) 
         float secondaryIntensity = Vector3.Dot(lastUpVector, Vector3.up);
+        Debug.Log("secondaryIntensity = "+ secondaryIntensity);
         //
-        Debug.DrawRay(this.transform.position, collisionVector, Color.blue, 5f);
         Debug.DrawRay(this.transform.position, normal         , Color.cyan, 5f);
+        Debug.DrawRay(this.transform.position, collisionVector, Color.blue, 5f);
         Debug.DrawRay(this.transform.position + Vector3.up * 0.02f, Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity), Color.black, 5f);
         //Debug.Log("Ok so " + secondaryIntensity);
         return Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity);
