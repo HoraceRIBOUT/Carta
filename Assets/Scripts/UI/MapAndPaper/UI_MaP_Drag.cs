@@ -85,10 +85,10 @@ public abstract class UI_MaP_Drag : UI_MaP_Overing
             if (lastOffset.magnitude > 0)
                 lastOffset = Vector2.Lerp(lastOffset, Vector2.zero, Time.deltaTime * 4);
 
-            GameManager.instance.mapAndPaper.currentPaper.MoveDependingOnMousePosition(this);
+            GameManager.instance.mapAndPaper.CurrentPaper().MoveDependingOnMousePosition(this);
             //Correct Size
-            if (GameManager.instance.mapAndPaper.currentPaper.OveringMe())
-                this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
+            if (GameManager.instance.mapAndPaper.CurrentPaper().OveringMe())
+                this.transform.localScale = GameManager.instance.mapAndPaper.CurrentPaper().transform.localScale * baseSize;
             else
                 this.transform.localScale = Vector3.one;
         }
@@ -130,12 +130,12 @@ public abstract class UI_MaP_Drag : UI_MaP_Overing
         iconToDrag.dragOn = true;
         //Debug.Log("Start drag. " + this.name, this.gameObject);
 
-        GameManager.instance.mapAndPaper.currentPaper.ChangeRaycastBlockForDrag(false);
+        GameManager.instance.mapAndPaper.CurrentPaper().ChangeRaycastBlockForDrag(false);
     }
     protected virtual void EndDrag()
     {
         Debug.Log("EndDrag : " + this.name, this.gameObject);
-        UI_MaP_Paper currentPaper = GameManager.instance.mapAndPaper.currentPaper;
+        UI_MaP_Paper currentPaper = GameManager.instance.mapAndPaper.CurrentPaper();
         //Need to see what under it. 
         if (GameManager.instance.mapAndPaper.sideTab.OveringMe())
         {
@@ -156,7 +156,7 @@ public abstract class UI_MaP_Drag : UI_MaP_Overing
             }
             this.transform.SetParent(lastParent);
             this.transform.localPosition = lastPosition;
-            this.transform.localScale = GameManager.instance.mapAndPaper.currentPaper.transform.localScale * baseSize;
+            this.transform.localScale = currentPaper.transform.localScale * baseSize;
             //Re add the icon on the paper
             lastParent_Paper = currentPaper;
             currentPaper.AddDrag(this);
@@ -175,7 +175,7 @@ public abstract class UI_MaP_Drag : UI_MaP_Overing
 
         dragOn = false;
         //Debug.Log("Finish drag." + this.name, this.gameObject);
-        GameManager.instance.mapAndPaper.currentPaper.ChangeRaycastBlockForDrag(true);
+        GameManager.instance.mapAndPaper.CurrentPaper().ChangeRaycastBlockForDrag(true);
     }
 
     void TryDestroyAfterDrag()
@@ -201,7 +201,7 @@ public abstract class UI_MaP_Drag : UI_MaP_Overing
         float zoom = this.transform.localScale.x;
         if (!fromDragZone)
         {
-            zoom *= GameManager.instance.mapAndPaper.currentPaper.transform.localScale.x;
+            zoom *= GameManager.instance.mapAndPaper.CurrentPaper().transform.localScale.x;
         }
         
             //Only icon

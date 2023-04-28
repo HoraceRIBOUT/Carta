@@ -150,7 +150,7 @@ public class UI_MaP_Element : UI_MaP_Drag
         float zoom = this.transform.localScale.x;
         if (!fromDragZone)
         {
-            zoom *= GameManager.instance.mapAndPaper.currentPaper.transform.localScale.x;
+            zoom *= GameManager.instance.mapAndPaper.CurrentPaper().transform.localScale.x;
         }
 
         //Only icon
@@ -172,40 +172,40 @@ public class UI_MaP_Element : UI_MaP_Drag
         return false;
     }
 
-/*
-    public RectTransform dbg_ElementUP;
-    public RectTransform dbg_ElementDO;
-    public RectTransform dbg_ElementLE;
-    public RectTransform dbg_ElementRI;
-    [Sirenix.OdinInspector.Button()]
-    public void dbg_ResizeRectToBeTheClickingBordure()
-    {
-        float zoom = this.transform.localScale.x;
-        if (!fromDragZone && GameManager.instance != null)
+    /*
+        public RectTransform dbg_ElementUP;
+        public RectTransform dbg_ElementDO;
+        public RectTransform dbg_ElementLE;
+        public RectTransform dbg_ElementRI;
+        [Sirenix.OdinInspector.Button()]
+        public void dbg_ResizeRectToBeTheClickingBordure()
         {
-            zoom *= GameManager.instance.mapAndPaper.currentPaper.transform.localScale.x;
-        }
-        if(visualRect == null)
-        {
-            visualRect = himselfRect.GetChild(0).GetComponent<RectTransform>();
-        }
+            float zoom = this.transform.localScale.x;
+            if (!fromDragZone && GameManager.instance != null)
+            {
+                zoom *= GameManager.instance.mapAndPaper.CurrentPaper().transform.localScale.x;
+            }
+            if(visualRect == null)
+            {
+                visualRect = himselfRect.GetChild(0).GetComponent<RectTransform>();
+            }
 
-        //Only icon
-        float minX = visualRect.transform.position.x - visualRect.rect.width  * (0.5f - spec.minMaxForClickX.x) * 2 * zoom / 2;
-        float maxX = visualRect.transform.position.x + visualRect.rect.width  * (spec.minMaxForClickX.y - 0.5f) * 2 * zoom / 2;
-        float minY = visualRect.transform.position.y - visualRect.rect.height * (0.5f - spec.minMaxForClickY.x) * 2 * zoom / 2;
-        float maxY = visualRect.transform.position.y + visualRect.rect.height * (spec.minMaxForClickY.y - 0.5f) * 2 * zoom / 2;
+            //Only icon
+            float minX = visualRect.transform.position.x - visualRect.rect.width  * (0.5f - spec.minMaxForClickX.x) * 2 * zoom / 2;
+            float maxX = visualRect.transform.position.x + visualRect.rect.width  * (spec.minMaxForClickX.y - 0.5f) * 2 * zoom / 2;
+            float minY = visualRect.transform.position.y - visualRect.rect.height * (0.5f - spec.minMaxForClickY.x) * 2 * zoom / 2;
+            float maxY = visualRect.transform.position.y + visualRect.rect.height * (spec.minMaxForClickY.y - 0.5f) * 2 * zoom / 2;
 
 
-        Vector2 newSize = new Vector2(maxX - minX, maxY - minY);
-        Vector2 newPos = new Vector2(maxX + minX, maxY + minY); 
-        newPos /= 2f;
-        dbg_ElementUP.localPosition = new Vector2(maxX, maxY);
-        dbg_ElementDO.localPosition = new Vector2(minX, minY);
-        dbg_ElementRI.localPosition = new Vector2(maxX, minY);
-        dbg_ElementLE.localPosition = new Vector2(minX, maxY);
-        //dbg_Element.sizeDelta = newSize;
-        Debug.Log("Ok so :" + newPos + " and" + newSize + " mouse is on " + Input.mousePosition);
-    }*/
+            Vector2 newSize = new Vector2(maxX - minX, maxY - minY);
+            Vector2 newPos = new Vector2(maxX + minX, maxY + minY); 
+            newPos /= 2f;
+            dbg_ElementUP.localPosition = new Vector2(maxX, maxY);
+            dbg_ElementDO.localPosition = new Vector2(minX, minY);
+            dbg_ElementRI.localPosition = new Vector2(maxX, minY);
+            dbg_ElementLE.localPosition = new Vector2(minX, maxY);
+            //dbg_Element.sizeDelta = newSize;
+            Debug.Log("Ok so :" + newPos + " and" + newSize + " mouse is on " + Input.mousePosition);
+        }*/
 
 }

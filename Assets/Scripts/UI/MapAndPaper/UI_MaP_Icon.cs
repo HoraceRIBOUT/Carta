@@ -77,7 +77,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
         data.nameText = name_textField.text;
         //if (!fromIconZone)
         {
-            GameManager.instance.mapAndPaper.currentPaper.ReUpdateIconFromData();
+            GameManager.instance.mapAndPaper.CurrentPaper().ReUpdateIconFromData();
             GameManager.instance.mapAndPaper.sideTab.ReUpdateIconFromData();
         }
     }
@@ -96,7 +96,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
         data.descText = desc_textField.text;
         //if (!fromIconZone)
         {
-            GameManager.instance.mapAndPaper.currentPaper.ReUpdateIconFromData();
+            GameManager.instance.mapAndPaper.CurrentPaper().ReUpdateIconFromData();
             GameManager.instance.mapAndPaper.sideTab.ReUpdateIconFromData();
         }
     }
@@ -136,7 +136,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
     {
         if (lastMouseClickPosition != Vector3.zero)
         {
-            GameManager.instance.mapAndPaper.currentPaper.QuitEditModeForIcon();
+            GameManager.instance.mapAndPaper.CurrentPaper().QuitEditModeForIcon();
             LaunchEditMode();
         }
         base.FinishClickOnIt_WhileOnPaper();
@@ -233,7 +233,7 @@ public class UI_MaP_Icon : UI_MaP_Drag
         float zoom = this.transform.localScale.x;
         if (!fromDragZone)
         {
-            zoom *= GameManager.instance.mapAndPaper.currentPaper.transform.localScale.x;
+            zoom *= GameManager.instance.mapAndPaper.CurrentPaper().transform.localScale.x;
         }
         float minX, maxX, minY, maxY;
         if (editMode)

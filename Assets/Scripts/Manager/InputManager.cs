@@ -210,39 +210,67 @@ public class InputManager : MonoBehaviour
         if (Input.GetKey(KeyCode.J)) //it's the letter for save 
             return;
 
+        int openIndex = -1;
         //For now, always, no limit.
-        if (Input.GetKeyDown(KeyCode.Alpha1) 
-            || Input.GetKeyDown(KeyCode.Alpha2) 
-            || Input.GetKeyDown(KeyCode.Alpha3) 
-            || Input.GetKeyDown(KeyCode.Alpha4) 
-            || Input.GetKeyDown(KeyCode.Alpha5)
-            )
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            openIndex = 0;
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+            openIndex = 1;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            openIndex = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            openIndex = 3;
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            openIndex = 4;
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            openIndex = 5;
+        if (openIndex != -1)
         {
-            GameManager.instance.mapAndPaper.IM_Open();
+            GameManager.instance.mapAndPaper.IM_Open(openIndex);
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button6))
         {
-            Debug.Log("6 is press");
             GameManager.instance.mapAndPaper.IM_Open();
         }
     }
 
     void Try_CloseMapAndPaper()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) 
-            || Input.GetKeyDown(KeyCode.Alpha2)
-            || Input.GetKeyDown(KeyCode.Alpha3)
-            || Input.GetKeyDown(KeyCode.Alpha4)
-            || Input.GetKeyDown(KeyCode.Alpha5)
-            )
+        int openIndex = -1;
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            openIndex = 0;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            openIndex = 1;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            openIndex = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            openIndex = 3;
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            openIndex = 4;
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            openIndex = 5;
+        if(GameManager.instance.mapAndPaper.currentIndex == openIndex)
         {
             GameManager.instance.mapAndPaper.IM_Close();
+        }
+        else if(openIndex != -1)
+        {
+            GameManager.instance.mapAndPaper.SwitchPaper(openIndex);
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button6))
         {
             GameManager.instance.mapAndPaper.IM_Close();
         }
-        //Need to add : if try to go to paper and map : just close the inventory AND try open 
+                                //Rt on xbox manette
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button4))
+        {
+            GameManager.instance.mapAndPaper.SwitchPaper_Previous();
+        }
+                                //Lt on xbox manette
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button5))
+        {
+            GameManager.instance.mapAndPaper.SwitchPaper_Next();
+        }
     }
 
 

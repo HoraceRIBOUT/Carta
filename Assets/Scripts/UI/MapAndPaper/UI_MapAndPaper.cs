@@ -6,8 +6,10 @@ using Sirenix.OdinInspector;
 //This is the manager for the "map" and "paper" part
 public class UI_MapAndPaper : MonoBehaviour
 {
-    [ReadOnly] [SerializeField] private List<UI_MaP_Paper> papers = new List<UI_MaP_Paper>();
-    public UI_MaP_Paper currentPaper;
+    [SerializeField] private List<UI_MaP_Paper> papers = new List<UI_MaP_Paper>();
+    public List<int> papersUnlock = new List<int>();
+    public List<UnityEngine.UI.Button> paperButtons = new List<UnityEngine.UI.Button>();
+    [ReadOnly] public int currentIndex = 0;
     public UI_MaP_SideTab sideTab;
     //So, by default, have one blank paper 
     public bool mapOpen = false;
@@ -42,22 +44,27 @@ public class UI_MapAndPaper : MonoBehaviour
         {
             wholeOpacity.alpha = 1;
         }
-
-        //For now :
-        if(!papers.Contains(currentPaper))
-            papers.Add(currentPaper);
     }
 
+    public UI_MaP_Paper CurrentPaper()
+    {
+        return papers[currentIndex];
+    }
+
+    public void IM_Open(int index)
+    {   
+        Open(index);
+    }
     public void IM_Open()
     {
-        Open();
+        Open(currentIndex);
     }
     public void IM_Close()
     {
         Close();
     }
 
-    public void Open()
+    public void Open(int index)
     {
         if (openCloseCorout != null)
             return;
@@ -65,6 +72,8 @@ public class UI_MapAndPaper : MonoBehaviour
             return;
 
         mapOpen = true;
+        SwitchPaper(index);
+
         openCloseCorout = StartCoroutine(OpenCloseMap());
 
         sideTab.UpdateIconList();
@@ -74,13 +83,101 @@ public class UI_MapAndPaper : MonoBehaviour
 
         GameManager.instance.dialogMng.InventoryOrMapOpen();
 
-        //Set paper 
+    }
 
+    public void SwitchPaper(int indexNewPaper)
+    {
+        currentIndex = SeekClosestGoodIndex(indexNewPaper);
+
+        foreach (UI_MaP_Paper paper in papers)
+        {
+            paper.gameObject.SetActive(false);
+        }
+        CurrentPaper().gameObject.SetActive(true);
+        foreach (UnityEngine.UI.Button button in paperButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
+
+        //Only hsow button if more than one paper in inventory
+        if (papersUnlock.Count > 1)
+        {
+            foreach (int indexUnlock in papersUnlock)
+            {
+                paperButtons[indexUnlock].gameObject.SetActive(true);
+                paperButtons[indexUnlock].interactable = true;
+            }
+        }
+        //Current is deactivate (maybe say "close" ?)
+        paperButtons[currentIndex].interactable = false;
+
+    }
+
+    //Prioritize upper index 
+    public int SeekClosestGoodIndex(int index)
+    {
+        if (papersUnlock.Contains(index))
+            return index;
+        Debug.Log("seek " + index);
+        int distanceMax = 10;
+        int indexRes = 0; //blank page n°
+        foreach(int indexUnlock in papersUnlock)
+        {
+            int distance = Mathf.Abs(indexUnlock - index);
+            Debug.Log("distance = " + distance + " (" + indexRes + ")" + " VS " + distanceMax);
+            if (distanceMax > distance)
+            {
+                distanceMax = distance;
+                indexRes = indexUnlock;
+            }
+            if(distanceMax == distance)
+            {
+                Debug.Log("take higher");
+                if (indexUnlock > index)
+                    indexRes = indexUnlock;
+            }
+        }
+        return indexRes;
+    }
+
+    public void SwitchPaper_Previous()
+    {
+        papersUnlock.Sort();
+        int indexCurr = papersUnlock.IndexOf(currentIndex);
+        if(indexCurr == -1)
+        {
+            Debug.LogError("CurrentIndex not in the list.");
+            indexCurr = 0;
+        }
+        else if (indexCurr == 0)
+        {
+            indexCurr = papersUnlock.Count;
+        }
+
+        int paperIndex = papersUnlock[indexCurr - 1];
+        SwitchPaper(paperIndex);
+    }
+    public void SwitchPaper_Next()
+    {
+        papersUnlock.Sort();
+        int indexCurr = papersUnlock.IndexOf(currentIndex);
+        if (indexCurr == -1)
+        {
+            Debug.LogError("CurrentIndex not in the list.");
+            indexCurr = 0;
+        }
+        else if (indexCurr == papersUnlock.Count - 1)
+        {
+            indexCurr = -1;
+        }
+
+        int paperIndex = papersUnlock[indexCurr + 1];
+        SwitchPaper(paperIndex);
     }
 
     public void Paper_ResetPosition()
     {
-        currentPaper.ResetPosAndScale();
+        CurrentPaper().ResetPosAndScale();
     }
 
     public void Close()
@@ -119,15 +216,16 @@ public class UI_MapAndPaper : MonoBehaviour
     public List<UI_MaP_Paper.Paper_SaveData> GetPaperSaveData()
     {
         List<UI_MaP_Paper.Paper_SaveData> res = new List<UI_MaP_Paper.Paper_SaveData>();
-        foreach(UI_MaP_Paper paper in papers)
+        for (int i = 0; i < papers.Count; i++)
         {
-            res.Add(paper.GetSaveData());
+            UI_MaP_Paper paper = papers[i];
+            res.Add(paper.GetSaveData(i));
         }
         return res;
     }
 
 
-    public void ApplySaveData(List<UI_MaP_Paper.Paper_SaveData> papersData, List<IconData.Icon_SaveData> iconsData, List<pnj.pnjID> pnjAlreadyMet)
+    public void ApplySaveData(List<UI_MaP_Paper.Paper_SaveData> papersData, List<int> papersToUnlock, List<IconData.Icon_SaveData> iconsData, List<pnj.pnjID> pnjAlreadyMet)
     {
         if(iconsData == null)
         {
@@ -143,15 +241,26 @@ public class UI_MapAndPaper : MonoBehaviour
             data.nameText = iconData.nameText;
         }
 
+        papersUnlock = papersToUnlock;
         //Clean all papers
+        foreach(UI_MaP_Paper paper in papers)
+        {
+            paper.ClearDataOnIt();
+        }
         foreach (UI_MaP_Paper.Paper_SaveData paperData in papersData)
         {
             //TO DO : 
-            //reach and destroy all paper (maybe paper are not instantiate and simply all already exists ? Maybe a little simpler)
-            //and give data to each loaded paper after that
+            papers[paperData.indexOfPaper].ApplySaveData(paperData);
+            //need to look into the "activate or not" for paper
+            if (papersUnlock.Contains(paperData.indexOfPaper))
+            {
+                papers[paperData.indexOfPaper].gameObject.SetActive(true);
+            }
+            else
+            {
+                papers[paperData.indexOfPaper].gameObject.SetActive(false);
+            }
         }
-        //For now : 
-        currentPaper.ApplySaveData(papersData[0]);
         sideTab.ApplySaveData(pnjAlreadyMet);
     }
 

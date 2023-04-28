@@ -346,13 +346,15 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     [System.Serializable]
     public class Paper_SaveData
     {
+        public int indexOfPaper = -1;
         public List<IconPos> iconsData = new List<IconPos>();
         public List<ElementPos> elementsData = new List<ElementPos>();
     }
 
-    public Paper_SaveData GetSaveData()
+    public Paper_SaveData GetSaveData(int currentIndex)
     {
         Paper_SaveData res = new Paper_SaveData();
+        res.indexOfPaper = currentIndex;
         for (int i = 0; i < iconsPos.Count; i++)
         {
             IconPos ic = iconsPos[i];
@@ -380,19 +382,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     public void ApplySaveData(Paper_SaveData savedData)
     {
         Debug.Log("SavedData ?" + savedData.iconsData.Count);
-        //Clean old data :
-        foreach (UI_MaP_Icon iconGO in iconsGO)
-        {
-            Destroy(iconGO.gameObject);
-        }
-        iconsGO.Clear();
-        iconsPos.Clear();
-        foreach (UI_MaP_Element elementGO in elementsGO)
-        {
-            Destroy(elementGO.gameObject);
-        }
-        elementsGO.Clear();
-        elementsPos.Clear();
+        ClearDataOnIt();
 
 
         //Now, create new data
@@ -436,6 +426,23 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             AddElement(newElement);
         }
 
+    }
+
+    public void ClearDataOnIt()
+    {
+        //Clean old data :
+        foreach (UI_MaP_Icon iconGO in iconsGO)
+        {
+            Destroy(iconGO.gameObject);
+        }
+        iconsGO.Clear();
+        iconsPos.Clear();
+        foreach (UI_MaP_Element elementGO in elementsGO)
+        {
+            Destroy(elementGO.gameObject);
+        }
+        elementsGO.Clear();
+        elementsPos.Clear();
     }
 
 }

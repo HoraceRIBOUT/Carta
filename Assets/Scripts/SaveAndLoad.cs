@@ -32,11 +32,13 @@ public class SaveAndLoad : MonoBehaviour
 
         //element and page (mostly allready Serializable ?)
         public List<UI_MaP_Paper.Paper_SaveData> papersSave;
+        public List<int> papersUnlock;
         public List<IconData.Icon_SaveData> iconsSave;
         public List<pnj.pnjID> pnjAlreadyMet;
 
         public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, float _timeOfTheDay,
-            List<pnj.PNJ_SaveData> _pnjSave, List<UI_MaP_Paper.Paper_SaveData> _papersSave, List<IconData.Icon_SaveData> _iconsSave, List<pnj.pnjID> _pnjAlreadyMet)
+            List<pnj.PNJ_SaveData> _pnjSave, 
+            List<UI_MaP_Paper.Paper_SaveData> _papersSave, List<int> _papersUnlock, List<IconData.Icon_SaveData> _iconsSave, List<pnj.pnjID> _pnjAlreadyMet)
         {
             inventory_all = _inventory_all;
             inventory_current = _inventory_current;
@@ -46,6 +48,7 @@ public class SaveAndLoad : MonoBehaviour
             timeOfTheDay = _timeOfTheDay;
             pnjSave = _pnjSave;
             papersSave = _papersSave;
+            papersUnlock = _papersUnlock;
             iconsSave = _iconsSave;
             pnjAlreadyMet = _pnjAlreadyMet;
         }
@@ -157,9 +160,10 @@ public class SaveAndLoad : MonoBehaviour
         List<pnj.pnjID> pnjAlreadyMet = GameManager.instance.mapAndPaper.sideTab.pnjToDeploy;
         // - page
         List <UI_MaP_Paper.Paper_SaveData> papersList = GameManager.instance.mapAndPaper.GetPaperSaveData();
+        List<int> papersUnlock = GameManager.instance.mapAndPaper.papersUnlock;
         //
 
-        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave, papersList, iconsSave, pnjAlreadyMet);
+        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave, papersList, papersUnlock, iconsSave, pnjAlreadyMet);
         return data;
     }
 
@@ -211,7 +215,7 @@ public class SaveAndLoad : MonoBehaviour
         FindObjectOfType<SkyManager>().timeOfTheDay = data.timeOfTheDay;
 
         //MaP :
-        GameManager.instance.mapAndPaper.ApplySaveData(data.papersSave, data.iconsSave, data.pnjAlreadyMet);
+        GameManager.instance.mapAndPaper.ApplySaveData(data.papersSave, data.papersUnlock, data.iconsSave, data.pnjAlreadyMet);
 
     }
 }
