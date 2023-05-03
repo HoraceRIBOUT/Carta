@@ -10,6 +10,7 @@ public class UI_MapAndPaper : MonoBehaviour
     public List<int> papersUnlock = new List<int>();
     public List<UnityEngine.UI.Button> paperButtons = new List<UnityEngine.UI.Button>();
     [ReadOnly] public int currentIndex = 0;
+    public RectTransform[] sidePaperButton = new RectTransform[2];
     public UI_MaP_SideTab sideTab;
     //So, by default, have one blank paper 
     public bool mapOpen = false;
@@ -82,8 +83,8 @@ public class UI_MapAndPaper : MonoBehaviour
         GameManager.instance.playerMove.InventoryAndMenu();
 
         GameManager.instance.dialogMng.InventoryOrMapOpen();
-
     }
+
 
     public void SwitchPaper(int indexNewPaper)
     {
@@ -111,6 +112,10 @@ public class UI_MapAndPaper : MonoBehaviour
         //Current is deactivate (maybe say "close" ?)
         paperButtons[currentIndex].interactable = false;
 
+
+
+        //Update button pos
+        UpdatePaperButtonPos();
     }
 
     //Prioritize upper index 
@@ -138,6 +143,52 @@ public class UI_MapAndPaper : MonoBehaviour
             }
         }
         return indexRes;
+    }
+
+    void UpdatePaperButtonPos()
+    {
+        if (papersUnlock.Count <= 1)
+        {
+            sidePaperButton[0].gameObject.SetActive(false);
+            sidePaperButton[1].gameObject.SetActive(false);
+            return;
+        }
+        else if (!sidePaperButton[0].gameObject.activeSelf || !sidePaperButton[1].gameObject.activeSelf)
+        {
+            sidePaperButton[0].gameObject.SetActive(true);
+            sidePaperButton[1].gameObject.SetActive(true);
+        }
+        
+        //ok we are going to change the anchor min and max
+        float xSize = sidePaperButton[0].anchorMax.x - sidePaperButton[0].anchorMin.x;
+
+        //then :
+        RectTransform currentRect = paperButtons[currentIndex].GetComponent<RectTransform>();
+        float leftPosX;
+        float rightPosX;
+
+        //set by default on the special place 
+        leftPosX = paperButtons[paperButtons.Count - 1].GetComponent<RectTransform>().anchorMax.x;
+        rightPosX = paperButtons[0].GetComponent<RectTransform>().anchorMin.x;
+        //if not 0 or last button : set it around the button
+        if (currentIndex != 0)
+        {
+            RectTransform currentRectMinuOne = paperButtons[currentIndex - 1].GetComponent<RectTransform>();
+            leftPosX = (currentRect.anchorMin.x + currentRectMinuOne.anchorMax.x) / 2f;
+            Debug.Log("currentRect.anchorMin.x = " + currentRect.anchorMin.x + " currentRectMinuOne.anchorMax.x = " + currentRectMinuOne.anchorMax.x);
+        }
+        if(currentIndex != paperButtons.Count - 1)
+        {
+            RectTransform currentRectPlusOne = paperButtons[currentIndex + 1].GetComponent<RectTransform>();
+            rightPosX = (currentRectPlusOne.anchorMin.x + currentRect.anchorMax.x) / 2f;
+            Debug.Log("currentRectPlusOne.anchorMin.x = " + currentRectPlusOne.anchorMin.x + " currentRect.anchorMax.x = " + currentRect.anchorMax.x);
+        }
+
+        //set them
+        sidePaperButton[0].anchorMin = new Vector2(leftPosX  - xSize / 2f, sidePaperButton[0].anchorMin.y);
+        sidePaperButton[0].anchorMax = new Vector2(leftPosX  + xSize / 2f, sidePaperButton[0].anchorMax.y);
+        sidePaperButton[1].anchorMin = new Vector2(rightPosX - xSize / 2f, sidePaperButton[1].anchorMin.y);
+        sidePaperButton[1].anchorMax = new Vector2(rightPosX + xSize / 2f, sidePaperButton[1].anchorMax.y);
     }
 
     public void SwitchPaper_Previous()

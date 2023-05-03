@@ -15,6 +15,7 @@ public class UI_EvenSpacing : MonoBehaviour
     public bool autoCompute = false;
 
     public List<RectTransform> elements = new List<RectTransform>();
+    public List<RectTransform> elementsToOnlyResize = new List<RectTransform>();
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +33,7 @@ public class UI_EvenSpacing : MonoBehaviour
 
     void Normalize()
     {
-        float sum = spacingSize * 5 + buttonSize * 6 + margingSize * 2;
+        float sum = spacingSize * (elements.Count - 1) + buttonSize * (elements.Count) + margingSize * 2;
 
         spacingSize = Mathf.InverseLerp(0, sum, spacingSize * 5f) / 5f;
         buttonSize  = Mathf.InverseLerp(0, sum, buttonSize  * 6f) / 6f;
@@ -54,6 +55,18 @@ public class UI_EvenSpacing : MonoBehaviour
             
             elements[i].anchorMin = anchorMin;
             elements[i].anchorMax = anchorMax;
+        }
+
+        for (int i = 0; i < elementsToOnlyResize.Count; i++)
+        {
+            Vector2 anchorMin = elementsToOnlyResize[i].anchorMin;
+            Vector2 anchorMax = elementsToOnlyResize[i].anchorMax;
+
+            anchorMin.x = 0;
+            anchorMax.x = anchorMin.x + buttonSize;
+
+            elementsToOnlyResize[i].anchorMin = anchorMin;
+            elementsToOnlyResize[i].anchorMax = anchorMax;
         }
     }
 }
