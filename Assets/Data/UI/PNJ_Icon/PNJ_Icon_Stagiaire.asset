@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   spriteLittleIcon: {fileID: 21300000, guid: 32e2b6aad716cec4abf6f529fe6be77a, type: 3}
-  nameText: 'Malpolie
-
-'
-  descText: Vendeur de chouchou
+  defaultColor: {r: 0.18431373, g: 0.24705882, b: 0.3019608, a: 1}
+  nameText: 
+  descText: 

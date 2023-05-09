@@ -34,6 +34,7 @@ public class DialogManager : MonoBehaviour
     public Dialog currentDialog;
     public int currentStep = 0;
     public pnj currentPNJ = null;
+    public pnj.pnjID lastTalkingPNJ = pnj.pnjID.None;
     private pnj closestPNJ = null;
     public bool loadingDialogBox = false;
     public bool displayDialogText = false;
@@ -278,17 +279,44 @@ public class DialogManager : MonoBehaviour
         {
             dialogBox.Next();
         }
+        int dialogText_lastIndex = (dialogText_currIndex == -1 ? 0 : dialogText_currIndex);
         dialogText_currIndex++;
         if (dialogText_currIndex == dialogTexts.Count)
             dialogText_currIndex -= dialogTexts.Count;
         DialogBox currentText = dialogTexts[dialogText_currIndex];
 
-        if(data.color_override != Color.clear)
-            currentText.Open(data.text, data.color_override);
+        if(currentPNJ == null || data.text.Trim()[0] == '<')
+        {
+            currentText.Open(data.text, Color.black, "");
+            lastTalkingPNJ = pnj.pnjID.None;
+            GameManager.instance.dialogMng.currentPNJ.LineEnd();
+            return;
+            //no people talking so don't need the rest.
+        }
         else
-            currentText.Open(data.text, currentPNJ.defaultColor);
+        {
+            pnj.pnjID currentlyTalkingPNJ = (data.pnj_override == pnj.pnjID.None ? currentPNJ.id : data.pnj_override);
+            string pnjTitle = dialogTexts[dialogText_lastIndex].GetCurrentTitle();
+            Color pnjCol = dialogTexts[dialogText_lastIndex].GetCurrentColor();
+            if (lastTalkingPNJ != currentlyTalkingPNJ)
+            {
+                //if not the same pnj than last one : load info 
+                IconData savedData = GameManager.instance.mapAndPaper.sideTab.GetDataForThisPJN(currentlyTalkingPNJ);
+                pnjTitle = savedData.nameText;
+                Debug.Log("title = " + pnjTitle);
+                pnjCol = savedData.defaultColor;
+                lastTalkingPNJ = currentlyTalkingPNJ;
+            }
+            if (data.color_override != Color.clear)
+            {
+                pnjCol = data.color_override;
+            }
 
-        if (currentPNJ != null)
+
+            currentText.Open(data.text, pnjCol, pnjTitle); //keep the same attribute
+        }
+
+        if (currentPNJ != null && data.pnj_override == pnj.pnjID.None)
             currentPNJ.LineStart();
     }
 
@@ -552,6 +580,25 @@ public class DialogManager : MonoBehaviour
     public void InventoryOrMapClose()
     {
 
+    }
+
+
+
+    public void UpdateTitle(pnj.pnjID id, string newName)
+    {
+        if (inDialog)
+        {
+            if (lastTalkingPNJ == id)
+            {
+                DialogBox currentText = dialogTexts[dialogText_currIndex];
+                currentText.UpdateTitle(newName);
+            }
+        }
+        else
+        {
+            lastTalkingPNJ = pnj.pnjID.None;
+            //so it's reset on the next change
+        }
     }
 
 }

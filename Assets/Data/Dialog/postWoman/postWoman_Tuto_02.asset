@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "-Donc l\xE0 c'est l\xE0 o\xF9 elle t'explique que tu va devoir la remplacer
         car elle se fait vieille et c'pour \xE7a qu'elle t'a fait cr\xE9er/venir."
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -49,11 +50,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -63,17 +68,19 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
+  - index: 1
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: '-et elle te file 3 items et te dis : "si tu veux, tu peux essayer '
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -103,11 +110,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -117,17 +128,19 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
+  - index: 2
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Si tu veux, tu peux essayer de les livrer d\xE8s maintenant tiens !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -157,11 +170,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -171,18 +188,20 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
+  - index: 3
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Mais si tu veux que je te dises \xE0 qui elles sont destin\xE9es, montre
         moi juste l'objet en question."
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -212,11 +231,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -226,18 +249,20 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
+  - index: 4
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "De mani\xE8re g\xE9n\xE9rale, si tu as un doute, h\xE9sites pas \xE0
         montrer aux gens les couriers : la plupart t'aideront."
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -267,11 +292,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -281,18 +310,20 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
+  - index: 5
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Et ceux qui t'aideront pas, c'est ou qu'ils ont aucune id\xE9e d'o\xF9
         \xE7a vient, ou c'est FORGERON. Eheheh."
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -322,11 +353,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -336,17 +371,19 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
+  - index: 6
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Hm hm.
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -376,11 +413,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -390,17 +431,19 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
+  - index: 7
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Allez, y a des livraisons qui attendent !
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -430,11 +473,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -444,114 +491,7 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfNo: 0
-      redirectNumberStopNo: 0
-      redirectNumberAfterNo: 0
-      redirectNo:
-        dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
-    type: 0
-    dialog_Data:
-      text: 
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-    setdefaultdialog_Data:
-      targetID: 0
-      newDefaultDial: {fileID: 0}
-    setnextdialog_Data:
-      targetID: 0
-      dialToAdd: {fileID: 0}
-      priority: 0
-    animation_Data:
-      targetID: 0
-      animIndex: 0
-    changeface_Data:
-      targetID: 0
-      eyesIndex: 0
-      mouthIndex: 0
-    choice_Data:
-      typeYes: 0
-      dialogYes:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfYes: 0
-      redirectNumberStopYes: 0
-      redirectNumberAfterYes: 0
-      redirectYes:
-        dialogToGo: {fileID: 0}
-      typeNo: 0
-      dialogNo:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfNo: 0
-      redirectNumberStopNo: 0
-      redirectNumberAfterNo: 0
-      redirectNo:
-        dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
-    type: 0
-    dialog_Data:
-      text: 
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-    setdefaultdialog_Data:
-      targetID: 0
-      newDefaultDial: {fileID: 0}
-    setnextdialog_Data:
-      targetID: 0
-      dialToAdd: {fileID: 0}
-      priority: 0
-    animation_Data:
-      targetID: 0
-      animIndex: 0
-    changeface_Data:
-      targetID: 0
-      eyesIndex: 0
-      mouthIndex: 0
-    choice_Data:
-      typeYes: 0
-      dialogYes:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfYes: 0
-      redirectNumberStopYes: 0
-      redirectNumberAfterYes: 0
-      redirectYes:
-        dialogToGo: {fileID: 0}
-      typeNo: 0
-      dialogNo:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0

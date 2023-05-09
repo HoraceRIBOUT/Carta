@@ -16,21 +16,23 @@ public class DialogBox : MonoBehaviour
     [Header("Local only : ")]
     [SerializeField] private TMPro.TMP_Text dialogueTextBox;
     [SerializeField] private Animator animator;
-    [SerializeField] private int step = 0;
+    [SerializeField] [Sirenix.OdinInspector.ReadOnly()] private int step = 0;
+    [Header("Title card : ")]
+    [SerializeField] private CanvasGroup titleCardAlpha;
+    [SerializeField] private TMPro.TMP_Text titleCardTextBox;
 
-
-    public void Open(string text)
+    
+    public void Open(string text, Color col, string title)
     {
-        Open(text, dialogueTextBox.color);
-    }
-    public void Open(string text, Color col)
-    {
+        Debug.Log("title = " + title);
         dialogueTextBox.color = col;
         printDial = StartCoroutine(PrintDialogText(text));
         printText_inSkipCase = text;
         animator.SetBool("Open", true);
         this.transform.SetSiblingIndex(GameManager.instance.dialogMng.dialogTexts.Count - 1);
         step = 1; // Open
+
+        UpdateTitle(title);
     }
 
     public void Next()
@@ -148,4 +150,21 @@ public class DialogBox : MonoBehaviour
             GameManager.instance.dialogMng.currentPNJ.LineEnd();
         printDial = null;
     }
+
+
+    public string GetCurrentTitle()
+    {
+        return titleCardTextBox.text.Trim();
+    }
+    public Color GetCurrentColor()
+    {
+        return dialogueTextBox.color;
+    }
+
+    public void UpdateTitle(string newName)
+    {
+        titleCardAlpha.gameObject.SetActive(newName.Trim() != "");
+        titleCardTextBox.SetText(newName);
+    }
+
 }

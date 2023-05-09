@@ -9,6 +9,7 @@ public class IconData : ScriptableObject
     public pnj.pnjID id;
 
     public Sprite spriteLittleIcon;
+    public Color defaultColor;
 
     public string nameText;
     public string descText;

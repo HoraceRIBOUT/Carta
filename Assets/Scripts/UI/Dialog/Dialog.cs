@@ -61,6 +61,7 @@ namespace Step
         public string text = "";
 
         public Color color_override;
+        public pnj.pnjID pnj_override;
 
         public override string ToCSVLine()
         {
@@ -68,7 +69,10 @@ namespace Step
                 + "dialog" + Dialog.CASE_SEPARATOR + text
                 + (color_override == Color.clear ?
                 Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR :
-                Dialog.CASE_SEPARATOR + ColorUtility.ToHtmlStringRGBA(color_override));
+                Dialog.CASE_SEPARATOR + ColorUtility.ToHtmlStringRGBA(color_override))
+                + (pnj_override == pnj.pnjID.None?
+                Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR :
+                Dialog.CASE_SEPARATOR + pnj_override);
         }
 
         public Step_Dialog(string[] splitLine)
@@ -79,6 +83,9 @@ namespace Step
             if (splitLine[5].Trim() != "")
                 if (!ColorUtility.TryParseHtmlString(splitLine[5], out color_override))
                     Debug.LogError("Error when parsing color : " + splitLine[5]);
+            pnj_override = pnj.pnjID.None;
+            if(splitLine[6].Trim() != "")
+                pnj_override = CreateCSV.GetPnjIdFromString(splitLine[6]);
         }
 
         public Step_Dialog(string uniqueLine)

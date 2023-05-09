@@ -68,13 +68,17 @@ public class UI_MaP_Icon : UI_MaP_Drag
         if (!name_textField.isFocused)
         {
             if(name_textField.text != data.nameText)
+            {
                 name_textField.SetTextWithoutNotify(data.nameText);
+                GameManager.instance.dialogMng.UpdateTitle(data.id, data.nameText);
+            }
             return; //get ignore, this is probably a callback because of a "SetTextWithoutNotify" who still notify
         }
         GameManager.instance.mapAndPaper.currentEditText = name_textField;
         Debug.Log("Become name :: "+name_textField, this.gameObject);
 
         data.nameText = name_textField.text;
+        GameManager.instance.dialogMng.UpdateTitle(data.id, data.nameText);
         //if (!fromIconZone)
         {
             GameManager.instance.mapAndPaper.CurrentPaper().ReUpdateIconFromData();

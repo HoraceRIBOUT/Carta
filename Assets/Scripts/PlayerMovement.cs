@@ -617,8 +617,8 @@ public class PlayerMovement : MonoBehaviour
         //If on wall, keep more the current normal. Else, you can use the coll
         //problem : strictly use 0 when on wall (I want to be able to move a little) 
         float secondaryIntensity = Vector3.Dot(lastUpVector, Vector3.up);
-        Debug.Log("secondaryIntensity = "+ secondaryIntensity);
-        //
+        //Debug.Log("secondaryIntensity = "+ secondaryIntensity);
+
         Debug.DrawRay(this.transform.position, normal         , Color.cyan, 5f);
         Debug.DrawRay(this.transform.position, collisionVector, Color.blue, 5f);
         Debug.DrawRay(this.transform.position + Vector3.up * 0.02f, Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity), Color.black, 5f);

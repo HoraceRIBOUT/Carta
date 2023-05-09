@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   spriteLittleIcon: {fileID: 21300000, guid: 06c085865dd96df439715a1c73c2bd6f, type: 3}
+  defaultColor: {r: 0, g: 0.20392157, b: 0.21568628, a: 1}
   nameText: 
   descText: 
