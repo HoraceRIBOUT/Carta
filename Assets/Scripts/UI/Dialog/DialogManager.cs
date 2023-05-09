@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System.IO;
+using UnityEngine.Rendering;
 
 //Deal with the UI
 public class DialogManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class DialogManager : MonoBehaviour
     public Animator dialogAnimator;
     public CanvasGroup dialogCanvas;
     public Animator buttonAnimator;
+    public Volume blackWhite;
 
     [Header("Add item")]
     public Animator _addItem_anim;
@@ -167,6 +169,9 @@ public class DialogManager : MonoBehaviour
 
     public void StartDialog(Dialog dialog, pnj pnj = null)
     {
+        blackWhite.weight = dialog.IsAlreadyRead() ? 1 : 0;
+
+
         currentDialog = dialog;
         if (pnj != null)
             currentPNJ = pnj;
@@ -494,6 +499,8 @@ public class DialogManager : MonoBehaviour
 
     public IEnumerator CloseDialog()
     {
+        blackWhite.weight = 0;
+
         if (closestPNJ != null)
         {
             closestPNJ.TurnActionOnOrOff(true);

@@ -23,7 +23,10 @@ public class Dialog : ScriptableObject
         {
             if (!step.alreadyRead)
                 return false;
+            Debug.Log(step.type + " is already read.");
         }
+        Debug.Log("Didnt cross any false !");
+        alreadyRead = true;
         return true;
     }
 
