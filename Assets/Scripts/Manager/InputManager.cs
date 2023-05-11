@@ -37,8 +37,6 @@ public class InputManager : MonoBehaviour
         }
         else if (GameManager.instance.mapAndPaper.mapOpen)
         {
-            if (!GameManager.instance.dialogMng.inventoryBlock)
-                Try_OpenInventory();
             Try_CloseMapAndPaper();
 
         }
