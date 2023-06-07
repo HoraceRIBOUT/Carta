@@ -231,6 +231,29 @@ public class UI_MapAndPaper : MonoBehaviour
         CurrentPaper().ResetPosAndScale();
     }
 
+    public enum PaperCategory
+    {
+        blank1  =0,
+        blank2  =5,
+        genea1  =2,
+        genea2  =3,
+        map     =1,
+        mariage =4,
+    }
+    public void UnlockPaper(PaperCategory index)
+    {
+        UnlockPaper((int)index);
+    }
+    public void UnlockPaper(int index)
+    {
+        if (papersUnlock.Contains(index))
+        {
+            //Alreday have it unlock
+            return;
+        }
+        papersUnlock.Add(index);
+    }
+
     public void Close()
     {
         Debug.Log("close ?");

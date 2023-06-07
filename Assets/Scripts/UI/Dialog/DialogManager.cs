@@ -268,6 +268,10 @@ public class DialogManager : MonoBehaviour
                 ChangeVisual((Step.Step_ChangeVisual)dialog.allSteps[index].GetData());
                 NextStep();
                 break;
+            case Step.stepType.unlockpaper:
+                UnlockPaper((Step.Step_UnlockPaper)dialog.allSteps[index].GetData());
+                NextStep();
+                break;
             default:
                 Debug.LogError("Did not implement correct value for step type " + dialog.allSteps[index].type);
                 NextStep();
@@ -400,6 +404,12 @@ public class DialogManager : MonoBehaviour
         }
 
         target.ChangeVisual(data.visualIndex);
+    }
+
+    public void UnlockPaper(Step.Step_UnlockPaper data)
+    {
+        Debug.Log("Unlock paper n° " + data.papersIndex);
+        GameManager.instance.mapAndPaper.UnlockPaper(data.papersIndex);
     }
 
     public void SetDefaultDialog(Step.Step_SetDefaultDialog data)

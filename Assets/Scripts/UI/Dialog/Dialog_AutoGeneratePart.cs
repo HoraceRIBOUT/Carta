@@ -23,6 +23,7 @@ namespace Step
 	     changeface,
 	     changevisual,
 	     choice,
+	     unlockpaper,
 	}
  
 	[System.Serializable]
@@ -33,9 +34,7 @@ namespace Step
 		public bool alreadyRead = false;
 		public string title { get { return "Step " + index; } }
 		[Sirenix.OdinInspector.Title("$title")]
-#if UNITY_EDITOR
 		[Sirenix.OdinInspector.GUIColor("GetEnumColor")]
-#endif
 		public stepType type;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.dialog)]
 		public Step_Dialog dialog_Data;
@@ -65,6 +64,8 @@ namespace Step
 		public Step_ChangeVisual changevisual_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.choice)]
 		public Step_Choice choice_Data;
+		[Sirenix.OdinInspector.ShowIf("type", stepType.unlockpaper)]
+		public Step_UnlockPaper unlockpaper_Data;
 		
 		public Step_father GetData()
 		{
@@ -98,20 +99,19 @@ namespace Step
 				return changevisual_Data;
 				case stepType.choice:
 				return choice_Data;
+				case stepType.unlockpaper:
+				return unlockpaper_Data;
 				default:
 				Debug.LogError(type + " not implemented in Dialog.cs(class Step.Step() )");
 				return null;
 			}
 		}
-
-#if UNITY_EDITOR
+		
 		public Color GetEnumColor()
 		{
 			Sirenix.Utilities.Editor.GUIHelper.RequestRepaint();
 			return Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);
 		}
-#endif
-
 		public static Step SetUpStepFromLine(string[] lineSplit)
 		{
 			stepType stepType = CreateCSV.GetStepTypeFromLine(lineSplit[3]);
@@ -135,6 +135,7 @@ namespace Step
 				case stepType.changeface:                newStep.changeface_Data			= new Step_ChangeFace(lineSplit);                          break;
 				case stepType.changevisual:                newStep.changevisual_Data			= new Step_ChangeVisual(lineSplit);                          break;
 				case stepType.choice:                newStep.choice_Data			= new Step_Choice(lineSplit);                          break;
+				case stepType.unlockpaper:                newStep.unlockpaper_Data			= new Step_UnlockPaper(lineSplit);                          break;
 				default: 		 newStep.dialog_Data = new Step_Dialog(lineSplit); 		 break;
 			}
 			return newStep;

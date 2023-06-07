@@ -501,5 +501,24 @@ namespace Step
 
     }
 
+
+    [System.Serializable]
+    public class Step_UnlockPaper : Step_father
+    {
+        public int papersIndex = 0;
+        public override string ToCSVLine()
+        {
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + "unlock : " + Dialog.CASE_SEPARATOR + papersIndex;
+        }
+
+        public Step_UnlockPaper(string[] splitLine)
+        {
+            if (int.TryParse(splitLine[4], out int res))
+                papersIndex = res;
+            else
+                Debug.LogError("Unlock paper but index CANNOT PARSE TO INT : " + splitLine[4]);
+        }
+    }
 }
 
