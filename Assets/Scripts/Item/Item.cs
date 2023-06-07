@@ -8,7 +8,24 @@ public class Item : ScriptableObject
     public itemID id;  
     public string nameDisplay = "";
     public Sprite icon;
-
+    public tag tags = 0;
+    
+    [System.Flags]
+    public enum tag
+    {
+        None        = 0,
+        Factrice    = 2^0,
+        Temersohn   = 2^1,
+        Ludovico    = 2^2,
+        Leal        = 2^3,
+        Music       = 2^4,
+    }
+    public static IEnumerable<Item.tag> GetTags(Item.tag input)
+    {
+        foreach (Item.tag value in Item.tag.GetValues(input.GetType()))
+            if (input.HasFlag(value))
+                yield return value;
+    }
 
     [Header("Info ")]
     public List<ItemTarget> targets = new List<ItemTarget>();

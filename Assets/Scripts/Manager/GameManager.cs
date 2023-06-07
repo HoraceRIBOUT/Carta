@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public DialogManager dialogMng;
     public UI_Inventory inventory;
     public UI_MapAndPaper mapAndPaper;
+    public PNJ_Manager pnjManager;
     public UnityEngine.UI.Image blackScreenForQuit; //for demo only, need a pause menu
 
 

@@ -263,6 +263,7 @@ public class UI_Inventory : MonoBehaviour
         Item res = inventory_current[data.itemId];
         RemItem(res);
     }
+
     public void RemItem(Item it, bool debugAdd = false)
     {
         Debug.Log("Remove !" + it.id);
@@ -273,6 +274,9 @@ public class UI_Inventory : MonoBehaviour
 
         PopulateCurrentItemList();
         UpdateVisual();
+
+        //Test the tag progression :
+        GameManager.instance.pnjManager.UpdateTag();
     }
 
 
