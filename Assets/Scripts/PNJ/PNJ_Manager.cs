@@ -7,6 +7,7 @@ public class PNJ_Manager : MonoBehaviour
 {
     private Dictionary<Item.tag, int> tagProgression = new Dictionary<Item.tag, int>();
     public List<TagProgress> victoryList = new List<TagProgress>();
+    [System.Serializable]
     public class TagProgress
     {
         public Item.tag tag;
@@ -15,6 +16,8 @@ public class PNJ_Manager : MonoBehaviour
 
         [Header("Effect")]
         public List<pnjFirstChange> pnjToChange = new List<pnjFirstChange>();//may need to struct them in a block tho
+
+        [System.Serializable]
         public struct pnjFirstChange
         {
              public pnj.pnjID id;
@@ -83,6 +86,22 @@ public class PNJ_Manager : MonoBehaviour
             allTrigger[i].gameObject.SetActive(data.zoneTriggerActive.Contains(i));
         }
         UpdateTag();
+    }
+
+    public void ChangeZoneStatus(string id, bool activate)
+    {
+        ZoneTrigger zone = GetZoneByID(id);
+
+        zone.gameObject.SetActive(activate);
+    }
+    public ZoneTrigger GetZoneByID(string id)
+    {
+        foreach(ZoneTrigger zone in allTrigger)
+        {
+            if (id == zone.balcony_id)
+                return zone;
+        }
+        return null;
     }
 
 

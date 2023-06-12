@@ -397,8 +397,7 @@ public class PlayerMovement : MonoBehaviour
             //Try to find other collision around, that we already touch too, and so, try to go away from them
             Vector3 startPos = this.transform.position + ray;
             Quaternion rotationToAdd = Quaternion.FromToRotation(Vector3.forward, ray.normalized);
-
-            int i = 0;
+            
             foreach (Vector3 dir in emptyLookRaycastDirections)
             {
                 Vector3 rotatedVector = rotationToAdd * dir;

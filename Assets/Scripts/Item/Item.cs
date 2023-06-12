@@ -14,11 +14,11 @@ public class Item : ScriptableObject
     public enum tag
     {
         None        = 0,
-        Factrice    = 2^0,
-        Temersohn   = 2^1,
-        Ludovico    = 2^2,
-        Leal        = 2^3,
-        Music       = 2^4,
+        Factrice    = 1<<0,
+        Temersohn   = 1<<1,
+        Ludovico    = 1<<2,
+        Leal        = 1<<3,
+        Music       = 1<<4,
     }
     public static IEnumerable<Item.tag> GetTags(Item.tag input)
     {

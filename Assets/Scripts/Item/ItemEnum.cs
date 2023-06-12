@@ -1,13 +1,21 @@
 public enum itemID
 {
      none = 0,
+     booktosend = 16,
      colisbabiole = 2,
-     colisterre = 12,
+     colisterre = 17,
      commandefleur = 4,
      complementalimentaire = 5,
-     football = 11,
+     falsefacture = 18,
+     football = 19,
+     geneafinished = 12,
+     geneatree = 13,
      gouteyeu = 6,
      lettrepretre = 7,
+     mecanicoil = 8,
      pedaleguitare = 10,
+     poulie = 11,
      secondcopyquotation = 9,
+     sitehelmet = 14,
+     speakersrepared = 15,
 }

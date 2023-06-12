@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class pnj : MonoBehaviour
 {
+    [Sirenix.OdinInspector.ReadOnly]
     public bool playerOnReach;
 
     public enum pnjID
@@ -74,7 +75,7 @@ public class pnj : MonoBehaviour
     [Header("Visual")]
     [SerializeField] private Animator animator;
     public List<Visual_Position> visuals = new List<Visual_Position>();
-    [Sirenix.OdinInspector.ReadOnly] public int visualIndex = 0;
+     public int visualIndex = 0;
     [System.Serializable]
     public struct Visual_Position
     {

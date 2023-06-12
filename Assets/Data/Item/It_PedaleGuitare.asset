@@ -15,4 +15,5 @@ MonoBehaviour:
   id: 10
   nameDisplay: Pedale de guitare
   icon: {fileID: 21300000, guid: 8c0c68fc7dccec746b9b821179cc8cd0, type: 3}
+  tags: 4
   targets: []

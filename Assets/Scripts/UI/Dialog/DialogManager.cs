@@ -38,6 +38,7 @@ public class DialogManager : MonoBehaviour
     public pnj currentPNJ = null;
     public pnj.pnjID lastTalkingPNJ = pnj.pnjID.None;
     private pnj closestPNJ = null;
+    public Dialog errorDialog;
     public bool loadingDialogBox = false;
     public bool displayDialogText = false;
 
@@ -169,6 +170,13 @@ public class DialogManager : MonoBehaviour
 
     public void StartDialog(Dialog dialog, pnj pnj = null)
     {
+        if(dialog.allSteps.Count == 0)
+        {
+            Debug.LogError("Dialog " + dialog.name + " is empty. ", dialog);
+            //cool to use a default dialog
+            dialog = errorDialog;
+        }
+
         blackWhite.weight = dialog.IsAlreadyRead() ? 1 : 0;
 
 
@@ -197,6 +205,7 @@ public class DialogManager : MonoBehaviour
     
     public void NextStep()
     {
+        Debug.Log("Next step : process ( " + currentDialog.allSteps.Count + " == " + (currentStep + 1) + ")");
         if (currentDialog.allSteps.Count == currentStep + 1)
         {
             /*Debug.LogError("Finish Dialog");*/
@@ -215,6 +224,7 @@ public class DialogManager : MonoBehaviour
             }
         }
 
+        Debug.Log("next step : done." + currentStep);
         TreatDepending(currentDialog, currentStep);
     }
 
@@ -243,7 +253,7 @@ public class DialogManager : MonoBehaviour
                 break;
             case Step.stepType.dialogredirection:
                 DialogRedirection((Step.Step_DialogRedirection)dialog.allSteps[index].GetData());
-                NextStep();
+                //the "start dialog" will habndle the "next step"
                 break;
             case Step.stepType.setdefaultdialog:
                 SetDefaultDialog((Step.Step_SetDefaultDialog)dialog.allSteps[index].GetData());
@@ -440,6 +450,7 @@ public class DialogManager : MonoBehaviour
 
     public void DialogRedirection(Step.Step_DialogRedirection data)
     {
+        Debug.Log("New dialog : "+data.dialogToGo.name);
         StartDialog(data.dialogToGo, currentPNJ);
         //Seems that's it. Nothing else.
     }

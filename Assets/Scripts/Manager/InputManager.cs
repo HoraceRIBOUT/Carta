@@ -22,6 +22,11 @@ public class InputManager : MonoBehaviour
             return;
         }
 
+        if (GameManager.instance.inventory.giveCorout != null)
+        {
+            //only pause is valid in here
+            return;
+        }
 
         //Need to be add : pause.
         //Four state for now :
@@ -42,6 +47,7 @@ public class InputManager : MonoBehaviour
         }
         else if (GameManager.instance.dialogMng.inDialog)
         {
+
             if(!GameManager.instance.dialogMng.inventoryBlock)
                 Try_OpenInventory();
             Try_ValidateDialog();

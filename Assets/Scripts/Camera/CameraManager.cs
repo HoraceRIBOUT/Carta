@@ -52,6 +52,9 @@ public class CameraManager : MonoBehaviour
     [Sirenix.OdinInspector.ReadOnly] public float distanceTarget = 1f; //it's in "meter"
     public float distance_min = 0.2f;
     public float distance_LerpSpeed = 0.2f;
+    private float zoomTarget = 1;
+    private float zoomCurrent = 1;
+    private float zoomDelay = 1f;
 
     [Range(0, 1)]
     public float lastXAxisValue = 0.5f;
@@ -224,8 +227,11 @@ public class CameraManager : MonoBehaviour
     public LayerMask layerMask;
     public void UpdateCamPosition()
     {
+        zoomCurrent = Mathf.Lerp(zoomCurrent, zoomTarget, 1 - Mathf.Pow(2, -Time.deltaTime * zoomDelay));
+        mainCamera.fieldOfView = zoomCurrent * 60f;
+
         //Replace playerCamPoint from distance
-        
+
         Vector3 ray = playerCamPoint.position - target.transform.position;
         float raycastDist = ray.magnitude;
         RaycastHit info;
@@ -277,6 +283,14 @@ public class CameraManager : MonoBehaviour
             circles[i].localPosition = new Vector3(0, camHeight[i], 0);
         }
     }
+    
+    public void ZoomCamera(float zoomValue, float zoomSpeed = 1)
+    {
+        zoomTarget = zoomValue;
+        zoomDelay = zoomSpeed;
+    }
+
+
 
     public Camera GetCurrentCamera()
     {

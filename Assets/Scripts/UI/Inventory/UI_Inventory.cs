@@ -33,6 +33,7 @@ public class UI_Inventory : MonoBehaviour
     public AnimationCurve moveSpeedCurve;
     public float currentMoveValue = 0;
     public float currentMoveSpeed = 0;
+    public Coroutine giveCorout = null;
 
     [Header("Inventory")]
     public Dictionary<itemID, Item> inventory_all;
@@ -302,39 +303,52 @@ public class UI_Inventory : MonoBehaviour
         Item itemSelected = currentDeployList[currentItemIndex];
         pnj currentPNJ = GameManager.instance.dialogMng.currentPNJ;
 
-        //Because it's a give, we need to include a "drum roll moment"
-        //before saying either it's a good catch or not 
 
-        GameManager.instance.dialogMng.StartDialog(currentPNJ.giveWait_Dial);
+        if (currentPNJ == null)
+        {
+            Debug.LogError("Can't give because no current pnj");
+            return;
+        }
+
 
         Debug.Log("Try to give : " + itemSelected.id);
-        if (currentPNJ != null)
+        giveCorout = StartCoroutine(Give_Suspens(currentPNJ, itemSelected));
+    }
+
+    private IEnumerator Give_Suspens(pnj currentPNJ, Item itemSelected)
+    {
+        GameManager.instance.dialogMng.StartDialog(currentPNJ.giveWait_Dial);
+
+        GameManager.instance.cameraMng.ZoomCamera(.5f, 1f);
+        yield return new WaitForSeconds(2f);
+        GameManager.instance.cameraMng.ZoomCamera(1f, 10f);
+
+        foreach (pnj.ItemReaction react in currentPNJ.reactions)
         {
-            foreach (pnj.ItemReaction react in currentPNJ.reactions)
+            if (react.itemToReactFrom == itemSelected.id)
             {
-                if(react.itemToReactFrom == itemSelected.id)
+                if (react.finalTarget)
                 {
-                    if (react.finalTarget)
-                    {
-                        //Vicotry music !
-                        RemItem(itemSelected);
-                    }
-                    else
-                    {
-                        //Loose music...
-                    }
-                    GameManager.instance.dialogMng.StartDialog(react.responseGive);
-                    Debug.Log("Give !!! " + itemSelected.id);
-                    Retract();
-                    GameManager.instance.dialogMng.inventoryBlock = true;
-                    return;
+                    //Vicotry music !
+                    RemItem(itemSelected);
                 }
+                else
+                {
+                    //Loose music...
+                }
+                GameManager.instance.dialogMng.StartDialog(react.responseGive);
+                Debug.Log("Give !!! " + itemSelected.id);
+                Retract();
+                GameManager.instance.dialogMng.inventoryBlock = true;
+                giveCorout = null;
+                yield break; ;
             }
-            GameManager.instance.dialogMng.StartDialog(currentPNJ.giveFail_Dial);
-            Retract();
-            GameManager.instance.dialogMng.inventoryBlock = true;
-            Debug.Log("Don't have it : " + itemSelected.id);
         }
+        GameManager.instance.dialogMng.StartDialog(currentPNJ.giveFail_Dial);
+        Retract();
+        GameManager.instance.dialogMng.inventoryBlock = true;
+        Debug.Log("Don't have it : " + itemSelected.id);
+        giveCorout = null;
     }
 
     public void Show()

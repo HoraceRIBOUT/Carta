@@ -27,7 +27,7 @@ public class Generate_ItemEnum : MonoBehaviour
             if (fileName.EndsWith(".meta"))
                 continue;
             string betterFileName = fileName.Replace(DETECT_PATH, "");
-            Debug.Log("Detect : " + betterFileName);
+            Debug.Log("Detect : " + betterFileName + (betterFileName.StartsWith(DETECT_NEW_ITEM) ? "Pass" : "Don't pass."));
             if (betterFileName.StartsWith(DETECT_NEW_ITEM))
             {
                 importantLine.Add(betterFileName.Replace(DETECT_NEW_ITEM, "").Replace(".asset", ""));
@@ -65,6 +65,7 @@ public class Generate_ItemEnum : MonoBehaviour
             }
         }
 
+        Debug.Log("Ok, what ?  " + importantLine.Count);
         for (int i = 0; i < importantLine.Count; i++)
         {
             string str = importantLine[i];
@@ -73,7 +74,7 @@ public class Generate_ItemEnum : MonoBehaviour
             {
                 maxValue++;
                 importantLine[i] = importantLine[i] + " = " + (maxValue);
-                break;
+                continue;
             }
         }
 

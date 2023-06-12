@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteAlways]
 public class ZoneTrigger : MonoBehaviour
 {
-    public TextAsset script;
-    public bool regenerate = false;
     public ZoneTrigger_AutoGeneratePart.ZoneTriggerType myType;
 
     public void Start()
@@ -17,7 +14,10 @@ public class ZoneTrigger : MonoBehaviour
 
 
     [Sirenix.OdinInspector.ShowIf("myType", ZoneTrigger_AutoGeneratePart.ZoneTriggerType.balcony)]
+    public string balcony_id;
+    [Sirenix.OdinInspector.ShowIf("myType", ZoneTrigger_AutoGeneratePart.ZoneTriggerType.balcony)]
     public Dialog balconyDialog;
+    [Sirenix.OdinInspector.ShowIf("myType", ZoneTrigger_AutoGeneratePart.ZoneTriggerType.balcony)]
     public pnj balconyPNJ;
 
     public void EnterBalcony()
