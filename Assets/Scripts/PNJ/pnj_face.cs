@@ -49,12 +49,18 @@ public class pnj_face : MonoBehaviour
 
     public void ChangeEyes(int i)
     {
+        if (eyesRenderer == null)
+            return;
+
         if(!winking)
             eyesRenderer.sprite = eyesSprite[i];
         dbg_eyes = i;
     }
     public void ChangeMouth(int i)
     {
+        if (mouthRenderer == null)
+            return;
+
         mouthRenderer.sprite = mouthSprite[i];
         dbg_mouth = i;
     }

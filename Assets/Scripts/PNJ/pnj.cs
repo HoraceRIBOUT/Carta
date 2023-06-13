@@ -94,6 +94,7 @@ public class pnj : MonoBehaviour
     private Coroutine actionButt_Coroutine;
     [SerializeField] private SpriteRenderer actionButt_visual_key;
     [SerializeField] private SpriteRenderer actionButt_visual_con;
+    [SerializeField] private SpriteRenderer actionButt_visual_exc;
 
     [Header("SaveData")]
     [Sirenix.OdinInspector.ReadOnly()] public PNJ_SaveData saveData;
@@ -352,6 +353,8 @@ public class pnj : MonoBehaviour
     {
         actionButt_visual_con.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
         actionButt_visual_key.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
+
+        actionButt_visual_exc.color = Color.Lerp(Color.white - Color.black, Color.white, (nextDialog.Count == 0 ? 0 : actionButt_Val));
     }
 
 
