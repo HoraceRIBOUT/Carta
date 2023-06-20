@@ -133,6 +133,9 @@ Material:
     - _loa: 0
     m_Colors:
     - _Color: {r: 1, g: 0.48472303, b: 0, a: 1}
+    - _ColorGrad01: {r: 0.9245283, g: 0.5047382, b: 0.1003026, a: 1}
+    - _ColorGrad02: {r: 1, g: 0.1519028, b: 0, a: 1}
+    - _ColorGrad03: {r: 1, g: 0.7337059, b: 0, a: 1}
     - _CutoutPosition: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _Detail_SmoothStep: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
