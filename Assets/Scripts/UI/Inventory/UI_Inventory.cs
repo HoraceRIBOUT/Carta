@@ -336,8 +336,13 @@ public class UI_Inventory : MonoBehaviour
                 {
                     //Loose music...
                 }
+                if(react.responseGive == null)
+                    GameManager.instance.dialogMng.StartDialog(react.responseShow);
+                else
+                    GameManager.instance.dialogMng.StartDialog(react.responseGive);
+
                 GameManager.instance.dialogMng.StartDialog(react.responseGive);
-                Debug.Log("Give !!! " + itemSelected.id);
+                Debug.Log("Try Give !!! " + itemSelected.id);
                 Retract();
                 GameManager.instance.dialogMng.inventoryBlock = true;
                 giveCorout = null;
@@ -373,7 +378,10 @@ public class UI_Inventory : MonoBehaviour
                     {
                         //Loose music...
                     }
-                    GameManager.instance.dialogMng.StartDialog(react.responseShow);
+                    if (react.responseShow == null) //if no show, try give.
+                        GameManager.instance.dialogMng.StartDialog(react.responseGive);
+                    else
+                        GameManager.instance.dialogMng.StartDialog(react.responseShow);
                     Debug.Log("Show !!! " + itemSelected.id);
                     Retract();
                     return;
