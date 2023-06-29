@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: It_ColisBabiole
   m_EditorClassIdentifier: 
   id: 2
-  nameDisplay: Colis de babiole
-  icon: {fileID: 21300000, guid: f606987f7eac4804280000e2a4faf04b, type: 3}
-  tags: 5
+  nameDisplay: Colis pour Rat-commode
+  icon: {fileID: 21300000, guid: ee99c245aba50fc4a9e22aad0693062e, type: 3}
+  tags: 0
   targets:
   - pnj: 5
     pnj_InGame: {fileID: 0}

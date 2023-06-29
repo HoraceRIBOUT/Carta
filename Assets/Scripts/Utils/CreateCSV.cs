@@ -13,7 +13,6 @@ public class CreateCSV : MonoBehaviour
         nextDial,      //dial who are only play once 
         showFail,       //the default reaction when show
         showRes,        //PNJ + ITEM : the reaction of PNJ when show ITEM
-        giveWait,       //the PNJ dialog when give any item before saying if you're right or not
         giveFail,       //the default reaction when give an item
         giveRes,        //PNJ + ITEM : the reaction of PNJ when give ITEM (plus some data to say it's the win or not ?)
         zone,           //for the dialog who trigger when entering a zone 
@@ -44,10 +43,7 @@ public class CreateCSV : MonoBehaviour
 
                 else if (dialog.name.Contains(  "_GiveFail"))
                     dialogDefineLine = (DialogType.giveFail      ).ToString();
-
-                else if (dialog.name.Contains(  "_GiveWait"))
-                    dialogDefineLine = (DialogType.giveWait         ).ToString();
-
+                
                 else if (dialog.name.Contains(  "_DefaultDialog"))
                     dialogDefineLine = (DialogType.idleDial      ).ToString();
 
@@ -219,11 +215,7 @@ public class CreateCSV : MonoBehaviour
             case DialogType.showRes:
                 if (pnjName != "") { finalPath += "item/" + itemName + "/"; }
                 finalName = itemName + "_" + pnjName + "_Show";
-                break;                                                                  
-            case DialogType.giveWait:                                                   
-                if (pnjName != "") { finalPath += pnjName + "/"; }
-                finalName = pnjName + "_GiveWait";
-                break;
+                break;        
             case DialogType.giveFail:
                 if (pnjName != "") { finalPath += pnjName + "/"; }
                 finalName = pnjName + "_GiveFail";
@@ -437,10 +429,9 @@ public class CreateCSV : MonoBehaviour
     public static DialogType TypeOfDialogFileFromLine(string textLine)
     {
              if (textLine.StartsWith(DialogType.idleDial .ToString())) return DialogType.idleDial ;
-        else if (textLine.StartsWith(DialogType.nextDial.ToString())) return DialogType.nextDial;
+        else if (textLine.StartsWith(DialogType.nextDial .ToString())) return DialogType.nextDial ;
         else if (textLine.StartsWith(DialogType.showFail .ToString())) return DialogType.showFail ;
         else if (textLine.StartsWith(DialogType.showRes  .ToString())) return DialogType.showRes  ;
-        else if (textLine.StartsWith(DialogType.giveWait .ToString())) return DialogType.giveWait ;
         else if (textLine.StartsWith(DialogType.giveFail .ToString())) return DialogType.giveFail ;
         else if (textLine.StartsWith(DialogType.giveRes  .ToString())) return DialogType.giveRes  ;
         else if (textLine.StartsWith(DialogType.zone     .ToString())) return DialogType.zone     ;

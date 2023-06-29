@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: It_PedaleGuitare
   m_EditorClassIdentifier: 
   id: 10
-  nameDisplay: Pedale de guitare
+  nameDisplay: "P\xE9dale de guitare"
   icon: {fileID: 21300000, guid: 8c0c68fc7dccec746b9b821179cc8cd0, type: 3}
-  tags: 4
+  tags: 0
   targets: []

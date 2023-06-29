@@ -43,7 +43,12 @@ public class pnj : MonoBehaviour
                         
         biblio          = 11, 
         prof            = 19,
-        //PNJ_number = 25,
+        //PNJ_number = 29,
+
+
+        tomb_grandad = 26,
+        tomb_mom = 27,
+        tomb_infant = 28,
 
     }
     public pnjID id;
@@ -65,8 +70,7 @@ public class pnj : MonoBehaviour
             priority = _priority;
         }
     }
-
-    public Dialog giveWait_Dial;         //when you give you an item, the first reaction
+    
     [Tooltip("when you give a not-in-the-list item")]
     public Dialog giveFail_Dial;
     [Tooltip("when you show a not-in-the-list item")]
@@ -412,20 +416,7 @@ public class pnj : MonoBehaviour
             defaultDialog = (Dialog) UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_DefaultDialog.asset", typeof(Dialog));
         }
 
-
-        if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_GiveWait.asset"))
-        {
-            Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
-            asset2.name = currentPNJ.id + "_GiveWait.asset";
-            UnityEditor.AssetDatabase.CreateAsset(asset2, "Assets/Data/Dialog/" + currentPNJ.id + "/" + asset2.name);
-
-            giveWait_Dial = asset2;
-            UnityEditor.Selection.activeObject = asset2;
-        }
-        else
-        {
-            giveWait_Dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_GiveWait.asset", typeof(Dialog));
-        }
+        
 
         if (!System.IO.File.Exists("Assets/Data/Dialog/" + currentPNJ.id + "/" + currentPNJ.id + "_GiveFail.asset"))
         {
@@ -491,7 +482,6 @@ public class pnj : MonoBehaviour
         // defaultShowReponse -> fail
         List<Dialog> contatenatedDialog = new List<Dialog>(); 
         contatenatedDialog.Add(defaultDialog);
-        contatenatedDialog.Add(giveWait_Dial);
         contatenatedDialog.Add(giveFail_Dial);
         contatenatedDialog.Add(showFail_Dial);
         CreateCSV.WriteDialogInCVS("Assets/Resources/CSV/Basic_" + id + ".csv", contatenatedDialog);

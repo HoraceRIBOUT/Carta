@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: It_GeneaTree
   m_EditorClassIdentifier: 
   id: 13
-  nameDisplay: "Devis sign\xE9"
-  icon: {fileID: 21300000, guid: bd3a80b7530ef00459ad54ddc1f1b867, type: 3}
+  nameDisplay: "Devoir de g\xE9n\xE9alogie"
+  icon: {fileID: 21300000, guid: 9bacc4c4b9d32f647880a0aa5157c75e, type: 3}
   tags: 0
   targets: []

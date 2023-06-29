@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 19
   nameDisplay: Balle de foot
   icon: {fileID: 21300000, guid: b223764893a57034cb37f21c28badae1, type: 3}
-  tags: 1
+  tags: 0
   targets:
   - pnj: 5
     pnj_InGame: {fileID: 0}

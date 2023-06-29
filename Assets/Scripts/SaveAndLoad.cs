@@ -142,7 +142,7 @@ public class SaveAndLoad : MonoBehaviour
             if (pnj.id == pnj.pnjID.None)
                 continue;//can ignore the None pnj (we may need to know which one are activate or not)  
 
-            if(pnj.defaultDialog != null && pnj.giveWait_Dial != null) //need to be sure it's not WIP
+            if(pnj.defaultDialog != null && pnj.showFail_Dial != null ) //need to be sure it's not WIP
                 pnjSave.Add(pnj.GetSaveData());
         }
 

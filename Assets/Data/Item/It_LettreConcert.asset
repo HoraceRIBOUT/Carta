@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1cc426e39a61ca40b83530f74cd0377, type: 3}
+  m_Name: It_LettreConcert
+  m_EditorClassIdentifier: 
+  id: 25
+  nameDisplay: Casque audio
+  icon: {fileID: 21300000, guid: 363a2742af7aba4458bb32ef7fe1498c, type: 3}
+  tags: 0
+  targets: []

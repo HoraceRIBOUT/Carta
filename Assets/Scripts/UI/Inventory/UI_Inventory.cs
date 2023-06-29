@@ -315,18 +315,25 @@ public class UI_Inventory : MonoBehaviour
         giveCorout = StartCoroutine(Give_Suspens(currentPNJ, itemSelected));
     }
 
+    [Header("Give")]
+    public float giveSuspens_WaitTime = 2f;
+    public Dialog giveSuspens_Dialog;
+
     private IEnumerator Give_Suspens(pnj currentPNJ, Item itemSelected)
     {
-        GameManager.instance.dialogMng.StartDialog(currentPNJ.giveWait_Dial);
+        GameManager.instance.dialogMng.StartDialog(giveSuspens_Dialog);
 
         GameManager.instance.cameraMng.ZoomCamera(.5f, 1f);
-        yield return new WaitForSeconds(2f);
+        GameManager.instance.dialogMng.giveSuspens = true;
+        yield return new WaitForSeconds(giveSuspens_WaitTime);
+        GameManager.instance.dialogMng.giveSuspens = false;
         GameManager.instance.cameraMng.ZoomCamera(1f, 10f);
 
         foreach (pnj.ItemReaction react in currentPNJ.reactions)
         {
             if (react.itemToReactFrom == itemSelected.id)
             {
+            //if a reaction, use it 
                 if (react.finalTarget)
                 {
                     //Vicotry music !
@@ -346,9 +353,10 @@ public class UI_Inventory : MonoBehaviour
                 Retract();
                 GameManager.instance.dialogMng.inventoryBlock = true;
                 giveCorout = null;
-                yield break; ;
+                yield break;
             }
         }
+            //if no reaction, use the default one 
         GameManager.instance.dialogMng.StartDialog(currentPNJ.giveFail_Dial);
         Retract();
         GameManager.instance.dialogMng.inventoryBlock = true;

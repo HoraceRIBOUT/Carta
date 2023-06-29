@@ -10,6 +10,7 @@ public class DialogManager : MonoBehaviour
 {
     public bool inDialog = false;
     public bool canClick = true;
+    public bool giveSuspens = false;
 
     public List<pnj> allPNJ = new List<pnj>();
     [Sirenix.OdinInspector.ReadOnly] public List<Dialog> allDialog;
@@ -205,6 +206,11 @@ public class DialogManager : MonoBehaviour
     
     public void NextStep()
     {
+        if (giveSuspens)
+        {
+            return; //can't progress while waiting to see if give or not
+        }
+
         Debug.Log("Next step : process ( " + currentDialog.allSteps.Count + " == " + (currentStep + 1) + ")");
         if (currentDialog.allSteps.Count == currentStep + 1)
         {

@@ -19,3 +19,6 @@ PresetManager:
     - m_Preset: {fileID: 2655988077585873504, guid: 6e66f5973df1cb14a92f627af1bb5bfe, type: 2}
       m_Filter: glob:"Visual/Icon/**.png"
       m_Disabled: 0
+    - m_Preset: {fileID: 2655988077585873504, guid: 6e66f5973df1cb14a92f627af1bb5bfe, type: 2}
+      m_Filter: glob:"Visual/Icon/**.PNG"
+      m_Disabled: 0

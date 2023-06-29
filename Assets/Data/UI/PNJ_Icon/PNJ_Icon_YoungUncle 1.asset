@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29771c44a1baee7468b730982f620a30, type: 3}
+  m_Name: PNJ_Icon_YoungUncle 1
+  m_EditorClassIdentifier: 
+  id: 23
+  spriteLittleIcon: {fileID: 21300000, guid: ae726bbbd0596594c8434e2cf7b3c5a9, type: 3}
+  defaultColor: {r: 0.106532566, g: 0.26421404, b: 0.3962264, a: 1}
+  nameText: 
+  descText: 
