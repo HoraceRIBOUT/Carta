@@ -197,7 +197,6 @@ MonoBehaviour:
   defaultDialog: {fileID: 0}
   reactions: []
   nextDialog: []
-  giveWait_Dial: {fileID: 0}
   giveFail_Dial: {fileID: 0}
   showFail_Dial: {fileID: 0}
   animator: {fileID: 6252156859856202171}
@@ -691,7 +690,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

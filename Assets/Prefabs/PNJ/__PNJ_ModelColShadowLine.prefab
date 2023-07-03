@@ -863,7 +863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1241996217963848325, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
       propertyPath: m_Name
-      value: Stagiaire
+      value: __PNJ_ModelColShadowLine
       objectReference: {fileID: 0}
     - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
       propertyPath: id
