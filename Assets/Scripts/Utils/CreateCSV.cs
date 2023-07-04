@@ -397,7 +397,14 @@ public class CreateCSV : MonoBehaviour
 
             Dialog dial = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
             if(dial != null)
-                dico.Add(fileName, dial);
+            {
+                if (dico.ContainsKey(fileName))
+                {
+                    Debug.LogError("In all dialog created, it exist two " + fileName + " one is at " + filePath);
+                }
+                else
+                    dico.Add(fileName, dial);
+            }
         }
         Debug.Log("Finish seek but found " + dico.Count + " files.");
 
@@ -459,6 +466,7 @@ public class CreateCSV : MonoBehaviour
         else if (lineExtract == Step.stepType.animation         .ToString().Trim().ToLower() ) return Step.stepType.animation           ;
         else if (lineExtract == Step.stepType.changeface        .ToString().Trim().ToLower() ) return Step.stepType.changeface          ;
         else if (lineExtract == Step.stepType.choice            .ToString().Trim().ToLower() ) return Step.stepType.choice              ;
+        else if (lineExtract == Step.stepType.unlockpaper       .ToString().Trim().ToLower() ) return Step.stepType.unlockpaper         ;
         else
         {
             Debug.LogError("!!!Not a valid line type : " + lineExtract);

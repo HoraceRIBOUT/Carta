@@ -269,7 +269,7 @@ namespace Step
             if (int.TryParse(splitLine[6], out int res))
                 priority = res;
             else
-                Debug.LogError("CAMERA CANNOT PARSE THE NEXT PART : " + splitLine[6]);
+                Debug.LogError("Need a priority for the SetNextDialog '"+ splitLine[5] + "'. CANNOT PARSE THIS PART : " + splitLine[6]);
 
         }
     }
