@@ -15,10 +15,11 @@ MonoBehaviour:
   allSteps:
   - index: 0
     alreadyRead: 0
-    type: 6
+    type: 0
     dialog_Data:
-      text: 
+      text: Toujours pas de courrier pour moi ?
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
     music_Data:
       musicToPlay: {fileID: 0}
     iteminteractivity_Data:
-      itemInvoCanBeOpen: 1
+      itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
@@ -56,6 +57,7 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -65,17 +67,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 1
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: yo.
+      text: Noublie pas, moi c'est Sabri !
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -113,6 +119,7 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -122,17 +129,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 2
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: t'a un truc pour moi ?
+      text: <Appuyez sur 1 pour ouvrir vos notes n'importe quand.>
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -170,6 +181,7 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -179,17 +191,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 3
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: dommage...
+      text: <Et cliquez sur la photo du personnage pour y ajouter des notes.>
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -227,6 +243,7 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -236,17 +253,22 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 4
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
     alreadyRead: 0
-    type: 6
+    type: 0
     dialog_Data:
-      text: 
+      text: "J'esp\xE8re que tu t'accomodes bien de la ville. Elle est construite
+        un peu bizarrement \xE0 c'qu'il para\xEEt."
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -284,6 +306,7 @@ MonoBehaviour:
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -293,10 +316,13 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

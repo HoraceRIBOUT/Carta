@@ -17,9 +17,10 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Je dois finir les taxes, je ne peux pas t'aider \xE0 trouver ta destination,
-        d\xE9sol\xE9e."
+      text: Non, ce n'est ni pour moi, ni pour ma famille, ni pour l'administration
+        de la ville.
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -49,11 +50,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -63,10 +68,13 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

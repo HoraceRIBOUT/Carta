@@ -465,8 +465,10 @@ public class CreateCSV : MonoBehaviour
         else if (lineExtract == Step.stepType.setnextdialog     .ToString().Trim().ToLower() ) return Step.stepType.setnextdialog       ;
         else if (lineExtract == Step.stepType.animation         .ToString().Trim().ToLower() ) return Step.stepType.animation           ;
         else if (lineExtract == Step.stepType.changeface        .ToString().Trim().ToLower() ) return Step.stepType.changeface          ;
+        else if (lineExtract == Step.stepType.changevisual      .ToString().Trim().ToLower() ) return Step.stepType.changevisual        ;
         else if (lineExtract == Step.stepType.choice            .ToString().Trim().ToLower() ) return Step.stepType.choice              ;
         else if (lineExtract == Step.stepType.unlockpaper       .ToString().Trim().ToLower() ) return Step.stepType.unlockpaper         ;
+        else if (lineExtract == Step.stepType.zonechange        .ToString().Trim().ToLower() ) return Step.stepType.zonechange          ;
         else
         {
             Debug.LogError("!!!Not a valid line type : " + lineExtract);

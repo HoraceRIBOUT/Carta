@@ -17,7 +17,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: C'est pas pour moi.
+      text: "Non, c'est pas pour moi \xE7a p'tit gars !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -75,7 +75,7 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
-  - index: 1
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:

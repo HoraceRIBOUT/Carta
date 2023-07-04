@@ -24,6 +24,7 @@ namespace Step
 	     changevisual,
 	     choice,
 	     unlockpaper,
+	     zonechange,
 	}
  
 	[System.Serializable]
@@ -66,6 +67,8 @@ namespace Step
 		public Step_Choice choice_Data;
 		[Sirenix.OdinInspector.ShowIf("type", stepType.unlockpaper)]
 		public Step_UnlockPaper unlockpaper_Data;
+		[Sirenix.OdinInspector.ShowIf("type", stepType.zonechange)]
+		public Step_ZoneChange zonechange_Data;
 		
 		public Step_father GetData()
 		{
@@ -101,6 +104,8 @@ namespace Step
 				return choice_Data;
 				case stepType.unlockpaper:
 				return unlockpaper_Data;
+				case stepType.zonechange:
+				return zonechange_Data;
 				default:
 				Debug.LogError(type + " not implemented in Dialog.cs(class Step.Step() )");
 				return null;
@@ -136,7 +141,12 @@ namespace Step
 				case stepType.changevisual:                newStep.changevisual_Data			= new Step_ChangeVisual(lineSplit);                          break;
 				case stepType.choice:                newStep.choice_Data			= new Step_Choice(lineSplit);                          break;
 				case stepType.unlockpaper:                newStep.unlockpaper_Data			= new Step_UnlockPaper(lineSplit);                          break;
-				default: 		 newStep.dialog_Data = new Step_Dialog(lineSplit); 		 break;
+				case stepType.zonechange:                newStep.zonechange_Data			= new Step_ZoneChange(lineSplit);                          break;
+				default:
+                    if (lineSplit.Length >= 4 && lineSplit[4].Trim() != "")
+                        newStep.dialog_Data = new Step_Dialog(lineSplit);
+                    else newStep = null;
+                break;
 			}
 			return newStep;
 		}

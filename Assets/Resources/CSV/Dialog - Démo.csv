@@ -1,4 +1,4 @@
-newDial	Tuto_01_FirstInteraction	stagiaire					
+newDial	Tuto_01_Stagiaire	stagiaire					
 			dialog	Terminus !			
 			dialog	Tout l'monde descend !			
 			dialog	... Bon il reste que toi. Tout va bien ? Pas trop dur de se réveiller ?			
@@ -17,10 +17,10 @@ newDial	Tuto_01_FirstInteraction	stagiaire
 			dialog	<Cliquez sur les photos pour éditer les infos sur les personnages et leur ajouter un nom ou écrire des notes à leur propos.>			
 			dialog	J'espère que tu as bien noté mon nom : Sabri ! J'attends quelques lettres et j'aimerais pas trop le louper quoi...			
 			dialog	Allez, je te laisse, j'ai des cartons à sortir du tram.			
-zone	Tuto_00	postWoman					
+zone	Tuto_02_FactriceZone	postWoman					
 			dialog	Eh !			
 			dialog	Petit automate ! Par ici !			
-newDial	Tuto_01	postWoman					
+newDial	Tuto_03_FactriceColis	postWoman					
 			dialog	Coucou p'tit automate ! 			
 				Je suis la factrice ! C'est moi qui t'es fait venir ici. 			
 				Attends, j'ai 2 colis qui doivent arriver par le tram.			
@@ -37,7 +37,7 @@ newDial	Tuto_01	postWoman
 				Allez, à toute p'tit automate !			
 				...			
 				Et sache que j'suis contente de te voir fonctionner ! C'était pas gagner.			
-newDial	Tuto_02	postWoman					
+newDial	Tuto_04_PremierTournee	postWoman					
 			dialog	Parfait, tu as trouvé la poste ! Normalement, je ne bougerai pas d'ici, si tu me cherches, je serais là toute la journée !			
 				Voici la suite du courrier à distribuer :			
 			additem	commandefleur			
@@ -184,11 +184,11 @@ giveRes	lettrejustice	crowCool
 				... Désolé, j'me suis emporté.			
 				Je te laisse repartir à ta tournée, tu dois avoir du travail.			
 	football						
-zone	football	flowerKid					
+zone	FootballZone	flowerKid					
 				Eh ! Toi !			
 				Oui, toi ! Le robot !			
 				Tu peux venir stp ?			
-			setnextdialog	flowerKid	192		
+			setnextdialog	flowerKid	192	10	
 nextDial	FootballIntro	flowerKid					
 			dialog	Tiens !			
 			additem	football			
@@ -219,7 +219,7 @@ showRes	football	postWoman
 			dialog	... C'est Eder qui t'as dis d'aller marquer un but ?			
 			dialog	Mais quel tricheur celui là. 			
 			dialog	Et tu va l'aider en plus n'est ce pas ? Compte pas sur moi pour te guider dans ce cas là !			
-nextDial	football	flowerKid					
+nextDial	GeneaTreeIntro	flowerKid					
 			dialog	Merci l'robot ! 			
 				Du coup, vu que t'es revenu, tu pourrais m'aider à nouveau ?			
 				J'ai un devoir à finir là. J'dois faire un gros arbre géhénaolog... génélogi... généahologique.			
@@ -278,7 +278,7 @@ nextDial	PedaleGuitareIntro	crowCool
 			additem	pedaleguitare			
 				Tu pourrais le filer à notre musicos local ? Il doit être en ville, sûrement en train de jouer.			
 				Merci, p'tit gars !			
-showRes	PedaleGuitareIntro	crowCool					
+showRes		crowCool					
 			dialog	Ouais, c'est un truc de musique, j'ai oublié le terme technique.			
 				Mais ça coute une blinde c'est p'tite merde !			
 			dialog	Et les gens ils jettent ça comme ça ! Non, mais c'est hallucinant, j'te jure.			
@@ -320,13 +320,14 @@ showRes	sitehelmet	postWoman
 			dialog	Dans ce cas, je peux pas t'aider. Mais hésites pas à retourner voir la personne en question et lui re-montrer ! 			
 			dialog	Il te redira sûrement les instructions plus succintement.			
 	Second livraison						
-zone		postWoman					
+zone	SecondTournee	postWoman					
 			camera	3			
 				Eh ! M'sieur le facteur ! J'ai du courrier pour vous ! C'est la seconde tournée !			
 				Passe me voir quand tu auras le temps !			
 			camera	0			
 			dialog	En attendant, j'vais grignoter un morceau. *Chomp chomp chomp*			
-nextDial		postWoman					
+			setnextdialog	postWoman	330	10	
+nextDial	SecondTournee	postWoman					
 			dialog	*Chomp chomp chomp*			
 				Oh ! T'es *gloup* là ! Alors...			
 				J'ai deux lettres à livrer. Et un truc... particulier.			
@@ -341,6 +342,9 @@ nextDial		postWoman
 				Si tu veux un point de départ, je dirais sûrement du côté de la vendeuse de babiole.			
 				Elle connais tout le monde et commande souvent des trucs bizarre.			
 				Allez ! Au boulot ! .. oh, et pour les deux lettres, montre les moi si tu veux que je te donne des indications. MAIS D'ABORD ! Le carton !			
+			setnextdialog	guitar	480	5	
+			setnextdialog	babiol	528	5	
+			setnextdialog	crowCool	556	2	
 	cartoninconnu						
 showRes	cartoninconnu	postWoman					
 				Alors, ce carton là, je l'ai depuis quelques mois, voir un an. Et j'arrive pas à trouver à qui il va. J'ose pas l'ouvrir au cas où c'est personnel. 			

@@ -17,7 +17,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Hm ? Non, \xE7a m'dis rien."
+      text: "Oula, dans quoi tu m'embarques ? Je peux rien te dire l\xE0 d'ssus moi
+        : \xE7a m'dit strictement rien. D\xE9sol\xE9 p'tit gars !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

@@ -19,6 +19,7 @@ MonoBehaviour:
     dialog_Data:
       text: Non, non, non, me rend pas la balle.
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -48,11 +49,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -62,17 +67,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
       text: Il faut que tu la mettre dans le but !
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -102,11 +111,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -116,17 +129,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
     alreadyRead: 0
     type: 1
     dialog_Data:
       text: 
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 1
       directTP: 0
@@ -156,11 +173,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -170,17 +191,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
       text: "Le terrain est juste en bas, l\xE0, derri\xE8re l'immeuble."
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -210,11 +235,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -224,17 +253,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
     alreadyRead: 0
     type: 1
     dialog_Data:
       text: 
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -264,11 +297,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -278,11 +315,14 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -290,6 +330,7 @@ MonoBehaviour:
       text: "Celui \xE0 c\xF4t\xE9 de l'escalier, pas celui pr\xEAt de la porte,
         compris ?"
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -319,11 +360,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -333,10 +378,13 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

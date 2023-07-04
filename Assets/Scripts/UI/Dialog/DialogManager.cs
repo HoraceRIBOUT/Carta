@@ -288,6 +288,10 @@ public class DialogManager : MonoBehaviour
                 UnlockPaper((Step.Step_UnlockPaper)dialog.allSteps[index].GetData());
                 NextStep();
                 break;
+            case Step.stepType.zonechange:
+                ChangeZone((Step.Step_ZoneChange)dialog.allSteps[index].GetData());
+                NextStep();
+                break;
             default:
                 Debug.LogError("Did not implement correct value for step type " + dialog.allSteps[index].type);
                 NextStep();
@@ -426,6 +430,12 @@ public class DialogManager : MonoBehaviour
     {
         Debug.Log("Unlock paper n° " + data.papersIndex);
         GameManager.instance.mapAndPaper.UnlockPaper(data.papersIndex);
+    }
+
+    public void ChangeZone(Step.Step_ZoneChange data)
+    {
+        Debug.Log("Change zone " + data.zoneName + " turned " + (data.change ? "ON." : "OFF."));
+        GameManager.instance.pnjManager.ChangeZoneStatus(data.zoneName, data.change);
     }
 
     public void SetDefaultDialog(Step.Step_SetDefaultDialog data)

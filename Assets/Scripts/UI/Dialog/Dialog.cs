@@ -43,7 +43,8 @@ public class Dialog : ScriptableObject
     {
         string[] lineSplit = line.Split(CASE_SEPARATOR);
         Step.Step newStep = Step.Step.SetUpStepFromLine(lineSplit);
-        allSteps.Add(newStep);
+        if(newStep != null)
+            allSteps.Add(newStep);
         return newStep.type;
     }
     //#endif
@@ -518,6 +519,26 @@ namespace Step
                 papersIndex = res;
             else
                 Debug.LogError("Unlock paper but index CANNOT PARSE TO INT : " + splitLine[4]);
+        }
+    }
+
+    [System.Serializable]
+    public class Step_ZoneChange : Step_father
+    {
+        public string zoneName = "";
+        public bool change;
+        public override string ToCSVLine()
+        {
+            return Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR + Dialog.CASE_SEPARATOR
+                + zoneName + Dialog.CASE_SEPARATOR + change.ToString();
+        }
+
+        public Step_ZoneChange(string[] splitLine)
+        {
+            zoneName = splitLine[4].Trim();
+
+            if (!bool.TryParse(splitLine[5].Trim(), out change))
+                Debug.LogError("Error when parsing boolean : " + splitLine[5]);
         }
     }
 }

@@ -146,7 +146,39 @@ public class pnj : MonoBehaviour
         public Dialog responseShow;
 
 #if UNITY_EDITOR
-        [Sirenix.OdinInspector.Button]
+        [Sirenix.OdinInspector.HorizontalGroup][Sirenix.OdinInspector.Button]
+        public void FillNeededDialog()
+        {
+            GameObject currentGO = UnityEditor.Selection.activeGameObject;
+            pnj currentPNJ = currentGO.GetComponent<pnj>();
+
+            //TO DO : follow the nomenclature :
+            // - item/ITEMID/[item]_[pnj]_[Give||Show].asset
+            string pnjName = currentPNJ.id.ToString();
+            if (currentPNJ.id == pnjID.None)
+                pnjName = currentPNJ.gameObject.name;
+
+            Dialog asset1 = ScriptableObject.CreateInstance<Dialog>();
+            asset1.name = itemToReactFrom.ToString() + "_" + pnjName + "_Give.asset";
+            Dialog asset2 = ScriptableObject.CreateInstance<Dialog>();
+            asset2.name = itemToReactFrom.ToString() + "_" + pnjName + "_Show.asset";
+            
+            string filePath = "Assets/Data/Dialog/item/" + itemToReactFrom.ToString() + "/" + asset1.name;
+            if (System.IO.File.Exists(filePath))
+            {
+                responseGive = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
+            }
+
+            filePath = "Assets/Data/Dialog/item/" + itemToReactFrom.ToString() + "/" + asset2.name;
+            if (System.IO.File.Exists(filePath))
+            {
+                responseShow = (Dialog)UnityEditor.AssetDatabase.LoadAssetAtPath(filePath, typeof(Dialog));
+            }
+            
+            UnityEditor.AssetDatabase.SaveAssets();
+        }
+
+        [Sirenix.OdinInspector.HorizontalGroup][Sirenix.OdinInspector.Button]
         public void CreateNeededDialog()
         {
             GameObject currentGO = UnityEditor.Selection.activeGameObject;

@@ -15,10 +15,11 @@ MonoBehaviour:
   allSteps:
   - index: 0
     alreadyRead: 0
-    type: 6
+    type: 0
     dialog_Data:
-      text: 
+      text: Oui, c'est pour quoi ?
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
     music_Data:
       musicToPlay: {fileID: 0}
     iteminteractivity_Data:
-      itemInvoCanBeOpen: 1
+      itemInvoCanBeOpen: 0
     dialogredirection_Data:
       dialogToGo: {fileID: 0}
     setdefaultdialog_Data:
@@ -48,11 +49,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -62,17 +67,22 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Attention \xE0 toi, je coupe des fleurs."
+      text: "Si je n'entends pas de bruit, je consid\xE8re que je peux retourner
+        au travail !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -102,11 +112,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -116,173 +130,13 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
-    type: 0
-    dialog_Data:
-      text: J'aimerais ne pas te trancher le bras !
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-    setdefaultdialog_Data:
-      targetID: 0
-      newDefaultDial: {fileID: 0}
-    setnextdialog_Data:
-      targetID: 0
-      dialToAdd: {fileID: 0}
-      priority: 0
-    animation_Data:
-      targetID: 0
-      animIndex: 0
-    changeface_Data:
-      targetID: 0
-      eyesIndex: 0
-      mouthIndex: 0
-    choice_Data:
-      typeYes: 0
-      dialogYes:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfYes: 0
-      redirectNumberStopYes: 0
-      redirectNumberAfterYes: 0
-      redirectYes:
-        dialogToGo: {fileID: 0}
-      typeNo: 0
-      dialogNo:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfNo: 0
-      redirectNumberStopNo: 0
-      redirectNumberAfterNo: 0
-      redirectNo:
-        dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
-    type: 0
-    dialog_Data:
-      text: "J'ai encore une vingtaine de fleur \xE0 r\xE9cup\xE9rer pour le mariage,
-        alors ne les \xE9crase pas trop, s'il te pla\xEEt."
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-    setdefaultdialog_Data:
-      targetID: 0
-      newDefaultDial: {fileID: 0}
-    setnextdialog_Data:
-      targetID: 0
-      dialToAdd: {fileID: 0}
-      priority: 0
-    animation_Data:
-      targetID: 0
-      animIndex: 0
-    changeface_Data:
-      targetID: 0
-      eyesIndex: 0
-      mouthIndex: 0
-    choice_Data:
-      typeYes: 0
-      dialogYes:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfYes: 0
-      redirectNumberStopYes: 0
-      redirectNumberAfterYes: 0
-      redirectYes:
-        dialogToGo: {fileID: 0}
-      typeNo: 0
-      dialogNo:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfNo: 0
-      redirectNumberStopNo: 0
-      redirectNumberAfterNo: 0
-      redirectNo:
-        dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 0
-    type: 6
-    dialog_Data:
-      text: 
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-    setdefaultdialog_Data:
-      targetID: 0
-      newDefaultDial: {fileID: 0}
-    setnextdialog_Data:
-      targetID: 0
-      dialToAdd: {fileID: 0}
-      priority: 0
-    animation_Data:
-      targetID: 0
-      animIndex: 0
-    changeface_Data:
-      targetID: 0
-      eyesIndex: 0
-      mouthIndex: 0
-    choice_Data:
-      typeYes: 0
-      dialogYes:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfYes: 0
-      redirectNumberStopYes: 0
-      redirectNumberAfterYes: 0
-      redirectYes:
-        dialogToGo: {fileID: 0}
-      typeNo: 0
-      dialogNo:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfNo: 0
-      redirectNumberStopNo: 0
-      redirectNumberAfterNo: 0
-      redirectNo:
-        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
