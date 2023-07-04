@@ -1,0 +1,330 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a35e07636896a4781feb685029f17f, type: 3}
+  m_Name: chrysentheme_flowerMom_Show
+  m_EditorClassIdentifier: 
+  allSteps:
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Je t'avoue que j'ai \xE9t\xE9 surpris : on m'avais dis que selon la
+        tradition, on n'amenait pas de fleurs \xE0 ces \xE9v\xE9nements l\xE0, du
+        c\xF4t\xE9 de mon mari."
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Mais lorsque je suis arriv\xE9e, quasiment tout le monde en avais. "
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: Mais je crois que c'est parce que Aicha adorait les fleurs.
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Oh, tu sais pas o\xF9 c'est ? Va voir celui qui t'a donn\xE9 la commande,
+        il t'expliquera mieux que moi !"
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Et comme \xE7a, tu aura d\xE9j\xE0 fait la moiti\xE9 du chemin aussi."
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  pnj_link: {fileID: 0}
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}

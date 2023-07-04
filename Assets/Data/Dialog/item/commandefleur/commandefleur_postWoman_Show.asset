@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70a35e07636896a4781feb685029f17f, type: 3}
-  m_Name: flowerKid_Once_FootballIntro
+  m_Name: commandefleur_postWoman_Show
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Tiens !
+      text: "Tr\xE8s bien ! Cette lettre est une commande pour le magasin de fleur.
+        C'est le gros b\xE2timent plus bas avec des fleurs dessus."
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -48,11 +50,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -62,125 +68,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
-    alreadyRead: 1
-    type: 2
-    dialog_Data:
-      text: 
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 11
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-    setdefaultdialog_Data:
-      targetID: 0
-      newDefaultDial: {fileID: 0}
-    setnextdialog_Data:
-      targetID: 0
-      dialToAdd: {fileID: 0}
-      priority: 0
-    animation_Data:
-      targetID: 0
-      animIndex: 0
-    changeface_Data:
-      targetID: 0
-      eyesIndex: 0
-      mouthIndex: 0
-    choice_Data:
-      typeYes: 0
-      dialogYes:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfYes: 0
-      redirectNumberStopYes: 0
-      redirectNumberAfterYes: 0
-      redirectYes:
-        dialogToGo: {fileID: 0}
-      typeNo: 0
-      dialogNo:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfNo: 0
-      redirectNumberStopNo: 0
-      redirectNumberAfterNo: 0
-      redirectNo:
-        dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 1
-    type: 0
-    dialog_Data:
-      text: "J'aurais besoin que tu am\xE8nes \xE7a en bas."
-      color_override: {r: 0, g: 0, b: 0, a: 0}
-    camera_Data:
-      cameraIndex: 0
-      directTP: 0
-    additem_Data:
-      itemId: 0
-    remitem_Data:
-      itemId: 0
-    sfx_Data:
-      sfxToPlay: {fileID: 0}
-    music_Data:
-      musicToPlay: {fileID: 0}
-    iteminteractivity_Data:
-      itemInvoCanBeOpen: 0
-    dialogredirection_Data:
-      dialogToGo: {fileID: 0}
-    setdefaultdialog_Data:
-      targetID: 0
-      newDefaultDial: {fileID: 0}
-    setnextdialog_Data:
-      targetID: 0
-      dialToAdd: {fileID: 0}
-      priority: 0
-    animation_Data:
-      targetID: 0
-      animIndex: 0
-    changeface_Data:
-      targetID: 0
-      eyesIndex: 0
-      mouthIndex: 0
-    choice_Data:
-      typeYes: 0
-      dialogYes:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfYes: 0
-      redirectNumberStopYes: 0
-      redirectNumberAfterYes: 0
-      redirectYes:
-        dialogToGo: {fileID: 0}
-      typeNo: 0
-      dialogNo:
-        text: 
-        color_override: {r: 0, g: 0, b: 0, a: 0}
-      redirectNumberIfNo: 0
-      redirectNumberStopNo: 0
-      redirectNumberAfterNo: 0
-      redirectNo:
-        dialogToGo: {fileID: 0}
-  - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 1
     dialog_Data:
       text: 
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 1
       directTP: 0
@@ -210,11 +112,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -224,17 +130,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "L\xE0, derri\xE8re l'immeuble ! Y a un terrain de foot."
+      text: Tu devrais le voir d'ici !
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -264,11 +174,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -278,18 +192,21 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Tu verras deux buts : va \xE0 celui qui est le plus loin, \xE0 c\xF4t\xE9
-        d'un escalier. C'est celui l\xE0!"
+      text: "Une fois dedans, devrais y avoir la vendeuse de fleur : H\xE9loisa."
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -319,11 +236,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -333,17 +254,272 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Si elle s'occupe pas de client, tu la verra surement en train de s'occuper
+        de la compta. (Elle g\xE8re la compta de son magasin ET de la ville.)"
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Tu n'as qu'\xE0 lui donner la lettre ou lui montrer."
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Si elle est pas l\xE0, cherche l'autre fleuriste : Ahmed. Il devrait
+        \xEAtre dans les fleurs autour du magasin."
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Il s'occupe des fleurs et de les r\xE9colter et en prendre soin etc.
+        Si il est pas trop occup\xE9, il pourra prendre la commande aussi."
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
     type: 1
     dialog_Data:
       text: 
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -373,11 +549,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -387,17 +567,22 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Merci !!!
+      text: "Allez, je te laisse leur apporter la commande. A part si tu as d'autre
+        courrier \xE0 me montrer ?"
       color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
     camera_Data:
       cameraIndex: 0
       directTP: 0
@@ -427,11 +612,15 @@ MonoBehaviour:
       targetID: 0
       eyesIndex: 0
       mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
     choice_Data:
       typeYes: 0
       dialogYes:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfYes: 0
       redirectNumberStopYes: 0
       redirectNumberAfterYes: 0
@@ -441,10 +630,13 @@ MonoBehaviour:
       dialogNo:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
       redirectNumberIfNo: 0
       redirectNumberStopNo: 0
       redirectNumberAfterNo: 0
       redirectNo:
         dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

@@ -1,0 +1,329 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a35e07636896a4781feb685029f17f, type: 3}
+  m_Name: sitehelmet_climbrDad_Give
+  m_EditorClassIdentifier: 
+  allSteps:
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Oh, un casque de chantier ? O\xF9 est-ce que tu as trouv\xE9 \xE7a ?"
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "J'en avais demand\xE9 un \xE0 Jamal vu que l'usine est ferm\xE9."
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Oh ! Mais je t'ai vu sur la terrasse des Kamel tout \xE0 l'heure ! Son
+        fr\xE8re doit y \xEAtre, et il a d\xFB te le refiler ! "
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Ok, ok je remet les pi\xE8ces du puzzle en place. "
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  - index: 0
+    alreadyRead: 0
+    type: 0
+    dialog_Data:
+      text: "Bah merci de me l'avoir fil\xE9 ! Je le glisserai sous mon chapeau plus
+        tard dans la journ\xE9e, \xE7a m'\xE9vitera des accidents cons."
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+  pnj_link: {fileID: 0}
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
