@@ -15,5 +15,20 @@ MonoBehaviour:
   id: 25
   nameDisplay: Casque audio
   icon: {fileID: 21300000, guid: 363a2742af7aba4458bb32ef7fe1498c, type: 3}
-  tags: 0
-  targets: []
+  tags: 17
+  targets:
+  - pnj: 1
+    pnj_InGame: {fileID: 0}
+    finalTarget: 1
+  - pnj: 3
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 6
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 2
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 10
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0

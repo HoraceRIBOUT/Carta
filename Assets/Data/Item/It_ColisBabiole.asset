@@ -15,14 +15,17 @@ MonoBehaviour:
   id: 2
   nameDisplay: Colis pour Rat-commode
   icon: {fileID: 21300000, guid: ee99c245aba50fc4a9e22aad0693062e, type: 3}
-  tags: 0
+  tags: 1
   targets:
-  - pnj: 5
+  - pnj: 1
     pnj_InGame: {fileID: 0}
     finalTarget: 0
-  - pnj: 3
+  - pnj: 5
     pnj_InGame: {fileID: 0}
     finalTarget: 0
   - pnj: 6
     pnj_InGame: {fileID: 0}
     finalTarget: 1
+  - pnj: 2
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0

@@ -41,8 +41,8 @@ newDial	Tuto_04_PremierTournee	postWoman
 			dialog	Parfait, tu as trouvé la poste ! Normalement, je ne bougerai pas d'ici, si tu me cherches, je serais là toute la journée !			
 				Voici la suite du courrier à distribuer :			
 			additem	commandefleur			
-				lettreconcert			
-				lettrejustice			
+			additem	lettreconcert			
+			additem	lettrejustice			
 				Laisse moi t'expliquer : pour livrer une lettre, il suffit d'aller parler à quelqu'un.			
 				Ensuite, tu ouvre ton inventaire et tu lui donne le courier en question.			
 				Si tu te trompes, pas de souci, il te le dira, et voilà tout. Voir même, il t'aidera pour trouver à qui livrer la lettre !			
@@ -91,10 +91,11 @@ giveRes	colisterre	flowerMom
 				Comme ça, ici, au village; on ne se bat plus pour le peu de terre qui reste !			
 				Bon, je te laisse. Va, courageux facteur, repars répandre la paix dans notre cité !			
 				Eheh, allez, file file, j'ai du travail.			
+				Oh, aussi, avant que tu partes. Tu pourrais aller voir si mon fils à besoin de quoi que ce soit ? Il est à l'étage.			
 showRes	colisterre	postWoman					
 			dialog	Oh, pour celui là, tu peux deviner à qui livrer. Soit attentif à l'entourage des gens.			
 				Est-ce que tu veux un peu plus d'aide ou tu veux essayer de livrer juste avec cet indice ?			
-			choice	YES :	98	No :	Tu es bien courageux ! J'aime ça ! Bonne chance p'tit automate !
+			choice	YES :	99	No :	Tu es bien courageux ! J'aime ça ! Bonne chance p'tit automate !
 			dialog	Et bien, cette terre sers à faire pousser des fleurs. La personne que tu dois livrer à pleins de cartons ainsi autour d'elle, parfois fleuri.			
 			dialog	J'en dis pas plus, je veux que tu y arrives par toi même !			
 showRes	colisterre	climbrDad					
@@ -131,7 +132,7 @@ giveRes	commandefleur	climbrDad
 showRes	lettreconcert	postWoman					
 			dialog	Oh c'est une lettre pour Sabri ça ! 			
 				Tu sembles déjà savoir où livrer ça, tu veux quand même plus d'info ?			
-			choice	Yes:	134	No:	T'es un bon, j'ai confiance en toi !
+			choice	Yes:	135	No:	T'es un bon, j'ai confiance en toi !
 				Tu l'a déjà rencontré. C'est la première personne qui t'a accueilli ici. Tu devrais noter les noms des gens quand ils te le donnent pour pas oublier.			
 				<Appuyez sur 1 pour ouvrir vos notes. Cliquer sur les icônes des personnes déjà rencontré pour éditer leur nom ou leur ajouter des notes.>			
 				Il doit encore être au travail, au niveau du tram, là où tu es arrivé en ville.			
@@ -188,7 +189,7 @@ zone	FootballZone	flowerKid
 				Eh ! Toi !			
 				Oui, toi ! Le robot !			
 				Tu peux venir stp ?			
-			setnextdialog	flowerKid	192	10	
+			setnextdialog	flowerKid	193	10	
 nextDial	FootballIntro	flowerKid					
 			dialog	Tiens !			
 			additem	football			
@@ -278,20 +279,20 @@ nextDial	PedaleGuitareIntro	crowCool
 			additem	pedaleguitare			
 				Tu pourrais le filer à notre musicos local ? Il doit être en ville, sûrement en train de jouer.			
 				Merci, p'tit gars !			
-showRes		crowCool					
+showRes	pedaleguitare	crowCool					
 			dialog	Ouais, c'est un truc de musique, j'ai oublié le terme technique.			
 				Mais ça coute une blinde c'est p'tite merde !			
 			dialog	Et les gens ils jettent ça comme ça ! Non, mais c'est hallucinant, j'te jure.			
 				Heureusement que je tombe dessus, j'suis sur ça fera plaisir au musicien.			
 				Il est sûrement chez lui, à son balcon à cette heure-ci.			
-showRes	pedaleguitare	guitar					
-			dialog	Tiens, mais attends... Montre moi ça de plus près ?			
-			dialogredirection	Ligne :	295		
 showRes	pedaleguitare	stagiaire					
 			dialog	Oh, c'est une pédale de guitare ça ?			
 				Sûrement pour Nadir, ça, non ? Il arrive toujours à se dégoter du matos de musique pas cher.			
 				Si tu le cherches, il habite dans la ville haute, pas loin d'ici en fait. 			
 				Si il est chez lui, il devrait être en train de répéter, tu devrais l'entendre de loin.			
+showRes	pedaleguitare	guitar					
+			dialog	Tiens, mais attends... Montre moi ça de plus près ?			
+			dialogredirection	Ligne :	296		
 giveRes	pedaleguitare	guitar					
 			dialog	Oh, c't'une pédale de guitare ?			
 				Je te parie que c'est Coolman qui te l'a filé, non ?			
@@ -319,14 +320,14 @@ showRes	sitehelmet	postWoman
 			dialog	Tu l'a pas volé hein ? Ou alors, c'est quelqu'un qui t'a demandé de le livrer ?			
 			dialog	Dans ce cas, je peux pas t'aider. Mais hésites pas à retourner voir la personne en question et lui re-montrer ! 			
 			dialog	Il te redira sûrement les instructions plus succintement.			
-	Second livraison						
+	Seconde livraison						
 zone	SecondTournee	postWoman					
 			camera	3			
 				Eh ! M'sieur le facteur ! J'ai du courrier pour vous ! C'est la seconde tournée !			
 				Passe me voir quand tu auras le temps !			
 			camera	0			
 			dialog	En attendant, j'vais grignoter un morceau. *Chomp chomp chomp*			
-			setnextdialog	postWoman	330	10	
+			setnextdialog	postWoman	331	10	
 nextDial	SecondTournee	postWoman					
 			dialog	*Chomp chomp chomp*			
 				Oh ! T'es *gloup* là ! Alors...			
@@ -342,9 +343,9 @@ nextDial	SecondTournee	postWoman
 				Si tu veux un point de départ, je dirais sûrement du côté de la vendeuse de babiole.			
 				Elle connais tout le monde et commande souvent des trucs bizarre.			
 				Allez ! Au boulot ! .. oh, et pour les deux lettres, montre les moi si tu veux que je te donne des indications. MAIS D'ABORD ! Le carton !			
-			setnextdialog	guitar	480	5	
-			setnextdialog	babiol	528	5	
-			setnextdialog	crowCool	556	2	
+			setnextdialog	guitar	484	5	
+			setnextdialog	babiol	536	5	
+			setnextdialog	crowCool	570	2	
 	cartoninconnu						
 showRes	cartoninconnu	postWoman					
 				Alors, ce carton là, je l'ai depuis quelques mois, voir un an. Et j'arrive pas à trouver à qui il va. J'ose pas l'ouvrir au cas où c'est personnel. 			
@@ -408,6 +409,9 @@ showRes	lettreuniversite	postWoman		(TO DO : plus subtile)
 				Mais j'aimerais qu'il profite de sa jeunesse. Comme son frère.			
 				Je sais qu'il se met une pression folle en plus, et les soucis d'argent aident pas. 			
 				J'espère vraiment qu'il tient bon.			
+showRes	lettreuniversite	babiol					
+			dialog	L'université ? J'suis un peu trop vieille pour ça !			
+				Même si on me donne 20 ans d'moins que je n'ai réelement à ce qu'il paraît~			
 showRes	lettreuniversite	flowerMom					
 			dialog	Une lettre de l'université ?			
 				C'est pour "Monsieur" Mansour, loupé, j'suis une madame.			
@@ -480,10 +484,14 @@ giveRes	lettrecomptable	flowerMom
 nextDial	demandechrys	guitar					
 			dialog	Eh petit. J'aurais besoin de ton aide.			
 				Apporte ça à la vendeuse de fleur, s'il te plaît.			
+			additem	demandechrys			
 				Elle te donnera des fleurs en retour, toute roses, un peu bizarres.			
 				J'aimerais que tu les apportes ensuite à Aicha, pour remplacer ses fleurs mortes. Elle repose sur la falaise, là, au côté de son père.			
 				Tu peux faire ça pour moi ? J'ai le dos en compote et ça m'ferait plaisir.			
 				Et à Aicha aussi sûrement.			
+showRes	demandechrys	guitar					
+			dialog	C'est pour la fleuriste. Tu vois pas qui c'est ? Dans leur magasin recouvert de fleur ?			
+				Tu le donne à Héloisa, elle te rendra un bouquet de fleur. Il faudra les apporter pour Aicha, sur la falaise.			
 showRes	demandechrys	postWoman					
 			dialog	Une demande de fleur ? C'est pour les fleuristes ça ! Tu te souviens plus où c'est ?			
 				Le bâtiment recouvert de fleur, tu peux le voir d'ici !			
@@ -528,7 +536,13 @@ showRes	chrysentheme	guitar
 nextDial	speakersrepared	babiol					
 			dialog	Tu tombes bien toi ! 			
 				J'ai eu les pièces détachés pour réparer le casque de Nadir. Tu pourrais lui ramener ?			
+			additem	speakersrepared			
 				Il est sûrement chez lui, sur son balcon en ce moment.			
+showRes	speakersrepared	babiol					
+			dialog	C'était assez simple à réparer, il aurait pu le faire lui-même je pense.			
+				Mais il manquait de pièce. Elles sont arrivés ce matin, dans un joli carton ~			
+				Sous la forme d'un casque qui n'avais qu'une oreille qui marchait !			
+				Facile à réparer, et heureuse de servir !			
 showRes	speakersrepared	postWoman					
 			dialog	Oh, un casque audio ? Il semble avoir était bidouillé.			
 				C'est le travail de Zohra, ça, non ?			
@@ -557,8 +571,14 @@ nextDial	alcoolprothese	crowCool
 			dialog	Oh, te revoilà. J'ai une autre trouvaille !			
 				De l'alcool ! Désynfectant ET compatible pour silicone et/ou métaux !			
 				Pile ce qu'il faut pour une prothèse de bras droit ! (ne marche pas pour nettoyer une prothèse bras gauche, bien entendu)			
+			additem	alcoolprothese			
 				Tu peux lui amener s'il te plaît ? Je pense qu'y en as en réserve, mais je sais que l'entretien : ça peux vite coûter un cul.			
 				J'en ai profiter pour rajouter un chiffon si y en as plus. Il était avec et emballé donc propre.			
+showRes	alcoolprothese	crowCool					
+			dialog	Ca arrive souvent de trouver des produits comme ça, jeter ici.			
+				C'est une vrai décharge dangereuse. Je m'occupe de repousser les produits vraiment trop toxique plus loin.			
+				Mais quand c'est bien fermé et jamais utilisé comme ceci, ça m'arrange bien.			
+				D'ailleurs, je te parie que ça appartient à un mort ça, et que la famille l'a juste jeter au pif pour se débarasser.			
 showRes	alcoolprothese	postWoman					
 				Tiens, c'est quoi cette bouteille ?			
 				Hm... Ca a l'air d'être un produit un peu luxueux. Ou au moins coûteux.			

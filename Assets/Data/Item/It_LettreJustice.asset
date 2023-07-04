@@ -15,5 +15,17 @@ MonoBehaviour:
   id: 26
   nameDisplay: Lettre de la justice
   icon: {fileID: 21300000, guid: a376abb95f4b58440b988ac0985510bd, type: 3}
-  tags: 0
-  targets: []
+  tags: 1
+  targets:
+  - pnj: 7
+    pnj_InGame: {fileID: 0}
+    finalTarget: 1
+  - pnj: 1
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 4
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 2
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0

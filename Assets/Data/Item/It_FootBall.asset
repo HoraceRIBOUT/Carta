@@ -17,27 +17,9 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: b223764893a57034cb37f21c28badae1, type: 3}
   tags: 0
   targets:
-  - pnj: 5
-    pnj_InGame: {fileID: 0}
-    finalTarget: 0
-  - pnj: 3
-    pnj_InGame: {fileID: 0}
-    finalTarget: 0
-  - pnj: 18
-    pnj_InGame: {fileID: 0}
-    finalTarget: 0
   - pnj: 4
     pnj_InGame: {fileID: 0}
     finalTarget: 0
-  - pnj: 25
-    pnj_InGame: {fileID: 0}
-    finalTarget: 0
-  - pnj: 0
-    pnj_InGame: {fileID: 0}
-    finalTarget: 1
-  - pnj: 12
-    pnj_InGame: {fileID: 0}
-    finalTarget: 0
-  - pnj: 0
+  - pnj: 2
     pnj_InGame: {fileID: 0}
     finalTarget: 0

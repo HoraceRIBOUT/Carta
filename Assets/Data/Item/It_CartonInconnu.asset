@@ -16,4 +16,28 @@ MonoBehaviour:
   nameDisplay: Carton inconnue
   icon: {fileID: 21300000, guid: 21ea2273ff174bb4780ac2799e8f2503, type: 3}
   tags: 1
-  targets: []
+  targets:
+  - pnj: 7
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 1
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 5
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 3
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 4
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 6
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 2
+    pnj_InGame: {fileID: 0}
+    finalTarget: 1
+  - pnj: 10
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0

@@ -23,3 +23,6 @@ MonoBehaviour:
   - pnj: 3
     pnj_InGame: {fileID: 0}
     finalTarget: 0
+  - pnj: 2
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0

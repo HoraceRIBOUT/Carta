@@ -32,6 +32,7 @@ public class PNJ_Manager : MonoBehaviour
 
         public void Success()
         {
+            Debug.Log("Finish " + tag.ToString() + " (" + valueMin + ")" + "\n Unlock " + pnjToChange.Count + " dialog.");
             finish = true;
             for (int i = 0; i < pnjToChange.Count; i++)
             {
@@ -41,7 +42,17 @@ public class PNJ_Manager : MonoBehaviour
         }
     }
 
-    public List<ZoneTrigger> allTrigger;
+    public List<ZoneTrigger> allTrigger = new List<ZoneTrigger>();
+
+    [Sirenix.OdinInspector.Button()]
+    public void FillAllTrigger()
+    {
+        allTrigger.Clear();
+        foreach (ZoneTrigger zT in FindObjectsOfType<ZoneTrigger>())
+        {
+            allTrigger.Add(zT);
+        }
+    }
 
     public class PNJ_Manager_Save
     {

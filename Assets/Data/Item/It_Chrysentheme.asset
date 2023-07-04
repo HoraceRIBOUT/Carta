@@ -16,4 +16,19 @@ MonoBehaviour:
   nameDisplay: "Chrysanth\xE8me"
   icon: {fileID: 21300000, guid: 628ef32303931ba4d8a0c7f411ce5cee, type: 3}
   tags: 0
-  targets: []
+  targets:
+  - pnj: 27
+    pnj_InGame: {fileID: 0}
+    finalTarget: 1
+  - pnj: 5
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 3
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 6
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 10
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0

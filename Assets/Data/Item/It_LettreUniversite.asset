@@ -16,4 +16,22 @@ MonoBehaviour:
   nameDisplay: "Lettre de l'universit\xE9"
   icon: {fileID: 21300000, guid: 3a20992f71d2d5747a8cef054987e92a, type: 3}
   tags: 1
-  targets: []
+  targets:
+  - pnj: 1
+    pnj_InGame: {fileID: 0}
+    finalTarget: 1
+  - pnj: 5
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 3
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 4
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 6
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 2
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0

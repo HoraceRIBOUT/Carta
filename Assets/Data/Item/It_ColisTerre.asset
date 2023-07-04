@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 17
   nameDisplay: Carton remplie de terre
   icon: {fileID: 21300000, guid: 98b8a36c83d7c21468069afc0ab762d7, type: 3}
-  tags: 0
+  tags: 1
   targets:
   - pnj: 5
     pnj_InGame: {fileID: 0}
@@ -23,6 +23,6 @@ MonoBehaviour:
   - pnj: 3
     pnj_InGame: {fileID: 0}
     finalTarget: 1
-  - pnj: 6
+  - pnj: 2
     pnj_InGame: {fileID: 0}
     finalTarget: 0

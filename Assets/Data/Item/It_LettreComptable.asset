@@ -16,4 +16,25 @@ MonoBehaviour:
   nameDisplay: "Lettre adress\xE9 \xE0 Villela"
   icon: {fileID: 21300000, guid: bd3a80b7530ef00459ad54ddc1f1b867, type: 3}
   tags: 1
-  targets: []
+  targets:
+  - pnj: 7
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 1
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 5
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 3
+    pnj_InGame: {fileID: 0}
+    finalTarget: 1
+  - pnj: 6
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 2
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0
+  - pnj: 10
+    pnj_InGame: {fileID: 0}
+    finalTarget: 0

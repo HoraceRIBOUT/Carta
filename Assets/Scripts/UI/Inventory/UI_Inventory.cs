@@ -377,19 +377,24 @@ public class UI_Inventory : MonoBehaviour
             {
                 if (react.itemToReactFrom == itemSelected.id)
                 {
-                    if (react.finalTarget)
+                    if (react.responseShow != null)
                     {
-                        //Redirect and add victory music !
-                        RemItem(itemSelected);
-                    }
-                    else
-                    {
-                        //Loose music...
-                    }
-                    if (react.responseShow == null) //if no show, try give.
-                        GameManager.instance.dialogMng.StartDialog(react.responseGive);
-                    else
+                        //even if final target, if we have a "response show", we see it as a show
                         GameManager.instance.dialogMng.StartDialog(react.responseShow);
+                    }
+                    else
+                    {
+                        if (react.finalTarget)
+                        {
+                            //Redirect and add victory music !
+                            RemItem(itemSelected);
+                        }
+                        else
+                        {
+                            //Loose music...
+                        }
+                        GameManager.instance.dialogMng.StartDialog(react.responseGive);
+                    }
                     Debug.Log("Show !!! " + itemSelected.id);
                     Retract();
                     return;

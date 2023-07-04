@@ -75,6 +75,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -138,6 +141,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -200,6 +206,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -263,6 +272,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -326,6 +338,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 14
@@ -388,6 +403,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 2
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -450,6 +468,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -513,6 +534,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -576,6 +600,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -639,6 +666,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -701,6 +731,9 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   - index: 0
     alreadyRead: 0
     type: 0
@@ -763,5 +796,8 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
