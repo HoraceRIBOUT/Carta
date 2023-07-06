@@ -261,7 +261,8 @@ public class pnj : MonoBehaviour
         GameManager.instance.mapAndPaper.sideTab.AddIconIfNeeded(this.id);
 
         //Will need to have a way to make a smooth change and not a brutal like that (thirdaries ?)
-        GameManager.instance.dialogMng.StartDialog(GetDialogToShow(), this);
+        bool defaultDial = nextDialog.Count == 0;
+        GameManager.instance.dialogMng.StartDialog(GetDialogToShow(), defaultDial, this);
         StartCameraForDialog();
     }
 

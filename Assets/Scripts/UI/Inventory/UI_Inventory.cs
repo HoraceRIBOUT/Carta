@@ -312,6 +312,7 @@ public class UI_Inventory : MonoBehaviour
 
 
         Debug.Log("Try to give : " + itemSelected.id);
+        Debug.Log("currentPNJ = " + currentPNJ.id + " and itemSelected "+ itemSelected.id);
         giveCorout = StartCoroutine(Give_Suspens(currentPNJ, itemSelected));
     }
 
@@ -322,6 +323,7 @@ public class UI_Inventory : MonoBehaviour
     private IEnumerator Give_Suspens(pnj currentPNJ, Item itemSelected)
     {
         GameManager.instance.dialogMng.StartDialog(giveSuspens_Dialog);
+        //GameManager.instance.dialogMng.inventoryBlock = true; // is contains in StartDialog
 
         GameManager.instance.cameraMng.ZoomCamera(.5f, 1f);
         GameManager.instance.dialogMng.giveSuspens = true;
@@ -338,6 +340,7 @@ public class UI_Inventory : MonoBehaviour
                 {
                     //Vicotry music !
                     RemItem(itemSelected);
+                    VictoryMusic(react.musicGiveCorrect);
                 }
                 else
                 {
@@ -349,19 +352,26 @@ public class UI_Inventory : MonoBehaviour
                     GameManager.instance.dialogMng.StartDialog(react.responseGive);
 
                 GameManager.instance.dialogMng.StartDialog(react.responseGive);
-                Debug.Log("Try Give !!! " + itemSelected.id);
                 Retract();
-                GameManager.instance.dialogMng.inventoryBlock = true;
                 giveCorout = null;
                 yield break;
             }
         }
             //if no reaction, use the default one 
-        GameManager.instance.dialogMng.StartDialog(currentPNJ.giveFail_Dial);
+        GameManager.instance.dialogMng.StartDialog(currentPNJ.giveFail_Dial, true);
         Retract();
-        GameManager.instance.dialogMng.inventoryBlock = true;
-        Debug.Log("Don't have it : " + itemSelected.id);
         giveCorout = null;
+    }
+
+    public void VictoryMusic(AudioClip musicToPlay)
+    {
+
+
+
+        float victoryTiming = 0.1f;
+        if (musicToPlay != null)
+            victoryTiming = musicToPlay.length;
+        GameManager.instance.pnjManager.Victory(victoryTiming);
     }
 
     public void Show()
@@ -388,6 +398,7 @@ public class UI_Inventory : MonoBehaviour
                         {
                             //Redirect and add victory music !
                             RemItem(itemSelected);
+                            VictoryMusic(react.musicGiveCorrect);
                         }
                         else
                         {
@@ -400,7 +411,7 @@ public class UI_Inventory : MonoBehaviour
                     return;
                 }
             }
-            GameManager.instance.dialogMng.StartDialog(currentPNJ.showFail_Dial);
+            GameManager.instance.dialogMng.StartDialog(currentPNJ.showFail_Dial, true);
             Retract();
             Debug.Log("Don't have it : " + itemSelected.id);
         }
@@ -464,8 +475,7 @@ public class UI_Inventory : MonoBehaviour
         //For other:
         if(!GameManager.instance.dialogMng.inDialog)
             GameManager.instance.playerMove.FinishMenuing();
-
-        GameManager.instance.dialogMng.inventoryBlock = false;
+        
 
         //For itself
         inventoryDeployed = false;

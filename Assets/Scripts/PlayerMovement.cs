@@ -1,7 +1,6 @@
-using System.Collections;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
     public AnimationCurve verticalBonusForHorizontalJump;
     [ReadOnly] public bool canJump = true;
+    public float landingStress = 0f;
+    public float landingIntensityMax = 20f;
+    public float landingRecover = 4f;
 
     [Header("Coyote")]
     public float coyoteTiming = 0.1f;
@@ -39,8 +41,24 @@ public class PlayerMovement : MonoBehaviour
     [Header("Talk")]
     [ReadOnly] public bool talking = false;
     [ReadOnly] public Vector3 speedWhenInterupt;
+    
+    [Header("Grapple mode")]
+    public bool grapleMode = true;
+    public bool grapleMode_eff = false;
+    private bool grapleMode_Mem = false;
+    public GameObject grappleVisual_On;
+    public GameObject grappleVisual_Off;
 
+    [Header("Gravity and gravities")]
+    public float gravityIntensity = 9.81f;
+    public float wallGravity = 9.81f;
+    public float gravityIntensity_FallAdd = 9.81f;
 
+    [Header("Crouching")]
+    public bool crouching = false;
+    public float crouchDefaultSize = 1f;
+    public float crouchGravity = 10f;
+    public Animator characterAnimator;
 
     [System.Serializable]
     public class wallAndGround_Info
@@ -132,12 +150,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    [Header("Grapple mode")]
-    public bool grapleMode = true;
-    public bool grapleMode_eff = false;
-    private bool grapleMode_Mem = false;
-    public GameObject grappleVisual_On;
-    public GameObject grappleVisual_Off;
     private void HandleGrappleWallMode()
     {
         //switch
@@ -326,6 +338,7 @@ public class PlayerMovement : MonoBehaviour
         return res;
     }
 
+    [Header("Contact and ray")]
     public float maxDist = 0.5f;
     public LayerMask layerMaskContact;
     void UpdateContact()
@@ -449,9 +462,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    public float gravityIntensity = 9.81f;
-    public float wallGravity = 9.81f;
-    public float gravityIntensity_FallAdd = 9.81f;
     public void GravityManagement()
     {
         Vector3 localUp = Vector3.up;
@@ -473,12 +483,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    [Header("Crouching")]
-    public bool crouching = false;
-    public float crouchDefaultSize = 1f;
-    public float crouchGravity = 10f;
-    public GameObject crouch_CrGO;
-    public GameObject crouch_UpGO;
 
     public void CrouchManagement()
     {
@@ -490,8 +494,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _capsule.height = 1;
                 _capsule.center = Vector3.down * (crouchDefaultSize - 1f) * 0.5f;
-                crouch_CrGO.SetActive(true);
-                crouch_UpGO.SetActive(false);
+                characterAnimator.SetBool("Close", true);
             }
 
             lastSpeed += Vector3.down * crouchGravity * Time.deltaTime;
@@ -503,10 +506,13 @@ public class PlayerMovement : MonoBehaviour
         {
             _capsule.height = crouchDefaultSize;
             _capsule.center = Vector3.zero;
-            crouch_CrGO.SetActive(false);
-            crouch_UpGO.SetActive(true);
+            characterAnimator.SetBool("Close", false);
             crouching = false;
         }
+
+
+        landingStress = Mathf.Clamp01(landingStress - Time.deltaTime * landingRecover);
+        characterAnimator.SetLayerWeight(1, landingStress * landingStress);
     }
 
 
@@ -542,7 +548,12 @@ public class PlayerMovement : MonoBehaviour
 
                 //Reset Jump
                 if (Vector3.Dot(Vector3.down, impactNormal) <= 0)
+                {
+                    float landingIntensity = Vector3.Dot(collision.impulse, Vector3.up) * collision.impulse.y;
+                    Debug.Log("Impact : " + landingIntensity);
+                    landingStress += landingIntensity / landingIntensityMax;
                     canJump = true;
+                }
             }
         }
 

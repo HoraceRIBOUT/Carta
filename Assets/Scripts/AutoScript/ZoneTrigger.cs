@@ -24,7 +24,7 @@ public class ZoneTrigger : MonoBehaviour
     {
         Debug.Log("Balcony ! Yeah !");
         //Play the dialog :
-        GameManager.instance.dialogMng.StartDialog(balconyDialog, balconyPNJ);
+        GameManager.instance.dialogMng.StartDialog(balconyDialog, false, balconyPNJ);
         balconyPNJ.StartCameraForDialog();
         this.gameObject.SetActive(false);
     }

@@ -24,7 +24,7 @@ public class DialogBox : MonoBehaviour
     
     public void Open(string text, Color col, string title)
     {
-        Debug.Log("title = " + title);
+        //Debug.Log("title = " + title);
         dialogueTextBox.color = col;
         printDial = StartCoroutine(PrintDialogText(text));
         printText_inSkipCase = text;
@@ -76,19 +76,20 @@ public class DialogBox : MonoBehaviour
 
     public void SkipPrinting()
     {
-        Debug.Log("Skip apparition time");
+        //Debug.Log("Skip apparition time");
         StopCoroutine(printDial);
         FinishPrint();
         dialogueTextBox.text = printText_inSkipCase;
         //Just display it totally, in one try
     }
-
+    
 
     private IEnumerator PrintDialogText(string originalText)
     {
-        Debug.Log("Print " + dialogueTextBox.name + " start.");
+        //Debug.Log("Print " + dialogueTextBox.name + " start.");
         int charIndex = 0;
 
+        //do it better.
         float minDelay = 1f / 60f;
         while (charIndex < originalText.Length)
         {
@@ -130,9 +131,9 @@ public class DialogBox : MonoBehaviour
 
             yield return new WaitForSeconds(Mathf.Max(minDelay, printDelay));
             //Jump more char if delay is < than Mindelay
-            if (printDelay < minDelay)
+            if (minDelay > printDelay)
             {
-                charIndex += Mathf.RoundToInt(printDelay / minDelay);
+                charIndex += (int)(minDelay / printDelay);
             }
             else
             {

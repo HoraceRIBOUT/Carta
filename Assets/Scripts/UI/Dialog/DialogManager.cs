@@ -169,7 +169,7 @@ public class DialogManager : MonoBehaviour
     }
 
 
-    public void StartDialog(Dialog dialog, pnj pnj = null)
+    public void StartDialog(Dialog dialog, bool inventoryToggle = false, pnj pnj = null)
     {
         if(dialog.allSteps.Count == 0)
         {
@@ -178,14 +178,17 @@ public class DialogManager : MonoBehaviour
             dialog = errorDialog;
         }
 
-        blackWhite.weight = dialog.IsAlreadyRead() ? 1 : 0;
+        //maybe not that effect ? espcially if it's the basic response like : idle, give Fail or show Fail.
+        //blackWhite.weight = dialog.IsAlreadyRead() ? 1 : 0;
+        inventoryBlock = !inventoryToggle; //we block inventory if we send us "false" for toggling the inventory
+        Debug.Log("inventoryBlock = " + inventoryBlock);
 
+        GameManager.instance.pnjManager.StartDialog();
 
         currentDialog = dialog;
         if (pnj != null)
             currentPNJ = pnj;
         currentStep = -1;
-        inventoryBlock = true; // by default, you can only give item during "default" dial
         choiceEmbranchement = Vector3.zero;
         NextStep();
 
@@ -230,7 +233,7 @@ public class DialogManager : MonoBehaviour
             }
         }
 
-        Debug.Log("next step : done." + currentStep);
+        //Debug.Log("next step : done." + currentStep);
         TreatDepending(currentDialog, currentStep);
     }
 
@@ -303,6 +306,12 @@ public class DialogManager : MonoBehaviour
 
     public void TreatText(Step.Step_Dialog data)
     {
+        if (data.text.Trim() == "")
+        {
+            NextStep();
+            return;
+        }
+
         //Make every box goes to next step (the available one will skip this by themself)
         foreach (DialogBox dialogBox in dialogTexts)
         {
@@ -332,7 +341,7 @@ public class DialogManager : MonoBehaviour
                 //if not the same pnj than last one : load info 
                 IconData savedData = GameManager.instance.mapAndPaper.sideTab.GetDataForThisPJN(currentlyTalkingPNJ);
                 pnjTitle = savedData.nameText;
-                Debug.Log("title = " + pnjTitle);
+                //Debug.Log("title = " + pnjTitle);
                 pnjCol = savedData.defaultColor;
                 lastTalkingPNJ = currentlyTalkingPNJ;
             }
@@ -373,10 +382,12 @@ public class DialogManager : MonoBehaviour
         canClick = false;
         bool tmp_inventoryBlock = inventoryBlock;
         inventoryBlock = true;
+        Debug.Log("add i tem : block inv' : " + inventoryBlock);
 
         yield return new WaitForSeconds(2.2f);
         canClick = true;
         inventoryBlock = tmp_inventoryBlock;
+        Debug.Log("finish add i tem : block inv' : " + inventoryBlock);
         NextStep();
     }
 
@@ -388,6 +399,7 @@ public class DialogManager : MonoBehaviour
             GameManager.instance.inventory.Retract();
         }
         inventoryBlock = !itemInteraciv.itemInvoCanBeOpen;
+        Debug.Log("block : " + inventoryBlock);
     }
 
     public void LaunchAnimation(Step.Step_Animation data)
@@ -467,7 +479,7 @@ public class DialogManager : MonoBehaviour
     public void DialogRedirection(Step.Step_DialogRedirection data)
     {
         Debug.Log("New dialog : "+data.dialogToGo.name);
-        StartDialog(data.dialogToGo, currentPNJ);
+        StartDialog(data.dialogToGo, false, currentPNJ);
         //Seems that's it. Nothing else.
     }
 
@@ -475,6 +487,7 @@ public class DialogManager : MonoBehaviour
     {
         buttonAnimator.SetBool("Button", true);
         inventoryBlock = true;
+        Debug.Log("display choice : block inv' " + inventoryBlock);
         Cursor.lockState = CursorLockMode.None;
 
         choiceInMemory = data;
@@ -493,7 +506,6 @@ public class DialogManager : MonoBehaviour
             buttonAnimator.SetTrigger("No");
         buttonAnimator.SetBool("Button", false);
         canClick = true;
-        inventoryBlock = false;
         Cursor.lockState = CursorLockMode.Locked;
 
         switch (yes ? ch.typeYes : ch.typeNo)
@@ -537,6 +549,7 @@ public class DialogManager : MonoBehaviour
     public IEnumerator CloseDialog()
     {
         blackWhite.weight = 0;
+        GameManager.instance.pnjManager.FinishDialog();
 
         if (closestPNJ != null)
         {
@@ -557,7 +570,6 @@ public class DialogManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         GameManager.instance.playerMove.FinishTalk();
 
-        inventoryBlock = false;
         dialogText_currIndex = -1;
 
     }

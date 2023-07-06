@@ -43,6 +43,7 @@ public class PNJ_Manager : MonoBehaviour
     }
 
     public List<ZoneTrigger> allTrigger = new List<ZoneTrigger>();
+    public List<SFX_Pnj> allPnjSFX = new List<SFX_Pnj>();
 
     [Sirenix.OdinInspector.Button()]
     public void FillAllTrigger()
@@ -53,6 +54,39 @@ public class PNJ_Manager : MonoBehaviour
             allTrigger.Add(zT);
         }
     }
+    [Sirenix.OdinInspector.Button()]
+    public void FillAllSFX_Pnj()
+    {
+        allPnjSFX.Clear();
+        foreach (SFX_Pnj zT in FindObjectsOfType<SFX_Pnj>())
+        {
+            allPnjSFX.Add(zT);
+        }
+    }
+
+    public void StartDialog()
+    {
+        foreach (SFX_Pnj sfx in allPnjSFX)
+        {
+            sfx.StartDialog();
+        }
+    }
+    public void FinishDialog()
+    {
+        foreach (SFX_Pnj sfx in allPnjSFX)
+        {
+            sfx.FinishDialog();
+        }
+    }
+
+    public void Victory(float timeOfVictory)
+    {
+        foreach (SFX_Pnj sfx in allPnjSFX)
+        {
+            sfx.Victory(timeOfVictory);
+        }
+    }
+
 
     public class PNJ_Manager_Save
     {
