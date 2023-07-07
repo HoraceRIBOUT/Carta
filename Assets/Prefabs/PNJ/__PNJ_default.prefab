@@ -199,17 +199,21 @@ MonoBehaviour:
   nextDialog: []
   giveFail_Dial: {fileID: 0}
   showFail_Dial: {fileID: 0}
+  visual_parent: {fileID: 1241996217455768275}
   animator: {fileID: 6252156859856202171}
   visuals: []
   visualIndex: 0
   face: {fileID: 0}
-  cameraPoints: []
+  cameraPoints:
+  - {fileID: 1241996217725011015}
+  actionButt_parent: {fileID: 7679797230920837598}
   actionButt_On: 0
   actionButt_Val: 0
   actionButt_speed: 3
   actionButt_visual_key: {fileID: 2496742374631876822}
   actionButt_visual_con: {fileID: 5715823479546672908}
   actionButt_visual_exc: {fileID: 341726411951315018}
+  interactionZone_parent: {fileID: 1241996217976206096}
   saveData:
     id: 0
     visualsIndex: 0

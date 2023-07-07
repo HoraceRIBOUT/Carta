@@ -550,7 +550,7 @@ public class PlayerMovement : MonoBehaviour
                 if (Vector3.Dot(Vector3.down, impactNormal) <= 0)
                 {
                     float landingIntensity = Vector3.Dot(collision.impulse, Vector3.up) * collision.impulse.y;
-                    Debug.Log("Impact : " + landingIntensity);
+                    //Debug.Log("Impact : " + landingIntensity);
                     landingStress += landingIntensity / landingIntensityMax;
                     canJump = true;
                 }

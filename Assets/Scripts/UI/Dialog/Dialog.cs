@@ -30,6 +30,7 @@ public class Dialog : ScriptableObject
         return true;
     }
 
+    [Sirenix.OdinInspector.Button()]
     public void ReIndex()
     {
         for (int i = 0; i < allSteps.Count; i++)

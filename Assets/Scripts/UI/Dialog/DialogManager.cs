@@ -181,7 +181,6 @@ public class DialogManager : MonoBehaviour
         //maybe not that effect ? espcially if it's the basic response like : idle, give Fail or show Fail.
         //blackWhite.weight = dialog.IsAlreadyRead() ? 1 : 0;
         inventoryBlock = !inventoryToggle; //we block inventory if we send us "false" for toggling the inventory
-        Debug.Log("inventoryBlock = " + inventoryBlock);
 
         GameManager.instance.pnjManager.StartDialog();
 
@@ -327,7 +326,7 @@ public class DialogManager : MonoBehaviour
         {
             currentText.Open(data.text, Color.black, "");
             lastTalkingPNJ = pnj.pnjID.None;
-            GameManager.instance.dialogMng.currentPNJ.LineEnd();
+            currentPNJ.LineEnd();
             return;
             //no people talking so don't need the rest.
         }
@@ -382,12 +381,10 @@ public class DialogManager : MonoBehaviour
         canClick = false;
         bool tmp_inventoryBlock = inventoryBlock;
         inventoryBlock = true;
-        Debug.Log("add i tem : block inv' : " + inventoryBlock);
 
         yield return new WaitForSeconds(2.2f);
         canClick = true;
         inventoryBlock = tmp_inventoryBlock;
-        Debug.Log("finish add i tem : block inv' : " + inventoryBlock);
         NextStep();
     }
 
@@ -399,7 +396,6 @@ public class DialogManager : MonoBehaviour
             GameManager.instance.inventory.Retract();
         }
         inventoryBlock = !itemInteraciv.itemInvoCanBeOpen;
-        Debug.Log("block : " + inventoryBlock);
     }
 
     public void LaunchAnimation(Step.Step_Animation data)
@@ -487,7 +483,6 @@ public class DialogManager : MonoBehaviour
     {
         buttonAnimator.SetBool("Button", true);
         inventoryBlock = true;
-        Debug.Log("display choice : block inv' " + inventoryBlock);
         Cursor.lockState = CursorLockMode.None;
 
         choiceInMemory = data;

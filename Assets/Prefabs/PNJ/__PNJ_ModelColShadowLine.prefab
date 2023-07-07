@@ -894,6 +894,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f1ff6ad8d86c6c34a99e0ced071d62c8, type: 2}
     - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+      propertyPath: visual_parent
+      value: 
+      objectReference: {fileID: 1469771666427868194}
+    - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
       propertyPath: defaultColor.b
       value: 0.3018868
       objectReference: {fileID: 0}
@@ -909,6 +913,10 @@ PrefabInstance:
       propertyPath: defaultReaction
       value: 
       objectReference: {fileID: 11400000, guid: 7f1e3b8ffa8e0274791b4b3c71b8ca5a, type: 2}
+    - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+      propertyPath: actionButt_parent
+      value: 
+      objectReference: {fileID: 8056314754682662703}
     - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
       propertyPath: giveReaction_Fail
       value: 
@@ -937,6 +945,10 @@ PrefabInstance:
       propertyPath: nextDialog.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+      propertyPath: interactionZone_parent
+      value: 
+      objectReference: {fileID: 1469771668054357473}
     - target: {fileID: 1241996217963848328, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
       propertyPath: cameraPoints.Array.size
       value: 1
@@ -1031,6 +1043,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 203612016704053548}
   m_SourcePrefab: {fileID: 100100000, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+--- !u!4 &1469771666427868194 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1241996217455768275, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+  m_PrefabInstance: {fileID: 385578325282227953}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1469771667770786485 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1241996217725011012, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
@@ -1074,8 +1091,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1241996217725011015, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
   m_PrefabInstance: {fileID: 385578325282227953}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1469771668054357473 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1241996217976206096, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+  m_PrefabInstance: {fileID: 385578325282227953}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2317798260443869583 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2698676856199051134, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
+  m_PrefabInstance: {fileID: 385578325282227953}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8056314754682662703 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7679797230920837598, guid: 1c2c1356e99fdd145af2f74fb1d9b7d2, type: 3}
   m_PrefabInstance: {fileID: 385578325282227953}
   m_PrefabAsset: {fileID: 0}

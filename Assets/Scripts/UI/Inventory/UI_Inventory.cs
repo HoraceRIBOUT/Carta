@@ -351,7 +351,6 @@ public class UI_Inventory : MonoBehaviour
                 else
                     GameManager.instance.dialogMng.StartDialog(react.responseGive);
 
-                GameManager.instance.dialogMng.StartDialog(react.responseGive);
                 Retract();
                 giveCorout = null;
                 yield break;
@@ -460,6 +459,11 @@ public class UI_Inventory : MonoBehaviour
         if (deployingRoutine != null)
             StopCoroutine(deployingRoutine);
         deployingRoutine = StartCoroutine(Deploy_Corout(true));
+
+        foreach (UI_ItemBox itBox in allBox)
+        {
+            itBox.ChangeGivePrompt();
+        }
 
         allBox[0].Deploy();
         //here, if in dialog : show and give

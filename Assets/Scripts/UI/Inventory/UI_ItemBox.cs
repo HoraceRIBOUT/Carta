@@ -6,6 +6,7 @@ using UnityEngine;
 public class UI_ItemBox : MonoBehaviour
 {
     public bool currentlyMiddle = false;
+    private bool alreadyDelivered = true;
 
     public CanvasGroup promptList;
     public GameObject promptGive;
@@ -28,6 +29,7 @@ public class UI_ItemBox : MonoBehaviour
         itemName.text = item.nameDisplay;
         itemIcon.sprite = item.icon;
 
+        alreadyDelivered = delivered;
         promptGive.SetActive(!delivered && GameManager.instance.dialogMng.inDialog);
         ChangePromptToCorrectDevice();
         if (delivered)
@@ -99,6 +101,10 @@ public class UI_ItemBox : MonoBehaviour
         }
     }
 
+    public void ChangeGivePrompt()
+    {
+        promptGive.SetActive(!alreadyDelivered && GameManager.instance.dialogMng.inDialog);
+    }
 
     public void ChangePromptToCorrectDevice()
     {

@@ -77,14 +77,22 @@ public class pnj : MonoBehaviour
     public Dialog showFail_Dial;  //when you show a not-in-the-list item
 
     [Header("Visual")]
+    [SerializeField] private Transform visual_parent;
     [SerializeField] private Animator animator;
     public List<Visual_Position> visuals = new List<Visual_Position>();
-     public int visualIndex = 0;
+    [Sirenix.OdinInspector.InlineButton("FillWithCurrentPos", "Fill")]
+    [Sirenix.OdinInspector.InlineButton("ChangeVisual", "Change")]
+    public int visualIndex = 0;
+    private int visualIndex_mem = 0;
     [System.Serializable]
     public struct Visual_Position
     {
-        public List<GameObject> toTurnOn;
-        public Camera newCameraZero;
+        //in it : visual 
+        public List<GameObject> toTurnOn; //so , we turn off when changing.
+        public Transform newVisualPosition;
+        public Transform newActionButton;
+        public Transform newInteractZone;
+        public Transform newCameraDefaut;
     }
     public pnj_face face = null;
 
@@ -92,6 +100,7 @@ public class pnj : MonoBehaviour
 
 
     [Header("Action Button")]
+    [SerializeField] private Transform actionButt_parent;
     [SerializeField] private bool actionButt_On = false;
     [SerializeField] private float actionButt_Val = 0;
     [SerializeField] private float actionButt_speed = 3;
@@ -99,6 +108,7 @@ public class pnj : MonoBehaviour
     [SerializeField] private SpriteRenderer actionButt_visual_key;
     [SerializeField] private SpriteRenderer actionButt_visual_con;
     [SerializeField] private SpriteRenderer actionButt_visual_exc;
+    [SerializeField] private Transform interactionZone_parent;
 
     [Header("SaveData")]
     [Sirenix.OdinInspector.ReadOnly()] public PNJ_SaveData saveData;
@@ -307,15 +317,26 @@ public class pnj : MonoBehaviour
         animator.SetBool("Blabla", false);
     }
 
+    private void ChangeVisual()
+    {
+        ChangeVisual(visualIndex);
+    }
     public void ChangeVisual(int index)
     {
-        if (index == visualIndex)
+        if (index == visualIndex_mem)
             return; //No need
-        if(index < 0 || index >= visuals.Count)
+        if (index < 0 || index >= visuals.Count)
         {
-            Debug.LogError("Try change visual of "+id + " to index " + index + " but only have "+ visuals.Count + " visual.");
+            Debug.LogError("Try change visual of " + id + " to index " + index + " but only have " + visuals.Count + " visual.");
+            visualIndex = Mathf.Clamp(index, 0, visuals.Count);
         }
-        foreach(GameObject gO in visuals[visualIndex].toTurnOn) 
+        if (visuals.Count == 0)
+        {
+            visualIndex_mem = visualIndex;
+            return;
+        }
+
+        foreach(GameObject gO in visuals[visualIndex_mem].toTurnOn) 
         {
             gO.SetActive(false);
         }
@@ -324,12 +345,55 @@ public class pnj : MonoBehaviour
         {
             gO.SetActive(true);
         }
+        
+        visual_parent.position              = visuals[index].newVisualPosition.transform.position;
+        visual_parent.rotation              = visuals[index].newVisualPosition.transform.rotation;
+        visual_parent.localScale            = visuals[index].newVisualPosition.transform.localScale;
 
-        cameraPoints[0] = visuals[index].newCameraZero.transform; 
+        interactionZone_parent.position     = visuals[index].newInteractZone.transform.position;
+        interactionZone_parent.rotation     = visuals[index].newInteractZone.transform.rotation;
+        interactionZone_parent.localScale   = visuals[index].newInteractZone.transform.localScale;
+
+        actionButt_parent.position          = visuals[index].newActionButton.transform.position;
+        actionButt_parent.rotation          = visuals[index].newActionButton.transform.rotation;
+        actionButt_parent.localScale        = visuals[index].newActionButton.transform.localScale;
+
+        cameraPoints[0].position            = visuals[index].newCameraDefaut.transform.position; 
+        cameraPoints[0].rotation            = visuals[index].newCameraDefaut.transform.rotation; 
+        cameraPoints[0].localScale          = visuals[index].newCameraDefaut.transform.localScale; 
+
+
         visualIndex = index;
-        StartCameraForDialog();
+        visualIndex_mem = visualIndex;
+
+        if (Application.isPlaying)
+            StartCameraForDialog();
 
     }
+
+    public void FillWithCurrentPos()
+    {
+        if (visuals.Count == 0)
+            return;
+        
+        visuals[visualIndex].newVisualPosition.transform.position     =   visual_parent.position              ;
+        visuals[visualIndex].newVisualPosition.transform.rotation     =   visual_parent.rotation              ;
+        visuals[visualIndex].newVisualPosition.transform.localScale   =   visual_parent.localScale            ;
+                                                             
+        visuals[visualIndex].newInteractZone.transform.position       =   interactionZone_parent.position     ;
+        visuals[visualIndex].newInteractZone.transform.rotation       =   interactionZone_parent.rotation     ;
+        visuals[visualIndex].newInteractZone.transform.localScale     =   interactionZone_parent.localScale   ;
+                                                              
+        visuals[visualIndex].newActionButton.transform.position       =   actionButt_parent.position          ;
+        visuals[visualIndex].newActionButton.transform.rotation       =   actionButt_parent.rotation          ;
+        visuals[visualIndex].newActionButton.transform.localScale     =   actionButt_parent.localScale        ;
+                                                              
+        visuals[visualIndex].newCameraDefaut.transform.position       =   cameraPoints[0].position            ; 
+        visuals[visualIndex].newCameraDefaut.transform.rotation       =   cameraPoints[0].rotation            ;
+        visuals[visualIndex].newCameraDefaut.transform.localScale     =   cameraPoints[0].localScale          ; 
+
+    }
+
 
 
     public void ChangeIcon(bool controllerIcon)
