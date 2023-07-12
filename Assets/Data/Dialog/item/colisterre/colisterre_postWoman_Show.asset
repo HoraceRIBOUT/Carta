@@ -79,7 +79,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 1
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -145,7 +145,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 2
+  - index: 0
     alreadyRead: 0
     type: 13
     dialog_Data:
@@ -191,8 +191,8 @@ MonoBehaviour:
         color_override: {r: 0, g: 0, b: 0, a: 0}
         pnj_override: 0
       redirectNumberIfYes: 3
-      redirectNumberStopYes: 3
-      redirectNumberAfterYes: 4
+      redirectNumberStopYes: -2
+      redirectNumberAfterYes: -1
       redirectYes:
         dialogToGo: {fileID: 0}
       typeNo: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 3
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -277,7 +277,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 4
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:

@@ -556,6 +556,7 @@ public class DialogManager : MonoBehaviour
         currentPNJ = null;
         dialogAnimator.SetBool("Open", false);
         GameManager.instance.cameraMng.UnSetSecondaryTarget();
+        GameManager.instance.cameraMng.UnSetThirdariesTarget();
         //May need a delay here
         foreach (DialogBox dialBox in dialogTexts)
         {

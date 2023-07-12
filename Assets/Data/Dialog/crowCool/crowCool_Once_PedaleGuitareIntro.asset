@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Eh, p'tit gars !
@@ -79,7 +79,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "J'ai trouv\xE9 \xE7a dans les d\xE9chets qui semblent en parfait \xE9tat
@@ -145,7 +145,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 2
     dialog_Data:
       text: 
@@ -210,7 +210,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Tu pourrais le filer \xE0 notre musicos local ? Il doit \xEAtre en ville,
@@ -276,7 +276,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Merci, p'tit gars !

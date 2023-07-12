@@ -31,12 +31,15 @@ newDial	Tuto_03_FactriceColis	postWoman
 			additem	colisterre			
 				Impressionnant ! Tu peux les porter sans souci et sans que ça t'encombre ! Parfait ça ! 			
 				Je te donne rendez-vous à la poste, je t'en dirais plus une fois là bas !			
+			camera	1			
 				C'est le gros bâtiment avec les portes noires, derrière l'usine. Je serais sur le toit de la poste, à côté de la tour avec le long câble qui pend.			
+			camera	0			
 				Mais si tu préfères te ballader un peu avant, n'hésites pas ! Je t'attendrai sur mon toit.			
 				Tu peux même livrer les deux carton si ça te tentes ! Les magasins sont sur la place de la fontaine.			
 				Allez, à toute p'tit automate !			
 				...			
 				Et sache que j'suis contente de te voir fonctionner ! C'était pas gagner.			
+			changevisual	postWoman	0		
 newDial	Tuto_04_PremierTournee	postWoman					
 			dialog	Parfait, tu as trouvé la poste ! Normalement, je ne bougerai pas d'ici, si tu me cherches, je serais là toute la journée !			
 				Voici la suite du courrier à distribuer :			
@@ -95,7 +98,7 @@ giveRes	colisterre	flowerMom
 showRes	colisterre	postWoman					
 			dialog	Oh, pour celui là, tu peux deviner à qui livrer. Soit attentif à l'entourage des gens.			
 				Est-ce que tu veux un peu plus d'aide ou tu veux essayer de livrer juste avec cet indice ?			
-			choice	YES :	99	No :	Tu es bien courageux ! J'aime ça ! Bonne chance p'tit automate !
+			choice	YES :	102	No :	Tu es bien courageux ! J'aime ça ! Bonne chance p'tit automate !
 			dialog	Et bien, cette terre sers à faire pousser des fleurs. La personne que tu dois livrer à pleins de cartons ainsi autour d'elle, parfois fleuri.			
 			dialog	J'en dis pas plus, je veux que tu y arrives par toi même !			
 showRes	colisterre	climbrDad					
@@ -105,7 +108,7 @@ showRes	colisterre	climbrDad
 	commandefleur						
 showRes	commandefleur	postWoman					
 			dialog	Très bien ! Cette lettre est une commande pour le magasin de fleur. C'est le gros bâtiment plus bas avec des fleurs dessus.			
-			camera	1			
+			camera	2			
 			dialog	Tu devrais le voir d'ici !			
 				Une fois dedans, devrais y avoir la vendeuse de fleur : Héloisa.			
 				Si elle s'occupe pas de client, tu la verra surement en train de s'occuper de la compta. (Elle gère la compta de son magasin ET de la ville.)			
@@ -132,7 +135,7 @@ giveRes	commandefleur	climbrDad
 showRes	lettreconcert	postWoman					
 			dialog	Oh c'est une lettre pour Sabri ça ! 			
 				Tu sembles déjà savoir où livrer ça, tu veux quand même plus d'info ?			
-			choice	Yes:	135	No:	T'es un bon, j'ai confiance en toi !
+			choice	Yes:	138	No:	T'es un bon, j'ai confiance en toi !
 				Tu l'a déjà rencontré. C'est la première personne qui t'a accueilli ici. Tu devrais noter les noms des gens quand ils te le donnent pour pas oublier.			
 				<Appuyez sur 1 pour ouvrir vos notes. Cliquer sur les icônes des personnes déjà rencontré pour éditer leur nom ou leur ajouter des notes.>			
 				Il doit encore être au travail, au niveau du tram, là où tu es arrivé en ville.			
@@ -189,7 +192,7 @@ zone	FootballZone	flowerKid
 				Eh ! Toi !			
 				Oui, toi ! Le robot !			
 				Tu peux venir stp ?			
-			setnextdialog	flowerKid	193	10	
+			setnextdialog	flowerKid	196	10	
 nextDial	FootballIntro	flowerKid					
 			dialog	Tiens !			
 			additem	football			
@@ -292,7 +295,7 @@ showRes	pedaleguitare	stagiaire
 				Si il est chez lui, il devrait être en train de répéter, tu devrais l'entendre de loin.			
 showRes	pedaleguitare	guitar					
 			dialog	Tiens, mais attends... Montre moi ça de plus près ?			
-			dialogredirection	Ligne :	296		
+			dialogredirection	Ligne :	299		
 giveRes	pedaleguitare	guitar					
 			dialog	Oh, c't'une pédale de guitare ?			
 				Je te parie que c'est Coolman qui te l'a filé, non ?			
@@ -327,7 +330,7 @@ zone	SecondTournee	postWoman
 				Passe me voir quand tu auras le temps !			
 			camera	0			
 			dialog	En attendant, j'vais grignoter un morceau. *Chomp chomp chomp*			
-			setnextdialog	postWoman	331	10	
+			setnextdialog	postWoman	334	10	
 nextDial	SecondTournee	postWoman					
 			dialog	*Chomp chomp chomp*			
 				Oh ! T'es *gloup* là ! Alors...			
@@ -343,9 +346,9 @@ nextDial	SecondTournee	postWoman
 				Si tu veux un point de départ, je dirais sûrement du côté de la vendeuse de babiole.			
 				Elle connais tout le monde et commande souvent des trucs bizarre.			
 				Allez ! Au boulot ! .. oh, et pour les deux lettres, montre les moi si tu veux que je te donne des indications. MAIS D'ABORD ! Le carton !			
-			setnextdialog	guitar	484	5	
-			setnextdialog	babiol	536	5	
-			setnextdialog	crowCool	570	2	
+			setnextdialog	guitar	487	5	
+			setnextdialog	babiol	539	5	
+			setnextdialog	crowCool	573	2	
 	cartoninconnu						
 showRes	cartoninconnu	postWoman					
 				Alors, ce carton là, je l'ai depuis quelques mois, voir un an. Et j'arrive pas à trouver à qui il va. J'ose pas l'ouvrir au cas où c'est personnel. 			
@@ -443,7 +446,7 @@ giveRes	lettreuniversite	stagiaire
 				J'ouvrirai la lettre plus tard.			
 				Merci encore de me l'avoir apporté.			
 	lettrecomptable						
-showRes	lettrecomptable	postWoman					
+showRes	lettrecomptable	postWoman		??? Villela plutôt que Comptable ???			
 				Oh, oui, alors, cette lettre c'est plus "pour la ville" que pour quelqu'un en particulier.			
 				Tu peux l'apporter à notre comptable. 			
 				Elle devait gérer que ses affaires, mais disons qu'elle est la meilleur ici niveau chiffre et administration.			
@@ -721,3 +724,12 @@ giveFail		crowCool
 				Retente ta chance !			
 showFail		crowCool					
 				Oula, dans quoi tu m'embarques ? Je peux rien te dire là d'ssus moi : ça m'dit strictement rien. Désolé p'tit gars !			
+nextDial	VisualTest	crowCool					
+			dialog	Yo je sers de remplacement pour le test !			
+			camera	1			
+				Normalement, tu devrais me voir ici là.			
+				...			
+			camera	2			
+			changevisual	crowCool	1		
+				Donc, comme je disais...			
+				Je suis simplement un test. C'est tout hein. Rien de plus.			

@@ -87,7 +87,7 @@ MonoBehaviour:
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
-      cameraIndex: 1
+      cameraIndex: 2
       directTP: 0
     additem_Data:
       itemId: 0
