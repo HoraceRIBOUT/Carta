@@ -84,8 +84,8 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
     public void Start()
     {
         rectTr = this.GetComponent<RectTransform>();
-        positionWhenStartDragin = this.transform.position;
-        centerPos = this.transform.position;
+        positionWhenStartDragin = rectTr.localPosition;
+        centerPos = rectTr.localPosition;
     }
 
     public void ResetPosAndScale()
@@ -135,7 +135,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         //pos
         //rot
         //scale
-        info.SetPositionRelative(newElement.transform.position - this.transform.position);
+        info.SetPositionRelative(newElement.transform.position - rectTr.localPosition);
         elementsPos.Add(info);
 
         elementsGO.Add(newElement);
@@ -163,13 +163,13 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         {
             beingDragAround = true;
             //Start drag the paper
-            positionWhenStartDragin = this.transform.position;
+            positionWhenStartDragin = rectTr.localPosition;
             mousePositionWhenStartDragin = Input.mousePosition;
         }
         else if(beingDragAround && Input.GetMouseButtonUp(0))
         {
             beingDragAround = false;
-            positionWhenStartDragin = this.transform.position;
+            positionWhenStartDragin = rectTr.localPosition;
         }
 
 
@@ -178,9 +178,10 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             //Debug.Log("mousePositionWhenStartDragin = " + mousePositionWhenStartDragin);
             Vector3 desirePosition = positionWhenStartDragin + (Input.mousePosition - mousePositionWhenStartDragin) * mouseDragSpeed;
             desirePosition = ClampedPosition(desirePosition);
-            this.transform.position = desirePosition;
+            Debug.Log("Ok so, being drag around ! " + rectTr.localPosition + " to : " + desirePosition);
+            lastMovement = rectTr.localPosition - desirePosition;
+            rectTr.localPosition = desirePosition;
 
-            lastMovement = this.transform.position - desirePosition;
         }
         else
         {
@@ -197,14 +198,17 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             {
                 UI_MaP_Icon ic = iconsGO[i];
                 IconPos icP = iconsPos[i];
-                //ic.transform.position = this.transform.position + (Vector3)icP.positionRelative;
-                //ic.transform.position = this.transform.position + (Vector3)icP.positionRelative + iconMove_Speed * iconMove_Amplitude * this.transform.localScale.x;
+                //ic.transform.position = rectTr.localPosition + (Vector3)icP.positionRelative;
+                //ic.transform.position = rectTr.localPosition + (Vector3)icP.positionRelative + iconMove_Speed * iconMove_Amplitude * this.transform.localScale.x;
                 // * this.transform.localScale.x + iconMove_Speed * iconMove_Amplitude;
             }
         }
 
+        Debug.Log("Try change scale : " + Input.mouseScrollDelta.y);
         if (Input.mouseScrollDelta.y != 0 && OveringMe())
         {
+
+            Debug.Log("change scale : " + Input.mouseScrollDelta.y);
             this.transform.localScale += Input.mouseScrollDelta.y * mouseScrollSpeed * Time.deltaTime * Vector3.one;
 
             if(this.transform.localScale.x < mouseScrollMinMax.x)
@@ -215,13 +219,20 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             {
                 this.transform.localScale = Vector3.one * mouseScrollMinMax.y;
             }
-            this.transform.position = ClampedPosition(this.transform.position);
+            Debug.Log("Ok so : zoomed in " + rectTr.localPosition + " to : " + ClampedPosition(rectTr.localPosition));
+            rectTr.localPosition = ClampedPosition(rectTr.localPosition);
         }
     }
 
     public Vector2 minMaxPos = new Vector2(200, 100);
     private Vector2 centerPos;
     private Vector4 relativeMinMaxPos;
+
+    [Sirenix.OdinInspector.Button]
+    public void ClampCurrentPosition()
+    {
+        rectTr.localPosition = ClampedPosition(rectTr.localPosition);
+    }
     public Vector3 ClampedPosition(Vector3 position)
     {
         float zoomFactor = (this.transform.localScale.x * this.transform.localScale.x);
@@ -238,7 +249,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             position.x = relativeMinMaxPos.z;
 
         if (position.y > relativeMinMaxPos.y)
-            position.y = relativeMinMaxPos.y;
+            position.y = relativeMinMaxPos.y; 
         if (position.y < relativeMinMaxPos.w)
             position.y = relativeMinMaxPos.w;
 
@@ -281,10 +292,12 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
     public void MoveDependingOnMousePosition(UI_MaP_Drag dragObject)
     {
+        Debug.Log("Move : " + rectTr.localPosition);
         if (GameManager.instance.mapAndPaper.sideTab.OveringMe())
         {
             if (currentSpeedIntensity > 0)
                 currentSpeedIntensity = Mathf.Max(0, currentSpeedIntensity - Time.deltaTime * 4);
+            Debug.Log("Early return: " + rectTr.localPosition);
             return;
         }
         //When draggedIcon is on the border of the screen, move the paper.
@@ -335,9 +348,11 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
         //Debug.Log("Full speed : " + fullSpeedSpeed + " (with " + mousePos + ")" + currentSpeedIntensity);
 
-        this.transform.position += Vector3.Lerp(Vector3.zero, fullSpeedSpeed * moveSpeedMax, currentSpeedIntensity);
+        rectTr.localPosition += Vector3.Lerp(Vector3.zero, fullSpeedSpeed * moveSpeedMax, currentSpeedIntensity);
 
-        this.transform.position = ClampedPosition(this.transform.position);
+        Debug.Log("Move : " + rectTr.localPosition + " then : " + ClampedPosition(rectTr.localPosition));
+        rectTr.localPosition = ClampedPosition(rectTr.localPosition);
+
     }
 
 
