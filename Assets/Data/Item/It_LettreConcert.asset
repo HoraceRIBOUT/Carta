@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: It_LettreConcert
   m_EditorClassIdentifier: 
   id: 25
-  nameDisplay: Casque audio
+  nameDisplay: Lettre pour Sabri
   icon: {fileID: 21300000, guid: 363a2742af7aba4458bb32ef7fe1498c, type: 3}
   tags: 17
   targets:

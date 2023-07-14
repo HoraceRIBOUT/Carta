@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: It_LettreJustice
   m_EditorClassIdentifier: 
   id: 26
-  nameDisplay: Lettre de la justice
+  nameDisplay: Lettre de justice
   icon: {fileID: 21300000, guid: a376abb95f4b58440b988ac0985510bd, type: 3}
   tags: 1
   targets:

@@ -499,6 +499,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ratioFromTheRect: 0
   ratio: 0.33
+  alwaysUpdateSize: 0
+  scaleur: 1
   myRectTransform: {fileID: 0}
   myText: {fileID: 0}
   myTMP_Text: {fileID: 0}
@@ -879,8 +881,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Show
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 703c18f4c7ffffc4b8a00ec3202eb45b, type: 2}
-  m_sharedMaterial: {fileID: -4744589093072057650, guid: 703c18f4c7ffffc4b8a00ec3202eb45b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
+  m_sharedMaterial: {fileID: -4744589093072057650, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1016,8 +1018,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Give
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 703c18f4c7ffffc4b8a00ec3202eb45b, type: 2}
-  m_sharedMaterial: {fileID: -4744589093072057650, guid: 703c18f4c7ffffc4b8a00ec3202eb45b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
+  m_sharedMaterial: {fileID: -4744589093072057650, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1791,8 +1793,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Go back
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 703c18f4c7ffffc4b8a00ec3202eb45b, type: 2}
-  m_sharedMaterial: {fileID: -4744589093072057650, guid: 703c18f4c7ffffc4b8a00ec3202eb45b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
+  m_sharedMaterial: {fileID: -4744589093072057650, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
