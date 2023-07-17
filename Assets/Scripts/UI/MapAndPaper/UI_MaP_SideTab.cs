@@ -266,8 +266,33 @@ public class UI_MaP_SideTab : UI_MaP_IconDropZone
         {
             if(data.id == iconId)
             {
-                pnjToDeploy.Add(iconId);
+                if (DemoPNJ(iconId))
+                {
+                    pnjToDeploy.Add(iconId);
+                }
+
             }
+        }
+    }
+
+    public bool DemoPNJ(pnj.pnjID iconId)
+    {
+        switch (iconId)
+        {
+            case pnj.pnjID.postWoman:
+            case pnj.pnjID.guitar:
+            case pnj.pnjID.babiol:
+            case pnj.pnjID.flowerMom:
+            case pnj.pnjID.climbrDad:
+            case pnj.pnjID.stagiaire:
+            case pnj.pnjID.flowerKid:
+            case pnj.pnjID.crowCool:
+            case pnj.pnjID.tomb_grandad:
+            case pnj.pnjID.tomb_mom:
+            case pnj.pnjID.tomb_infant:
+                return true;
+            default:
+                return false;
         }
     }
 

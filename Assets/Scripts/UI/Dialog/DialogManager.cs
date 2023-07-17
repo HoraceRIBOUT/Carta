@@ -155,6 +155,12 @@ public class DialogManager : MonoBehaviour
                 //if the mouse is on the lower part of the screen : up ! else : down.
                 alphaValue = 0.8f;
                 positionValue = Screen.height * underMouseValue * Vector3.down + Screen.width * 0.5f * Vector3.left;
+                
+                //badly place but still cool
+                if (Input.GetMouseButtonDown(0))
+                {
+                    GameManager.instance.mapAndPaper.IM_Close();
+                }
             }
         }
         else if (GameManager.instance.inventory.inventoryDeployed)
