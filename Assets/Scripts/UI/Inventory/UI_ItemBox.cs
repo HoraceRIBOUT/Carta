@@ -10,6 +10,7 @@ public class UI_ItemBox : MonoBehaviour
 
     public CanvasGroup promptList;
     public GameObject promptGive;
+    public GameObject promptShow;
     public List<GameObject> prompt_iconController = new List<GameObject>();
     public List<GameObject> prompt_iconKeyboard = new List<GameObject>();
 
@@ -31,6 +32,7 @@ public class UI_ItemBox : MonoBehaviour
 
         alreadyDelivered = delivered;
         promptGive.SetActive(!delivered && GameManager.instance.dialogMng.inDialog);
+        promptShow.SetActive(!delivered && GameManager.instance.dialogMng.inDialog);
         ChangePromptToCorrectDevice();
         if (delivered)
         {

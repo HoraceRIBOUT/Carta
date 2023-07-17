@@ -125,8 +125,9 @@ public class CameraManager : MonoBehaviour
             UpdatePlayerCamPosition(lastXAxisValue, lastYAxisValue);
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
+            //pause?
             if (Cursor.lockState == CursorLockMode.Locked) 
                 Cursor.lockState = CursorLockMode.None;
             else

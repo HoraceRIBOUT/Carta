@@ -18,18 +18,24 @@ public class InputManager : MonoBehaviour
     {
         if (GameManager.instance.mapAndPaper.IsEditingText())
         {
-            //Only test the "enter", ignore everything else
+            //Only test the "enter" and "escape", ignore everything else
+            Try_StopEditingText();
             return;
         }
 
         if (GameManager.instance.inventory.giveCorout != null)
         {
             //only pause is valid in here
+            Try_Pause();
             return;
         }
 
-        //Need to be add : pause.
-        //Four state for now :
+
+        //if(Pause())
+        //{
+        //   Try_UnPause();
+        //} 
+        //else
         if (GameManager.instance.inventory.inventoryDeployed)
         {
             Try_MoveInventoryUpdate();
@@ -43,12 +49,11 @@ public class InputManager : MonoBehaviour
         else if (GameManager.instance.mapAndPaper.mapOpen)
         {
             Try_CloseMapAndPaper();
-
         }
         else if (GameManager.instance.dialogMng.inDialog)
-        {
-
-            if(!GameManager.instance.dialogMng.inventoryBlock)
+        {   
+            if(!GameManager.instance.dialogMng.
+                inventoryBlock)
                 Try_OpenInventory();
             Try_ValidateDialog();
             Try_OpenMapAndPaper();
@@ -65,6 +70,7 @@ public class InputManager : MonoBehaviour
             Try_OpenInventory();
             Try_TalkToPnj();
             Try_OpenMapAndPaper();
+            Try_Pause();
 
             //Dealt within PlayerMove.cs : 
             //Crouching
@@ -115,6 +121,11 @@ public class InputManager : MonoBehaviour
             ChangeIconToCorrectDevice(false);
     }
 
+    void Try_Pause()
+    {
+        //for now, empty
+    }
+
     void Try_MoveInventoryUpdate()
     {
         Vector2 inputDirection = new Vector2(
@@ -136,7 +147,7 @@ public class InputManager : MonoBehaviour
     {
         GameManager.instance.dialogMng.IM_ReachClosestOne();
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             GameManager.instance.dialogMng.IM_World();
         }
@@ -173,7 +184,7 @@ public class InputManager : MonoBehaviour
     void Try_CloseInventory()
     {
         //For now, always, no limit.
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
         {
             GameManager.instance.inventory.IM_Close();
         }
@@ -240,6 +251,12 @@ public class InputManager : MonoBehaviour
 
     void Try_CloseMapAndPaper()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.instance.mapAndPaper.IM_Close();
+            return;
+        }
+
         int openIndex = -1;
         if (Input.GetKeyDown(KeyCode.Alpha1))
             openIndex = 0;
@@ -277,6 +294,14 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    void Try_StopEditingText()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.instance.mapAndPaper.StopEditingText();
+        }
+    }
+    
 
 
 

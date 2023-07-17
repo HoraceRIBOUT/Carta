@@ -614,6 +614,7 @@ MonoBehaviour:
   currentlyMiddle: 0
   promptList: {fileID: 4958117575617559268}
   promptGive: {fileID: 4958117574812022233}
+  promptShow: {fileID: 4958117574615164984}
   prompt_iconController:
   - {fileID: 4958117575300670881}
   - {fileID: 4958117575360907077}
@@ -823,7 +824,7 @@ GameObject:
   - component: {fileID: 4958117574615164967}
   - component: {fileID: 4958117574615164966}
   m_Layer: 5
-  m_Name: Prompt (2)
+  m_Name: Prompt (2)-show
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -879,7 +880,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Show
+  m_text: Montrer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
   m_sharedMaterial: {fileID: -4744589093072057650, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
@@ -960,7 +961,7 @@ GameObject:
   - component: {fileID: 4958117574812022212}
   - component: {fileID: 4958117574812022215}
   m_Layer: 5
-  m_Name: Prompt (1)
+  m_Name: Prompt (1)give
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1016,7 +1017,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Give
+  m_text: Donner
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
   m_sharedMaterial: {fileID: -4744589093072057650, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
@@ -1735,7 +1736,7 @@ GameObject:
   - component: {fileID: 4958117575496017517}
   - component: {fileID: 4958117575496017516}
   m_Layer: 5
-  m_Name: Prompt
+  m_Name: Prompt-back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1791,7 +1792,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Go back
+  m_text: Fermer inventaire
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}
   m_sharedMaterial: {fileID: -4744589093072057650, guid: bb3d0c86fe8d2d940a599bfabbeeeef3, type: 2}

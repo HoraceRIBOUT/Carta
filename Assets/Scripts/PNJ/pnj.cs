@@ -253,6 +253,11 @@ public class pnj : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        //for now here so we can have the "!" showing easily even when too far away
+        ActionButt_UpdateVisual();
+    }
 
     public bool ReturnUpdate()
     {
@@ -446,18 +451,17 @@ public class pnj : MonoBehaviour
         while ((actionButt_On ?  actionButt_Val < 1 : actionButt_Val > 0) )
         {
             actionButt_Val += Time.deltaTime * actionButt_speed* (actionButt_On ? 1 : -1);
-            ActionButt_UpdateVisual();
             yield return new WaitForSeconds(1f / 60f);
         }
-        ActionButt_UpdateVisual();
     }
-
+    
     private void ActionButt_UpdateVisual()
     {
         actionButt_visual_con.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
         actionButt_visual_key.color = Color.Lerp(Color.white-Color.black, Color.white, actionButt_Val);
 
-        actionButt_visual_exc.color = Color.Lerp(Color.white - Color.black, Color.white, (nextDialog.Count == 0 ? 0 : actionButt_Val));
+        float computeDeltaTime = 1 - Mathf.Pow(0.5f, Time.deltaTime * 3);
+        actionButt_visual_exc.color = Color.Lerp(actionButt_visual_exc.color, (nextDialog.Count == 0 ? Color.white - Color.black : Color.white), computeDeltaTime);
     }
 
 

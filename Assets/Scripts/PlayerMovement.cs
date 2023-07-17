@@ -159,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //hold
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse1))
         {
             grapleMode_eff = !grapleMode;
         }

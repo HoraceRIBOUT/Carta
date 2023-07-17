@@ -23,7 +23,6 @@ public class UI_MapAndPaper : MonoBehaviour
     {
         if(currentEditText != null)
         {
-            Debug.Log("I call you ! Deactivation !");
             currentEditText.DeactivateInputField();
             Debug.Log("I called deactivation ! It's gfinish !");
             currentEditText = null;
