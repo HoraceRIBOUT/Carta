@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: Eh !
@@ -79,7 +79,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: Petit automate ! Par ici !

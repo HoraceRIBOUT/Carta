@@ -17,8 +17,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Non, ce n'est ni pour moi, ni pour ma famille, ni pour l'administration
-        de la ville.
+      text: 'Non, ce n''est ni pour moi, ni pour ma famille, ni pour l''administration. '
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

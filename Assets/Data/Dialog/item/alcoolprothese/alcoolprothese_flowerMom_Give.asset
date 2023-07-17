@@ -279,7 +279,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Mon bras et mon portefeuille te remercie !
+      text: Mon bras et mon portefeuille te remercient !
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

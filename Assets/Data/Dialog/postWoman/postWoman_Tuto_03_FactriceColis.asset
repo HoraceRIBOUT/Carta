@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: 'Coucou p''tit automate ! '
@@ -79,7 +79,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: 'Je suis la factrice ! C''est moi qui t''es fait venir ici. '
@@ -144,7 +144,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: Attends, j'ai 2 colis qui doivent arriver par le tram.
@@ -209,7 +209,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: '*Hmf* Ils sont trop lourds.... '
@@ -274,7 +274,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: Oh... mais dis donc...
@@ -339,7 +339,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: "Tu va pouvoir les porter ! On va tester \xE0 quel point tu es fort."
@@ -404,7 +404,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 2
     dialog_Data:
       text: 
@@ -469,7 +469,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 2
     dialog_Data:
       text: 
@@ -534,7 +534,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: "Impressionnant ! Tu peux les porter sans souci et sans que \xE7a t'encombre
@@ -600,7 +600,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: "Je te donne rendez-vous \xE0 la poste, je t'en dirais plus une fois
@@ -666,7 +666,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 1
     dialog_Data:
       text: 
@@ -731,7 +731,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: "C'est le gros b\xE2timent avec les portes noires, derri\xE8re l'usine.
@@ -798,7 +798,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 1
     dialog_Data:
       text: 
@@ -863,7 +863,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: "Mais si tu pr\xE9f\xE8res te ballader un peu avant, n'h\xE9sites pas
@@ -929,11 +929,11 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Tu peux m\xEAme livrer les deux carton si \xE7a te tentes ! Les magasins
-        sont sur la place de la fontaine."
+      text: "Tu peux m\xEAme livrer les deux carton si \xE7a te tentes ! Les deux
+        magasins sont un poil plus bas que la poste."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -995,7 +995,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: "Allez, \xE0 toute p'tit automate !"
@@ -1060,7 +1060,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: ...
@@ -1125,7 +1125,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: "Et sache que j'suis contente de te voir fonctionner ! C'\xE9tait pas
@@ -1191,7 +1191,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 1
+    alreadyRead: 0
     type: 12
     dialog_Data:
       text: 

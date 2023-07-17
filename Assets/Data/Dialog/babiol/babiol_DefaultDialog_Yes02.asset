@@ -82,8 +82,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Alors les Ludivico, ils ont l'usine qui tr\xF4ne \xE0 l'entr\xE9e de
-        la ville, et ils embauchent la moiti\xE9 de la ville."
+      text: "Alors les Ludivico, ils ont l'usine qui tr\xF4ne \xE0 l'entr\xE9e du
+        village, et ils embauchent la moiti\xE9 des villageois."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -213,8 +213,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Les Temersohn leur en veuille toujours d'avoir conclu un pacte avec ces
-        connards de continentaux.
+      text: "Les Temersohn leur en veuille toujours d'avoir conclu un pacte avec
+        les enflures qui voulait d\xE9truire nos maisons."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -279,8 +279,9 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Mais bon, ils sont moins \xE9nerv\xE9 contre les gamins, donc peut \xEAtre
-        qu'on verra les enfants Ludivico pr\xE9sent au mariage Temersohn-Ospino ?"
+      text: "Mais bon, ils sont moins \xE9nerv\xE9 contre leurs gamins, donc peut
+        \xEAtre qu'on verra les enfants Ludivico pr\xE9sent au mariage Temersohn-Ospino
+        ?"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -608,8 +609,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Mais ils aiment tout les deux les Villela-Mansour ! (c'est mon neveu
-        et sa famille)
+      text: Mais ils aiment tout les deux les Vilela-Mansour ! (c'est mon neveu et
+        sa famille)
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

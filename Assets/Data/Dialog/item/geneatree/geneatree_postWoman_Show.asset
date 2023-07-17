@@ -148,8 +148,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Si tu as besoin d'info, va voir la vendeuse de babioles. Elle connait
-        toute la ville et peut t'aider !
+      text: "Si tu as besoin d'info, va voir la vendeuse de babioles. Elle connait
+        toute les villageois et pourra s\xFBrement t'aider !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

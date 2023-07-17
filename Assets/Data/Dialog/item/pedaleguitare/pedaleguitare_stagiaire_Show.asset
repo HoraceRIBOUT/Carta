@@ -148,8 +148,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: 'Si tu le cherches, il habite dans la ville haute, pas loin d''ici en
-        fait. '
+      text: 'Si tu le cherches, il habite dans les baraquements : c''est le quartier
+        pile en face de toi quand tu sors de la gare.'
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

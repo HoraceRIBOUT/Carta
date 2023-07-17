@@ -262,8 +262,8 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
       typeNo: 0
       dialogNo:
-        text: "Prenez le temps, \xE9tires-toi, tu as le temps. Ce tram ne circule
-          plus pour les prochaines heures."
+        text: "Prends ton temps, y a rien de press\xE9. Ce tram ne circule plus pour
+          les prochaines heures. R\xE9veille toi tranquille."
         color_override: {r: 0, g: 0, b: 0, a: 0}
         pnj_override: 0
       redirectNumberIfNo: 0
@@ -646,7 +646,7 @@ MonoBehaviour:
     choice_Data:
       typeYes: 0
       dialogYes:
-        text: ...
+        text: Ah...
         color_override: {r: 0, g: 0, b: 0, a: 0}
         pnj_override: 0
       redirectNumberIfYes: 0
@@ -656,7 +656,7 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
       typeNo: 0
       dialogNo:
-        text: ...
+        text: Ah...
         color_override: {r: 0, g: 0, b: 0, a: 0}
         pnj_override: 0
       redirectNumberIfNo: 0
@@ -673,7 +673,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "J'avais pas fait gaffe que tu peux r\xE9pondre que par \"oui\" ou \"non\". "
+      text: "Tu peux r\xE9pondre que par \"oui\" ou par \"non\" en fait... J'aurais
+        du mieux formul\xE9 ma question !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -739,8 +740,7 @@ MonoBehaviour:
     type: 0
     dialog_Data:
       text: "D\xE9sol\xE9 mon pote ! J'vais te laisser, j'ai \xE0 faire. La factrice
-        t'attends s\xFBrement \xE0 la sortie de la \"\"\"\"gare\"\"\"\", pas loin
-        d'la ville."
+        t'attends s\xFBrement \xE0 la sortie, plus loin.."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

@@ -344,9 +344,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Ouais, je sais ! Depuis le temps qu'on vit ensemble, je devais r\xE9ussir
-        \xE0 lire sa langue sans souci, mais j'y arrive toujours pas ! Ne me juge
-        pas !"
+      text: "Oui, depuis le temps qu'on vit ensemble, je devais r\xE9ussir \xE0 lire
+        sa langue sans souci, mais j'y arrive toujours pas... Ne me juge pas !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -411,7 +410,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Il est dehors, au milieu des fleurs normalement, l\xE8ve la t\xEAte
+      text: "Il est dehors, au milieu des fleurs normalement. L\xE8ve la t\xEAte
         un peu et tu le verra"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0

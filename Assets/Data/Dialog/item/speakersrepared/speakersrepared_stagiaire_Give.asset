@@ -213,7 +213,7 @@ MonoBehaviour:
     type: 0
     dialog_Data:
       text: "Oh, merci de me confier ce casque qui n'est a-bso-lu-ment pas \xE0 moi,
-        mais que je vais garder pr\xE9cieusement pour la personne \xE0 qui il appartient."
+        que je garderai pr\xE9cieusement pour la personne \xE0 qui il appartient."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

@@ -345,8 +345,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "J'en ai profiter pour rajouter un chiffon si y en as plus. Il \xE9tait
-        avec et emball\xE9 donc propre."
+      text: "J'en ai profiter pour rajouter un chiffon. Il \xE9tait avec et emball\xE9
+        donc propre. C'est jamais de trop."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

@@ -84,7 +84,7 @@ MonoBehaviour:
     type: 0
     dialog_Data:
       text: "Ou alors du clan Temersohn ? Ils sont en plein mariage l\xE0 ! Mais
-        du coup, tu les croisera pas en ville..."
+        du coup, tu les croisera pas..."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -149,8 +149,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Hum... Non, aujourd'hui, il n'y a que les Mansour ou des Kamel en ville.
-        Et la factrice aussi !
+      text: "Hum... Non, aujourd'hui, il n'y a que les Mansour ou des Kamel de pr\xE9sent.
+        Et la factrice aussi !"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

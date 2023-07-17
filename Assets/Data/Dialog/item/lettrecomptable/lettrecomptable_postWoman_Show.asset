@@ -17,8 +17,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Oh, oui, alors, cette lettre c'est plus "pour la ville" que pour quelqu'un
-        en particulier.
+      text: "Ah, \xE7a, quand il marque \"pour Vilela\", faut comprendre que c'est
+        une lettre pour l'administratif, pour la municipalit\xE9..."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -83,7 +83,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Tu peux l'apporter \xE0 notre comptable. "
+      text: "Comment dire \xE7a... En gros, c'est un peu pour tout le village."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -148,8 +148,9 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Elle devait g\xE9rer que ses affaires, mais disons qu'elle est la meilleur
-        ici niveau chiffre et administration."
+      text: "On a pas de maire ici, on en voudrais pas de toute fa\xE7on, mais du
+        coup Vilela s'occupe des papiers, vu qu'elle g\xE8re d\xE9j\xE0 pour son
+        entreprise."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -214,8 +215,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Du coup, c'est elle qui g\xE8re les affaires de la ville, d\xE8s que
-        c'est un peu global."
+      text: "Mais du coup, elle croule de paperasse et passe son temps avec un stylo
+        accroch\xE9 \xE0 sa pince."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -280,8 +281,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Du coup, elle passe la journ\xE9e entour\xE9e de papier avec un stylo
-        dans sa pince."
+      text: "On lui en es tr\xE8s redevable. Elle nous \xE9vite tellement d'emmerdes
+        en v\xE9rifiant tout et en leur r\xE9pondant \xE0 chaque fois."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -346,7 +347,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: Mais qu'est-ce que son boulot est utile bon sang !
+      text: "Du coup, ram\xE8ne lui \xE7a. Reste un peu pour l'\xE9couter gueuler,
+        au cas o\xF9 elle doit renvoyer en urgence un document."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -411,7 +413,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Merci \xE0 elle d'\xEAtre l\xE0 !"
+      text: "Et si y a rien d'urgent, tu pourra continuer ta tourn\xE9e ! "
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -476,7 +478,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "J'arr\xEAte de te la vanter, va la retrouver pour lui donner la lettre."
+      text: Bonne chance !
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

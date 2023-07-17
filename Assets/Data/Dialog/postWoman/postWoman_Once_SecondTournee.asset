@@ -407,7 +407,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Ce colis, c'est un colis un peu perdu. J'ai plus l'adresse, et j'arrive
+      text: "Ce carton, c'est un colis un peu perdu. J'ai plus l'adresse, et j'arrive
         pas \xE0 savoir \xE0 qui il est destin\xE9."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0

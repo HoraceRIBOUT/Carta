@@ -213,8 +213,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Autant qu'il est sa lettre le plus t\xF4t possible tant qu'il est en
-        ville."
+      text: "Autant qu'il est sa lettre le plus t\xF4t possible tant qu'il est pas
+        reparti."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

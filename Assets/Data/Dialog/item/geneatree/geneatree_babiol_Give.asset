@@ -214,7 +214,7 @@ MonoBehaviour:
     type: 0
     dialog_Data:
       text: "Mais il a commenc\xE9 \xE0 mettre les autres familles ! C'est d\xE9j\xE0
-        une bonne base. Il y a exactement ceux pr\xE9sent en ville tiens."
+        une bonne base. Il y a exactement ceux pr\xE9sent au village tiens."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

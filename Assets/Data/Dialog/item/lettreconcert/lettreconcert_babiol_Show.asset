@@ -82,8 +82,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Tu as du mal \xE0 retrouver qui et qui ? Pas de souci. Sabri est en
-        ville normalement."
+      text: "Tu as du mal \xE0 retrouver qui et qui ? Pas de souci. Sabri est pas
+        loin normalement."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

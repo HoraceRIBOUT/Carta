@@ -1,735 +1,750 @@
-newDial	Tuto_01_Stagiaire	stagiaire					
-			dialog	Terminus !			
-			dialog	Tout l'monde descend !			
-			dialog	... Bon il reste que toi. Tout va bien ? Pas trop dur de se réveiller ?			
-			choice	Yes :	Tant mieux ! On a souvent des gens qui arrive ici car ils se sont endormis dans l'tram.	No : 	Prenez le temps, étires-toi, tu as le temps. Ce tram ne circule plus pour les prochaines heures.
-			camera	1			
-			dialog	Enfin, j'ai dis "se réveiller", mais pour un robot, c'est pas plutôt... "démarrer" ?			
-			dialog	Tu es bien LE robot qui viens remplacer la factrice, hein ? Elle m'a prévenu ce matin que tu devais arriver dans la journée.			
-			camera	0			
-			dialog	Au fait, t'es plutôt, genre... un automate détective ? Ou un robot facteur pur jus ? Ou genre entre les deux ?			
-			choice	Yes :	...	No : 	...
-			dialog	J'avais pas fait gaffe que tu peux répondre que par "oui" ou "non". 			
-			dialog	Désolé mon pote ! J'vais te laisser, j'ai à faire. La factrice t'attends sûrement à la sortie de la """"gare"""", pas loin d'la ville.			
-			dialog	Oh, et aussi...			
-			dialog	Moi c'est Sabri ! Si tu as des courrier pour moi, je devrai pas bouger d'ici avant un bon bout d'temps.			
-			dialog	<Appuyez sur 1 pour ouvrir vos notes. Sur le côté droit, vous aurez les photos des personnes que vous avez rencontrés.>			
-			dialog	<Cliquez sur les photos pour éditer les infos sur les personnages et leur ajouter un nom ou écrire des notes à leur propos.>			
-			dialog	J'espère que tu as bien noté mon nom : Sabri ! J'attends quelques lettres et j'aimerais pas trop le louper quoi...			
-			dialog	Allez, je te laisse, j'ai des cartons à sortir du tram.			
-zone	Tuto_02_FactriceZone	postWoman					
-			dialog	Eh !			
-			dialog	Petit automate ! Par ici !			
-newDial	Tuto_03_FactriceColis	postWoman					
-			dialog	Coucou p'tit automate ! 			
-				Je suis la factrice ! C'est moi qui t'es fait venir ici. 			
-				Attends, j'ai 2 colis qui doivent arriver par le tram.			
-				*Hmf* Ils sont trop lourds.... 			
-				Oh... mais dis donc...			
-				Tu va pouvoir les porter ! On va tester à quel point tu es fort.			
-			additem	colisbabiole			
-			additem	colisterre			
-				Impressionnant ! Tu peux les porter sans souci et sans que ça t'encombre ! Parfait ça ! 			
-				Je te donne rendez-vous à la poste, je t'en dirais plus une fois là bas !			
-			camera	1			
-				C'est le gros bâtiment avec les portes noires, derrière l'usine. Je serais sur le toit de la poste, à côté de la tour avec le long câble qui pend.			
-			camera	0			
-				Mais si tu préfères te ballader un peu avant, n'hésites pas ! Je t'attendrai sur mon toit.			
-				Tu peux même livrer les deux carton si ça te tentes ! Les magasins sont sur la place de la fontaine.			
-				Allez, à toute p'tit automate !			
-				...			
-				Et sache que j'suis contente de te voir fonctionner ! C'était pas gagner.			
-			changevisual	postWoman	0		
-newDial	Tuto_04_PremierTournee	postWoman					
-			dialog	Parfait, tu as trouvé la poste ! Normalement, je ne bougerai pas d'ici, si tu me cherches, je serais là toute la journée !			
-				Voici la suite du courrier à distribuer :			
-			additem	commandefleur			
-			additem	lettreconcert			
-			additem	lettrejustice			
-				Laisse moi t'expliquer : pour livrer une lettre, il suffit d'aller parler à quelqu'un.			
-				Ensuite, tu ouvre ton inventaire et tu lui donne le courier en question.			
-				Si tu te trompes, pas de souci, il te le dira, et voilà tout. Voir même, il t'aidera pour trouver à qui livrer la lettre !			
-				Oh, et du coup, pour les 3 lettres que je viens te donner, on va les utiliser pour t'entraîner !			
-				Pour que je te dise à qui les livrer, tu n'as qu'à simplement me les montrer !			
-			iteminteractivity	TRUE			
-				Là, tu peux ouvrir ton inventaire et me montrer l'une des lettres.			
-				Allez, fait pas ton timide.			
-				...			
-				Oh, tu veux tenter de les livrer sans mon aide ?			
-				Les colis, tu peux y arriver, mais les lettres... Tu manqueras d'indication pour certaines.			
-			iteminteractivity	FALSE			
-				Bon, si tu penses réussir par toi même, je te soutiens ! Et sache que je serais toujours là si tu veux des indications finalement.			
-	colisbabiole						
-giveRes	colisbabiole	babiol					
-			dialog	Oh ! Le carton du tram ! Parfait !			
-				Il sagit de pleins de petites babioles cassés que les gens veulent jetter mais qui sont encore réparables !			
-				Je m'occupe de les trier, les réparer puis les vendre ensuite. 			
-				Je laisse mon carton dans le tram et les gens les déposent au passage. C'est pratique !			
-				Bon, on a parfois de mauvaises surprises, mais comme j'ai dis : je tri.			
-				Merci en tout cas de me l'avoir apporté ! Le carton peux parfois être très lourd. 			
-showRes	colisbabiole	postWoman					
-			dialog	Ah ! Le carton de babioles ! C'est pour le magasin qui s'appelle le "Rat-commode".			
-				Il est sur la place, ouvert en grand normalement. Tu y trouvera la vendeuse de babiole.			
-				Elle répare ce qu'on lui met dans le carton puis le revend.			
-showRes	colisbabiole	climbrDad					
-			dialog	Tiens, c'est le carton pour le magasin de babiole ça non ?			
-				Penses bien à lui rendre. Elle est juste là bas !			
-			camera	1			
-			dialog	Elle est encore dans son magasin, elle bougera pas trop.			
-			camera	0			
-				Tu pourras profiter pour lui dire bonjour de ma part ?			
-				... Oh. je vois que tu peux pas. Désolé, j'suis pas toujours attentif.			
-showRes	colisbabiole	stagiaire					
-			dialog	Ouais, c'est un carton où les gens déposent leurs babioles usées ou cassées. 			
-				Et le "Rat-commode" s'occupe de les réparer, avant de les vendre !			
-				On m'ramène le carton vide le matin, je le pose dans le tram et il fait des aller retour avec.			
-				J'essaie de dire aux gens de pas jeter n'importe quoi dedans, mais bon, ils suivent pas tout le temps bien les règles.			
-				Mais j'suis content que tu sois là ! Habituellement c'est moi qui me tape le transport de ce carton et les escaliers et tout...			
-				Je sais que la factrice n'est plus en état de porter des trucs lourds, mais moi j'veux pas m'casser l'dos maintenant hein.			
-	colisterre						
-giveRes	colisterre	flowerMom					
-			dialog	Oh ! La terre est arrivé ! Merci nouveau facteur.			
-				Tu verras, on en as à peu près toutes les semaines des cartons comme ça.			
-				On a un accord avec des villageois qui sont à l'autre terminus du tram : ils nous envoient de la terre par tram, et on leur renvoie du sable.			
-				Comme ça, ici, au village; on ne se bat plus pour le peu de terre qui reste !			
-				Bon, je te laisse. Va, courageux facteur, repars répandre la paix dans notre cité !			
-				Eheh, allez, file file, j'ai du travail.			
-				Oh, aussi, avant que tu partes. Tu pourrais aller voir si mon fils à besoin de quoi que ce soit ? Il est à l'étage.			
-showRes	colisterre	postWoman					
-			dialog	Oh, pour celui là, tu peux deviner à qui livrer. Soit attentif à l'entourage des gens.			
-				Est-ce que tu veux un peu plus d'aide ou tu veux essayer de livrer juste avec cet indice ?			
-			choice	YES :	102	No :	Tu es bien courageux ! J'aime ça ! Bonne chance p'tit automate !
-			dialog	Et bien, cette terre sers à faire pousser des fleurs. La personne que tu dois livrer à pleins de cartons ainsi autour d'elle, parfois fleuri.			
-			dialog	J'en dis pas plus, je veux que tu y arrives par toi même !			
-showRes	colisterre	climbrDad					
-			dialog	Oh, c'est un des cartons de terre ! 			
-				Il a l'air frais. C'est celui d'aujourd'hui ?			
-				Apporte le à Heloisa, elle est dans le magasin là. En train de s'occuper de la compta.			
-	commandefleur						
-showRes	commandefleur	postWoman					
-			dialog	Très bien ! Cette lettre est une commande pour le magasin de fleur. C'est le gros bâtiment plus bas avec des fleurs dessus.			
-			camera	2			
-			dialog	Tu devrais le voir d'ici !			
-				Une fois dedans, devrais y avoir la vendeuse de fleur : Héloisa.			
-				Si elle s'occupe pas de client, tu la verra surement en train de s'occuper de la compta. (Elle gère la compta de son magasin ET de la ville.)			
-				Tu n'as qu'à lui donner la lettre ou lui montrer.			
-				Si elle est pas là, cherche l'autre fleuriste : Ahmed. Il devrait être dans les fleurs autour du magasin.			
-				Il s'occupe des fleurs et de les récolter et en prendre soin etc. Si il est pas trop occupé, il pourra prendre la commande aussi.			
-			camera	0			
-				Allez, je te laisse leur apporter la commande. A part si tu as d'autre courrier à me montrer ?			
-showRes	commandefleur	flowerMom					
-			dialog	Oh, une commande de fleur ! Parfait, laisse moi gérer ça !			
-				...			
-				...			
-				Tu pourrais apporter ça à Ahmed ? La commande est écrit dans sa langue.			
-				...et j'ai peur de pas tout bien lire correctement. ... Voir, de pas réussir à lire du tout certaine lignes...			
-				Ouais, je sais ! Depuis le temps qu'on vit ensemble, je devais réussir à lire sa langue sans souci, mais j'y arrive toujours pas ! Ne me juge pas !			
-				Il est dehors, au milieu des fleurs normalement, lève la tête un peu et tu le verra			
-giveRes	commandefleur	climbrDad					
-			dialog	Oh, une commande de fleur ! Parfait, laisse moi gérer ça !			
-				Oh, tiens, c'est écrit en... oh, ça, c'est sûrement des amis à ma tante qui commande !			
-				Elle s'est fait un tas de pote en ville qui vienne du même pays que notre grand père. Elle a dû les convaincre de faire leurs courses chez moi.			
-				Pas qu'j'm'en plains, hein ! En vrai, c'est vraiment cool qu'elle nous aide à avoir des clients !			
-				Merci pour la livraison p'tit robot !			
-	lettreconcert						
-showRes	lettreconcert	postWoman					
-			dialog	Oh c'est une lettre pour Sabri ça ! 			
-				Tu sembles déjà savoir où livrer ça, tu veux quand même plus d'info ?			
-			choice	Yes:	138	No:	T'es un bon, j'ai confiance en toi !
-				Tu l'a déjà rencontré. C'est la première personne qui t'a accueilli ici. Tu devrais noter les noms des gens quand ils te le donnent pour pas oublier.			
-				<Appuyez sur 1 pour ouvrir vos notes. Cliquer sur les icônes des personnes déjà rencontré pour éditer leur nom ou leur ajouter des notes.>			
-				Il doit encore être au travail, au niveau du tram, là où tu es arrivé en ville.			
-				Allez, file, et hésites pas à reparler aux gens si tu as oublié des infos !			
-showRes	lettreconcert	guitar					
-			dialog	Tiens, je connais ce logo : c'est une salle de concert en ville ! Ca m'a l'air d'être une lettre de refus.			
-				Faut dire, y a pas beaucoup d'endroit où on fait jouer des groupes indépendants dans les environs.			
-				Ils sont super sympas, mais ils ont sûrement pleins de demande.			
-				Si c'est pour Sabri, j'suis de tout coeur avec lui !			
-				En espérant qu'il trouve une salle pour jouer.			
-showRes	lettreconcert	babiol					
-			dialog	Oula, j'm'appelle pas Sabri moi ! Désolée ! 			
-				Tu as du mal à retrouver qui et qui ? Pas de souci. Sabri est en ville normalement.			
-				Tu devrais l'avoir rencontré, normalement, si tu es venue ici en tram.			
-showRes	lettreconcert	flowerMom					
-			dialog	Oh, une lettre pour Sabri ?			
-				Il doit encore être au travail je pense.			
-				Tu peux lui apporter plutôt que de nous la laisser ? Je crois qu'il doit bosser assez tard ce soir.			
-				Autant qu'il est sa lettre le plus tôt possible tant qu'il est en ville.			
-giveRes	lettreconcert	stagiaire					
-			dialog	Oh ! Parfait ! Une réponse pour ma demande de concert !			
-				Ouais, j'ai un groupe de rock ! Bon, on a jamais réussi à se produire dans une salle, mais on pense avoir le niveau pour tenter.			
-				...			
-				Bon, cette lettre là, c'est un refus, mais eh ! On a pas fini d'essayer !			
-	lettrejustice						
-showRes	lettrejustice	postWoman					
-			dialog	C'est une lettre pour Gokul, qui vient du parquet, ça.			
-				Il est en bas, si tu descend la pente derrière la poste, tu tombera forcément sur lui.			
-				Il s'occupe de surveiller la mer de déchets, et récupère parfois des trucs dedans.			
-				Au passage, si on te dis qu'on a un colis pour "Coolman", c'est de lui qu'on parle. 			
-				C'est un gamin de la ville qui l'avais appelé ainsi car il avais du mal à dire son prénom.			
-				Mais ça lui allait bien comme surnom, et du coup, on est beaucoup à l'avoir chopé, certains ajoutent même "Tonton" devant.			
-				Bref, tu sais où il est, je te laisse y aller !			
-showRes	lettrejustice	flowerKid					
-			dialog	C'est quoi cette lettre ?			
-			dialog	Gokul ? ... ça me dit quelque chose... C'est qui déjà ?			
-			dialog	Désolé, j'me souviens pas... je peux pas t'aider j'crois...			
-showRes	lettrejustice	stagiaire					
-			dialog	Une lettre pour Gokul ? 			
-			dialog	T'es pas au bonne endroit, il est bieeeeen plus loin : faut que tu fasse le tour de l'usine, là, et que tu descende la pente.			
-			dialog	Il sera en plein milieu normalement, face à la grande mer de déchet gris, là.			
-giveRes	lettrejustice	crowCool					
-			dialog	Une lettre de la justice ? Pour moi ? Fallait pas, c'est trop d'honneur !			
-				Voyons voir ce qu'il me demande.			
-				...			
-				Ouais, ok, il essaie encore de négocier.			
-				Désolé p'tit gars, c'est des embrouille de grand ça. Ils pensaient pouvoir me rouler dessus facilement.			
-				Mais j'm'y connais plus qu'ils pensaient, et maintenant, ils s'en mordent les doigts.			
-				J'vais me faire un plaisir de les emmerder autant qu'ils ont emmerder les gens de la ville !			
-				... Désolé, j'me suis emporté.			
-				Je te laisse repartir à ta tournée, tu dois avoir du travail.			
-	football						
-zone	FootballZone	flowerKid					
-				Eh ! Toi !			
-				Oui, toi ! Le robot !			
-				Tu peux venir stp ?			
-			setnextdialog	flowerKid	196	10	
-nextDial	FootballIntro	flowerKid					
-			dialog	Tiens !			
-			additem	football			
-				J'aurais besoin que tu amènes ça en bas.			
-			camera	1			
-				Là, derrière l'immeuble ! Y a un terrain de foot.			
-				Tu verras deux buts : va à celui qui est le plus loin, à côté d'un escalier. C'est celui là!			
-			camera	0			
-				Allez, allez ! Vite stp stp stp !			
-giveRes	football	flowerKid					
-			dialog	Non, non, non, me rend pas la balle.			
-				Il faut que tu la mettre dans le but !			
-			camera	1			
-				Le terrain est juste en bas, là, derrière l'immeuble.			
-			camera	0			
-				Celui à côté de l'escalier, pas celui prêt de la porte, compris ?			
-showRes	football	flowerKid					
-				Oui, oui, je te l'ai filé.			
-				Faut juste que tu l'apportes au but là bas.			
-			camera	1		1	
-				En contrebas, derrière l'immeuble.			
-				Tu verras deux buts : va à celui qui est le plus loin, à côté d'un escalier. C'est celui là!			
-			camera	1			
-				Tu te trompes pas hein ?			
-				Et le dis pas aux autres, hein ? C'est une surprise...			
-showRes	football	postWoman					
-			dialog	Oh mais c'est la balle des gamins ça !			
-			dialog	... C'est Eder qui t'as dis d'aller marquer un but ?			
-			dialog	Mais quel tricheur celui là. 			
-			dialog	Et tu va l'aider en plus n'est ce pas ? Compte pas sur moi pour te guider dans ce cas là !			
-nextDial	GeneaTreeIntro	flowerKid					
-			dialog	Merci l'robot ! 			
-				Du coup, vu que t'es revenu, tu pourrais m'aider à nouveau ?			
-				J'ai un devoir à finir là. J'dois faire un gros arbre géhénaolog... génélogi... généahologique.			
-				Bref, y a tatie qui m'a proposé de me corriger. Tu peux lui donner qu'elle vérifie ?			
-				J'ai pas envie d'mettre tromper et devoir tout recommencer...			
-				Du coup, si tu peux lui apporter, ça m'arrangerai. 			
-			additem	geneatree			
-				Si tu trouves pas tatie, montre le à papa, il te dira où elle est.			
-				Et comme ça, tu pourra même montrer à maman que j'bosse et que j'suis pas un glandeur !			
-				...			
-				Stp, montre le à maman aussi.			
-	geneatree						
-showRes	geneatree	flowerKid					
-			dialog	Oui, c'est mon arbre gén... de famille.			
-				Faudrait l'amener à tatie, elle m'a dis qu'elle pouvait m'aider.			
-				J'ai aussi mis d'autre gens qui était là, car je sais plus si ils sont de la famille ou non.			
-				Mais j'ai p'tête oubliez les absents...			
-				Oh, tu sais p'tête pas où est Tatie ? Tu peux demander à papa si tu veux !			
-showRes	geneatree	flowerMom					
-			dialog	Hum ? Oh, mais c'est le devoir sur lequel il bosse !			
-				Tu ne l'aides pas à tricher j'espère ?			
-				Bon, si c'est pour l'apporter à tatie, ça devrait aller. Je sais qu'elle trichera pas. Et elle connait vraiment tout le monde ici.			
-				Allez, apporte le vite à Zohra, j'veux pas te voir tricher.			
-showRes	geneatree	postWoman					
-			dialog	Oh, c'est quoi ?			
-				Un arbre généalogique ? Il manque les noms des gens... Mais on dirais la famille Mansour vu comme ça.			
-				Si tu as besoin d'info, va voir la vendeuse de babioles. Elle connait toute la ville et peut t'aider !			
-				Elle est en face du magasin de fleur. Va voir le casse-cou sur le magasin si tu la trouve pas, il te montrera.			
-showRes	geneatree	climbrDad					
-			dialog	Oh, mais c'est le devoir d'Eder ça ? Tata m'avais dis qu'elle pouvait l'aider.			
-				Attends, je te montre où elle est :			
-			camera	1			
-				Tu vois, dans la p'tite boutique juste là ? C'est ma tata !			
-			dialog	COUCOU JE SUIS LA TATA !	#3F3F3F		
-			dialog	ET MOI C'EST LE NEVEU !			
-			camera	0			
-			dialog	Elle a toujours eu de l'humour. Et heureusement qu'elle a ça.			
-				JE T'ENTENDS TOUJOURS ! SALIGAUD !	#3F3F3F		
-			dialog	Allez, je te laisse filer, va donner le papier.			
-giveRes	geneatree	babiol					
-			dialog	C'est quoi ce bout de papier ?			
-				Oh ! Le devoir de généalogie ! Il a déjà bien avancé la famille, on est quasiment au complet.			
-				Il a pas encore mis les prénoms, mais c'est pas grave.			
-				Mais il a commencé à mettre les autres familles ! C'est déjà une bonne base. Il y a exactement ceux présent en ville tiens.			
-				Oh, mais au passage. Tu pourrais aussi essayer de t'amuser à le remplir toi !			
-			unlockpaper	2			
-				<Vous avez débloquez l'arbre généalogique.>			
-				<Appuyez sur 3 pour l'ouvrir. Vous pouvez glissez les icônes des personnages n'importe où sur le papier.>			
-				Ca pourra peut être te servir pour mieux savoir qui et qui ! En espérant que tu arrives à le remplir en entier. 			
-				Bon, par contre, je pourrai pas te le valider, ça serait injuste envers Eder.			
-				Bonne chance à toi !			
-	pedaleguitare						
-nextDial	PedaleGuitareIntro	crowCool					
-			dialog	Eh, p'tit gars !			
-				J'ai trouvé ça dans les déchets qui semblent en parfait état d'marche.			
-			additem	pedaleguitare			
-				Tu pourrais le filer à notre musicos local ? Il doit être en ville, sûrement en train de jouer.			
-				Merci, p'tit gars !			
-showRes	pedaleguitare	crowCool					
-			dialog	Ouais, c'est un truc de musique, j'ai oublié le terme technique.			
-				Mais ça coute une blinde c'est p'tite merde !			
-			dialog	Et les gens ils jettent ça comme ça ! Non, mais c'est hallucinant, j'te jure.			
-				Heureusement que je tombe dessus, j'suis sur ça fera plaisir au musicien.			
-				Il est sûrement chez lui, à son balcon à cette heure-ci.			
-showRes	pedaleguitare	stagiaire					
-			dialog	Oh, c'est une pédale de guitare ça ?			
-				Sûrement pour Nadir, ça, non ? Il arrive toujours à se dégoter du matos de musique pas cher.			
-				Si tu le cherches, il habite dans la ville haute, pas loin d'ici en fait. 			
-				Si il est chez lui, il devrait être en train de répéter, tu devrais l'entendre de loin.			
-showRes	pedaleguitare	guitar					
-			dialog	Tiens, mais attends... Montre moi ça de plus près ?			
-			dialogredirection	Ligne :	299		
-giveRes	pedaleguitare	guitar					
-			dialog	Oh, c't'une pédale de guitare ?			
-				Je te parie que c'est Coolman qui te l'a filé, non ?			
-				J'avoue que celui ci est en très bon état.			
-				J'essaierai de le brancher plus tard. P'tête qu'il pourra servir pour le groupe de Sabri et Letícia.			
-				En tout cas, merci de me l'avoir apporté !  Tu m'feras penser à remercier Coolman plus tard !			
-				AH ! Tant que je t'ai !			
-				Tu pourrais apporter ceci au casse-cou ? Ca le protègera sûrement plus que son chapeau de mariage !			
-			additem	sitehelmet			
-				Merci beaucoup ! Tu me débarasse !			
-	sitehelmet						
-giveRes	sitehelmet	climbrDad					
-			dialog	Oh, un casque de chantier ? Où est-ce que tu as trouvé ça ?			
-				J'en avais demandé un à Jamal vu que l'usine est fermé.			
-				Oh ! Mais je t'ai vu sur la terrasse des Kamel tout à l'heure ! Son frère doit y être, et il a dû te le refiler ! 			
-				Ok, ok je remet les pièces du puzzle en place. 			
-				Bah merci de me l'avoir filé ! Je le glisserai sous mon chapeau plus tard dans la journée, ça m'évitera des accidents cons.			
-showRes	sitehelmet	guitar					
-			dialog	C'est un casque de sécurité de l'usine. Mon p'tit frère me l'a confié pour le refiler à l'autre casse-cou, là.			
-			dialog	J'suis sûr que ça lui ira bien, son chapeau de mariage est à peine un poil plus beau !			
-			dialog	...			
-			dialog	Lui dis pas que j'ai dis ça, il pourrais me tuer pour ça. Ou pire. Ne plus m'inviter à manger chez lui !			
-showRes	sitehelmet	postWoman					
-			dialog	Hm ? Un casque de sécurité ? Ca appartient à l'usine ça.			
-			dialog	Tu l'a pas volé hein ? Ou alors, c'est quelqu'un qui t'a demandé de le livrer ?			
-			dialog	Dans ce cas, je peux pas t'aider. Mais hésites pas à retourner voir la personne en question et lui re-montrer ! 			
-			dialog	Il te redira sûrement les instructions plus succintement.			
-	Seconde livraison						
-zone	SecondTournee	postWoman					
-			camera	3			
-				Eh ! M'sieur le facteur ! J'ai du courrier pour vous ! C'est la seconde tournée !			
-				Passe me voir quand tu auras le temps !			
-			camera	0			
-			dialog	En attendant, j'vais grignoter un morceau. *Chomp chomp chomp*			
-			setnextdialog	postWoman	334	10	
-nextDial	SecondTournee	postWoman					
-			dialog	*Chomp chomp chomp*			
-				Oh ! T'es *gloup* là ! Alors...			
-				J'ai deux lettres à livrer. Et un truc... particulier.			
-			additem	lettreuniversite			
-			additem	lettrecomptable			
-			additem	cartoninconnu			
-			dialog	Ce colis, c'est un colis un peu perdu. J'ai plus l'adresse, et j'arrive pas à savoir à qui il est destiné.			
-				Ca fait plusieurs mois que je l'ai et j'ai pas de réponse ! 			
-				Et maintenant... j'ose plus trop le livrer. Ca fait tellement longtemps, et c'est entièrement ma faute. J'ai pas envie qu'on m'en veuille.			
-				Du coup, je retarde la livraison. Et du coup j'ai encore plus honte.			
-				MAIS ! Maintenant que tu l'as ! Tu va pouvoir le livrer ! Donc j'ai une bonne excuse pour enfin le livrer !			
-				Si tu veux un point de départ, je dirais sûrement du côté de la vendeuse de babiole.			
-				Elle connais tout le monde et commande souvent des trucs bizarre.			
-				Allez ! Au boulot ! .. oh, et pour les deux lettres, montre les moi si tu veux que je te donne des indications. MAIS D'ABORD ! Le carton !			
-			setnextdialog	guitar	487	5	
-			setnextdialog	babiol	539	5	
-			setnextdialog	crowCool	573	2	
-	cartoninconnu						
-showRes	cartoninconnu	postWoman					
-				Alors, ce carton là, je l'ai depuis quelques mois, voir un an. Et j'arrive pas à trouver à qui il va. J'ose pas l'ouvrir au cas où c'est personnel. 			
-				Est-ce que tu pourrais t'en occuper ? Je pense que pour démarrer, le mieux, ça serait de demander à la vendeuse de babioles.			
-				Elle achète pas mal de truc en ligne, et sinon, elle adore espionner les p'tits achats des autres.			
-				Si quelqu'un sait qui a acheter ça, c'est sûrement elle.			
-giveRes	cartoninconnu	postWoman					
-			dialog	Hum ? Pourquoi tu veux me le donner ? C'est un colis à livrer, et j'ai rien comman...			
-				Oh.			
-				Attends.			
-				Mais oui, c'est les bottes ! J'avais totalement oublié.			
-				Rahman m'a aidé pour en acheter, mais j'avais pas tout compris à la fin. 			
-				Et bien elles sont enfin arrivés ! Fiou, merci d'avoir résolu cette énigme.			
-				J'espère que c'était pas trop compliqué comme livraison. Tu m'a bien aidé là ! Merci !			
-showRes	cartoninconnu	babiol					
-			dialog	Oh, un carton ? J'crois avoir rien commandé d'aussi gros récemment. Je surveille bien mes dépenses en plus.			
-				Ouais, je confirme, ça n'est pas pour moi, c'est trop emballé, ça doit être un truc fragile, genre les engins du musicien.			
-				Ouais, c'est sûrement pour lui. Va le voir, il t'aidera plus que moi.			
-showRes	cartoninconnu	guitar					
-			dialog	Tiens, une commande pour moi ? 			
-				Ah, non, eheh. C'est bien trop petit par rapport à ce que j'achète d'habitude et pas assez emballée si c'était un p'tit truc.			
-				P'tête que le stagiaire voulait acheter un truc ? J'parie que c'est ça !			
-showRes	cartoninconnu	stagiaire					
-			dialog	Un colis pour moi ? Oh non, j'ai pas assez d'argent pour ça moi ! Et je suis toute les grosses livraisons, je le saurais si j'en avais loupé une.			
-				Va plutôt voir mon p'tit frère, il est jeune et con, ça m'étonnerai zéro qu'il est oublié un colis.			
-showRes	cartoninconnu	flowerKid					
-			dialog	Hein ? Un colis ? Je commande rien moi. Ou alors j'passe par maman ! 			
-				Mais on dirais les cartons que maman utilise... Genre ceux pleins de terre là. Faudrait lui demander.			
-showRes	cartoninconnu	flowerMom					
-			dialog	Oh, un autre carton de terre ! 			
-				Ah non, c'est juste le même emballage. 			
-				Oh ! T'essaie de trouver à qui il faut le livrer c'est ça ? Désolée, les cartons viennent pas de moi ! On les récupères de l'autre bout du tram.			
-				Faudrait que tu demande à mon casse-cou là haut, pour qu'il t'en dise plus.			
-showRes	cartoninconnu	climbrDad					
-			dialog	Tiens, un colis pour moi ?			
-				Ah, non ! Je commande pas chez eux.			
-				C'est un peu un truc de luxe.			
-				Enfin, non, pas de luxe. C'est genre de la bonne qualité mais ça coûte quoi.			
-				En ville, c'est assez populaire parmis ceux qui bossent beaucoup. C'est de la qualité. C'est même pour ça qu'on utilise leur carton.			
-				C'est le Tonton Cool qui me l'a recommandé à la base ! Il a pas mal acheté de truc chez eux quand ils étaient encore en ville, justement.			
-				Ah. Mais c'est sûrement un colis pour lui du coup ! Tu peux lui amener ? 			
-				Il est encore en train de bosser en haut de ces échasses, au niveau de la mer à déchet là !			
-showRes	cartoninconnu	crowCool					
-			dialog	Un colis pour moi ! J'adore les cadeaux, merci Robot Noël ! 			
-				Ah non, c'est un vieux colis ça. Il a l'air d'avoir quelques mois, voir plus. 			
-				Je commande chez eux parfois, c'est d'la qualité, mais j'ai rien commandé depuis plus d'un an.			
-				...			
-				AH ! Mais oui ! 			
-				Dieumene me piquait mes bottes, pour son dos et ses jambes. J'ai fini par lui donner les références et lui avancer un peu d'argent...			
-				...pour qu'elle s'en achète ses propres bottes ! (ça dure 10 ans ces belles merdes)			
-				Vu son boulot qui la fait courir partout, c'était plus qu'indispensable !			
-				Mais elle est vraiment pas doué avec les commande en ligne j'ai l'impression. L'informatique, c'est pas son corps de métier.			
-				Mais ouais, j'pense à 99% que c'est son colis en fait.			
-				Tu veux bien lui ramener steuplaît ? 			
-				Tu lui diras que je suis son père Noël !			
-	lettreuniversite						
-showRes	lettreuniversite	postWoman		(TO DO : plus subtile)			
-				Ok, celle la est une lettre de l'université pour "Monsieur Mansour".			
-				J'essaie de pas m'imiscer dans ces affaires, surtout que j'ai pas fait d'école, mais j'espère juste qu'il tient bon. 			
-				Bosser aussi jeune, c'pas une bonne chose. J'le sais bien, j'ai commencé à 15 ans. Pas vraiment de gré.			
-				Mais j'aimerais qu'il profite de sa jeunesse. Comme son frère.			
-				Je sais qu'il se met une pression folle en plus, et les soucis d'argent aident pas. 			
-				J'espère vraiment qu'il tient bon.			
-showRes	lettreuniversite	babiol					
-			dialog	L'université ? J'suis un peu trop vieille pour ça !			
-				Même si on me donne 20 ans d'moins que je n'ai réelement à ce qu'il paraît~			
-showRes	lettreuniversite	flowerMom					
-			dialog	Une lettre de l'université ?			
-				C'est pour "Monsieur" Mansour, loupé, j'suis une madame.			
-				Et j'ai un peu plus qu'un seul nom de famille tu sais. 			
-				Bon, techniquement, lui aussi, mais ils ont tendance à garder que le nom du père.			
-				Désolée, j'arrête de râler. Va apporter cette lettre à "Monsieur Mansour", c'est pas pour moi.			
-				Et je préfère qu'il l'est en premier. Si c'est important, il viendra nous en parler par lui même. Je lui fait confiance.			
-showRes	lettreuniversite	flowerKid					
-			dialog	Une lettre pour l'université ?			
-				... J'ai 10 ans.			
-				Et j'ai pas envie d'aller à l'université ! J'ai pas encore rattrapé mon retard ! Y a encore la voisine qui a 8 ans et qui lit mieux qu'moi !!!			
-				Pitié, j'veux pas de travail, j'ai encore des parties de foot à finir !			
-showRes	lettreuniversite	climbrDad					
-			dialog	Oula, une lettre de l'université ? Pour moi ?			
-				Est-ce que ma thèse sur les couleurs des fleurs et les gouts des clients a enfin était reconnu ???			
-				Je rigole, j'ai jamais touché à une université même de loin. C'est sûrement pour mon gamin. Va lui remettre, il l'attend sûrement.			
-giveRes	lettreuniversite	stagiaire					
-			dialog	...			
-				...			
-				...			
-				Oui c'est pour moi, mais j'pense déjà savoir pour quoi c'est.			
-				J'ai loupé trop de cours, et ils me virent sûrement de ces cessions.			
-				Je l'avais pris en option car j'aimais vraiment ça. Mais j'dois bosser au tram tard avant de revenir au campus en vélo pour le suivre.			
-				Du coup, j'arrivais tout le temps en retard, voir, après que tout le monde est fini.			
-				Les autres m'ont prévenus que le prof voulait dégager ceux qui venait pas assez.			
-				Mais j'peux vraiment pas arrêter de bosser au tram. Il est le seul boulot entièrement compatible avec mes cours et mon job du week-end.			
-				J'espère juste que ça concerne que les cours en option, et pas aussi ceux que je loupe parfois le matin...			
-				...			
-				J'ouvrirai la lettre plus tard.			
-				Merci encore de me l'avoir apporté.			
-	lettrecomptable						
-showRes	lettrecomptable	postWoman		??? Villela plutôt que Comptable ???			
-				Oh, oui, alors, cette lettre c'est plus "pour la ville" que pour quelqu'un en particulier.			
-				Tu peux l'apporter à notre comptable. 			
-				Elle devait gérer que ses affaires, mais disons qu'elle est la meilleur ici niveau chiffre et administration.			
-				Du coup, c'est elle qui gère les affaires de la ville, dès que c'est un peu global.			
-				Du coup, elle passe la journée entourée de papier avec un stylo dans sa pince.			
-				Mais qu'est-ce que son boulot est utile bon sang !			
-				Merci à elle d'être là !			
-				J'arrête de te la vanter, va la retrouver pour lui donner la lettre.			
-showRes	lettrecomptable	babiol					
-			dialog	Ah ! De la compta !			
-				Tout mais pas ça !			
-				Vade retro !			
-showRes	lettrecomptable	guitar					
-			dialog	Oula, ça vient de l'état ça ?			
-				Ou alors de la région ?			
-				Ils nous veulent encore de la merde ? Eh, si tu sais pas à qui livrer ça, une bonne destination, c'est la poubelle.			
-showRes	lettrecomptable	stagiaire					
-			dialog	...			
-				J'ai une tête à gérer l'administration ?			
-				... En vrai, en uniforme, oui, j'ai sûrement une tête à gérer l'admin...			
-				Mais en réalité : je gère rien ! Aaaaaaaaaaaah !!!			
-showRes	lettrecomptable	climbrDad					
-			dialog	Oulalala, si y a plus de 3 chiffres, moi, j'y arrives pas !			
-				J'ai déjà essayer, j'ai foiré en beauté. 			
-				Je veux pas recommencer cette douloureuse expérience.			
-showRes	lettrecomptable	crowCool					
-			dialog	Ah, une lettre de l'état ça.			
-				J'en ai assez vu, moins je m'en occupe, mieux j'me porte.			
-				Si tu cherches celle qui dois s'en occuper, elle est chez elle en ce moment.			
-giveRes	lettrecomptable	flowerMom					
-			dialog	Et une lettre de l'état en plus ! Ils veulent quoi aujourd'hui ?			
-				... "nous vous faisons part"... nanana... "entre le 25 et le 27 du présent mois"... nanani... "une somme maximal de"...			
-				Ouais, ils veulent trouver un moyen de nous taxer mais savent pas comment s'y prendre.			
-				J'ai pas encore fini de remplir les bilans comptables des différentes entreprises, je garde ça pour plus tard.			
-				D'ailleurs, j't'appellerai sûrement à l'aide à ce moment là ! Mais les gens sont pas encore levé, donc rassure toi : tu peux respirer.			
-				En attendant, merci de la livraison. Tu peux aller finir ta tournée.			
-	demandechrys						
-nextDial	demandechrys	guitar					
-			dialog	Eh petit. J'aurais besoin de ton aide.			
-				Apporte ça à la vendeuse de fleur, s'il te plaît.			
-			additem	demandechrys			
-				Elle te donnera des fleurs en retour, toute roses, un peu bizarres.			
-				J'aimerais que tu les apportes ensuite à Aicha, pour remplacer ses fleurs mortes. Elle repose sur la falaise, là, au côté de son père.			
-				Tu peux faire ça pour moi ? J'ai le dos en compote et ça m'ferait plaisir.			
-				Et à Aicha aussi sûrement.			
-showRes	demandechrys	guitar					
-			dialog	C'est pour la fleuriste. Tu vois pas qui c'est ? Dans leur magasin recouvert de fleur ?			
-				Tu le donne à Héloisa, elle te rendra un bouquet de fleur. Il faudra les apporter pour Aicha, sur la falaise.			
-showRes	demandechrys	postWoman					
-			dialog	Une demande de fleur ? C'est pour les fleuristes ça ! Tu te souviens plus où c'est ?			
-				Le bâtiment recouvert de fleur, tu peux le voir d'ici !			
-				Si c'est une commande, donne là à Heloisa à l'intérieur : c'est elle qui gère tout ce qui est compta du magasin (et un peu de la ville aussi).			
-showRes	demandechrys	climbrDad					
-			dialog	Oh, c'est pour une demande de chrysantème ça ? Je reconnais l'écriture !			
-				Merci de l'aider, ça m'fait chaud au coeur.			
-showRes	demandechrys	babiol					
-			dialog	Alors, moi je ne vend pas de fleur.			
-				Mais j'a-dore savoir qui achètes quoi !			
-				Oh, c'est de notre musicien locale ça ? 			
-				Ooooh, il est chou. Il veux continuer à s'occuper des fleurs d'Aicha. 			
-				Tu me feras penser à lui dire que c'est plus de son âge ! Il a le corps encore plus cassé que moi !			
-				Allez, va donner ça à Heloisa !			
-giveRes	demandechrys	flowerMom					
-			dialog	Ah , une commande de fleur ? C'est pour qui c'coup ci ?			
-				Oh, c'est les chrysanthème pour Aicha.			
-				C'est vrai que Nadir était proche d'elle. Ils on grandit ensemble je crois ? Même si il est parti sur le continent assez jeune. 			
-				En tout cas, voilà les fleurs, elles sont déjà préparés. Tu sauras retrouver Aicha ? 			
-			additem	chrysentheme			
-				Je t'avouerai ne pas trop avoir envie de t'accompagner... J'y suis déjà aller y a pas très longtemps.			
-	chrysentheme						
-showRes	chrysentheme	flowerMom					
-			dialog	Je t'avoue que j'ai été surpris : on m'avais dis que selon la tradition, on n'amenait pas de fleurs à ces événements là, du côté de mon mari.			
-				Mais lorsque je suis arrivée, quasiment tout le monde en avais. 			
-				Mais je crois que c'est parce que Aicha adorait les fleurs.			
-				Oh, tu sais pas où c'est ? Va voir celui qui t'a donné la commande, il t'expliquera mieux que moi !			
-				Et comme ça, tu aura déjà fait la moitié du chemin aussi.			
-showRes	chrysentheme	climbrDad					
-			dialog	C'est pour Aicha ? Merci de t'en occuper. 			
-				Habituellement, c'est notre ami musicien qui s'en occupe, mais avec l'âge, ça devient difficile pour lui.			
-				Merci de l'aider p'tit bonhomme !			
-showRes	chrysentheme	babiol					
-			dialog	Oh elles sont belles !			
-				Ce sont celles pour Aicha n'est ce pas ?			
-				Continue ton chemin. En grimpant un peu, tu devrais voir la falaise où elle se repose			
-showRes	chrysentheme	guitar					
-				Ah, tu as les fleurs ! Parfait ! 			
-				Tu peux les apporter là bas ? Au bout de la falaise, tu trouveras Aida. 			
-				Merci encore de m'aider ! 			
-	speakersrepared						
-nextDial	speakersrepared	babiol					
-			dialog	Tu tombes bien toi ! 			
-				J'ai eu les pièces détachés pour réparer le casque de Nadir. Tu pourrais lui ramener ?			
-			additem	speakersrepared			
-				Il est sûrement chez lui, sur son balcon en ce moment.			
-showRes	speakersrepared	babiol					
-			dialog	C'était assez simple à réparer, il aurait pu le faire lui-même je pense.			
-				Mais il manquait de pièce. Elles sont arrivés ce matin, dans un joli carton ~			
-				Sous la forme d'un casque qui n'avais qu'une oreille qui marchait !			
-				Facile à réparer, et heureuse de servir !			
-showRes	speakersrepared	postWoman					
-			dialog	Oh, un casque audio ? Il semble avoir était bidouillé.			
-				C'est le travail de Zohra, ça, non ?			
-				Ca se voit au couture là où c'est pas nécessaire. Elle as appris que très récemment à souder, tu sais ! C'est pas sa spécialité, et pourtant...			
-				Oui, j'ai tendance à connaître et reconnaître beaucoup de p'tit truc, et même des petits secrets.			
-				Par exemple, je sais pour qui est réelement destiné ce casque...			
-				Allez, file le livrer.			
-showRes	speakersrepared	guitar					
-				Ah ! Il est réparé ! Parfait ! 			
-				T'es un robot, tu peux pas répéter de secret n'est-ce pas ?			
-				Pas la peine de répondre, je te fais confiance : ce casque est pas à moi, j'aimerais que tu l'amènes à son proprio.			
-				Le stagiaire. Il est sûrement encore devant son boulot au cas où.			
-				J'ai fait croire que c'était mon casque pour pas que sa tatie sache qu'il c'est acheté un casque aussi cher.			
-				Enfin, surtout pour pas qu'elle répète aux parents.			
-				Il sait l'importance de l'argent, mais il voulais vraiment se faire plaisir un grand coup. Juste un p'tit coup.			
-				Et bon, ça touchait à la musique : forcément que j'allais l'aider !			
-				Allez, va lui apporter.			
-giveRes	speakersrepared	stagiaire					
-			dialog	Hm ? Oh, c'est un beau casque, là. De la bonne qualité.			
-				... AH ! MAIS C'EST LE M...			
-				*Hum hum.*			
-				Oh, merci de me confier ce casque qui n'est a-bso-lu-ment pas à moi, mais que je vais garder précieusement pour la personne à qui il appartient.			
-				J'en prendrais grand soin ! ... Et testerai que son son soit toujours de bonne qualité avant de le rendre. 			
-	alcoolprothese						
-nextDial	alcoolprothese	crowCool					
-			dialog	Oh, te revoilà. J'ai une autre trouvaille !			
-				De l'alcool ! Désynfectant ET compatible pour silicone et/ou métaux !			
-				Pile ce qu'il faut pour une prothèse de bras droit ! (ne marche pas pour nettoyer une prothèse bras gauche, bien entendu)			
-			additem	alcoolprothese			
-				Tu peux lui amener s'il te plaît ? Je pense qu'y en as en réserve, mais je sais que l'entretien : ça peux vite coûter un cul.			
-				J'en ai profiter pour rajouter un chiffon si y en as plus. Il était avec et emballé donc propre.			
-showRes	alcoolprothese	crowCool					
-			dialog	Ca arrive souvent de trouver des produits comme ça, jeter ici.			
-				C'est une vrai décharge dangereuse. Je m'occupe de repousser les produits vraiment trop toxique plus loin.			
-				Mais quand c'est bien fermé et jamais utilisé comme ceci, ça m'arrange bien.			
-				D'ailleurs, je te parie que ça appartient à un mort ça, et que la famille l'a juste jeter au pif pour se débarasser.			
-showRes	alcoolprothese	postWoman					
-				Tiens, c'est quoi cette bouteille ?			
-				Hm... Ca a l'air d'être un produit un peu luxueux. Ou au moins coûteux.			
-				Ah, ça sers à nettoyer des prothèse !			
-				J'ignore où tu l'a récupéré, mais j'pense savoir à qui ça peux être utile. 			
-				Cherche quelqu'un en ville qui a un bras droit un peu différent de son gauche, et tu devrais trouver de qui j'parle.			
-showRes	alcoolprothese	flowerKid					
-			dialog	Oh ? De l'alcool pour nettoyer ? 			
-				Oh, j'en ai pas besoin, mon fauteuil roulant est un peu coincé dans cette chambre en vrai. 			
-				J'l'utilise surtout quand je vais en ville et pour aller du bureau à mon lit.			
-				Donc il se salit pas tant qu'ça. 			
-				Mais c'est gentil de m'proposer !			
-				... au fait...			
-				... ça se boit ?			
-				...			
-				Stp laisse moi essayer !			
-			choice	redirectDialog	flowerKid_alcoolprothese_giveADrink	No:	Ooooh t'es pas drôle.
-				De toute façon, c'était une mauvaise idée.			
-newDial	alcoolprothese_giveADrink	flowerKid		TO DO : (truc cool à faire : ajouter alcoolprothese à moitié vide) (même réactin que alcool prothèse, SAUF que enfant refuse de revoir ça ET que flower mom ajoutera à la fin un "... mais pourquoi la bouteille est à moitié vide au fait ?" 			
-			dialog	Ouais !			
-				Gloup, gloup, gloup.			
-				...			
-				BAH !!!!!!			
-				... Ok, tiens, reprends la, et le dis à personne.			
-giveRes	alcoolprothese	flowerMom					
-			dialog	Tiens, c'est quoi ça ?			
-				Eh, mais c'est du nettoyant ! Et pas un truc de merde.			
-				Attends, ça a passait ça date de péremption ? Mais c'est de l'alcool. Depuis quand ça périme ?			
-				Ouais, je le testerai plus tard. Merci de m'avoir trouvé ça petit robot !			
-				Mon bras et mon portefeuille te remercie !			
-	Per character :						
-	idle :						
-idleDial		postWoman					
-				Qu'y a t'il petit automate ?			
-				Tu as besoin d'aide pour livrer certaines lettres ou courier ?			
-				N'hésites pas à me les montrer.			
-				<Appuyez sur E durant une conversation pour ouvrir votre inventaire, et naviguer entre les colis avec les fléches haut et bas.>			
-				<Appuyez ensuite sur ENTREE pour donner un courrier que vous souhaitez livrer, ou sur ESPACE si vous voulez seulement montrer votre colis.>			
-				Oh, au passage...			
-				Sache que tu peux montrer les colis déjà livrer afin de revoir ce que les gens aurait dit sur le colis.			
-				On adore radoter dans les environs, alors te gêne pas. Ca permet de pas oublier les p'tits détails qu'on laisse passer la première fois.			
-giveFail		postWoman					
-			dialog	Non, ce n'est pas pour moi.			
-				Et je ne livrerai pas ce colis à ta place, il faut que tu apprennes à faire ce travail.			
-showFail		postWoman					
-			dialog	Tiens... Je ne saurais pas t'aider à livrer ça. 			
-				Bien joué pour m'avoir posé une colle ! ... En espérant que tu l'a volé à personne.			
-idleDial		guitar					
-			dialog	Hm...?			
-				J'suis en pleine impro, tu peux m'interrompre, ne t'inquiètes pas.			
-				Mais si tu n'as rien pour moi, je vais continuer à jouer. N'hésites pas à rester pour profiter ! J'aime avoir un petit public.			
-giveFail		guitar					
-			dialog	T'es gentil mais c'est pas pour moi. 			
-showFail		guitar					
-			dialog	Oula, ça m'dit rien ça. J'peux pas t'aider !			
-idleDial		babiol					
-			dialog	Bienvenue au "Rat-commode" ! Ici, on racommode, recoud et répare les petits objets ou babioles en tout genre !			
-				Et si vous avez des ragots, je suis toujours preneuse. Eheheheh.			
-				Que voulez-vous ?			
-				On peux discuter si vous voulez !			
-			choice	redirectDialog	babiol_DefaultDialog_Yes01	no:	Pas de souci ! Tu as du travail !
-			dialog	Je te laisse tranquille mon p'tit !			
-newDial	DefaultDialog_Yes01	babiol					
-			dialog	Oh, alors par où commencer ? J'pourrais te parler de l'usine Ludivico que tu as forcément vu en arrivant...			
-				Ou alors du clan Temersohn ? Ils sont en plein mariage là ! Mais du coup, tu les croisera pas en ville...			
-				Hum... Non, aujourd'hui, il n'y a que les Mansour ou des Kamel en ville. Et la factrice aussi !			
-				Doit y avoir aussi le tonton Cool qui traîne du côté de la mer d'ordure. 			
-				Mais c'est tout. Nous sommes en petit comité pour une fois !			
-				Je vais pas trop te retenir non plus.			
-			dialog	Je pense pas que tu as envie que je t'embête avec mes histoires qui ne te serviront à rien. A moins que tu veuille que je continue ?			
-			choice	redirectDialog	babiol_DefaultDialog_Yes02	no :	Pas de souci, comme je t'ai dis, c'est juste pour discuter, ça te servira à rien de savoir tout ça. 
-			dialog	Allez, tu as du boulot ! Bonne chance !			
-newDial	DefaultDialog_Yes02	babiol					
-			dialog	Oooh tu m'fais plaisir !			
-			dialog	Alors les Ludivico, ils ont l'usine qui trône à l'entrée de la ville, et ils embauchent la moitié de la ville.			
-			dialog	Mais il faut savoir qu'ils sont en froid avec le clan Temersohn. 			
-				Les Temersohn leur en veuille toujours d'avoir conclu un pacte avec ces connards de continentaux.			
-			dialog	Mais bon, ils sont moins énervé contre les gamins, donc peut être qu'on verra les enfants Ludivico présent au mariage Temersohn-Ospino ?			
-			dialog	C'est quand même pas tout les jours que le p'tit frère du patriarche se marie !			
-				 ... Enfin, non, pardon, le patriarche, c'est le forgeron. C'est lui le plus vieux. ... Je crois.			
-				Et il le diras jamais, mais... il est content de voir Ospino se marié.			
-				Bref, tout ça pour dire que Ludivico et Temersohn ? Ils sont pas ami-ami.			
-				Mais ils aiment tout les deux les Villela-Mansour ! (c'est mon neveu et sa famille)			
-				... Faut dire, personne peut leur en vouloir de ce qu'il s'est passé.			
-				Ahmed était dévasté et Heloi n'était pas mieux. Ils sont intelligents ! Très ! Et doués ! ... Mais on peux tous se faire avoir.			
-				J'ai pas réussi à les aider, et je pense que à leur place, j'aurais céder tout autant.			
-				Bref, je t'embête pas avec ça, tu as des colis à livrer.			
-				N'hésite pas à revenir me voir, j'ai besoin de radoter parfois.			
-				Ca me fait du bien.			
-				Merci de m'aider à bien aller !			
-				Allez, file bosser !			
-giveFail		babiol					
-			dialog	Oh, mon chou, mais ce n'est pas pour moi. 			
-				Et si je le revend, celui à qui c'est destiné ne va pas m'aimer ! ... Et c'est mauvais pour le karma, ça.			
-showFail		babiol					
-				Désolée mon chou... Je peux pas t'aider : ça, ça ne me dit rien.			
-idleDial		flowerMom					
-			dialog	Bonjour ? C'est pour ?			
-			dialog	Le remplaçant de la factrice n'est ce pas ? 			
-			dialog	N'hésites pas si tu a du courrier pour moi !			
-giveFail		flowerMom					
-				Non, ce n'est ni pour moi, ni pour ma famille, ni pour l'administration de la ville.			
-showFail		flowerMom					
-				Désolé j'suis un peu occupé, et ça ne me dis rien. Faudra que tu te débrouilles sans moi.			
-idleDial		climbrDad					
-			dialog	Oui, c'est pour quoi ?			
-			dialog	Si je n'entends pas de bruit, je considère que je peux retourner au travail !			
-giveFail		climbrDad					
-			dialog	Oh, loupé, c'est pas pour moi.			
-				J'espère que tu trouvera le bon destinataire petit bonhomme !			
-showFail		climbrDad					
-			dialog	Oula, ça m'dis rien ça. Désolée, j'peux pas t'aider !			
-idleDial		stagiaire					
-			dialog	Toujours pas de courrier pour moi ?			
-			dialog	Noublie pas, moi c'est Sabri !			
-				<Appuyez sur 1 pour ouvrir vos notes n'importe quand.>			
-				<Et cliquez sur la photo du personnage pour y ajouter des notes.>			
-			dialog	J'espère que tu t'accomodes bien de la ville. Elle est construite un peu bizarrement à c'qu'il paraît.			
-giveFail		stagiaire					
-			dialog	Un colis pour moi ! Cool ! Ah- ah non. Ce n'est pas pour moi.			
-				Je te le rend du coup... Tant pis.			
-showFail		stagiaire					
-			dialog	Pft, ça m'dis rien. 			
-				Bonne chance pour l'livrer.			
-idleDial		flowerKid					
-			dialog	Yo l'automate ! Du neuf ?			
-			dialog	Non ? Va chercher du neuf pour moi stp alors !			
-giveFail		flowerKid					
-			dialog	Non non, c'est pas pour moi.			
-showFail		flowerKid					
-			dialog	C'est quoi ? ... C'est pour qui ? ... J'comprends rien...			
-idleDial		crowCool					
-			dialog	Et on creuse ~ 			
-				Et on tri ~!			
-				Et on jette...			
-				Et on recommence !			
-				<Il semble concentrer sur son travail.>			
-giveFail		crowCool					
-				Non, c'est pas pour moi ça p'tit gars !			
-				Retente ta chance !			
-showFail		crowCool					
-				Oula, dans quoi tu m'embarques ? Je peux rien te dire là d'ssus moi : ça m'dit strictement rien. Désolé p'tit gars !			
-nextDial	VisualTest	crowCool					
-			dialog	Yo je sers de remplacement pour le test !			
-			camera	1			
-				Normalement, tu devrais me voir ici là.			
-				...			
-			camera	2			
-			changevisual	crowCool	1		
-				Donc, comme je disais...			
-				Je suis simplement un test. C'est tout hein. Rien de plus.			
+newDial	Tuto_01_Stagiaire	stagiaire							
+			dialog	Terminus !					
+			dialog	Tout l'monde descend !					
+			dialog	... Bon il reste que toi. Tout va bien ? Pas trop dur de se réveiller ?					
+			choice	Yes :	Tant mieux ! On a souvent des gens qui arrive ici car ils se sont endormis dans l'tram.	No : 	Prends ton temps, y a rien de pressé. Ce tram ne circule plus pour les prochaines heures. Réveille toi tranquille.		
+			camera	1					
+			dialog	Enfin, j'ai dis "se réveiller", mais pour un robot, c'est pas plutôt... "démarrer" ?					
+			dialog	Tu es bien LE robot qui viens remplacer la factrice, hein ? Elle m'a prévenu ce matin que tu devais arriver dans la journée.					
+			camera	0					
+			dialog	Au fait, t'es plutôt, genre... un automate détective ? Ou un robot facteur pur jus ? Ou genre entre les deux ?					
+			choice	Yes :	Ah...	No : 	Ah...		
+			dialog	Tu peux répondre que par "oui" ou par "non" en fait... J'aurais du mieux formulé ma question !					
+			dialog	Désolé mon pote ! J'vais te laisser, j'ai à faire. La factrice t'attends sûrement à la sortie, plus loin..					
+			dialog	Oh, et aussi...					
+			dialog	Moi c'est Sabri ! Si tu as des courrier pour moi, je devrai pas bouger d'ici avant un bon bout d'temps.					
+			dialog	<Appuyez sur 1 pour ouvrir vos notes. Sur le côté droit, vous aurez les photos des personnes que vous avez rencontrés.>					
+			dialog	<Cliquez sur les photos pour éditer les infos sur les personnages et leur ajouter un nom ou écrire des notes à leur propos.>					
+			dialog	J'espère que tu as bien noté mon nom : Sabri ! J'attends quelques lettres et j'aimerais pas trop le louper quoi...					
+			dialog	Allez, je te laisse, j'ai des cartons à sortir du tram.					
+zone	Tuto_02_FactriceZone	postWoman							
+			dialog	Eh !					
+			dialog	Petit automate ! Par ici !					
+newDial	Tuto_03_FactriceColis	postWoman							
+			dialog	Coucou p'tit automate ! 					
+				Je suis la factrice ! C'est moi qui t'es fait venir ici. 					
+				Attends, j'ai 2 colis qui doivent arriver par le tram.					
+				*Hmf* Ils sont trop lourds.... 					
+				Oh... mais dis donc...					
+				Tu va pouvoir les porter ! On va tester à quel point tu es fort.					
+			additem	colisbabiole					
+			additem	colisterre					
+				Impressionnant ! Tu peux les porter sans souci et sans que ça t'encombre ! Parfait ça ! 					
+				Je te donne rendez-vous à la poste, je t'en dirais plus une fois là bas !					
+			camera	1					
+				C'est le gros bâtiment avec les portes noires, derrière l'usine. Je serais sur le toit de la poste, à côté de la tour avec le long câble qui pend.					
+			camera	0					
+				Mais si tu préfères te ballader un peu avant, n'hésites pas ! Je t'attendrai sur mon toit.					
+				Tu peux même livrer les deux carton si ça te tentes ! Les deux magasins sont un poil plus bas que la poste.					
+				Allez, à toute p'tit automate !					
+				...					
+				Et sache que j'suis contente de te voir fonctionner ! C'était pas gagner.					
+			changevisual	postWoman	0				
+newDial	Tuto_04_PremierTournee	postWoman							
+			dialog	Parfait, tu as trouvé la poste ! Normalement, je ne bougerai pas d'ici, si tu me cherches, je serais là toute la journée !					
+				Voici la suite du courrier à distribuer :					
+			additem	commandefleur					
+			additem	lettreconcert					
+			additem	lettrejustice					
+				Laisse moi t'expliquer : pour livrer une lettre, il suffit d'aller parler à quelqu'un.					
+				Ensuite, tu ouvre ton inventaire et tu lui donne le courier en question.					
+				Si tu te trompes, pas de souci, il te le dira, et voilà tout. Voir même, il t'aidera pour trouver à qui livrer la lettre !					
+				Oh, et du coup, pour les 3 lettres que je viens te donner, on va les utiliser pour t'entraîner !					
+				Pour que je te dise à qui les livrer, tu n'as qu'à simplement me les montrer !					
+			iteminteractivity	TRUE					
+				Là, tu peux ouvrir ton inventaire et me montrer l'une des lettres.					
+				Allez, fait pas ton timide.					
+				...					
+				Oh, tu veux tenter de les livrer sans mon aide ?					
+				Les colis, tu peux y arriver, mais les lettres... Tu manqueras d'indication pour certaines.					
+			iteminteractivity	FALSE					
+				Bon, si tu penses réussir par toi même, je te soutiens ! Et sache que je serais toujours là si tu veux des indications finalement.					
+	colisbabiole								
+giveRes	colisbabiole	babiol							
+			dialog	Oh ! Le carton du tram ! Parfait !					
+				Il sagit de pleins de petites babioles cassés que les gens veulent jetter mais qui sont encore réparables !					
+				Je m'occupe de les trier, les réparer puis les vendre ensuite. 					
+				Je laisse mon carton dans le tram et les gens les déposent au passage. C'est pratique !					
+				Bon, on a parfois de mauvaises surprises, mais comme j'ai dis : je tri.					
+				Merci en tout cas de me l'avoir apporté ! Le carton peux parfois être très lourd. 					
+showRes	colisbabiole	postWoman							
+			dialog	Ah ! Le carton de babioles ! C'est pour le magasin qui s'appelle le "Rat-commode".					
+				Il est sur la place, ouvert en grand normalement. Tu y trouvera la vendeuse de babiole.					
+				Elle répare ce qu'on lui met dans le carton puis le revend.					
+showRes	colisbabiole	climbrDad							
+			dialog	Tiens, c'est le carton pour le magasin de babiole ça non ?					
+				Penses bien à lui rendre. Elle est juste là bas !					
+			camera	1					
+			dialog	Elle est encore dans son magasin, elle bougera pas trop.					
+			camera	0					
+				Tu pourras profiter pour lui dire bonjour de ma part ?					
+				... Oh. je vois que tu peux pas. Désolé, j'suis pas toujours attentif.					
+showRes	colisbabiole	stagiaire							
+			dialog	Ouais, c'est un carton où les gens déposent leurs babioles usées ou cassées. 					
+				Et le "Rat-commode" s'occupe de les réparer, avant de les vendre !					
+				On m'ramène le carton vide le matin, je le pose dans le tram et il fait des aller retour avec.					
+				J'essaie de dire aux gens de pas jeter n'importe quoi dedans, mais bon, ils suivent pas tout le temps bien les règles.					
+				Mais j'suis content que tu sois là ! Habituellement c'est moi qui me tape le transport de ce carton et les escaliers et tout...					
+				Je sais que la factrice n'est plus en état de porter des trucs lourds, mais moi j'veux pas m'casser l'dos maintenant hein.					
+	colisterre								
+giveRes	colisterre	flowerMom							
+			dialog	Oh ! La terre est arrivé ! Merci nouveau facteur.					
+				Tu verras, on en as à peu près toutes les semaines des cartons comme ça.					
+				On a un accord avec des villageois qui sont à l'autre terminus du tram : ils nous envoient de la terre par tram, et on leur renvoie du sable.					
+				Comme ça, ici, au village; on ne se bat plus pour le peu de terre qui reste !					
+				Bon, je te laisse. Va, courageux facteur, repars répandre la paix dans notre cité !					
+				Eheh, allez, file file, j'ai du travail.					
+				Oh, aussi, avant que tu partes. Tu pourrais aller voir si mon fils à besoin de quoi que ce soit ? Il est à l'étage.					
+showRes	colisterre	postWoman							
+			dialog	Oh, pour celui là, tu peux deviner à qui livrer. Soit attentif à l'entourage des gens.					
+				Est-ce que tu veux un peu plus d'aide ou tu veux essayer de livrer juste avec cet indice ?					
+			choice	YES :	102	No :	104	Return:	105
+			dialog	Et bien, cette terre sers à faire pousser des fleurs. La personne que tu dois livrer à pleins de cartons ainsi autour d'elle, parfois fleuri.					
+			dialog	J'en dis pas plus, je veux que tu y arrives par toi même !					
+			dialog	Tu es bien courageux ! J'aime ça ! Bonne chance p'tit automate !					
+			dialog						
+showRes	colisterre	climbrDad							
+			dialog	Oh, c'est un des cartons de terre ! 					
+				Il a l'air frais. C'est celui d'aujourd'hui ?					
+				Apporte le à Heloisa, elle est dans le magasin là. En train de s'occuper de la compta.					
+	commandefleur								
+showRes	commandefleur	postWoman							
+			dialog	Très bien ! Cette lettre est une commande pour le magasin de fleur. C'est le gros bâtiment plus bas avec des fleurs dessus.					
+			camera	2					
+			dialog	Tu devrais le voir d'ici !					
+				Une fois dedans, devrais y avoir la vendeuse de fleur : Héloisa.					
+				Si elle s'occupe pas de client, tu la verra surement en train de s'occuper de la compta. (Elle gère la compta de son magasin ET de la ville.)					
+				Tu n'as qu'à lui donner la lettre ou lui montrer.					
+				Si elle est pas là, cherche l'autre fleuriste : Ahmed. Ahmed Mansour. Il devrait être le nez dans les fleurs.					
+				Il s'occupe des fleurs et de les récolter et en prendre soin etc. Si il est pas trop occupé, il pourra prendre la commande aussi.					
+			camera	0					
+				Allez, je te laisse leur apporter la commande. A part si tu as d'autre courrier à me montrer ?					
+showRes	commandefleur	flowerMom							
+			dialog	Oh, une commande de fleur ! Parfait, laisse moi gérer ça !					
+				...					
+				...					
+				Tu pourrais apporter ça à Ahmed ? La commande est écrit dans sa langue.					
+				...et j'ai peur de pas tout bien lire correctement. ... Voir, de pas réussir à lire du tout certaine lignes...					
+				Oui, depuis le temps qu'on vit ensemble, je devais réussir à lire sa langue sans souci, mais j'y arrive toujours pas... Ne me juge pas !					
+				Il est dehors, au milieu des fleurs normalement. Lève la tête un peu et tu le verra					
+giveRes	commandefleur	climbrDad							
+			dialog	Oh, une commande de fleur ! Parfait, laisse moi gérer ça !					
+				Oh, tiens, c'est écrit en... oh, ça, c'est sûrement des amis à ma tante qui commande !					
+				Elle s'est fait un tas de pote en ville qui vienne du même pays que notre grand père. Elle a dû les convaincre de faire leurs courses chez moi.					
+				Pas qu'j'm'en plains, hein ! En vrai, c'est vraiment cool qu'elle nous aide à avoir des clients !					
+				Merci pour la livraison p'tit robot !					
+	lettreconcert								
+showRes	lettreconcert	postWoman							
+			dialog	Oh c'est une lettre pour Sabri ça ! 					
+				Tu sembles déjà savoir où livrer ça, tu veux quand même plus d'info ?					
+			choice	Yes:	140	No:	144	Return:	145
+				Tu l'a déjà rencontré. C'est la première personne qui t'a accueilli ici. Tu devrais noter les noms des gens quand ils te le donnent pour pas oublier.					
+				<Appuyez sur 1 pour ouvrir vos notes. Cliquer sur les icônes des personnes déjà rencontré pour éditer leur nom ou leur ajouter des notes.>					
+				Il doit encore être au travail, au niveau du tram, là où tu es arrivé.					
+			dialog	T'es un bon, j'ai confiance en toi !					
+				Allez, file, et hésites pas à reparler aux gens si tu as oublié des infos !					
+showRes	lettreconcert	guitar							
+			dialog	Tiens, je connais ce logo : c'est une salle de concert en ville ! Ca m'a l'air d'être une lettre de refus.					
+				Faut dire, y a pas beaucoup d'endroit où on fait jouer des groupes indépendants dans les environs.					
+				Ils sont super sympas, mais ils ont sûrement pleins de demande.					
+				Si c'est pour Sabri, j'suis de tout coeur avec lui !					
+				En espérant qu'il trouve une salle pour jouer.					
+showRes	lettreconcert	babiol							
+			dialog	Oula, j'm'appelle pas Sabri moi ! Désolée ! 					
+				Tu as du mal à retrouver qui et qui ? Pas de souci. Sabri est pas loin normalement.					
+				Tu devrais l'avoir rencontré, normalement, si tu es venue ici en tram.					
+showRes	lettreconcert	flowerMom							
+			dialog	Oh, une lettre pour Sabri ?					
+				Il doit encore être au travail je pense.					
+				Tu peux lui apporter plutôt que de nous la laisser ? Je crois qu'il doit bosser assez tard ce soir.					
+				Autant qu'il est sa lettre le plus tôt possible tant qu'il est pas reparti.					
+giveRes	lettreconcert	stagiaire							
+			dialog	Oh ! Parfait ! Une réponse pour ma demande de concert !					
+				Ouais, j'ai un groupe de rock ! Bon, on a jamais réussi à se produire dans une salle, mais on pense avoir le niveau pour tenter.					
+				"Bonjour Monsieur Sabri Vilela Mansour, nous avons bien, bla bla bla" ... "nous somme au regret de" ... "nous vous remercions de" et bla bla.					
+				Bon, cette lettre là, c'est un refus, mais eh ! On a encore des chances ailleurs ! J'abandonne pas si vite.					
+				Ah tant que t'es là. Tu pourra dire à mes parents que je rentre plus tard ce soir ? Ils sont au magasin normalement.					
+				Y a quelqu'un qui a vomi derrière les fauteuils et j'avais pas remarqué... Je préfère nettoyer ça maintenant, sinon ça va sécher.					
+				... Ah mince, non, tu peux que dire oui ou non... Bon, j'me débrouillerais ! C'pas la première fois que je rentre tard.					
+	lettrejustice								
+showRes	lettrejustice	postWoman							
+			dialog	C'est une lettre pour Gokul, qui vient du parquet, ça.					
+				Il est en bas, si tu descend la pente derrière la poste, tu tombera forcément sur lui.					
+				Il s'occupe de surveiller la mer de déchets, et récupère parfois des trucs dedans.					
+				Au passage, si on te dis qu'on a un colis pour "Coolman", c'est de lui qu'on parle. 					
+				C'est un gamin du village qui l'avais appelé ainsi car il avais du mal à dire son prénom.					
+				Mais ça lui allait bien comme surnom, et du coup, on est beaucoup à l'avoir chopé, certains ajoutent même "Tonton" devant.					
+				Bref, tu sais où il est, je te laisse y aller !					
+showRes	lettrejustice	flowerKid							
+			dialog	C'est quoi cette lettre ?					
+			dialog	Gokul ? ... ça me dit quelque chose... C'est qui déjà ?					
+			dialog	Désolé, j'me souviens pas... je peux pas t'aider j'crois...					
+showRes	lettrejustice	stagiaire							
+			dialog	Une lettre pour Gokul ? 					
+			dialog	T'es pas au bonne endroit, il est bieeeeen plus loin : faut que tu fasse le tour de l'usine, là, et que tu descende la pente.					
+			dialog	Il sera en plein milieu normalement, face à la grande mer de déchet gris, là.					
+giveRes	lettrejustice	crowCool							
+			dialog	Une lettre de la justice ? Pour moi ? Fallait pas, c'est trop d'honneur !					
+				Voyons voir ce qu'il me demande.					
+				...					
+				Ouais, ok, il essaie encore de négocier.					
+				Désolé p'tit gars, c'est des embrouille de grand ça. Ils pensaient pouvoir me rouler dessus facilement.					
+				Mais j'm'y connais plus qu'ils pensaient, et maintenant, ils s'en mordent les doigts.					
+				J'vais me faire un plaisir de les emmerder autant qu'ils ont emmerder le village !					
+				... Désolé, j'me suis emporté.					
+				Je te laisse repartir à ta tournée, tu dois avoir du travail.					
+	football								
+zone	FootballZone	flowerKid							
+				Eh ! Toi !					
+				Oui, toi ! Le robot !					
+				Tu peux venir stp ?					
+			setnextdialog	flowerKid	202	10			
+nextDial	FootballIntro	flowerKid							
+			dialog	Tiens !					
+			additem	football					
+				J'aurais besoin que tu amènes ça en bas.					
+			camera	1					
+				Là, derrière l'immeuble ! Y a un terrain de foot.					
+				Tu verras deux buts : va à celui qui est le plus loin, à côté d'un escalier. C'est celui là!					
+			camera	0					
+				Allez, allez ! Vite stp stp stp !					
+giveRes	football	flowerKid							
+			dialog	Non, non, non, me rend pas la balle.					
+				Il faut que tu la mettre dans le but !					
+			camera	1					
+				Le terrain est juste en bas, là, derrière l'immeuble.					
+			camera	0					
+				Celui à côté de l'escalier, pas celui prêt de la porte, compris ?					
+showRes	football	flowerKid							
+				Oui, oui, je te l'ai filé.					
+				Faut juste que tu l'apportes au but là bas.					
+			camera	1		1			
+				En contrebas, derrière l'immeuble.					
+				Tu verras deux buts : va à celui qui est le plus loin, à côté d'un escalier. C'est celui là!					
+			camera	1					
+				Tu te trompes pas hein ?					
+				Et le dis pas aux autres, hein ? C'est une surprise...					
+showRes	football	postWoman							
+			dialog	Oh mais c'est la balle des gamins ça !					
+			dialog	... C'est Eder qui t'as dis d'aller marquer un but ?					
+			dialog	Mais quel tricheur celui là. 					
+			dialog	Et tu va l'aider en plus n'est ce pas ? Compte pas sur moi pour te guider dans ce cas là !					
+nextDial	GeneaTreeIntro	flowerKid							
+			dialog	Merci l'robot ! 					
+				Du coup, vu que t'es revenu, tu pourrais m'aider à nouveau ?					
+				J'ai un devoir à finir là. J'dois faire un gros arbre géhénaolog... génélogi... généahologique.					
+				Bref, y a tatie qui m'a proposé de me corriger. Tu peux lui donner qu'elle vérifie ?					
+				J'ai pas envie d'mettre tromper et devoir tout recommencer...					
+				Du coup, si tu peux lui apporter, ça m'arrangerai. 					
+			additem	geneatree					
+				Si tu trouves pas tatie, montre le à papa, il te dira où elle est.					
+				Et comme ça, tu pourra même montrer à maman que j'bosse et que j'suis pas un glandeur !					
+				...					
+				Stp, montre le à maman aussi.					
+	geneatree								
+showRes	geneatree	flowerKid							
+			dialog	Oui, c'est mon arbre gén... de famille.					
+				Faudrait l'amener à tatie, elle m'a dis qu'elle pouvait m'aider.					
+				J'ai aussi mis d'autre gens qui était là, car je sais plus si ils sont de la famille ou non.					
+				Mais j'ai p'tête oubliez les absents...					
+				Oh, tu sais p'tête pas où est Tatie ? Tu peux demander à papa si tu veux !					
+showRes	geneatree	flowerMom							
+			dialog	Hum ? Oh, mais c'est le devoir sur lequel il bosse !					
+				Tu ne l'aides pas à tricher j'espère ?					
+				Bon, si c'est pour l'apporter à tatie, ça devrait aller. Je sais qu'elle trichera pas. Et elle connait vraiment tout le monde ici.					
+				Allez, apporte le vite à Zohra, j'veux pas te voir tricher.					
+showRes	geneatree	postWoman							
+			dialog	Oh, c'est quoi ?					
+				Un arbre généalogique ? Il manque les noms des gens... Mais on dirais la famille Mansour vu comme ça.					
+				Si tu as besoin d'info, va voir la vendeuse de babioles. Elle connait toute les villageois et pourra sûrement t'aider !					
+				Elle est en face du magasin de fleur. Va voir le casse-cou sur le magasin si tu la trouve pas, il te montrera.					
+showRes	geneatree	climbrDad							
+			dialog	Oh, mais c'est le devoir d'Eder ça ? Tata m'avais dis qu'elle pouvait l'aider.					
+				Attends, je te montre où elle est :					
+			camera	1					
+				Tu vois, dans la p'tite boutique juste là ? C'est ma tata !					
+			dialog	COUCOU JE SUIS LA TATA !	#3F3F3F				
+			dialog	ET MOI C'EST LE NEVEU !					
+			camera	0					
+			dialog	Elle a toujours eu de l'humour. Et heureusement qu'elle a ça.					
+				JE T'ENTENDS TOUJOURS ! SALIGAUD !	#3F3F3F				
+			dialog	Allez, je te laisse filer, va donner le papier.					
+giveRes	geneatree	babiol							
+			dialog	C'est quoi ce bout de papier ?					
+				Oh ! Le devoir de généalogie ! Il a déjà bien avancé la famille, on est quasiment au complet.					
+				Il a pas encore mis les prénoms, mais c'est pas grave.					
+				Mais il a commencé à mettre les autres familles ! C'est déjà une bonne base. Il y a exactement ceux présent au village tiens.					
+				Oh, mais au passage. Tu pourrais aussi essayer de t'amuser à le remplir toi !					
+			unlockpaper	2					
+				<Vous avez débloquez l'arbre généalogique.>					
+				<Appuyez sur 3 pour l'ouvrir. Vous pouvez glissez les icônes des personnages n'importe où sur le papier.>					
+				Ca pourra peut être te servir pour mieux savoir qui et qui ! En espérant que tu arrives à le remplir en entier. 					
+				Bon, par contre, je pourrai pas te le valider, ça serait injuste envers Eder.					
+				Bonne chance à toi !					
+	pedaleguitare								
+nextDial	PedaleGuitareIntro	crowCool							
+			dialog	Eh, p'tit gars !					
+				J'ai trouvé ça dans les déchets qui semblent en parfait état d'marche.					
+			additem	pedaleguitare					
+				Tu pourrais le filer à notre musicos local ? Il doit être chez lui, chez les Kamel, sûrement en train de jouer.					
+				Leur maison est parmi les baraquements en haut du village, tu tombe dessus quand tu quitte la "gare". Tu vois ?					
+				Merci, p'tit gars !					
+showRes	pedaleguitare	crowCool							
+			dialog	Ouais, c'est un truc de musique, j'ai oublié le terme technique.					
+				Mais ça coute une blinde c'est p'tite merde !					
+			dialog	Et les gens ils jettent ça comme ça ! Non, mais c'est hallucinant, j'te jure.					
+				Heureusement que je tombe dessus, j'suis sur ça fera plaisir au musicien.					
+				Il est sûrement chez lui, à son balcon à cette heure-ci.					
+showRes	pedaleguitare	stagiaire							
+			dialog	Oh, c'est une pédale de guitare ça ?					
+				Sûrement pour Nadir, ça, non ? Il arrive toujours à se dégoter du matos de musique pas cher.					
+				Si tu le cherches, il habite dans les baraquements : c'est le quartier pile en face de toi quand tu sors de la gare.					
+				Si il est chez lui, il devrait être en train de répéter, tu devrais l'entendre de loin.					
+showRes	pedaleguitare	guitar							
+			dialog	Tiens, mais attends... Montre moi ça de plus près ?					
+			dialogredirection	Ligne :	306				
+giveRes	pedaleguitare	guitar							
+			dialog	Oh, c't'une pédale de guitare ?					
+				Je te parie que c'est Coolman qui te l'a filé, non ?					
+				J'avoue que celui ci est en très bon état.					
+				J'essaierai de le brancher plus tard. P'tête qu'il pourra servir pour le groupe de Sabri et Letícia.					
+				En tout cas, merci de me l'avoir apporté !  Tu m'feras penser à remercier Coolman plus tard !					
+				AH ! Tant que je t'ai !					
+				Tu pourrais apporter ceci au casse-cou ? Ca le protègera sûrement plus que son chapeau de mariage !					
+			additem	sitehelmet					
+				Merci beaucoup ! Tu me débarasse !					
+	sitehelmet								
+giveRes	sitehelmet	climbrDad							
+			dialog	Oh, un casque de chantier ? Où est-ce que tu as trouvé ça ?					
+				J'en avais demandé un à Jamal vu que l'usine est fermé.					
+				Oh ! Mais je t'ai vu sur la terrasse des Kamel tout à l'heure ! Son frère doit y être, et il a dû te le refiler ! 					
+				Ok, ok je remet les pièces du puzzle en place. 					
+				Bah merci de me l'avoir filé ! Je le glisserai sous mon chapeau plus tard dans la journée, ça m'évitera des accidents cons.					
+showRes	sitehelmet	guitar							
+			dialog	C'est un casque de sécurité de l'usine. Mon p'tit frère me l'a confié pour le refiler à l'autre casse-cou, là.					
+			dialog	J'suis sûr que ça lui ira bien, son chapeau de mariage est à peine un poil plus beau !					
+			dialog	...					
+			dialog	Lui dis pas que j'ai dis ça, il pourrais me tuer pour ça. Ou pire. Ne plus m'inviter à manger chez lui !					
+showRes	sitehelmet	postWoman							
+			dialog	Hm ? Un casque de sécurité ? Ca appartient à l'usine ça.					
+			dialog	Tu l'a pas volé hein ? Ou alors, c'est quelqu'un qui t'a demandé de le livrer ?					
+			dialog	Dans ce cas, je peux pas t'aider. Mais hésites pas à retourner voir la personne en question et lui re-montrer ! 					
+			dialog	Il te redira sûrement les instructions plus succintement.					
+	Seconde livraison								
+zone	SecondTournee	postWoman							
+			camera	3					
+				Eh ! M'sieur le facteur ! J'ai du courrier pour vous ! C'est la seconde tournée !					
+				Passe me voir quand tu auras le temps !					
+			camera	0					
+			dialog	En attendant, j'vais grignoter un morceau. *Chomp chomp chomp*					
+			setnextdialog	postWoman	341	10			
+nextDial	SecondTournee	postWoman							
+			dialog	*Chomp chomp chomp*					
+				Oh ! T'es *gloup* là ! Alors...					
+				J'ai deux lettres à livrer. Et un truc... particulier.					
+			additem	lettreuniversite					
+			additem	lettrecomptable					
+			additem	cartoninconnu					
+			dialog	Ce carton, c'est un colis un peu perdu. J'ai plus l'adresse, et j'arrive pas à savoir à qui il est destiné.					
+				Ca fait plusieurs mois que je l'ai et j'ai pas de réponse ! 					
+				Et maintenant... j'ose plus trop le livrer. Ca fait tellement longtemps, et c'est entièrement ma faute. J'ai pas envie qu'on m'en veuille.					
+				Du coup, je retarde la livraison. Et du coup j'ai encore plus honte.					
+				MAIS ! Maintenant que tu l'as ! Tu va pouvoir le livrer ! Donc j'ai une bonne excuse pour enfin le livrer !					
+				Si tu veux un point de départ, je dirais sûrement du côté de la vendeuse de babiole.					
+				Elle connais tout le monde et commande souvent des trucs bizarre.					
+				Allez ! Au boulot ! .. oh, et pour les deux lettres, montre les moi si tu veux que je te donne des indications. MAIS D'ABORD ! Le carton !					
+			setnextdialog	guitar	494	5			
+			setnextdialog	babiol	546	5			
+			setnextdialog	crowCool	580	2			
+	cartoninconnu								
+showRes	cartoninconnu	postWoman							
+				Alors, ce carton là, je l'ai depuis quelques mois, voir un an. Et j'arrive pas à trouver à qui il va. J'ose pas l'ouvrir au cas où c'est personnel. 					
+				Est-ce que tu pourrais t'en occuper ? Je pense que pour démarrer, le mieux, ça serait de demander à la vendeuse de babioles.					
+				Elle achète pas mal de truc en ligne, et sinon, elle adore espionner les p'tits achats des autres.					
+				Si quelqu'un sait qui a acheter ça, c'est sûrement elle.					
+giveRes	cartoninconnu	postWoman							
+			dialog	Hum ? Pourquoi tu veux me le donner ? C'est un colis à livrer, et j'ai rien comman...					
+				Oh.					
+				Attends.					
+				Mais oui, c'est les bottes ! J'avais totalement oublié.					
+				Rahman m'a aidé pour en acheter, mais j'avais pas tout compris à la fin. 					
+				Et bien elles sont enfin arrivés ! Fiou, merci d'avoir résolu cette énigme.					
+				J'espère que c'était pas trop compliqué comme livraison. Tu m'a bien aidé là ! Merci !					
+showRes	cartoninconnu	babiol							
+			dialog	Oh, un carton ? J'crois avoir rien commandé d'aussi gros récemment. Je surveille bien mes dépenses en plus.					
+				Ouais, je confirme, ça n'est pas pour moi, c'est trop emballé, ça doit être un truc fragile, genre les engins du musicien.					
+				Ouais, c'est sûrement pour lui. Va le voir, il t'aidera plus que moi.					
+showRes	cartoninconnu	guitar							
+			dialog	Tiens, une commande pour moi ? 					
+				Ah, non, eheh. C'est bien trop petit par rapport à ce que j'achète d'habitude et pas assez emballée si c'était un p'tit truc.					
+				P'tête que le jeune Mansour voulait acheter un truc ? J'parie que c'est ça !					
+showRes	cartoninconnu	stagiaire							
+			dialog	Un colis pour moi ? Oh non, j'ai pas assez d'argent pour ça moi ! Et je suis toute les grosses livraisons, je le saurais si j'en avais loupé une.					
+				Va plutôt voir mon p'tit frère, il est jeune et con, ça m'étonnerai zéro qu'il est oublié un colis.					
+showRes	cartoninconnu	flowerKid							
+			dialog	Hein ? Un colis ? Je commande rien moi. Ou alors j'passe par maman ! 					
+				Mais on dirais les cartons que maman utilise... Genre ceux pleins de terre là. Faudrait lui demander.					
+showRes	cartoninconnu	flowerMom							
+			dialog	Oh, un autre carton de terre ! 					
+				Ah non, c'est juste le même emballage. 					
+				Oh ! T'essaie de trouver à qui il faut le livrer c'est ça ? Désolée, les cartons viennent pas de moi ! On les récupères de l'autre bout du tram.					
+				Faudrait que tu demande à mon casse-cou là haut, pour qu'il t'en dise plus.					
+showRes	cartoninconnu	climbrDad							
+			dialog	Tiens, un colis pour moi ?					
+				Ah, non ! Je commande pas chez eux.					
+				C'est un peu un truc de luxe.					
+				Enfin, non, pas de luxe. C'est genre de la bonne qualité mais ça coûte quoi.					
+				En ville, c'est assez populaire parmis ceux qui bossent beaucoup. C'est de la qualité. C'est même pour ça qu'on utilise leur carton.					
+				C'est le Tonton Cool qui me l'a recommandé à la base ! Il a pas mal acheté de truc chez eux quand ils étaient encore en ville, justement.					
+				Ah. Mais c'est sûrement un colis pour lui du coup ! Tu peux lui amener ? 					
+				Il est encore en train de bosser en haut de ces échasses, au niveau de la mer à déchet là !					
+showRes	cartoninconnu	crowCool							
+			dialog	Un colis pour moi ! J'adore les cadeaux, merci Robot Noël ! 					
+				Ah non, c'est un vieux colis ça. Il a l'air d'avoir quelques mois, voir plus. 					
+				Je commande chez eux parfois, c'est d'la qualité, mais j'ai rien commandé depuis plus d'un an.					
+				...					
+				AH ! Mais oui ! 					
+				Dieumene me piquait mes bottes, pour son dos et ses jambes. J'ai fini par lui donner les références et lui avancer un peu d'argent...					
+				...pour qu'elle s'en achète ses propres bottes ! (ça dure 10 ans ces belles merdes)					
+				Vu son boulot qui la fait courir partout, c'était plus qu'indispensable !					
+				Mais elle est vraiment pas doué avec les commande en ligne j'ai l'impression. L'informatique, c'est pas son corps de métier.					
+				Mais ouais, j'pense à 99% que c'est son colis en fait.					
+				Tu veux bien lui ramener steuplaît ? 					
+				Tu lui diras que je suis son père Noël !					
+	lettreuniversite								
+showRes	lettreuniversite	postWoman		(TO DO : plus subtile)					
+				Ok, celle la est une lettre de l'université pour "Monsieur Mansour".					
+				J'essaie de pas m'imiscer dans ces affaires, surtout que j'ai pas fait d'école, mais j'espère juste qu'il tient bon. 					
+				Bosser aussi jeune, c'pas une bonne chose. J'le sais bien, j'ai commencé à 15 ans. Pas vraiment de gré.					
+				Mais j'aimerais qu'il profite de sa jeunesse. Comme son frère.					
+				Je sais qu'il se met une pression folle en plus, et les soucis d'argent aident pas. 					
+				J'espère vraiment qu'il tient bon.					
+showRes	lettreuniversite	babiol							
+			dialog	L'université ? J'suis un peu trop vieille pour ça !					
+				Même si on me donne 20 ans d'moins que je n'ai réelement à ce qu'il paraît~					
+showRes	lettreuniversite	flowerMom							
+			dialog	Une lettre de l'université ?					
+				C'est pour "Monsieur" Mansour, loupé, j'suis une madame.					
+				Et j'ai un peu plus qu'un seul nom de famille tu sais. 					
+				Bon, techniquement, lui aussi, mais ils ont tendance à garder que le nom du père.					
+				Désolée, j'arrête de râler. Va apporter cette lettre à "Monsieur Mansour", c'est pas pour moi.					
+				Et je préfère qu'il l'est en premier. Si c'est important, il viendra nous en parler par lui même. Je lui fait confiance.					
+showRes	lettreuniversite	flowerKid							
+			dialog	Une lettre pour l'université ?					
+				... J'ai 10 ans.					
+				Et j'ai pas envie d'aller à l'université ! J'ai pas encore rattrapé mon retard ! Y a encore la voisine qui a 8 ans et qui lit mieux qu'moi !!!					
+				Pitié, j'veux pas de travail, j'ai encore des parties de foot à finir !					
+showRes	lettreuniversite	climbrDad							
+			dialog	Oula, une lettre de l'université ? Pour moi ?					
+				Est-ce que ma thèse sur les couleurs des fleurs et les gouts des clients a enfin était reconnu ???					
+				Je rigole, j'ai jamais touché à une université même de loin. C'est sûrement pour mon gamin. Va lui remettre, il l'attend sûrement.					
+giveRes	lettreuniversite	stagiaire							
+			dialog	...					
+				...					
+				...					
+				Oui c'est pour moi, mais j'pense déjà savoir pour quoi c'est.					
+				J'ai loupé trop de cours, et ils me virent sûrement de ces cessions.					
+				Je l'avais pris en option car j'aimais vraiment ça. Mais j'dois bosser au tram tard avant de revenir au campus en vélo pour le suivre.					
+				Du coup, j'arrivais tout le temps en retard, voir, après que tout le monde est fini.					
+				Les autres m'ont prévenus que le prof voulait dégager ceux qui venait pas assez.					
+				Mais j'peux vraiment pas arrêter de bosser au tram. Il est le seul boulot entièrement compatible avec mes cours et mon job du week-end.					
+				J'espère juste que ça concerne que les cours en option, et pas aussi ceux que je loupe parfois le matin...					
+				...					
+				J'ouvrirai la lettre plus tard.					
+				Merci encore de me l'avoir apporté.					
+	lettrecomptable								
+showRes	lettrecomptable	postWoman		??? Vilela plutôt que Comptable ???					
+				Ah, ça, quand il marque "pour Vilela", faut comprendre que c'est une lettre pour l'administratif, pour la municipalité...					
+				Comment dire ça... En gros, c'est un peu pour tout le village.					
+				On a pas de maire ici, on en voudrais pas de toute façon, mais du coup Vilela s'occupe des papiers, vu qu'elle gère déjà pour son entreprise.					
+				Mais du coup, elle croule de paperasse et passe son temps avec un stylo accroché à sa pince.					
+				On lui en es très redevable. Elle nous évite tellement d'emmerdes en vérifiant tout et en leur répondant à chaque fois.					
+				Du coup, ramène lui ça. Reste un peu pour l'écouter gueuler, au cas où elle doit renvoyer en urgence un document.					
+				Et si y a rien d'urgent, tu pourra continuer ta tournée ! 					
+				Bonne chance !					
+showRes	lettrecomptable	babiol							
+			dialog	Ah ! De la compta !					
+				Tout mais pas ça !					
+				Vade retro !					
+showRes	lettrecomptable	guitar							
+			dialog	Oula, ça vient de l'état ça ?					
+				Ou alors de la région ?					
+				Ils nous veulent encore de la merde ? Eh, si tu sais pas à qui livrer ça, une bonne destination, c'est la poubelle.					
+showRes	lettrecomptable	stagiaire							
+			dialog	...					
+				J'ai une tête à gérer l'administration ?					
+				... En vrai, en uniforme, oui, j'ai sûrement une tête à gérer l'admin...					
+				Mais en réalité : je gère rien ! Aaaaaaaaaaaah !!!					
+showRes	lettrecomptable	climbrDad							
+			dialog	Oulalala, si y a plus de 3 chiffres, moi, j'y arrives pas !					
+				J'ai déjà essayer, j'ai foiré en beauté. 					
+				Je veux pas recommencer cette douloureuse expérience.					
+showRes	lettrecomptable	crowCool							
+			dialog	Ah, une lettre de l'état ça.					
+				J'en ai assez vu, moins je m'en occupe, mieux j'me porte.					
+				Si tu cherches celle qui dois s'en occuper, elle est chez elle en ce moment.					
+giveRes	lettrecomptable	flowerMom							
+			dialog	Et une lettre de l'état en plus ! Ils veulent quoi aujourd'hui ?					
+				... "nous vous faisons part"... nanana... "entre le 25 et le 27 du présent mois"... nanani... "une somme maximal de"...					
+				Ouais, ils veulent trouver un moyen de nous taxer mais savent pas comment s'y prendre.					
+				J'ai pas encore fini de remplir les bilans comptables des différentes entreprises, je garde ça pour plus tard.					
+				D'ailleurs, j't'appellerai sûrement à l'aide à ce moment là ! Mais les gens sont pas encore levé, donc rassure toi : tu peux respirer.					
+				En attendant, merci de la livraison. Tu peux aller finir ta tournée.					
+	demandechrys								
+nextDial	demandechrys	guitar							
+			dialog	Eh petit. J'aurais besoin de ton aide.					
+				Apporte ça à la vendeuse de fleur, s'il te plaît.					
+			additem	demandechrys					
+				Elle te donnera des fleurs en retour, toute roses, un peu bizarres.					
+				J'aimerais que tu les apportes ensuite à Aicha, pour remplacer ses fleurs mortes. Elle repose sur la falaise, là, au côté de son père.					
+				Tu peux faire ça pour moi ? J'ai le dos en compote et ça m'ferait plaisir.					
+				Et à Aicha aussi sûrement.					
+showRes	demandechrys	guitar							
+			dialog	C'est pour la fleuriste. Tu vois pas qui c'est ? Dans leur magasin recouvert de fleur ?					
+				Tu le donne à Héloisa, elle te rendra un bouquet de fleur. Il faudra les apporter pour Aicha, sur la falaise.					
+showRes	demandechrys	postWoman							
+			dialog	Une demande de fleur ? C'est pour les fleuristes ça ! Tu te souviens plus où c'est ?					
+				Le bâtiment recouvert de fleur, tu peux le voir d'ici !					
+				Si c'est une commande, donne là à Heloisa à l'intérieur : c'est elle qui gère tout ce qui est compta du magasin (et un peu du village aussi).					
+showRes	demandechrys	climbrDad							
+			dialog	Oh, c'est pour une demande de chrysantème ça ? Je reconnais l'écriture !					
+				Merci de l'aider, ça m'fait chaud au coeur.					
+showRes	demandechrys	babiol							
+			dialog	Alors, moi je ne vend pas de fleur.					
+				Mais j'a-dore savoir qui achètes quoi !					
+				Oh, c'est de notre musicien locale ça ? 					
+				Ooooh, il est chou. Il veux continuer à s'occuper des fleurs d'Aicha. 					
+				Tu me feras penser à lui dire que c'est plus de son âge ! Il a le corps encore plus cassé que moi !					
+				Allez, va donner ça à Heloisa !					
+giveRes	demandechrys	flowerMom							
+			dialog	Ah , une commande de fleur ? C'est pour qui c'coup ci ?					
+				Oh, c'est les chrysanthème pour Aicha.					
+				C'est vrai que Nadir était proche d'elle. Ils on grandit ensemble je crois ? Même si il est parti sur le continent assez jeune. 					
+				En tout cas, voilà les fleurs, elles sont déjà préparés. Tu sauras retrouver Aicha ? 					
+			additem	chrysentheme					
+				Je t'avouerai ne pas trop avoir envie de t'accompagner... J'y suis déjà aller y a pas très longtemps.					
+	chrysentheme								
+showRes	chrysentheme	flowerMom							
+			dialog	Je t'avoue que j'ai été surpris : on m'avais dis que selon la tradition, on n'amenait pas de fleurs à ces événements là, du côté de mon mari.					
+				Mais lorsque je suis arrivée, quasiment tout le monde en avais. 					
+				Mais je crois que c'est parce que Aicha adorait les fleurs.					
+				Oh, tu sais pas où c'est ? Va voir celui qui t'a donné la commande, il t'expliquera mieux que moi !					
+				Et comme ça, tu aura déjà fait la moitié du chemin aussi.					
+showRes	chrysentheme	climbrDad							
+			dialog	C'est pour Aicha ? Merci de t'en occuper. 					
+				Habituellement, c'est notre ami musicien qui s'en occupe, mais avec l'âge, ça devient difficile pour lui.					
+				Merci de l'aider p'tit bonhomme !					
+showRes	chrysentheme	babiol							
+			dialog	Oh elles sont belles !					
+				Ce sont celles pour Aicha n'est ce pas ?					
+				Continue ton chemin. En grimpant un peu, tu devrais voir la falaise où elle se repose					
+showRes	chrysentheme	guitar							
+				Ah, tu as les fleurs ! Parfait ! 					
+				Tu peux les apporter là bas ? Au bout de la falaise, tu trouveras Aida. 					
+				Merci encore de m'aider ! 					
+	speakersrepared								
+nextDial	speakersrepared	babiol							
+			dialog	Tu tombes bien toi ! 					
+				J'ai eu les pièces détachés pour réparer le casque de Nadir. Tu pourrais lui ramener ?					
+			additem	speakersrepared					
+				Il est sûrement chez lui, sur son balcon en ce moment.					
+showRes	speakersrepared	babiol							
+			dialog	C'était assez simple à réparer, il aurait pu le faire lui-même je pense.					
+				Mais il manquait de pièce. Elles sont arrivés ce matin, dans un joli carton ~					
+				Sous la forme d'un casque qui n'avais qu'une oreille qui marchait !					
+				Facile à réparer, et heureuse de servir !					
+showRes	speakersrepared	postWoman							
+			dialog	Oh, un casque audio ? Il semble avoir était bidouillé.					
+				C'est le travail de Zohra, ça, non ?					
+				Ca se voit au couture là où c'est pas nécessaire. Elle as appris que très récemment à souder, tu sais ! C'est pas sa spécialité, et pourtant...					
+				Oui, j'ai tendance à connaître et reconnaître beaucoup de p'tit truc, et même des petits secrets.					
+				Par exemple, je sais pour qui est réelement destiné ce casque...					
+				Allez, file le livrer.					
+showRes	speakersrepared	guitar							
+				Ah ! Il est réparé ! Parfait ! 					
+				T'es un robot, tu peux pas répéter de secret n'est-ce pas ?					
+				Pas la peine de répondre, je te fais confiance : ce casque est pas à moi, j'aimerais que tu l'amènes à son proprio.					
+				Le jeune Mansour. Il est sûrement encore devant son boulot au cas où.					
+				J'ai fait croire que c'était mon casque pour pas que sa tatie sache qu'il s'était acheté un casque aussi cher.					
+				Enfin, surtout pour pas qu'elle répète aux parents.					
+				Il sait l'importance de l'argent, mais il voulais vraiment se faire plaisir un grand coup. Juste un p'tit coup.					
+				Et bon, ça touchait à la musique : forcément que j'allais l'aider !					
+				Allez, va lui apporter.					
+giveRes	speakersrepared	stagiaire							
+			dialog	Hm ? Oh, c'est un beau casque, là. De la bonne qualité.					
+				... AH ! MAIS C'EST LE M...					
+				*Hum hum.*					
+				Oh, merci de me confier ce casque qui n'est a-bso-lu-ment pas à moi, que je garderai précieusement pour la personne à qui il appartient.					
+				J'en prendrais grand soin ! ... Et testerai que son son soit toujours de bonne qualité avant de le rendre. 					
+	alcoolprothese								
+nextDial	alcoolprothese	crowCool							
+			dialog	Oh, te revoilà. J'ai une autre trouvaille !					
+				De l'alcool ! Désynfectant ET compatible pour silicone et/ou métaux !					
+				Pile ce qu'il faut pour une prothèse de bras droit ! (ne marche pas pour nettoyer une prothèse bras gauche, bien entendu)					
+			additem	alcoolprothese					
+				Tu peux lui amener s'il te plaît ? Je pense qu'y en as en réserve, mais je sais que l'entretien : ça peux vite coûter un cul.					
+				J'en ai profiter pour rajouter un chiffon. Il était avec et emballé donc propre. C'est jamais de trop.					
+showRes	alcoolprothese	crowCool							
+			dialog	Ca arrive souvent de trouver des produits comme ça, jeter ici.					
+				C'est une vrai décharge dangereuse. Je m'occupe de repousser les produits vraiment trop toxique plus loin.					
+				Mais quand c'est bien fermé et jamais utilisé comme ceci, ça m'arrange bien.					
+				D'ailleurs, je te parie que ça appartient à un mort ça, et que la famille l'a juste jeter au pif pour se débarasser.					
+showRes	alcoolprothese	postWoman							
+				Tiens, c'est quoi cette bouteille ?					
+				Hm... Ca a l'air d'être un produit un peu luxueux. Ou au moins coûteux.					
+				Ah, ça sers à nettoyer des prothèse !					
+				J'ignore où tu l'a récupéré, mais j'pense savoir à qui ça peux être utile. 					
+				Cherche quelqu'un qui a un bras droit un peu différent de son gauche, et tu devrais trouver de qui j'parle.					
+showRes	alcoolprothese	flowerKid							
+			dialog	Oh ? De l'alcool pour nettoyer ? 					
+				Oh, j'en ai pas besoin, mon fauteuil roulant est un peu coincé dans cette chambre en vrai. 					
+				J'l'utilise surtout quand je vais en ville ou pour aller du bureau à mon lit.					
+				Donc il se salit pas tant qu'ça. 					
+				Mais c'est gentil de m'proposer !					
+				... au fait...					
+				... ça se boit ?					
+				...					
+				Stp laisse moi essayer !					
+			choice	redirectDialog	flowerKid_alcoolprothese_giveADrink	No:	Ooooh t'es pas drôle.		
+				De toute façon, c'était une mauvaise idée.					
+newDial	alcoolprothese_giveADrink	flowerKid		TO DO : (truc cool à faire : ajouter alcoolprothese à moitié vide) (même réactin que alcool prothèse, SAUF que enfant refuse de revoir ça ET que flower mom ajoutera à la fin un "... mais pourquoi la bouteille est à moitié vide au fait ?" 					
+			dialog	Ouais !					
+				Gloup, gloup, gloup.					
+				...					
+				BAH !!!!!!					
+				... Ok, tiens, reprends la, et le dis à personne.					
+giveRes	alcoolprothese	flowerMom							
+			dialog	Tiens, c'est quoi ça ?					
+				Eh, mais c'est du nettoyant ! Et pas un truc de merde.					
+				Attends, ça a passait ça date de péremption ? Mais c'est de l'alcool. Depuis quand ça périme ?					
+				Ouais, je le testerai plus tard. Merci de m'avoir trouvé ça petit robot !					
+				Mon bras et mon portefeuille te remercient !					
+	Per character :								
+	idle :								
+idleDial		postWoman							
+				Qu'y a t'il petit automate ?					
+				Tu as besoin d'aide pour livrer certaines lettres ou courier ?					
+				N'hésites pas à me les montrer.					
+				<Appuyez sur E durant une conversation pour ouvrir votre inventaire, et naviguer entre les colis avec les fléches haut et bas.>					
+				<Appuyez ensuite sur ENTREE pour donner un courrier que vous souhaitez livrer, ou sur ESPACE si vous voulez seulement montrer votre colis.>					
+				Oh, au passage...					
+				Sache que tu peux montrer les colis déjà livrer afin de revoir ce que les gens aurait dit sur le colis.					
+				On adore radoter dans les environs, alors te gêne pas. Ca permet de pas oublier les p'tits détails qu'on laisse passer la première fois.					
+giveFail		postWoman							
+			dialog	Non, ce n'est pas pour moi.					
+				Et je ne livrerai pas ce colis à ta place, il faut que tu apprennes à faire ce travail.					
+showFail		postWoman							
+			dialog	Tiens... Je ne saurais pas t'aider à livrer ça. 					
+				Bien joué pour m'avoir posé une colle ! ... En espérant que tu l'a volé à personne.					
+idleDial		guitar							
+			dialog	Hm...?					
+				J'suis en pleine impro, tu peux m'interrompre, ne t'inquiètes pas.					
+				Mais si tu n'as rien pour moi, je vais continuer à jouer. N'hésites pas à rester pour profiter ! J'aime avoir un petit public.					
+giveFail		guitar							
+			dialog	T'es gentil mais c'est pas pour moi. 					
+showFail		guitar							
+			dialog	Oula, ça m'dit rien ça. J'peux pas t'aider !					
+idleDial		babiol							
+			dialog	Bienvenue au "Rat-commode" ! Ici, on racommode, recoud et répare les petits objets ou babioles en tout genre !					
+				Et si vous avez des ragots, je suis toujours preneuse. Eheheheh.					
+				Que voulez-vous ?					
+				On peux discuter si vous voulez !					
+			choice	redirectDialog	babiol_DefaultDialog_Yes01	no:	Pas de souci ! Tu as du travail !		
+			dialog	Je te laisse tranquille mon p'tit !					
+newDial	DefaultDialog_Yes01	babiol							
+			dialog	Oh, alors par où commencer ? J'pourrais te parler de l'usine Ludivico que tu as forcément vu en arrivant...					
+				Ou alors du clan Temersohn ? Ils sont en plein mariage là ! Mais du coup, tu les croisera pas...					
+				Hum... Non, aujourd'hui, il n'y a que les Mansour ou des Kamel de présent. Et la factrice aussi !					
+				Doit y avoir aussi le tonton Cool qui traîne du côté de la mer d'ordure. 					
+				Mais c'est tout. Nous sommes en petit comité pour une fois !					
+				Je vais pas trop te retenir non plus.					
+			dialog	Je pense pas que tu as envie que je t'embête avec mes histoires qui ne te serviront à rien. A moins que tu veuille que je continue ?					
+			choice	redirectDialog	babiol_DefaultDialog_Yes02	no :	Pas de souci, comme je t'ai dis, c'est juste pour discuter, ça te servira à rien de savoir tout ça. 		
+			dialog	Allez, tu as du boulot ! Bonne chance !					
+newDial	DefaultDialog_Yes02	babiol							
+			dialog	Oooh tu m'fais plaisir !					
+			dialog	Alors les Ludivico, ils ont l'usine qui trône à l'entrée du village, et ils embauchent la moitié des villageois.					
+			dialog	Mais il faut savoir qu'ils sont en froid avec le clan Temersohn. 					
+				Les Temersohn leur en veuille toujours d'avoir conclu un pacte avec les enflures qui voulait détruire nos maisons.					
+			dialog	Mais bon, ils sont moins énervé contre leurs gamins, donc peut être qu'on verra les enfants Ludivico présent au mariage Temersohn-Ospino ?					
+			dialog	C'est quand même pas tout les jours que le p'tit frère du patriarche se marie !					
+				 ... Enfin, non, pardon, le patriarche, c'est le forgeron. C'est lui le plus vieux. ... Je crois.					
+				Et il le diras jamais, mais... il est content de voir Ospino se marié.					
+				Bref, tout ça pour dire que Ludivico et Temersohn ? Ils sont pas ami-ami.					
+				Mais ils aiment tout les deux les Vilela-Mansour ! (c'est mon neveu et sa famille)					
+				... Faut dire, personne peut leur en vouloir de ce qu'il s'est passé.					
+				Ahmed était dévasté et Heloi n'était pas mieux. Ils sont intelligents ! Très ! Et doués ! ... Mais on peux tous se faire avoir.					
+				J'ai pas réussi à les aider, et je pense que à leur place, j'aurais céder tout autant.					
+				Bref, je t'embête pas avec ça, tu as des colis à livrer.					
+				N'hésite pas à revenir me voir, j'ai besoin de radoter parfois.					
+				Ca me fait du bien.					
+				Merci de m'aider à bien aller !					
+				Allez, file bosser !					
+giveFail		babiol							
+			dialog	Oh, mon chou, mais ce n'est pas pour moi. 					
+				Et si je le revend, celui à qui c'est destiné ne va pas m'aimer ! ... Et c'est mauvais pour le karma, ça.					
+showFail		babiol							
+				Désolée mon chou... Je peux pas t'aider : ça, ça ne me dit rien.					
+idleDial		flowerMom							
+			dialog	Bonjour ? C'est pour ?					
+			dialog	Le remplaçant de la factrice n'est ce pas ? 					
+			dialog	N'hésites pas si tu a du courrier pour moi !					
+giveFail		flowerMom							
+				Non, ce n'est ni pour moi, ni pour ma famille, ni pour l'administration. 					
+showFail		flowerMom							
+				Désolé j'suis un peu occupé, et ça ne me dis rien. Faudra que tu te débrouilles sans moi.					
+idleDial		climbrDad							
+			dialog	Oui, c'est pour quoi ?					
+			dialog	Si je n'entends pas de bruit, je considère que je peux retourner au travail !					
+giveFail		climbrDad							
+			dialog	Oh, loupé, c'est pas pour moi.					
+				J'espère que tu trouvera le bon destinataire petit bonhomme !					
+showFail		climbrDad							
+			dialog	Oula, ça m'dis rien ça. Désolée, j'peux pas t'aider !					
+idleDial		stagiaire							
+			dialog	Toujours pas de courrier pour moi ?					
+			dialog	Noublie pas, moi c'est Sabri !					
+				<Appuyez sur 1 pour ouvrir vos notes n'importe quand.>					
+				<Et cliquez sur la photo du personnage pour y ajouter des notes.>					
+			dialog	J'espère que tu t'accomodes bien de notre village. C'est construit un peu bizarrement à c'qui paraît.					
+giveFail		stagiaire							
+			dialog	Un colis pour moi ! Cool ! Ah- ah non. Ce n'est pas pour moi.					
+				Je te le rend du coup... Tant pis.					
+showFail		stagiaire							
+			dialog	Pft, ça m'dis rien. 					
+				Bonne chance pour l'livrer.					
+idleDial		flowerKid							
+			dialog	Yo l'automate ! Du neuf ?					
+			dialog	Non ? Va chercher du neuf pour moi stp alors !					
+giveFail		flowerKid							
+			dialog	Non non, c'est pas pour moi.					
+showFail		flowerKid							
+			dialog	C'est quoi ? ... C'est pour qui ? ... J'comprends rien...					
+idleDial		crowCool							
+			dialog	Et on creuse ~ 					
+				Et on tri ~!					
+				Et on jette...					
+				Et on recommence !					
+				<Il semble concentrer sur son travail.>					
+giveFail		crowCool							
+				Non, c'est pas pour moi ça p'tit gars !					
+				Retente ta chance !					
+showFail		crowCool							
+				Oula, dans quoi tu m'embarques ? Je peux rien te dire là d'ssus moi : ça m'dit strictement rien. Désolé p'tit gars !					
+	Last dialog								
+nextDial	LastLetter	postWoman							
+			dialog	Et bah... Tu as fait du bon boulot !					
+				J'ai l'impression que plus personne n'a besoin de tes services pour l'instant.					
+				Tu as pu avoir une démonstration de mon boulot !					
+				J'espère que cette démo t'a plu.					
+				Tu peux te reposer, sauvegarder et quitter. Tu as bien bossé.					
+				C'est bien comme ça que font les robots, hein ? Sauvegarder et... Bref !					
+				Mais si tu as envie de rester encore un peu, tu peux.					
+				Tiens, si tu le souhaite, je te donne même une dernière quête :					
+				Sache que tu peux retrouver le nom et prénom de tout ceux présent actuellement !					
+				Il te faudra peut être montrer des lettres ou colis déjà livrés pour te réchauffer la mémoire... 					
+				...mais normalement, tu as toutes les infos qu'il faut pour savoir qui est qui !					
+				Faudra p'tête passer par élimination aussi par contre.					
+				Une fois fini, prend en photo ton arbre, et montre le à Horace. Il te dira si tu as bon ou non.					
+				Mais si tu préfère t'arrêter là, j'comprends : tu as déjà fait beaucoup.					
+				Merci encore petit automate !					

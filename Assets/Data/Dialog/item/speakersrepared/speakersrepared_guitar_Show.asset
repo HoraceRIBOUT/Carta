@@ -213,7 +213,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Le stagiaire. Il est s\xFBrement encore devant son boulot au cas o\xF9."
+      text: "Le jeune Mansour. Il est s\xFBrement encore devant son boulot au cas
+        o\xF9."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -279,7 +280,7 @@ MonoBehaviour:
     type: 0
     dialog_Data:
       text: "J'ai fait croire que c'\xE9tait mon casque pour pas que sa tatie sache
-        qu'il c'est achet\xE9 un casque aussi cher."
+        qu'il s'\xE9tait achet\xE9 un casque aussi cher."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

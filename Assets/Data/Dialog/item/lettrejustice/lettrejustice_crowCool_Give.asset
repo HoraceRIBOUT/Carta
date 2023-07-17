@@ -411,7 +411,7 @@ MonoBehaviour:
     type: 0
     dialog_Data:
       text: J'vais me faire un plaisir de les emmerder autant qu'ils ont emmerder
-        les gens de la ville !
+        le village !
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

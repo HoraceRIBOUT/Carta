@@ -280,8 +280,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "C'est un gamin de la ville qui l'avais appel\xE9 ainsi car il avais
-        du mal \xE0 dire son pr\xE9nom."
+      text: "C'est un gamin du village qui l'avais appel\xE9 ainsi car il avais du
+        mal \xE0 dire son pr\xE9nom."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

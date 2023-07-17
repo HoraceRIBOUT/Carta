@@ -409,8 +409,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Si elle est pas l\xE0, cherche l'autre fleuriste : Ahmed. Il devrait
-        \xEAtre dans les fleurs autour du magasin."
+      text: "Si elle est pas l\xE0, cherche l'autre fleuriste : Ahmed. Ahmed Mansour.
+        Il devrait \xEAtre le nez dans les fleurs."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

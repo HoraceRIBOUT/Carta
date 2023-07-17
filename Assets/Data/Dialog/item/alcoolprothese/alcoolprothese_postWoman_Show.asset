@@ -278,8 +278,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "Cherche quelqu'un en ville qui a un bras droit un peu diff\xE9rent de
-        son gauche, et tu devrais trouver de qui j'parle."
+      text: "Cherche quelqu'un qui a un bras droit un peu diff\xE9rent de son gauche,
+        et tu devrais trouver de qui j'parle."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

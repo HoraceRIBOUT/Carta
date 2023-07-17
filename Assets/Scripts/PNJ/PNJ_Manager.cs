@@ -187,9 +187,15 @@ public class PNJ_Manager : MonoBehaviour
                 continue;
 
             Item.tag currTag = tagProg.tag;
-            if (tagProgression.ContainsKey(currTag))
+            float tagValue = tagProgression[currTag];
+            if (currTag == Item.tag.None)
             {
-                if(tagProgression[currTag] >= tagProg.valueMin)
+                //Mean it's global progress
+                tagValue = GameManager.instance.inventory.inventory_all.Count - GameManager.instance.inventory.inventory_current.Count;
+            }
+            if (tagProgression.ContainsKey(currTag) || currTag == Item.tag.None)
+            {
+                if(tagValue >= tagProg.valueMin)
                 {
                     tagProg.Success();
                 }

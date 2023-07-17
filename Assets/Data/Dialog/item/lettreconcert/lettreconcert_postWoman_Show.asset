@@ -78,7 +78,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 1
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -144,7 +144,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 2
+  - index: 0
     alreadyRead: 0
     type: 13
     dialog_Data:
@@ -189,9 +189,9 @@ MonoBehaviour:
         text: 
         color_override: {r: 0, g: 0, b: 0, a: 0}
         pnj_override: 0
-      redirectNumberIfYes: 3
+      redirectNumberIfYes: 2
       redirectNumberStopYes: 5
-      redirectNumberAfterYes: 7
+      redirectNumberAfterYes: 145
       redirectYes:
         dialogToGo: {fileID: 0}
       typeNo: 1
@@ -200,8 +200,8 @@ MonoBehaviour:
         color_override: {r: 0, g: 0, b: 0, a: 0}
         pnj_override: 0
       redirectNumberIfNo: 6
-      redirectNumberStopNo: 6
-      redirectNumberAfterNo: 7
+      redirectNumberStopNo: 144
+      redirectNumberAfterNo: 145
       redirectNo:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
@@ -209,7 +209,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 3
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -276,7 +276,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 4
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -343,12 +343,12 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 5
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
       text: "Il doit encore \xEAtre au travail, au niveau du tram, l\xE0 o\xF9 tu
-        es arriv\xE9 en ville."
+        es arriv\xE9."
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -409,7 +409,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 6
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -474,7 +474,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 7
+  - index: 0
     alreadyRead: 0
     type: 0
     dialog_Data:
