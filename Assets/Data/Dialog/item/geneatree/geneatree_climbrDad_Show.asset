@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Oh, mais c'est le devoir d'Eder \xE7a ? Tata m'avais dis qu'elle pouvait
@@ -80,7 +80,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Attends, je te montre o\xF9 elle est :"
@@ -145,7 +145,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 1
     dialog_Data:
       text: 
@@ -210,7 +210,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Tu vois, dans la p'tite boutique juste l\xE0 ? C'est ma tata !"
@@ -275,12 +275,12 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: COUCOU JE SUIS LA TATA !
-      color_override: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
-      pnj_override: 0
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 6
     camera_Data:
       cameraIndex: 0
       directTP: 0

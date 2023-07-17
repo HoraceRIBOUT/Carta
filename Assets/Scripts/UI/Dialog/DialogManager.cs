@@ -353,10 +353,23 @@ public class DialogManager : MonoBehaviour
             currentText.Open(data.text, pnjCol, pnjTitle); //keep the same attribute
         }
 
-        if (currentPNJ != null && data.pnj_override == pnj.pnjID.None)
+        if (data.pnj_override != pnj.pnjID.None)
+            GetPNJFromID(data.pnj_override).LineStart();
+        if (currentPNJ != null && currentPNJ.id != pnj.pnjID.None)
             currentPNJ.LineStart();
     }
 
+    public void FinishTalk()
+    {
+        if (currentPNJ != null && lastTalkingPNJ == currentPNJ.id)
+        {
+            currentPNJ.LineEnd();
+        }
+        else if (lastTalkingPNJ != pnj.pnjID.None)
+        {
+            GetPNJFromID(lastTalkingPNJ).LineEnd();
+        }
+    }
 
 
     public void TreatCamera(Step.Step_Camera data)

@@ -32,7 +32,7 @@ public class UI_ItemBox : MonoBehaviour
 
         alreadyDelivered = delivered;
         promptGive.SetActive(!delivered && GameManager.instance.dialogMng.inDialog);
-        promptShow.SetActive(!delivered && GameManager.instance.dialogMng.inDialog);
+        promptShow.SetActive(GameManager.instance.dialogMng.inDialog);
         ChangePromptToCorrectDevice();
         if (delivered)
         {
@@ -106,6 +106,7 @@ public class UI_ItemBox : MonoBehaviour
     public void ChangeGivePrompt()
     {
         promptGive.SetActive(!alreadyDelivered && GameManager.instance.dialogMng.inDialog);
+        promptShow.SetActive(GameManager.instance.dialogMng.inDialog);
     }
 
     public void ChangePromptToCorrectDevice()

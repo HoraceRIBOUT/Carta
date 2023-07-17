@@ -147,8 +147,8 @@ public class DialogBox : MonoBehaviour
 
     void FinishPrint()
     {
-        if(GameManager.instance.dialogMng.currentPNJ != null)
-            GameManager.instance.dialogMng.currentPNJ.LineEnd();
+        GameManager.instance.dialogMng.FinishTalk();
+
         printDial = null;
     }
 
