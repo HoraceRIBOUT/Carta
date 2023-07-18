@@ -454,6 +454,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Lamp2
+    second: {fileID: 2100000, guid: 0811ad109cb081043b593074ca9fa2b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: UpAndTop
     second: {fileID: 2100000, guid: 657008204280a0240afcec5fb1bfe3d5, type: 2}
   materials:

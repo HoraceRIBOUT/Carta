@@ -55,6 +55,7 @@ public class CameraManager : MonoBehaviour
     private float zoomTarget = 1;
     private float zoomCurrent = 1;
     private float zoomDelay = 1f;
+    List<Vector3> directions = new List<Vector3>();
 
     [Range(0, 1)]
     public float lastXAxisValue = 0.5f;
@@ -77,6 +78,14 @@ public class CameraManager : MonoBehaviour
             secondCamPointSave = Instantiate(new GameObject(), this.transform).transform;
             secondCamPointSave.name = "SecondCam SavePoint";
         }
+
+        directions = new List<Vector3>();
+        directions.Add(new Vector3(0, 0, 1));
+        directions.Add(new Vector3(0, 0, -1));
+        directions.Add(new Vector3(1, 0, 0));
+        directions.Add(new Vector3(-1, 0, 0));
+        directions.Add(new Vector3(0, 1, 0));
+        directions.Add(new Vector3(0, -1, 0));
     }
 
     // Update is called once per frame
@@ -249,6 +258,9 @@ public class CameraManager : MonoBehaviour
             distanceTarget = 1;
         }
 
+        float meanDist = SurroundingMeanDistance(raycastDist);
+        Debug.Log("MeanDist = " + meanDist + " so i t make : " + distanceTarget + " / " + (meanDist / raycastDist));
+
         distanceCurrent = Mathf.Lerp(distanceCurrent, distanceTarget, Time.deltaTime * distance_LerpSpeed);
 
         Vector3 playerPosLerped = Vector3.Lerp(target.transform.position, playerCamPoint.transform.position, distanceCurrent);
@@ -272,6 +284,40 @@ public class CameraManager : MonoBehaviour
             mainCamera.transform.position =     Vector3.Lerp(mainCamera.transform.position, secondCamPointSave.transform.position, lerpCurve.Evaluate(lerpThirdaryTarget));
             mainCamera.transform.rotation =  Quaternion.Lerp(mainCamera.transform.rotation, secondCamPointSave.transform.rotation, lerpCurve.Evaluate(lerpThirdaryTarget));
         }
+    }
+
+    float SurroundingMeanDistance(float raycastDist)
+    {
+        float sum = 0;
+        float min = 100;
+        float max = -1;
+
+        float localDistance = 0;
+        foreach (Vector3 direction in directions)
+        {
+            RaycastHit info;
+            //Debug.DrawRay(target.transform.position, ray, Color.yellow, 5f);
+            if (Physics.Raycast(target.transform.position, direction, out info, raycastDist, layerMask.value))
+            {
+                localDistance = Mathf.Clamp(info.distance, distance_min, raycastDist);
+                sum += localDistance;
+            }
+            else
+            {
+                localDistance = raycastDist;
+                sum += localDistance;
+            }
+
+            if (min > localDistance)
+                min = localDistance;
+            if (max < localDistance)
+                max = localDistance;
+        }
+        //we get rid of the two extremum 
+        sum -= min;
+        sum -= max;
+
+        return sum / 4;
     }
 
 
