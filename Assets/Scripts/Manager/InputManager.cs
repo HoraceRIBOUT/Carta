@@ -124,6 +124,8 @@ public class InputManager : MonoBehaviour
     void Try_Pause()
     {
         //for now, empty
+        if(Input.GetKeyDown(KeyCode.Escape))
+            GameManager.instance.TogglePause();
     }
 
     void Try_MoveInventoryUpdate()

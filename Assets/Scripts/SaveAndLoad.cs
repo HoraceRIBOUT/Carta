@@ -78,6 +78,7 @@ public class SaveAndLoad : MonoBehaviour
         formater.Serialize(stream, data);
         stream.Close();
 
+        //maybve add a screenshot here ? if yes, screenshot before the pause ?
 
         //Open in windows explorer
         Application.OpenURL(Path.GetDirectoryName(path));

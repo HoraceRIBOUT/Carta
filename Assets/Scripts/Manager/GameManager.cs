@@ -24,27 +24,10 @@ public class GameManager : MonoBehaviour
     public UI_Inventory inventory;
     public UI_MapAndPaper mapAndPaper;
     public PNJ_Manager pnjManager;
-    public UnityEngine.UI.Image blackScreenForQuit; //for demo only, need a pause menu
-
-
-    private float quitButton = 0;
+    public PauseMenu pauseManager;
+    
     public void Update()
-    {
-
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            if (quitButton > 1)
-                Application.Quit();
-            quitButton += Time.deltaTime;
-        }
-        else
-        {
-            quitButton = 0;
-        }
-
-        if(blackScreenForQuit != null)
-            blackScreenForQuit.color = Color.Lerp(Color.clear, Color.black, quitButton * quitButton);
-
+    {        
         if(mapAndPaper != null)
         {
             if (mapAndPaper.IsEditingText())
@@ -83,5 +66,13 @@ public class GameManager : MonoBehaviour
         }
        
           
+    }
+
+    public void TogglePause()
+    {
+        if (!pauseManager.isPause)
+            pauseManager.Pause();
+        else
+            pauseManager.Resume();
     }
 }

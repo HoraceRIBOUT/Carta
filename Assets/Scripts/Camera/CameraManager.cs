@@ -133,15 +133,6 @@ public class CameraManager : MonoBehaviour
             //ok value inputed, rotate it
             UpdatePlayerCamPosition(lastXAxisValue, lastYAxisValue);
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //pause?
-            if (Cursor.lockState == CursorLockMode.Locked) 
-                Cursor.lockState = CursorLockMode.None;
-            else
-                Cursor.lockState = CursorLockMode.Locked;
-        }
     }
 
     public void UpdatePlayerCamPosition(float xAxis, float yAxis)
