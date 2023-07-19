@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Eh ! Toi !
@@ -79,7 +79,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 1
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Oui, toi ! Le robot !
@@ -144,7 +144,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 2
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Tu peux venir stp ?
@@ -209,7 +209,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 3
-    alreadyRead: 0
+    alreadyRead: 1
     type: 9
     dialog_Data:
       text: 
@@ -274,7 +274,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 4
-    alreadyRead: 0
+    alreadyRead: 1
     type: 15
     dialog_Data:
       text: 

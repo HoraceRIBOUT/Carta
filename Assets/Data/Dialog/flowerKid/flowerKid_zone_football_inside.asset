@@ -80,6 +80,71 @@ MonoBehaviour:
       change: 0
   - index: 1
     alreadyRead: 0
+    type: 15
+    dialog_Data:
+      text: 
+      color_override: {r: 0, g: 0, b: 0, a: 0}
+      pnj_override: 0
+    camera_Data:
+      cameraIndex: 0
+      directTP: 0
+    additem_Data:
+      itemId: 0
+    remitem_Data:
+      itemId: 0
+    sfx_Data:
+      sfxToPlay: {fileID: 0}
+    music_Data:
+      musicToPlay: {fileID: 0}
+    iteminteractivity_Data:
+      itemInvoCanBeOpen: 0
+    dialogredirection_Data:
+      dialogToGo: {fileID: 0}
+    setdefaultdialog_Data:
+      targetID: 0
+      newDefaultDial: {fileID: 0}
+    setnextdialog_Data:
+      targetID: 0
+      dialToAdd: {fileID: 0}
+      priority: 0
+    animation_Data:
+      targetID: 0
+      animIndex: 0
+    changeface_Data:
+      targetID: 0
+      eyesIndex: 0
+      mouthIndex: 0
+    changevisual_Data:
+      targetID: 0
+      visualIndex: 0
+    choice_Data:
+      typeYes: 0
+      dialogYes:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfYes: 0
+      redirectNumberStopYes: 0
+      redirectNumberAfterYes: 0
+      redirectYes:
+        dialogToGo: {fileID: 0}
+      typeNo: 0
+      dialogNo:
+        text: 
+        color_override: {r: 0, g: 0, b: 0, a: 0}
+        pnj_override: 0
+      redirectNumberIfNo: 0
+      redirectNumberStopNo: 0
+      redirectNumberAfterNo: 0
+      redirectNo:
+        dialogToGo: {fileID: 0}
+    unlockpaper_Data:
+      papersIndex: 0
+    zonechange_Data:
+      zoneName: Football_kid_outside
+      change: 0
+  - index: 2
+    alreadyRead: 0
     type: 0
     dialog_Data:
       text: T'es le robot qui va remplacer la factrice ?
@@ -143,7 +208,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 2
+  - index: 3
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -208,7 +273,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 3
+  - index: 4
     alreadyRead: 0
     type: 9
     dialog_Data:
@@ -273,7 +338,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 4
+  - index: 5
     alreadyRead: 0
     type: 15
     dialog_Data:

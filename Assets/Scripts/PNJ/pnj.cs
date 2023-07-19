@@ -329,7 +329,6 @@ public class pnj : MonoBehaviour
     }
     public void ChangeVisual(int index)
     {
-        Debug.LogError("ChangeVisual " + index + " (old : " + visualIndex_mem + ") for " + id);
         if (index == visualIndex_mem)
             return; //No need
         if (index < 0 || index >= visuals.Count)

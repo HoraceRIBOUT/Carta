@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
+    [Sirenix.OdinInspector.ReadOnly()]
     public bool isPause = false;
-
+    public float fadeInOutSpeed = 10f;
     CursorLockMode cursorStateWhenPause = CursorLockMode.Locked;
 
     public CanvasGroup background;
@@ -18,14 +19,23 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        SaveAndLoad.ScreenshotForSave();
+
         cursorStateWhenPause = Cursor.lockState;
         Cursor.lockState = CursorLockMode.None;
-
-        background.alpha = 1;
+        
         background.interactable = true;
         background.blocksRaycasts = true;
         isPause = true;
         Time.timeScale = 0;
+    }
+
+    private void Update()
+    {
+        if(background.alpha < 1 && isPause)
+            background.alpha += Time.unscaledDeltaTime * fadeInOutSpeed;
+        if(background.alpha > 0 && !isPause)
+            background.alpha -= Time.unscaledDeltaTime * fadeInOutSpeed;
     }
 
     public void Resume()
@@ -35,7 +45,6 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = cursorStateWhenPause;
         
         Time.timeScale = 1;
-        background.alpha = 0;
         background.interactable = false;
         background.blocksRaycasts = false;
         isPause = false;

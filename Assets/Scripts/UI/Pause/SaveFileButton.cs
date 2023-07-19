@@ -27,7 +27,7 @@ public class SaveFileButton : MonoBehaviour
         //ok so :
 
         //seek the save file document (.carta) :
-        string path = Application.persistentDataPath + /*(GameManager.STEAMID != null ? "/" + GameManager.STEAMID + "/" : "") + */SaveAndLoad.SAVELOCATION + index + SaveAndLoad.TERMINAISON;
+        string path = Path();
         if (File.Exists(path))
         {
             FillButtonFromSaveFile();
@@ -47,7 +47,7 @@ public class SaveFileButton : MonoBehaviour
     {
         //ok so :
         //seek the save file document (.carta) :
-        string path = Application.persistentDataPath + /*(GameManager.STEAMID != null ? "/" + GameManager.STEAMID + "/" : "") + */SaveAndLoad.SAVELOCATION + index + SaveAndLoad.TERMINAISON;
+        string path = Path();
         if (File.Exists(path))
         {
             FillButtonFromSaveFile();
@@ -75,6 +75,19 @@ public class SaveFileButton : MonoBehaviour
         dateAndHour.SetText("2h59 17/07/2023");
         //      interactyable
         //      photo
+        string imagePath = ImagePath();
+        if (string.IsNullOrEmpty(imagePath))
+        {
+            Debug.LogError("not screenshot for savefile "+ index);
+        }
+        else if (System.IO.File.Exists(imagePath))
+        {
+            byte[] bytes = System.IO.File.ReadAllBytes(imagePath);
+            Texture2D texture = new Texture2D(1, 1);
+            texture.LoadImage(bytes);
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            screenshot.sprite = sprite;
+        }
         //      nom de la save file (save file + i) + un bouton "open location"
         //      progressin.text = number take / number delivered 
         //      sur le clique :
@@ -108,7 +121,7 @@ public class SaveFileButton : MonoBehaviour
 
     void SaveDatFile()
     {
-        string path = Application.persistentDataPath + /*(GameManager.STEAMID != null ? "/" + GameManager.STEAMID + "/" : "") + */SaveAndLoad.SAVELOCATION + index + SaveAndLoad.TERMINAISON;
+        string path = Path();
         if (!File.Exists(path))
         {
             SaveDatFile_ForReal();
@@ -116,6 +129,7 @@ public class SaveFileButton : MonoBehaviour
         else
         {
             //pop up to say "are you sure you want to do that ?" later
+            File.Delete(path);
             SaveDatFile_ForReal();
         }
     } 
@@ -134,5 +148,40 @@ public class SaveFileButton : MonoBehaviour
         GameManager.instance.pauseManager.Resume();
 
         SaveAndLoad.LoadData(index);
+    }
+
+    public void TrashBinButton()
+    {
+        //normally, add a "are you SURE about that ???" button
+        DeleteDatFile();
+        FillEmpty();
+
+        if (!saveMode)
+        {
+            button.interactable = false;
+            loadText.SetActive(false);
+        }
+    }
+
+    void DeleteDatFile()
+    {
+        string path = Path();
+
+        File.Delete(path);
+    }
+
+    public void MagicFolder()
+    {
+        Debug.Log("Opening the save folder sir!");
+        Application.OpenURL(System.IO.Path.GetDirectoryName(Path()));
+    }
+
+    string Path()
+    {
+        return Application.persistentDataPath + /*(GameManager.STEAMID != null ? "/" + GameManager.STEAMID + "/" : "") + */SaveAndLoad.SAVELOCATION + index + SaveAndLoad.TERMINAISON;
+    }
+    string ImagePath()
+    {
+        return Application.persistentDataPath + /*(GameManager.STEAMID != null ? "/" + GameManager.STEAMID + "/" : "") + */SaveAndLoad.SAVELOCATION_img + index + SaveAndLoad.TERMINAISON_img;
     }
 }

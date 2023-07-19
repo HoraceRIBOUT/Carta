@@ -87,7 +87,7 @@ public class PNJ_Manager : MonoBehaviour
         }
     }
 
-
+    [System.Serializable]
     public class PNJ_Manager_Save
     {
         public List<int> progressFinish;
@@ -110,7 +110,9 @@ public class PNJ_Manager : MonoBehaviour
                     zoneTriggerActive.Add(i);
                 }
             }
+            Debug.Log("Zone trigger actoive = " + zoneTriggerActive);
         }
+
     }
 
     //TO Do : link that save !
@@ -126,6 +128,7 @@ public class PNJ_Manager : MonoBehaviour
         {
             victoryList[index].finish = true;
         }
+        Debug.Log("Zone trigger actoive = " + data.zoneTriggerActive);
         for (int i = 0; i < allTrigger.Count; i++)
         {
             allTrigger[i].gameObject.SetActive(data.zoneTriggerActive.Contains(i));

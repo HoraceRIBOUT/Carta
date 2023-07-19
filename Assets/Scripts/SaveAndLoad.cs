@@ -7,7 +7,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class SaveAndLoad : MonoBehaviour
 {
     public static string SAVELOCATION = "/SaveSlot/SAVE_CARTA_";
+    public static string SAVELOCATION_img = "/SaveSlot/SAVE_CARTA_screen_";
     public static string TERMINAISON = ".carta";
+    public static string TERMINAISON_img = ".png";
 
     [System.Serializable]
     //Name this "Global_SaveData"
@@ -26,6 +28,7 @@ public class SaveAndLoad : MonoBehaviour
 
         //PNJ state (for the pnj who change position or state (factrice, aguilar, wolfgirl...) : 
         public List<pnj.PNJ_SaveData> pnjSave;
+        public PNJ_Manager.PNJ_Manager_Save triggerSave;
 
         //Time of the day :
         public float timeOfTheDay;
@@ -37,7 +40,7 @@ public class SaveAndLoad : MonoBehaviour
         public List<pnj.pnjID> pnjAlreadyMet;
 
         public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, float _timeOfTheDay,
-            List<pnj.PNJ_SaveData> _pnjSave, 
+            List<pnj.PNJ_SaveData> _pnjSave, PNJ_Manager.PNJ_Manager_Save _triggerSave,
             List<UI_MaP_Paper.Paper_SaveData> _papersSave, List<int> _papersUnlock, List<IconData.Icon_SaveData> _iconsSave, List<pnj.pnjID> _pnjAlreadyMet)
         {
             inventory_all = _inventory_all;
@@ -47,6 +50,7 @@ public class SaveAndLoad : MonoBehaviour
             posWhenQuit_z = _posWhenQuit.z;
             timeOfTheDay = _timeOfTheDay;
             pnjSave = _pnjSave;
+            triggerSave = _triggerSave;
             papersSave = _papersSave;
             papersUnlock = _papersUnlock;
             iconsSave = _iconsSave;
@@ -85,6 +89,25 @@ public class SaveAndLoad : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         Debug.Log("Finish save data");
+
+
+        //Create a screenshot : 
+        string path_img = Application.persistentDataPath + /*(GameManager.STEAMID != null ? "/" + GameManager.STEAMID + "/" : "") + */SAVELOCATION_img + slotNumber + TERMINAISON_img;
+        if (File.Exists(path_img))
+        {
+            File.Delete(path_img);
+        }
+
+        if (GameManager.instance != null && GameManager.instance.pauseManager.isPause)
+        {
+            string pause_img = PathPauseImage();
+            File.Copy(pause_img, path_img);
+        }
+        else
+        {
+            ScreenCapture.CaptureScreenshot(path_img);
+        }
+        
     }
     public static void LoadData(int slotNumber)
     {
@@ -147,6 +170,7 @@ public class SaveAndLoad : MonoBehaviour
                 pnjSave.Add(pnj.GetSaveData());
         }
 
+        PNJ_Manager.PNJ_Manager_Save triggerSave = GameManager.instance.pnjManager.CreateSave();
         //Already read dialog : 
         //OK, THIS is going to take a huge chunck.
         // But can also be really good 
@@ -154,6 +178,8 @@ public class SaveAndLoad : MonoBehaviour
 
         //Time of the day
         float timeOfTheDay = FindObjectOfType<SkyManager>().timeOfTheDay;
+        System.DateTime trueHourAndDay = System.DateTime.Now;
+        //also the screenshot right next to here ? can be load ??? not sure...
 
         //UI : MaP 
         // - icon and text associate
@@ -164,7 +190,7 @@ public class SaveAndLoad : MonoBehaviour
         List<int> papersUnlock = GameManager.instance.mapAndPaper.papersUnlock;
         //
 
-        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave, papersList, papersUnlock, iconsSave, pnjAlreadyMet);
+        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave, triggerSave, papersList, papersUnlock, iconsSave, pnjAlreadyMet);
         return data;
     }
 
@@ -210,6 +236,8 @@ public class SaveAndLoad : MonoBehaviour
             pnj.LoadData(pnjData);
         }
 
+        //Trigger zone
+        GameManager.instance.pnjManager.LoadSave(data.triggerSave);
 
 
         //Time of the day :
@@ -218,5 +246,17 @@ public class SaveAndLoad : MonoBehaviour
         //MaP :
         GameManager.instance.mapAndPaper.ApplySaveData(data.papersSave, data.papersUnlock, data.iconsSave, data.pnjAlreadyMet);
 
+    }
+
+
+    public static void ScreenshotForSave()
+    {
+        string path_img = PathPauseImage();
+        ScreenCapture.CaptureScreenshot(path_img);
+    }
+
+    public static string PathPauseImage()
+    {
+        return Application.persistentDataPath + /*(GameManager.STEAMID != null ? "/" + GameManager.STEAMID + "/" : "") + */SAVELOCATION_img + " PAUSE" + TERMINAISON_img;
     }
 }
