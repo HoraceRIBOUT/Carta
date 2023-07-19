@@ -444,6 +444,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Book
+    second: {fileID: 2100000, guid: 02fdc2a50ade43b4a8e6a6d74ad33df3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Gears
     second: {fileID: 2100000, guid: 2d60b300bb6353b4f8a792201abd101c, type: 2}
   - first:
@@ -456,6 +461,21 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Lamp2
     second: {fileID: 2100000, guid: 0811ad109cb081043b593074ca9fa2b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MailBox
+    second: {fileID: 2100000, guid: a6c1ab048f85f004d9a22e64afb706ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MailBox_Flag
+    second: {fileID: 2100000, guid: e0ecfda43dd0d6e4fa9ab6f4170381e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Paper
+    second: {fileID: 2100000, guid: b0463bef027e13a44bff0b508990bcab, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

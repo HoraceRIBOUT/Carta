@@ -14,7 +14,10 @@ public class DynamicBone : MonoBehaviour
         public float rotationMax = 60f;
         [Range(0,1)]
         public float rotationSuplex = 0f;
-        public Quaternion startQuaternion;
+        [HideInInspector] public Quaternion startQuaternion;
+
+        public Vector3 eulerMin = new Vector3(-360, -360, -360);
+        public Vector3 eulerMax = new Vector3(361, 361, 361);
     }
 
     [Header("Movement info")]
@@ -64,7 +67,10 @@ public class DynamicBone : MonoBehaviour
 
         foreach (DynamicChain chain in chains)
         {
-            Quaternion rotation = Quaternion.Euler(rotPoint.z * chain.rotationMax, this.transform.rotation.eulerAngles.y, rotPoint.x * chain.rotationMax);
+            Quaternion rotation = Quaternion.Euler(
+                chain.eulerMin.x == 0 && chain.eulerMax.x == 0 ? this.transform.rotation.eulerAngles.x : Mathf.Clamp(rotPoint.z * chain.rotationMax, chain.eulerMin.x, chain.eulerMax.x),
+                this.transform.rotation.eulerAngles.y,
+                chain.eulerMin.z == 0 && chain.eulerMax.z == 0 ? this.transform.rotation.eulerAngles.z : Mathf.Clamp(rotPoint.x * chain.rotationMax, chain.eulerMin.z, chain.eulerMax.z));
             //Debug.Log("y = "+ this.transform.rotation.eulerAngles.y);
             chain.startingBone.localRotation = rotation * chain.startQuaternion;
             RecursiveRotation(rotation, chain.startingBone, chain.rotationSuplex);

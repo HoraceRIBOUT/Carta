@@ -255,8 +255,8 @@ public class PlayerMovement : MonoBehaviour
         acceleration += RayCastToFindAnythingInFrontOfUs(inputDir);
         acceleration *= speedGain * Time.deltaTime;
 
-        if(!Input.GetKey(KeyCode.LeftShift))
-            _rgbd.velocity += acceleration;
+
+        _rgbd.velocity += acceleration;
 
         _rgbd.velocity= Clamp_AxisIgnored(_rgbd.velocity, speedMax, upVector);
 
@@ -453,7 +453,7 @@ public class PlayerMovement : MonoBehaviour
                 //if the normal  is downward (-1) : return a -1
                 value = verticalBonusForHorizontalJump.Evaluate(value);
                 jumpDirection += Vector3.up * value;
-
+                
                 _rgbd.AddForce(jumpForce * jumpDirection.normalized, ForceMode.Impulse);
                 canJump = false;
             }
@@ -497,8 +497,8 @@ public class PlayerMovement : MonoBehaviour
                 characterAnimator.SetBool("Close", true);
             }
 
-            lastSpeed += Vector3.down * crouchGravity * Time.deltaTime;
-            _rgbd.velocity = lastSpeed;
+            _rgbd.velocity += Vector3.down * crouchGravity * Time.deltaTime;
+            lastSpeed = _rgbd.velocity;
 
             crouching = true; //for the Quit Wall --> reverse speed
         }

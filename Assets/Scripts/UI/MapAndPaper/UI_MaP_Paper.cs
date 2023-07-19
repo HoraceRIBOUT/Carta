@@ -178,7 +178,6 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             //Debug.Log("mousePositionWhenStartDragin = " + mousePositionWhenStartDragin);
             Vector3 desirePosition = positionWhenStartDragin + (Input.mousePosition - mousePositionWhenStartDragin) * mouseDragSpeed;
             desirePosition = ClampedPosition(desirePosition);
-            Debug.Log("Ok so, being drag around ! " + rectTr.localPosition + " to : " + desirePosition);
             lastMovement = rectTr.localPosition - desirePosition;
             rectTr.localPosition = desirePosition;
 
@@ -203,12 +202,10 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
                 // * this.transform.localScale.x + iconMove_Speed * iconMove_Amplitude;
             }
         }
-
-        Debug.Log("Try change scale : " + Input.mouseScrollDelta.y);
+        
         if (Input.mouseScrollDelta.y != 0 && OveringMe())
         {
-
-            Debug.Log("change scale : " + Input.mouseScrollDelta.y);
+            
             this.transform.localScale += Input.mouseScrollDelta.y * mouseScrollSpeed * Time.deltaTime * Vector3.one;
 
             if(this.transform.localScale.x < mouseScrollMinMax.x)
@@ -219,7 +216,6 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             {
                 this.transform.localScale = Vector3.one * mouseScrollMinMax.y;
             }
-            Debug.Log("Ok so : zoomed in " + rectTr.localPosition + " to : " + ClampedPosition(rectTr.localPosition));
             rectTr.localPosition = ClampedPosition(rectTr.localPosition);
         }
     }
@@ -292,12 +288,10 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
 
     public void MoveDependingOnMousePosition(UI_MaP_Drag dragObject)
     {
-        Debug.Log("Move : " + rectTr.localPosition);
         if (GameManager.instance.mapAndPaper.sideTab.OveringMe())
         {
             if (currentSpeedIntensity > 0)
                 currentSpeedIntensity = Mathf.Max(0, currentSpeedIntensity - Time.deltaTime * 4);
-            Debug.Log("Early return: " + rectTr.localPosition);
             return;
         }
         //When draggedIcon is on the border of the screen, move the paper.
@@ -349,8 +343,7 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
         //Debug.Log("Full speed : " + fullSpeedSpeed + " (with " + mousePos + ")" + currentSpeedIntensity);
 
         rectTr.localPosition += Vector3.Lerp(Vector3.zero, fullSpeedSpeed * moveSpeedMax, currentSpeedIntensity);
-
-        Debug.Log("Move : " + rectTr.localPosition + " then : " + ClampedPosition(rectTr.localPosition));
+        
         rectTr.localPosition = ClampedPosition(rectTr.localPosition);
 
     }
@@ -376,7 +369,6 @@ public class UI_MaP_Paper : UI_MaP_IconDropZone
             ic.saveData = ic.data.GetSerialazableIconData();
             ic.positionRelative_x = ic.positionRelative.x;
             ic.positionRelative_y = ic.positionRelative.y;
-            Debug.Log("Icon pos = " + ic.positionRelative);
 
             ic.SetSizeDelta(iconsGO[i].himselfRect.sizeDelta);
         }

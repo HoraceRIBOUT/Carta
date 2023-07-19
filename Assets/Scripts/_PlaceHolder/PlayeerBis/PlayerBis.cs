@@ -396,6 +396,7 @@ public class PlayerBis : MonoBehaviour
                 crouch_UpGO.SetActive(false);
             }
 
+            Debug.Log("Last Speed = "+lastSpeed + " vs " + _rgbd.velocity);
             lastSpeed += Vector3.down * crouchGravity * Time.deltaTime;
             _rgbd.velocity = lastSpeed;
 
