@@ -11,6 +11,7 @@ public class DialogManager : MonoBehaviour
     public bool inDialog = false;
     public bool canClick = true;
     public bool giveSuspens = false;
+    public bool returnToPlay = false;
 
     public List<pnj> allPNJ = new List<pnj>();
     [Sirenix.OdinInspector.ReadOnly] public List<Dialog> allDialog;
@@ -222,7 +223,6 @@ public class DialogManager : MonoBehaviour
         Debug.Log("Next step : process ( " + currentDialog.allSteps.Count + " == " + (currentStep + 1) + ")");
         if (currentDialog.allSteps.Count == currentStep + 1)
         {
-            /*Debug.LogError("Finish Dialog");*/
             FinishDialog();
             return;
         }
@@ -235,8 +235,15 @@ public class DialogManager : MonoBehaviour
             {
                 Debug.Log("Choice finish and redirect");
                 currentStep = (int)choiceEmbranchement.z;
+                
+                if (currentDialog.allSteps.Count <= currentStep)
+                {
+                    FinishDialog();
+                    return;
+                }
             }
         }
+        
 
         //Debug.Log("next step : done." + currentStep);
         TreatDepending(currentDialog, currentStep);
@@ -311,7 +318,7 @@ public class DialogManager : MonoBehaviour
 
     public void TreatText(Step.Step_Dialog data)
     {
-        if (data.text.Trim() == "")
+        if (data.text ==null || data.text.Trim() == "")
         {
             NextStep();
             return;
@@ -564,14 +571,10 @@ public class DialogManager : MonoBehaviour
     {
         blackWhite.weight = 0;
         GameManager.instance.pnjManager.FinishDialog();
-
-        if (closestPNJ != null)
-        {
-            closestPNJ.TurnActionOnOrOff(true);
-        }
-
+        
         canClick = true;
         inDialog = false;
+        returnToPlay = true;
         currentPNJ = null;
         dialogAnimator.SetBool("Open", false);
         GameManager.instance.cameraMng.UnSetSecondaryTarget();
@@ -587,6 +590,13 @@ public class DialogManager : MonoBehaviour
 
         dialogText_currIndex = -1;
 
+        yield return new WaitForSeconds(0.7f);
+        returnToPlay = false;
+
+        if (closestPNJ != null)
+        {
+            closestPNJ.TurnActionOnOrOff(true);
+        }
     }
 
     public pnj GetPNJFromID(pnj.pnjID id)

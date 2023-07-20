@@ -108,7 +108,9 @@ public class Generate_StepEnum : MonoBehaviour
             outfile.WriteLine("\t\tpublic bool alreadyRead = false;");
             outfile.WriteLine("\t\tpublic string title { get { return \"Step \" + index; } }");
             outfile.WriteLine("\t\t[Sirenix.OdinInspector.Title(\"$title\")]");
+            outfile.WriteLine("#if UNITY_EDITOR");
             outfile.WriteLine("\t\t[Sirenix.OdinInspector.GUIColor(\"GetEnumColor\")]");
+            outfile.WriteLine("#endif");
             outfile.WriteLine("\t\tpublic stepType type;");
             foreach (string str in importantLine)
             {
@@ -131,11 +133,13 @@ public class Generate_StepEnum : MonoBehaviour
             outfile.WriteLine("\t\t\t}");
             outfile.WriteLine("\t\t}");
             outfile.WriteLine("\t\t");
+            outfile.WriteLine("#if UNITY_EDITOR");
             outfile.WriteLine("\t\tpublic Color GetEnumColor()");
             outfile.WriteLine("\t\t{");
             outfile.WriteLine("\t\t\tSirenix.Utilities.Editor.GUIHelper.RequestRepaint();");
             outfile.WriteLine("\t\t\treturn Color.HSVToRGB((int)type * (1f / System.Enum.GetValues(typeof(stepType)).Length), 0.2f, 1);");
             outfile.WriteLine("\t\t}");
+            outfile.WriteLine("#endif");
             outfile.WriteLine("\t\tpublic static Step SetUpStepFromLine(string[] lineSplit)");
             outfile.WriteLine("\t\t{");
             outfile.WriteLine("\t\t\tstepType stepType = CreateCSV.GetStepTypeFromLine(lineSplit[3]);");

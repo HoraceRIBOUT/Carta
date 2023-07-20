@@ -116,12 +116,14 @@ public class UI_Inventory : MonoBehaviour
         if (allBox.Count > currentDeployList.Count)
         {
             int toDestroy = allBox.Count - currentDeployList.Count;
-            Debug.LogError("Wow, when did we get fewer box ??? Destroy them ! (" + toDestroy + ")");
-            //for (int i = currentDeployList.Count; i < allBox.Count; i++)
-            //{
-            //    Destroy(allBox[i].gameObject);
-            //}
-            //allBox.RemoveRange(currentDeployList.Count, toDestroy);
+            Debug.LogError("Wow, when did we get fewer box ??? Probably during the loading... Destroy them ! (" + toDestroy + ")");
+            //ok so probably better to deactivate than to destroy. So a pool system ? Let's try it.
+            for (int i = currentDeployList.Count; i < allBox.Count; i++)
+            {
+                allBox[i].gameObject.SetActive(false);
+                //Destroy(allBox[i].gameObject);
+            }
+            allBox.RemoveRange(currentDeployList.Count, toDestroy);
         }
 
 
@@ -129,7 +131,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void Update()
     {
-        if (GameManager.instance.dialogMng.inDialog && !GameManager.instance.dialogMng.inventoryBlock && inventory_all.Count != 0)
+        if (GameManager.instance.dialogMng.inDialog && !GameManager.instance.mapAndPaper.mapOpen && !GameManager.instance.dialogMng.inventoryBlock && inventory_all.Count != 0)
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, transparencyGoal, Time.deltaTime * transparencySpeed);
         else
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, 0, Time.deltaTime * transparencySpeed);

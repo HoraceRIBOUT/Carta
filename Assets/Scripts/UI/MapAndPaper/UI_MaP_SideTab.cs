@@ -70,6 +70,12 @@ public class UI_MaP_SideTab : UI_MaP_IconDropZone
     {
         if (Input.mouseScrollDelta.y != 0 && OveringMe())
         {
+            if (pnjToDeploy.Count <= 6)
+            {
+                //Not fill, so don't allow scroll
+                return;
+            }
+
             float ySize = rect.rect.height;
 
             Transform transformToScroll = (currentTabIndex == 0 ? iconParent.transform  : elementParent.transform);

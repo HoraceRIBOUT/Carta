@@ -68,10 +68,12 @@ public class InputManager : MonoBehaviour
         else
         {
             Try_OpenInventory();
-            Try_TalkToPnj();
             Try_OpenMapAndPaper();
             Try_Pause();
 
+            //A delay when finishing a dialog to avoid relaunch the pnj dialog immediatelly
+            if(!GameManager.instance.dialogMng.returnToPlay)
+                Try_TalkToPnj();
             //Dealt within PlayerMove.cs : 
             //Crouching
             //Moving

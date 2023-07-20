@@ -7,7 +7,6 @@ public class SFX_Pnj : MonoBehaviour
     public float idleVolume = 1f;
     public float talkVolume = .5f;
     public float victoryVolume = 0f;
-    private bool victoryMute = false;
 
     [Space]
     public float changeSpeed = 1f;

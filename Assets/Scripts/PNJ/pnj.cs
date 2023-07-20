@@ -372,8 +372,8 @@ public class pnj : MonoBehaviour
         visualIndex = index;
         visualIndex_mem = visualIndex;
 
-        if (Application.isPlaying)
-            StartCameraForDialog();
+        //if (Application.isPlaying)
+        //    StartCameraForDialog();
 
     }
 
