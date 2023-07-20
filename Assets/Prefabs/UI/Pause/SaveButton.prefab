@@ -611,8 +611,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 59.4
-  m_fontSizeBase: 59.4
+  m_fontSize: 42.615
+  m_fontSizeBase: 42.615
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ratioFromTheRect: 0
-  ratio: 0.055
+  ratio: 0.045
   alwaysUpdateSize: 0
   scaleur: 1
   myRectTransform: {fileID: 8172874937134484573}

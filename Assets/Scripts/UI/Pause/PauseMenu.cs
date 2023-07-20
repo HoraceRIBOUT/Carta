@@ -5,7 +5,10 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     [Sirenix.OdinInspector.ReadOnly()]
-    public bool isPause = false;
+    private bool inPause = false;
+    public bool isPause
+    { get => inPause && background.alpha > 0; }
+
     public float fadeInOutSpeed = 10f;
     CursorLockMode cursorStateWhenPause = CursorLockMode.Locked;
 
@@ -26,15 +29,15 @@ public class PauseMenu : MonoBehaviour
         
         background.interactable = true;
         background.blocksRaycasts = true;
-        isPause = true;
+        inPause = true;
         Time.timeScale = 0;
     }
 
     private void Update()
     {
-        if(background.alpha < 1 && isPause)
+        if(background.alpha < 1 && inPause)
             background.alpha += Time.unscaledDeltaTime * fadeInOutSpeed;
-        if(background.alpha > 0 && !isPause)
+        if(background.alpha > 0 && !inPause)
             background.alpha -= Time.unscaledDeltaTime * fadeInOutSpeed;
     }
 
@@ -47,7 +50,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         background.interactable = false;
         background.blocksRaycasts = false;
-        isPause = false;
+        inPause = false;
     }
 
     public void SaveMenu()

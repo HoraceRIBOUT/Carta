@@ -34,14 +34,14 @@ public class GameManager : MonoBehaviour
                 return;//Avoid p and j to make thing while on text input field
         }
 
-#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.P))
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+#if UNITY_EDITOR
             Debug.Break();
-        }
 #endif
+        }
 
         if (Input.GetKey(KeyCode.J))
         { 

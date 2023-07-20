@@ -525,6 +525,26 @@ public class UI_Inventory : MonoBehaviour
     }
 
 
+    #region Data for exterior
+    public int TotalItemReceived()
+    {
+        return inventory_all.Count;
+    }
+
+    public int TotalItemDelivered()
+    {
+        return inventory_all.Count - inventory_current.Count;
+    }
+
+    public int TotalItemInTransit()
+    {
+        return inventory_current.Count;
+    }
+
+
+    #endregion
+
+
 #if UNITY_EDITOR
     [Sirenix.OdinInspector.Button]
     public void FillAllItem()

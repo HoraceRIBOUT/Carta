@@ -25,18 +25,18 @@ public class InputManager : MonoBehaviour
 
         if (GameManager.instance.inventory.giveCorout != null)
         {
-            //only pause is valid in here
-            Try_Pause();
+            //Not even the pause is valid here
             return;
         }
 
 
-        //if(Pause())
-        //{
-        //   Try_UnPause();
-        //} 
-        //else
-        if (GameManager.instance.inventory.inventoryDeployed)
+
+
+        if (GameManager.instance.pauseManager.isPause)
+        {
+            Try_Pause();
+        }
+        else if (GameManager.instance.inventory.inventoryDeployed)
         {
             Try_MoveInventoryUpdate();
             Try_CloseInventory();

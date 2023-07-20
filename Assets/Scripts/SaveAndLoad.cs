@@ -14,16 +14,14 @@ public class SaveAndLoad : MonoBehaviour
     [System.Serializable]
     //Name this "Global_SaveData"
     // and create "PNJ_saveData" and "MaP_SaveDate"
-    private class Global_SaveData
+    public class Global_SaveData
     {
         //Character inventory :
         public List<itemID> inventory_all;
         public List<itemID> inventory_current;
 
         //Character position :
-        public float posWhenQuit_x;
-        public float posWhenQuit_y;
-        public float posWhenQuit_z;
+        private float posWhenQuit_x, posWhenQuit_y, posWhenQuit_z;
         //Character visual : (maybe)
 
         //PNJ state (for the pnj who change position or state (factrice, aguilar, wolfgirl...) : 
@@ -32,6 +30,8 @@ public class SaveAndLoad : MonoBehaviour
 
         //Time of the day :
         public float timeOfTheDay;
+        public SerialazableDateTime dateTime;
+        private int progressionX,progressionY;
 
         //element and page (mostly allready Serializable ?)
         public List<UI_MaP_Paper.Paper_SaveData> papersSave;
@@ -39,7 +39,8 @@ public class SaveAndLoad : MonoBehaviour
         public List<IconData.Icon_SaveData> iconsSave;
         public List<pnj.pnjID> pnjAlreadyMet;
 
-        public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, float _timeOfTheDay,
+        public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, 
+            float _timeOfTheDay, SerialazableDateTime _dateTime, Vector2 _progression,
             List<pnj.PNJ_SaveData> _pnjSave, PNJ_Manager.PNJ_Manager_Save _triggerSave,
             List<UI_MaP_Paper.Paper_SaveData> _papersSave, List<int> _papersUnlock, List<IconData.Icon_SaveData> _iconsSave, List<pnj.pnjID> _pnjAlreadyMet)
         {
@@ -49,6 +50,9 @@ public class SaveAndLoad : MonoBehaviour
             posWhenQuit_y = _posWhenQuit.y;
             posWhenQuit_z = _posWhenQuit.z;
             timeOfTheDay = _timeOfTheDay;
+            dateTime = _dateTime;
+            progressionX = (int)_progression.x;
+            progressionY = (int)_progression.y;
             pnjSave = _pnjSave;
             triggerSave = _triggerSave;
             papersSave = _papersSave;
@@ -61,7 +65,10 @@ public class SaveAndLoad : MonoBehaviour
         {
             return new Vector3(posWhenQuit_x, posWhenQuit_y, posWhenQuit_z);
         }
-
+        public Vector2 Progression()
+        {
+            return new Vector2(progressionX, progressionY);
+        }
     }
 
 
@@ -85,9 +92,9 @@ public class SaveAndLoad : MonoBehaviour
         //maybve add a screenshot here ? if yes, screenshot before the pause ?
 
         //Open in windows explorer
-        Application.OpenURL(Path.GetDirectoryName(path));
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        //Application.OpenURL(Path.GetDirectoryName(path));
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
         Debug.Log("Finish save data");
 
 
@@ -130,6 +137,27 @@ public class SaveAndLoad : MonoBehaviour
             Debug.LogError("Can't load save file n°" + slotNumber);
         }
     }
+    public static Global_SaveData GetData(int slotNumber)
+    {
+        Debug.Log("Get Data " + slotNumber);
+        string path = Application.persistentDataPath + /*(GameManager.STEAMID != null ? "/" + GameManager.STEAMID + "/" : "") + */SAVELOCATION + slotNumber + TERMINAISON;
+        if (File.Exists(path))
+        {
+            BinaryFormatter formater = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            Global_SaveData data = formater.Deserialize(stream) as Global_SaveData;
+            stream.Close();
+
+            return data;
+        }
+        else
+        {
+            //Can't load, and load a default save with warning message
+            Debug.LogError("Can't load save file n°" + slotNumber);
+            return null;
+        }
+    }
 
 
     /// <summary>
@@ -145,7 +173,7 @@ public class SaveAndLoad : MonoBehaviour
         foreach(var item in GameManager.instance.inventory.inventory_all)
         {
             inventoryAll.Add(item.Key);
-        };
+        }
 
         List<itemID> inventory_current = new List<itemID>();
         foreach (var item in GameManager.instance.inventory.inventory_current)
@@ -178,7 +206,11 @@ public class SaveAndLoad : MonoBehaviour
 
         //Time of the day
         float timeOfTheDay = FindObjectOfType<SkyManager>().timeOfTheDay;
-        System.DateTime trueHourAndDay = System.DateTime.Now;
+
+        //Just for the save display, no need to set it back
+        SerialazableDateTime trueHourAndDay = new SerialazableDateTime(System.DateTime.Now);
+        Vector2 progression = new Vector2(GameManager.instance.inventory.TotalItemDelivered(), GameManager.instance.inventory.TotalItemReceived());
+
         //also the screenshot right next to here ? can be load ??? not sure...
 
         //UI : MaP 
@@ -190,7 +222,7 @@ public class SaveAndLoad : MonoBehaviour
         List<int> papersUnlock = GameManager.instance.mapAndPaper.papersUnlock;
         //
 
-        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, pnjSave, triggerSave, papersList, papersUnlock, iconsSave, pnjAlreadyMet);
+        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, trueHourAndDay, progression, pnjSave, triggerSave, papersList, papersUnlock, iconsSave, pnjAlreadyMet);
         return data;
     }
 
@@ -247,6 +279,36 @@ public class SaveAndLoad : MonoBehaviour
         GameManager.instance.mapAndPaper.ApplySaveData(data.papersSave, data.papersUnlock, data.iconsSave, data.pnjAlreadyMet);
 
     }
+
+    [System.Serializable]
+    public struct SerialazableDateTime
+    {
+        int year;
+        int month;
+        int day;
+        int hour;
+        int minute;
+        int second;
+
+        public SerialazableDateTime(System.DateTime dateTime)
+        {
+            year = dateTime.Year;
+            month = dateTime.Month;
+            day = dateTime.Day;
+            hour = dateTime.Hour;
+            minute = dateTime.Minute;
+            second = dateTime.Second;
+        }
+
+        public System.DateTime GetDate()
+        {
+            return new System.DateTime(year, month, day, hour, minute, second);
+        }
+    }
+
+
+
+
 
 
     public static void ScreenshotForSave()

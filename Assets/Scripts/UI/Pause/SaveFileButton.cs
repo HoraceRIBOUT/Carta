@@ -34,7 +34,7 @@ public class SaveFileButton : MonoBehaviour
         }
         else
         {
-            FillEmpty();
+            FillAsEmpty();
         }
         button.interactable = true;
 
@@ -56,7 +56,7 @@ public class SaveFileButton : MonoBehaviour
         }
         else
         {
-            FillEmpty();
+            FillAsEmpty();
             //  if not :
             //      not interactable
             button.interactable = false;
@@ -70,10 +70,7 @@ public class SaveFileButton : MonoBehaviour
     void FillButtonFromSaveFile()
     {
         screenshot.sprite = spriteForNow;
-        fileName.SetText("" + SaveAndLoad.SAVELOCATION + index);
-        progressin.SetText("2/5");
-        dateAndHour.SetText("2h59 17/07/2023");
-        //      interactyable
+        fileName.SetText("" + System.IO.Path.GetFileNameWithoutExtension(SaveAndLoad.SAVELOCATION) + index);
         //      photo
         string imagePath = ImagePath();
         if (string.IsNullOrEmpty(imagePath))
@@ -88,23 +85,22 @@ public class SaveFileButton : MonoBehaviour
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
             screenshot.sprite = sprite;
         }
-        //      nom de la save file (save file + i) + un bouton "open location"
+        //Stock it to be sure : 
+        //also, if the "save data" become larger, maybe put the progress and time in a separated, lighter, saveFiles and load only this
+        var data = SaveAndLoad.GetData(index);
+        //      horaire de la save
         //      progressin.text = number take / number delivered 
-        //      sur le clique :
-        //          - load la save
+        progressin.SetText(data.Progression().x + "/" + data.Progression().y);
+        System.DateTime dateTime = data.dateTime.GetDate();
+        dateAndHour.SetText(dateTime.ToShortTimeString() + " " + dateTime.ToShortDateString());
     }
 
-    void FillEmpty()
+    void FillAsEmpty()
     {
         screenshot.sprite = null;
         fileName.SetText("Libre");
         progressin.SetText("");
         dateAndHour.SetText("");
-        //  if not :
-        //      interactyable
-        //      photo "white"
-        //      <empty>
-        //  else : 
     }
 
     public void OnClickOnButton()
@@ -154,7 +150,7 @@ public class SaveFileButton : MonoBehaviour
     {
         //normally, add a "are you SURE about that ???" button
         DeleteDatFile();
-        FillEmpty();
+        FillAsEmpty();
 
         if (!saveMode)
         {
@@ -174,6 +170,9 @@ public class SaveFileButton : MonoBehaviour
     {
         Debug.Log("Opening the save folder sir!");
         Application.OpenURL(System.IO.Path.GetDirectoryName(Path()));
+        //just in case :
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     string Path()

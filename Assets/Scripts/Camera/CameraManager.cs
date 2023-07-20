@@ -196,6 +196,9 @@ public class CameraManager : MonoBehaviour
         if (directTP)
             lerpSecondaryTarget = 1;
         onSecondary = true;
+
+
+        Debug.Log("Set secondary : " + secondaryPoint.gameObject.name);
     }
     public void UnSetSecondaryTarget()
     {

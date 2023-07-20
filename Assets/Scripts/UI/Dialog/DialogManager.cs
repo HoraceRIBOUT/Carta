@@ -520,7 +520,7 @@ public class DialogManager : MonoBehaviour
             buttonAnimator.SetTrigger("No");
         buttonAnimator.SetBool("Button", false);
         canClick = true;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None; //we keep the mouse free when in dialog
 
         switch (yes ? ch.typeYes : ch.typeNo)
         {

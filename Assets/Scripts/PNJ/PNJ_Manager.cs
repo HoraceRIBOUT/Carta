@@ -194,7 +194,7 @@ public class PNJ_Manager : MonoBehaviour
             if (currTag == Item.tag.None)
             {
                 //Mean it's global progress
-                tagValue = GameManager.instance.inventory.inventory_all.Count - GameManager.instance.inventory.inventory_current.Count;
+                tagValue = GameManager.instance.inventory.TotalItemDelivered();
             }
             else if (tagProgression.ContainsKey(currTag))
             {
