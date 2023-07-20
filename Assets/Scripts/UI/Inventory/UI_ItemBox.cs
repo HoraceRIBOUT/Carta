@@ -19,7 +19,8 @@ public class UI_ItemBox : MonoBehaviour
 
     public RectTransform _rect;
     public Vector3 _startPos;
-    
+
+    public Animator delivered_anim;
 
     public AnimationCurve positionCurve;
     public AnimationCurve scaleCurve;
@@ -34,12 +35,16 @@ public class UI_ItemBox : MonoBehaviour
         promptGive.SetActive(!delivered && GameManager.instance.dialogMng.inDialog);
         promptShow.SetActive(GameManager.instance.dialogMng.inDialog);
         ChangePromptToCorrectDevice();
-        if (delivered)
+
+        //Delivered
+        delivered_anim.SetBool("Delivered", alreadyDelivered);
+        itemIcon.color = Color.Lerp(Color.black, Color.white, delivered ?0.5f : 1f);
+        if (!delivered)
         {
-            itemIcon.color = Color.Lerp(Color.black, Color.white, 0.5f);
+            delivered_anim.SetTrigger("Reset");
         }
 
-        if(firstCreation)
+        if (firstCreation)
             _startPos = _rect.localPosition;
     }
 
@@ -101,6 +106,13 @@ public class UI_ItemBox : MonoBehaviour
             promptList.alpha = trnasitionCurve.Evaluate(deployLerp);
             yield return new WaitForSeconds(1f / 60f);
         }
+    }
+
+    public void Delivered()
+    {
+        alreadyDelivered = true;
+        delivered_anim.SetBool("Delivered", true);
+        itemIcon.color = Color.Lerp(Color.black, Color.white, 0.5f);
     }
 
     public void ChangeGivePrompt()
