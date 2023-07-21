@@ -477,9 +477,10 @@ public class UI_Inventory : MonoBehaviour
             StopCoroutine(deployingRoutine);
         deployingRoutine = StartCoroutine(Deploy_Corout(true));
 
-        foreach (UI_ItemBox itBox in allBox)
+        for (int i = 0; i < allBox.Count; i++)
         {
-            itBox.ChangeGivePrompt();
+            UI_ItemBox itBox = allBox[i];
+            itBox.ChangeGivePrompt(currentDeployList[i]);
         }
 
         allBox[0].Deploy();

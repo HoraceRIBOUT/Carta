@@ -710,8 +710,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentlyMiddle: 0
   promptList: {fileID: 4958117575617559268}
-  promptGive: {fileID: 4958117574812022233}
-  promptShow: {fileID: 4958117574615164984}
+  promptGive: {fileID: 4958117574812022215}
+  promptShow: {fileID: 4958117574615164966}
   prompt_iconController:
   - {fileID: 4958117575300670881}
   - {fileID: 4958117575360907077}
@@ -815,6 +815,18 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  giveCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  showCurve:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

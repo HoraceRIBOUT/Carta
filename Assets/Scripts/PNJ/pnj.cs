@@ -466,6 +466,41 @@ public class pnj : MonoBehaviour
     }
 
 
+    public Dialog GetGiveDialogForThisItem(itemID id)
+    {
+        foreach (pnj.ItemReaction react in reactions)
+        {
+            if (react.itemToReactFrom == id)
+            {
+                return react.responseGive;
+            }
+        }
+        return null;
+    }
+    public bool IsFinalTargetForThisItem(itemID id)
+    {
+        foreach (pnj.ItemReaction react in reactions)
+        {
+            if (react.itemToReactFrom == id)
+            {
+                return react.finalTarget;
+            }
+        }
+        return false;
+    }
+    public Dialog GetShowDialogForThisItem(itemID id)
+    {
+        foreach (pnj.ItemReaction react in reactions)
+        {
+            if (react.itemToReactFrom == id)
+            {
+                return react.responseShow;
+            }
+        }
+        return null;
+    }
+
+
 
     public PNJ_SaveData GetSaveData()
     {

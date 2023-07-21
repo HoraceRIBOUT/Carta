@@ -29,6 +29,17 @@ public class Dialog : ScriptableObject
         alreadyRead = true;
         return true;
     }
+    public bool HaveBeenLaunchedOnce()
+    {
+        if (alreadyRead)
+            return true;
+        if (allSteps.Count == 0)
+        {
+            Debug.LogError(this.name + " have 0 steps.");
+            return false;
+        }
+        return allSteps[0].alreadyRead;
+    }
 
     [Sirenix.OdinInspector.Button()]
     public void ReIndex()
