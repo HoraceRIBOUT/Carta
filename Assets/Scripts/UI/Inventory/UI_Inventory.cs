@@ -324,6 +324,7 @@ public class UI_Inventory : MonoBehaviour
 
     private IEnumerator Give_Suspens(pnj currentPNJ, Item itemSelected)
     {
+        GameManager.instance.dialogMng.AddItem_Show(itemSelected.id);
         GameManager.instance.dialogMng.StartDialog(giveSuspens_Dialog);
         //GameManager.instance.dialogMng.inventoryBlock = true; // is contains in StartDialog
 
@@ -343,9 +344,18 @@ public class UI_Inventory : MonoBehaviour
                     //Vicotry music !
                     RemItem(itemSelected);
                     VictoryMusic(react.musicGiveCorrect);
+                    GameManager.instance.dialogMng.AddItem_Win();
                 }
                 else
                 {
+                    if (react.redirection)
+                    {
+                        GameManager.instance.dialogMng.AddItem_Back();
+                    }
+                    else
+                    {
+                        GameManager.instance.dialogMng.AddItem_Loose();
+                    }
                     //Loose music...
                 }
                 if(react.responseGive == null)
@@ -359,6 +369,7 @@ public class UI_Inventory : MonoBehaviour
             }
         }
             //if no reaction, use the default one 
+        GameManager.instance.dialogMng.AddItem_Back();
         GameManager.instance.dialogMng.StartDialog(currentPNJ.giveFail_Dial, true);
         Retract();
         giveCorout = null;
@@ -391,6 +402,7 @@ public class UI_Inventory : MonoBehaviour
                     if (react.responseShow != null)
                     {
                         //even if final target, if we have a "response show", we see it as a show
+                        GameManager.instance.dialogMng.AddItem_Show(itemSelected.id);
                         GameManager.instance.dialogMng.StartDialog(react.responseShow);
                     }
                     else
@@ -400,10 +412,13 @@ public class UI_Inventory : MonoBehaviour
                             //Redirect and add victory music !
                             RemItem(itemSelected);
                             VictoryMusic(react.musicGiveCorrect);
+                            GameManager.instance.dialogMng.AddItem_Win(itemSelected.id);
                         }
                         else
                         {
+                            //Maybe a thing for react.redirection ? Like to not launch the "loose" but just elongate the suspens
                             //Loose music...
+                            GameManager.instance.dialogMng.AddItem_Show(itemSelected.id);
                         }
                         GameManager.instance.dialogMng.StartDialog(react.responseGive);
                     }

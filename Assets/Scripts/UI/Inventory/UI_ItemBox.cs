@@ -22,6 +22,7 @@ public class UI_ItemBox : MonoBehaviour
 
     public Animator delivered_anim;
 
+    [Header("On the side (depending on the Y position)")]
     public AnimationCurve positionCurve;
     public AnimationCurve scaleCurve;
 
@@ -107,6 +108,12 @@ public class UI_ItemBox : MonoBehaviour
             yield return new WaitForSeconds(1f / 60f);
         }
     }
+
+
+
+    [Header("Delivered transition")]
+    public AnimationCurve giveCurve;
+    public AnimationCurve showCurve;
 
     public void Delivered()
     {

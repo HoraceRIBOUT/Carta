@@ -150,6 +150,8 @@ public class pnj : MonoBehaviour
         public itemID itemToReactFrom = itemID.none;
 
         public bool finalTarget = false;//can give, it take
+        [Sirenix.OdinInspector.HideIf("@this.finalTarget || this.responseGive == null")]
+        public bool redirection = false;//some special data
         [Sirenix.OdinInspector.ShowIf("finalTarget")]
         public AudioClip musicGiveCorrect;
         public Dialog responseGive; //most of the time, just redirect after a line when not final target

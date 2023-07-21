@@ -400,9 +400,7 @@ public class DialogManager : MonoBehaviour
 
     public IEnumerator AddItem(Step.Step_AddItem item)
     {
-        Item it = GameManager.instance.inventory.GetItem(item.itemId);
-        _addItem_icon.sprite = it.icon;
-        _addItem_text.text = it.nameDisplay;
+        AddItem_SetItemBox(item.itemId);
         _addItem_anim.SetTrigger("Play");
         canClick = false;
         bool tmp_inventoryBlock = inventoryBlock;
@@ -412,6 +410,38 @@ public class DialogManager : MonoBehaviour
         canClick = true;
         inventoryBlock = tmp_inventoryBlock;
         NextStep();
+    }
+
+    public void AddItem_Show(itemID item)
+    {
+        AddItem_SetItemBox(item);
+        _addItem_anim.SetBool("Show", true);
+    }
+    public void AddItem_Win(itemID item)
+    {
+        AddItem_SetItemBox(item);
+        AddItem_Win();
+    }
+    public void AddItem_Win()
+    {
+        _addItem_anim.SetBool("Show", false);
+        _addItem_anim.SetTrigger("Win");
+    }
+    public void AddItem_Loose()
+    {
+        _addItem_anim.SetBool("Show", false);
+        _addItem_anim.SetTrigger("Loose");
+    }
+    public void AddItem_Back()
+    {
+        _addItem_anim.SetBool("Show", false);
+    }
+
+    public void AddItem_SetItemBox(itemID itemId)
+    {
+        Item it = GameManager.instance.inventory.GetItem(itemId);
+        _addItem_icon.sprite = it.icon;
+        _addItem_text.text = it.nameDisplay;
     }
 
     public void CanOpenInventory(Step.Step_ItemInteractivity itemInteraciv)
@@ -576,6 +606,7 @@ public class DialogManager : MonoBehaviour
         inDialog = false;
         returnToPlay = true;
         currentPNJ = null;
+        _addItem_anim.SetBool("Show", false);
         dialogAnimator.SetBool("Open", false);
         GameManager.instance.cameraMng.UnSetSecondaryTarget();
         GameManager.instance.cameraMng.UnSetThirdariesTarget();
