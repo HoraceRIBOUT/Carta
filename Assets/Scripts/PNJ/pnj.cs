@@ -58,6 +58,9 @@ public class pnj : MonoBehaviour
     [Header("Dialog data")]
     public Dialog defaultDialog;
     public List<ItemReaction> reactions = new List<ItemReaction>();
+
+    public List<itemID> alreadyGiveItem = new List<itemID>();
+    public List<itemID> alreadyShowItem = new List<itemID>();
     public List<Dialog_ToShow> nextDialog = new List<Dialog_ToShow>(); //sorted by priority
     [System.Serializable]
     public struct Dialog_ToShow
@@ -126,8 +129,10 @@ public class pnj : MonoBehaviour
         public string idleDial_Name;
         public List<string> nextDial_Names;
         public List<int> nextDial_Priority;
+        public List<itemID> alreadyGiveItem;
+        public List<itemID> alreadyShowItem;
 
-        public PNJ_SaveData(pnjID _id, int _visualsIndex, Dialog _idleDial, List<Dialog_ToShow> _nextDial)
+        public PNJ_SaveData(pnjID _id, int _visualsIndex, Dialog _idleDial, List<Dialog_ToShow> _nextDial, List<itemID> _alreadyGiveItem, List<itemID> _alreadyShowItem)
         {
             id = _id;
             visualsIndex = _visualsIndex;
@@ -140,6 +145,9 @@ public class pnj : MonoBehaviour
                 nextDial_Names.Add(nextDial.dialog.name);
                 nextDial_Priority.Add(nextDial.priority);
             }
+
+            alreadyGiveItem = _alreadyGiveItem;
+            alreadyShowItem = _alreadyShowItem;
         }
     }
 
@@ -501,10 +509,36 @@ public class pnj : MonoBehaviour
     }
 
 
+    public void SetItemHaveBeenShown(itemID id)
+    {
+        alreadyShowItem.Add(id);
+        if (GetGiveDialogForThisItem(id) == null || GetShowDialogForThisItem(id) == null)//if it's the same dialog for "give" we consider it's do both
+        {
+            alreadyGiveItem.Add(id);
+        }
+    }
+    public bool GetItemHaveBeenShown(itemID id)
+    {
+        return alreadyShowItem.Contains(id);
+    }
+    
+    public void SetItemHaveBeenGiven(itemID id)
+    {
+        alreadyGiveItem.Add(id);
+        if (GetGiveDialogForThisItem(id) == null || GetShowDialogForThisItem(id) == null) //if it's the same dialog for "show" we consider it's do both
+        {
+            alreadyShowItem.Add(id);
+        }
+    }
+    public bool GetItemHaveBeenGiven(itemID id)
+    {
+        return alreadyGiveItem.Contains(id);
+    }
+
 
     public PNJ_SaveData GetSaveData()
     {
-        PNJ_SaveData data = new PNJ_SaveData(id, visualIndex, defaultDialog, nextDialog);
+        PNJ_SaveData data = new PNJ_SaveData(id, visualIndex, defaultDialog, nextDialog, alreadyGiveItem, alreadyShowItem);
 
         return data;
     }
@@ -525,7 +559,11 @@ public class pnj : MonoBehaviour
         }
         //Maybe sort again by priority
 
-
+        //Give and shown item
+        alreadyGiveItem = dataToLoad.alreadyGiveItem;
+        if(alreadyGiveItem == null) alreadyGiveItem = new List<itemID>();
+        alreadyShowItem = dataToLoad.alreadyShowItem;
+        if(alreadyShowItem == null) alreadyShowItem = new List<itemID>();
     }
 
 

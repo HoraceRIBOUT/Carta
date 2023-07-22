@@ -27,6 +27,20 @@ public class SaveAndLoad : MonoBehaviour
         //PNJ state (for the pnj who change position or state (factrice, aguilar, wolfgirl...) : 
         public List<pnj.PNJ_SaveData> pnjSave;
         public PNJ_Manager.PNJ_Manager_Save triggerSave;
+        /// <summary>
+        /// P'tite explication en français pour si je retourne sur ce sujet plus tard. 
+        /// On a besoin de sauvegarder pour chaque dialog, si il a était entièrement lu ET si il a était lu au moins une fois. 
+        /// Du coup, on sauvegarder une liste de string (allDialogName) qui nous donne l'index où chercher cette valeur (allDialogValue)
+        /// Et ce int vaux 0 ou 1 ou 2 ou 3 selon que il y a !A&!B ou A&!B ou !A&B ou A&B. 
+        /// Dans une version plus clean, on essayera de faire en sorte que la liste de string soit stocké quelque part dans le jeu en fix/static. 
+        /// Une liste de string par version. 
+        /// Lorsqu'on sauvegarde, à la place de "allDialogName" on qsauvegarde la version du jeu 
+        /// Et ainsi, on pourra aller se reférer à la bonne version du jeu qui correspond à la sauvegarde. 
+        /// Et en raccourcicant la liste de int en mettant les 2 bits d'infos pour 16 dialog dans un int (32 bit = 2 bit x 16) 
+        /// on aura une save plus légère.
+        /// </summary>
+        public List<string> allDialogName; //in later version, the list will be fix and be like "for each version of the game" 
+        public List<int> allDialogValue; //this will be change to have an optimisation : we only need 2 bool, but we have a 32 bit value. so, we can store 16 data by []
 
         //Time of the day :
         public float timeOfTheDay;
@@ -41,7 +55,7 @@ public class SaveAndLoad : MonoBehaviour
 
         public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, 
             float _timeOfTheDay, SerialazableDateTime _dateTime, Vector2 _progression,
-            List<pnj.PNJ_SaveData> _pnjSave, PNJ_Manager.PNJ_Manager_Save _triggerSave,
+            List<pnj.PNJ_SaveData> _pnjSave, PNJ_Manager.PNJ_Manager_Save _triggerSave, List<string> _allDialogName, List<int> _allDialogValue,
             List<UI_MaP_Paper.Paper_SaveData> _papersSave, List<int> _papersUnlock, List<IconData.Icon_SaveData> _iconsSave, List<pnj.pnjID> _pnjAlreadyMet)
         {
             inventory_all = _inventory_all;
@@ -55,6 +69,8 @@ public class SaveAndLoad : MonoBehaviour
             progressionY = (int)_progression.y;
             pnjSave = _pnjSave;
             triggerSave = _triggerSave;
+            allDialogName = _allDialogName;
+            allDialogValue = _allDialogValue;
             papersSave = _papersSave;
             papersUnlock = _papersUnlock;
             iconsSave = _iconsSave;
@@ -222,7 +238,15 @@ public class SaveAndLoad : MonoBehaviour
         List<int> papersUnlock = GameManager.instance.mapAndPaper.papersUnlock;
         //
 
-        Global_SaveData data = new Global_SaveData(inventoryAll, inventory_current, characterPos, timeOfTheDay, trueHourAndDay, progression, pnjSave, triggerSave, papersList, papersUnlock, iconsSave, pnjAlreadyMet);
+        //Dialog read or launch : 
+        List<string> allDialogNames = GameManager.instance.dialogMng.GetSaveData_DialogStateName();
+        List<int> allDialogValues = GameManager.instance.dialogMng.GetSaveData_DialogStateValue();
+
+        Global_SaveData data = new Global_SaveData(
+            inventoryAll, inventory_current,                            //Inventory 
+            characterPos, timeOfTheDay, trueHourAndDay, progression,    //Global gameplay
+            pnjSave, triggerSave, allDialogNames, allDialogValues,      //pnj and progression element
+            papersList, papersUnlock, iconsSave, pnjAlreadyMet);        //ui and map and paper
         return data;
     }
 
@@ -274,6 +298,10 @@ public class SaveAndLoad : MonoBehaviour
 
         //Time of the day :
         FindObjectOfType<SkyManager>().timeOfTheDay = data.timeOfTheDay;
+
+
+        //Dialog read or launch : 
+        GameManager.instance.dialogMng.LoadDialogState(data.allDialogName, data.allDialogValue);
 
         //MaP :
         GameManager.instance.mapAndPaper.ApplySaveData(data.papersSave, data.papersUnlock, data.iconsSave, data.pnjAlreadyMet);

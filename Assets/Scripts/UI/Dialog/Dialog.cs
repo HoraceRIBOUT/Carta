@@ -41,6 +41,18 @@ public class Dialog : ScriptableObject
         return allSteps[0].alreadyRead;
     }
 
+    public void SetState(bool read, bool haveBeenLaunch)
+    {
+        foreach (Step.Step step in allSteps)
+        {
+            step.alreadyRead = read;
+        }
+        alreadyRead = read;
+        if (allSteps.Count == 0)
+            return;
+        allSteps[0].alreadyRead = read || haveBeenLaunch;
+    }
+
     [Sirenix.OdinInspector.Button()]
     public void ReIndex()
     {

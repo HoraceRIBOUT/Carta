@@ -50,6 +50,8 @@ public class DialogManager : MonoBehaviour
 
     public void Start()
     {
+        ResetDialogState(); //try to make it somewhere else, safer
+
         //Just in case, could be delete when finishing the game to lighten the start load
         FillAllPNJ(); 
         FillAllDialogDico();
@@ -198,6 +200,8 @@ public class DialogManager : MonoBehaviour
         currentStep = -1;
         choiceEmbranchement = Vector3.zero;
         NextStep();
+
+        Debug.Log("Came here");
 
         if (closestPNJ != null)
         {
@@ -675,6 +679,62 @@ public class DialogManager : MonoBehaviour
             allDialogDico.Add(dial.name, dial);
         }
     }
+
+
+    private List<int> save_dialogStataValue = new List<int>();
+    public List<string> GetSaveData_DialogStateName()
+    {
+        List<string> allName = new List<string>();
+        foreach (Dialog dial in allDialog)
+        {
+            allName.Add(dial.name);
+            bool read = dial.IsAlreadyRead();
+            bool once = dial.HaveBeenLaunchedOnce();
+            int mergeBit =
+                (read ? (1 << 0) : 0) +
+                (once ? (1 << 1) : 0);
+            save_dialogStataValue.Add(mergeBit);
+
+            if (read || once)
+                Debug.Log(dial.name + " have been " + (read ? " read." : "not read.") + (once ? " . But seen once." : "And never seen."));
+        }
+        return allName;
+    }
+    //Always call GetSave_DialogStateName() first.
+    public List<int> GetSaveData_DialogStateValue()
+    {
+        return save_dialogStataValue;
+    }
+
+    public void LoadDialogState(List<string> name, List<int> value)
+    {
+        int index = -1;
+        foreach (Dialog dial in allDialog)
+        {
+            if (dial == null)
+                continue;
+            index = name.IndexOf(dial.name);
+            if (index != -1)
+            {
+                bool read = (value[index] & (1 << 0)) != 0;
+                bool once = (value[index] & (1 << 1)) != 0;
+                dial.SetState(read, once);
+
+                if (read || once)
+                    Debug.Log(dial.name + " have been " + (read ? " read." : "not read.") + (once ? " . But seen once." : "And never seen.")+ " Value = "+ value[index]);
+            }
+            else
+            {
+                dial.SetState(false, false);
+            }
+        }
+    }
+    private void ResetDialogState()
+    {
+        foreach (Dialog dial in allDialog)
+            dial.SetState(false, false);
+    }
+
 
     [Sirenix.OdinInspector.Button]
     void InfoAllDialog()

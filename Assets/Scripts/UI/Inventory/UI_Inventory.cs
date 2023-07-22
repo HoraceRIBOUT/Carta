@@ -315,6 +315,7 @@ public class UI_Inventory : MonoBehaviour
 
         Debug.Log("Try to give : " + itemSelected.id);
         Debug.Log("currentPNJ = " + currentPNJ.id + " and itemSelected "+ itemSelected.id);
+        currentPNJ.SetItemHaveBeenGiven(itemSelected.id);
         giveCorout = StartCoroutine(Give_Suspens(currentPNJ, itemSelected));
     }
 
@@ -331,13 +332,13 @@ public class UI_Inventory : MonoBehaviour
         GameManager.instance.cameraMng.ZoomCamera(.5f, 1f);
         GameManager.instance.dialogMng.giveSuspens = true;
         yield return new WaitForSeconds(giveSuspens_WaitTime);
-        GameManager.instance.dialogMng.giveSuspens = false;
         GameManager.instance.cameraMng.ZoomCamera(1f, 10f);
 
         foreach (pnj.ItemReaction react in currentPNJ.reactions)
         {
             if (react.itemToReactFrom == itemSelected.id)
             {
+                float waitForAnimation = 0.5f;
             //if a reaction, use it 
                 if (react.finalTarget)
                 {
@@ -351,6 +352,7 @@ public class UI_Inventory : MonoBehaviour
                     if (react.redirection)
                     {
                         GameManager.instance.dialogMng.AddItem_Back();
+                        waitForAnimation = 0.2f;
                     }
                     else
                     {
@@ -358,7 +360,10 @@ public class UI_Inventory : MonoBehaviour
                     }
                     //Loose music...
                 }
-                if(react.responseGive == null)
+
+                yield return new WaitForSeconds(0.5f);
+                GameManager.instance.dialogMng.giveSuspens = false;
+                if (react.responseGive == null)
                     GameManager.instance.dialogMng.StartDialog(react.responseShow);
                 else
                     GameManager.instance.dialogMng.StartDialog(react.responseGive);
@@ -369,7 +374,9 @@ public class UI_Inventory : MonoBehaviour
             }
         }
             //if no reaction, use the default one 
-        GameManager.instance.dialogMng.AddItem_Back();
+        GameManager.instance.dialogMng.AddItem_Loose();
+        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.dialogMng.giveSuspens = false;
         GameManager.instance.dialogMng.StartDialog(currentPNJ.giveFail_Dial, true);
         Retract();
         giveCorout = null;
@@ -395,6 +402,7 @@ public class UI_Inventory : MonoBehaviour
         Debug.Log("Try to show : " + itemSelected.id);
         if (currentPNJ != null)
         {
+            currentPNJ.SetItemHaveBeenShown(itemSelected.id);
             foreach (pnj.ItemReaction react in currentPNJ.reactions)
             {
                 if (react.itemToReactFrom == itemSelected.id)

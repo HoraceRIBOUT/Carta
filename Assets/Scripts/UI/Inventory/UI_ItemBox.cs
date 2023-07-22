@@ -127,12 +127,16 @@ public class UI_ItemBox : MonoBehaviour
     {
         promptShow.gameObject.SetActive(GameManager.instance.dialogMng.inDialog);
         ChangePromptToPNJValue(item);
-        if(!alreadyDelivered && GameManager.instance.dialogMng.inDialog)
+        if(GameManager.instance.dialogMng.inDialog)
         {
             if (promptGive.text == "")
                 promptGive.gameObject.SetActive(false);
             else
                 promptGive.gameObject.SetActive(true);
+        }
+        else
+        {
+            promptGive.gameObject.SetActive(false);
         }
     }
 
@@ -157,29 +161,29 @@ public class UI_ItemBox : MonoBehaviour
             //So I keep them for clarity in term of comparaison on my side.
             //sorry if you have to deal with that , it will now cost time for you
             Dialog giveDial = pnj.GetGiveDialogForThisItem(item.id);
-            bool B = (giveDial != null? giveDial.HaveBeenLaunchedOnce() : false);
+            bool A = (giveDial != null);
+            bool B = pnj.GetItemHaveBeenGiven(item.id);
             //For GIVE 
             if (!alreadyDelivered)
             {
                 if (B)
-                    giveString = "Donner <b><color=FF0000>X</color></b>";
+                    giveString = "Donner <b><color=#FF0000>X</color></b>";
                 else
                     giveString = "Donner";
             }
             else
             {
                 bool C = pnj.IsFinalTargetForThisItem(item.id);
-                if (C)
+                if (C && A)
                 {
-                    giveString = "Se souvenir <b><color=00FF33>✓</color></b>";
+                    giveString = "Se souvenir <b><color=#00FF33>✓</color></b>";
                 }
-                else if (B)
+                else if (B && A)
                 {
                     giveString = "Se souvenir <b>✓</b>";
                 }
                 else
                 {
-                    bool A = (giveDial != null);
                     if (A)
                         giveString = "Donner ?"; //maybe : say that you have a "show" to do ? so it show the "give" ? only few time we have both...
                     else
@@ -190,8 +194,9 @@ public class UI_ItemBox : MonoBehaviour
 
             //For SHOW
             Dialog showDial = pnj.GetShowDialogForThisItem(item.id);
-            bool Bs = (showDial != null ? showDial.HaveBeenLaunchedOnce() : false);
-            if (Bs)
+            bool As = (showDial != null);
+            bool Bs = pnj.GetItemHaveBeenShown(item.id);
+            if (Bs && As)
             {
                 showString = "Montrer <b>✓</b>";
             }
@@ -199,7 +204,6 @@ public class UI_ItemBox : MonoBehaviour
             {
                 if(alreadyDelivered)
                 {
-                    bool As = (showDial != null);
                     if (As)
                         showString = "Montrer ?";
                 }
