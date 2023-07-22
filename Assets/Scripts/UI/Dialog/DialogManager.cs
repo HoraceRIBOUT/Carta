@@ -24,6 +24,7 @@ public class DialogManager : MonoBehaviour
     public CanvasGroup dialogCanvas;
     public Animator buttonAnimator;
     public Volume blackWhite;
+    public Screenshake screenshake;
 
     [Header("Add item")]
     public Animator _addItem_anim;
@@ -431,6 +432,7 @@ public class DialogManager : MonoBehaviour
     {
         _addItem_anim.SetBool("Show", false);
         _addItem_anim.SetTrigger("Loose");
+        screenshake.AddScreenshake(0.5f);
     }
     public void AddItem_Back()
     {
