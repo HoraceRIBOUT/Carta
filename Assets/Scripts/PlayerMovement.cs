@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Component")]
     public CapsuleCollider _capsule;
+    public SphereCollider _sphere;
     public Rigidbody _rgbd;
     private Transform cameraTr;
 
@@ -492,8 +493,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!crouching)
             {
-                _capsule.height = 1;
-                _capsule.center = Vector3.down * (crouchDefaultSize - 1f) * 0.5f;
+                _capsule.enabled = false;
+                _sphere.enabled = true;
                 characterAnimator.SetBool("Close", true);
             }
 
@@ -504,8 +505,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (crouching)
         {
-            _capsule.height = crouchDefaultSize;
-            _capsule.center = Vector3.zero;
+            _capsule.enabled = true;
+            _sphere.enabled = false;
             characterAnimator.SetBool("Close", false);
             crouching = false;
         }
