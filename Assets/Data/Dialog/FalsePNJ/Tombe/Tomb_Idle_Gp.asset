@@ -17,7 +17,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "<Ci-g\xEEt, Mansour\nP\xE8re stricte, grand-p\xE8re aimant, ami sinc\xE8re>"
+      text: "<Ci-g\xEEt, Mansour\nNos souvenirs te rendront immortels.\n1925-2005>"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -75,5 +75,8 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}

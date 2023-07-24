@@ -17,8 +17,8 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "<Ci-g\xEEt, Aicha fille de Mansour.\nUne soeur qu'on oubliera jamais\nUne
-        m\xE8re qu'on aimera toujours>"
+      text: "<Ci-g\xEEt, Ali, fils de Mansour.\nFils aim\xE9, p\xE8re aimant et ami
+        fid\xE8le.\n1968-2000>"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -76,5 +76,8 @@ MonoBehaviour:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
       papersIndex: 0
+    zonechange_Data:
+      zoneName: 
+      change: 0
   pnj_link: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
