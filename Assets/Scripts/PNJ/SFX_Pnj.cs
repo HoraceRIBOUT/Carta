@@ -15,6 +15,7 @@ public class SFX_Pnj : MonoBehaviour
     private Coroutine victoryCorout = null;
 
     public AudioSource source;
+    public List<AudioClip> otherClip;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,12 @@ public class SFX_Pnj : MonoBehaviour
     {
 
         source.volume = Mathf.Lerp(source.volume, (victoryCorout == null ? currentTargetVolume : victoryVolume), Time.deltaTime * changeSpeed);
+    }
+
+    void ChangeClip(int index)
+    {
+        source.clip = otherClip[index];
+        source.Play();
     }
 
     public void StartDialog()

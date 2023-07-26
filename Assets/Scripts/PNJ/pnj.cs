@@ -290,6 +290,8 @@ public class pnj : MonoBehaviour
         bool defaultDial = nextDialog.Count == 0;
         GameManager.instance.dialogMng.StartDialog(GetDialogToShow(), defaultDial, this);
         StartCameraForDialog();
+
+        GameManager.instance.soundMng.StartTalk();
     }
 
     public void StartCameraForDialog()

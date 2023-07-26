@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     }
 
     public PlayerMovement playerMove;
+    public SoundManager soundMng;
     public CameraManager cameraMng;
     public DialogManager dialogMng;
     public UI_Inventory inventory;

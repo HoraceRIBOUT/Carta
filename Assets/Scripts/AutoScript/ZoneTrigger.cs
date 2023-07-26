@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ZoneTrigger : MonoBehaviour
 {
@@ -13,14 +14,20 @@ public class ZoneTrigger : MonoBehaviour
     }
 
 
-    [Sirenix.OdinInspector.ShowIf("myType", ZoneTrigger_AutoGeneratePart.ZoneTriggerType.balcony)]
+    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialog || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
     public string balcony_id;
-    [Sirenix.OdinInspector.ShowIf("myType", ZoneTrigger_AutoGeneratePart.ZoneTriggerType.balcony)]
+    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialog || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
     public Dialog balconyDialog;
-    [Sirenix.OdinInspector.ShowIf("myType", ZoneTrigger_AutoGeneratePart.ZoneTriggerType.balcony)]
+    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialog || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
     public pnj balconyPNJ;
 
-    public void EnterBalcony()
+
+    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.events || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
+    public UnityEvent eventEnter;
+    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.events || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
+    public UnityEvent eventExit;
+
+    public void EnterDialog()
     {
         Debug.Log("Balcony ! Yeah !");
         //Play the dialog :
@@ -28,18 +35,28 @@ public class ZoneTrigger : MonoBehaviour
         balconyPNJ.StartCameraForDialog();
         this.gameObject.SetActive(false);
     }
-    public void ExitBalcony()
+    public void ExitDialog()
     {
-        Debug.Log("Balcony ? no...");
+
     }
 
-    public void EnterFountain()
+    public void EnterEvents()
     {
-        Debug.Log("Oh, a fountain ?");
+        eventEnter.Invoke();
     }
-    public void ExitFountain()
+    public void ExitEvents()
     {
-        Debug.Log("No more fountain.");
+        eventExit.Invoke();
+    }
+
+    public void EnterDialogAndEvents()
+    {
+        EnterEvents();
+        EnterDialog();
+    }
+    public void ExitDialogAndEvents()
+    {
+        ExitEvents();
     }
 
     public void EnterDream()

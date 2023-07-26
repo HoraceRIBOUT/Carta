@@ -250,7 +250,7 @@ public class CameraManager : MonoBehaviour
         }
 
         float meanDist = SurroundingMeanDistance(raycastDist);
-        Debug.Log("MeanDist = " + meanDist + " so i t make : " + raycastDist + " / " + (meanDist / raycastDist));
+        //Debug.Log("MeanDist = " + meanDist + " so i t make : " + raycastDist + " / " + (meanDist / raycastDist));
 
         distanceCurrent = Mathf.Lerp(distanceCurrent, distanceTarget, Time.deltaTime * distance_LerpSpeed);
 

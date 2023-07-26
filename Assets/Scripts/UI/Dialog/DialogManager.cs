@@ -131,6 +131,7 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
+        GameManager.instance.soundMng.NextTalk();
         NextStep();
     }
 
@@ -407,6 +408,7 @@ public class DialogManager : MonoBehaviour
     {
         AddItem_SetItemBox(item.itemId);
         _addItem_anim.SetTrigger("Play");
+        GameManager.instance.soundMng.GetItem();
         canClick = false;
         bool tmp_inventoryBlock = inventoryBlock;
         inventoryBlock = true;
@@ -558,9 +560,15 @@ public class DialogManager : MonoBehaviour
             return;
         Step.Step_Choice ch = choiceInMemory;
         if (yes)
+        {
             buttonAnimator.SetTrigger("Yes");
+            GameManager.instance.soundMng.ButtonYes();
+        }
         else
+        {
             buttonAnimator.SetTrigger("No");
+            GameManager.instance.soundMng.ButtonNo();
+        }
         buttonAnimator.SetBool("Button", false);
         canClick = true;
         Cursor.lockState = CursorLockMode.None; //we keep the mouse free when in dialog

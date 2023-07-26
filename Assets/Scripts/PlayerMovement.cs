@@ -553,6 +553,7 @@ public class PlayerMovement : MonoBehaviour
                     float landingIntensity = Vector3.Dot(collision.impulse, Vector3.up) * collision.impulse.y;
                     //Debug.Log("Impact : " + landingIntensity);
                     landingStress += landingIntensity / landingIntensityMax;
+                    GameManager.instance.soundMng.HurtGround(landingStress);
                     canJump = true;
                 }
             }

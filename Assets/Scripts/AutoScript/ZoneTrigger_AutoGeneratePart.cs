@@ -11,8 +11,9 @@ public class ZoneTrigger_AutoGeneratePart : MonoBehaviour {
  
 	public enum ZoneTriggerType
 	{
-	     balcony,
-	     fountain,
+	     dialog,
+	     events,
+	     dialogandevents,
 	     dream,
 	     restaurant,
 	     flowershop,
@@ -22,11 +23,14 @@ public class ZoneTrigger_AutoGeneratePart : MonoBehaviour {
 	{
 	    switch(mainComponent.myType)
 	    {
-	        case ZoneTriggerType.balcony :
-	            mainComponent.EnterBalcony();
+	        case ZoneTriggerType.dialog :
+	            mainComponent.EnterDialog();
 	        break;
-	        case ZoneTriggerType.fountain :
-	            mainComponent.EnterFountain();
+	        case ZoneTriggerType.events :
+	            mainComponent.EnterEvents();
+	        break;
+	        case ZoneTriggerType.dialogandevents :
+	            mainComponent.EnterDialogAndEvents();
 	        break;
 	        case ZoneTriggerType.dream :
 	            mainComponent.EnterDream();
@@ -41,11 +45,14 @@ public class ZoneTrigger_AutoGeneratePart : MonoBehaviour {
 	{
 	    switch(mainComponent.myType)
 	    {
-	        case ZoneTriggerType.balcony :
-	            mainComponent.ExitBalcony();
+	        case ZoneTriggerType.dialog :
+	            mainComponent.ExitDialog();
 	        break;
-	        case ZoneTriggerType.fountain :
-	            mainComponent.ExitFountain();
+	        case ZoneTriggerType.events :
+	            mainComponent.ExitEvents();
+	        break;
+	        case ZoneTriggerType.dialogandevents :
+	            mainComponent.ExitDialogAndEvents();
 	        break;
 	        case ZoneTriggerType.restaurant :
 	            mainComponent.ExitRestaurant();

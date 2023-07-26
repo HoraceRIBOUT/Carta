@@ -331,6 +331,8 @@ public class UI_Inventory : MonoBehaviour
 
         GameManager.instance.cameraMng.ZoomCamera(.5f, 1f);
         GameManager.instance.dialogMng.giveSuspens = true;
+
+        GameManager.instance.soundMng.Suspens_Wait();
         yield return new WaitForSeconds(giveSuspens_WaitTime);
         GameManager.instance.cameraMng.ZoomCamera(1f, 10f);
 
@@ -356,6 +358,7 @@ public class UI_Inventory : MonoBehaviour
                     }
                     else
                     {
+                        GameManager.instance.soundMng.Suspens_Loose();
                         GameManager.instance.dialogMng.AddItem_Loose();
                     }
                     //Loose music...
@@ -375,6 +378,7 @@ public class UI_Inventory : MonoBehaviour
         }
             //if no reaction, use the default one 
         GameManager.instance.dialogMng.AddItem_Loose();
+        GameManager.instance.soundMng.Suspens_Loose();
         yield return new WaitForSeconds(0.5f);
         GameManager.instance.dialogMng.giveSuspens = false;
         GameManager.instance.dialogMng.StartDialog(currentPNJ.giveFail_Dial, true);
@@ -382,15 +386,15 @@ public class UI_Inventory : MonoBehaviour
         giveCorout = null;
     }
 
-    public void VictoryMusic(AudioClip musicToPlay)
+    public void VictoryMusic(AudioClip musicAfterWeFinishDialog)
     {
+        //we need to register the music for after the dialog
+        //TO DO
 
 
-
-        float victoryTiming = 0.1f;
-        if (musicToPlay != null)
-            victoryTiming = musicToPlay.length;
-        GameManager.instance.pnjManager.Victory(victoryTiming);
+        float jingleDuration = GameManager.instance.soundMng.Suspens_Win();
+        
+        GameManager.instance.pnjManager.Victory(jingleDuration);
     }
 
     public void Show()
