@@ -364,7 +364,7 @@ public class UI_Inventory : MonoBehaviour
                     //Loose music...
                 }
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(waitForAnimation);
                 GameManager.instance.dialogMng.giveSuspens = false;
                 if (react.responseGive == null)
                     GameManager.instance.dialogMng.StartDialog(react.responseShow);

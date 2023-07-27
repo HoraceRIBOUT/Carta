@@ -130,8 +130,7 @@ public class DialogManager : MonoBehaviour
             dialogTexts[dialogText_currIndex].SkipPrinting();
             return;
         }
-
-        GameManager.instance.soundMng.NextTalk();
+        
         NextStep();
     }
 
@@ -329,6 +328,15 @@ public class DialogManager : MonoBehaviour
             NextStep();
             return;
         }
+
+        //Sound
+        if (muteNextDialog)
+        {
+            muteNextDialog = false;
+        }
+        else if (dialogText_currIndex != -1)
+            GameManager.instance.soundMng.NextTalk();
+
 
         //Make every box goes to next step (the available one will skip this by themself)
         foreach (DialogBox dialogBox in dialogTexts)
@@ -553,6 +561,7 @@ public class DialogManager : MonoBehaviour
         canClick = false;
     }
 
+    private bool muteNextDialog = true;
     public void PressButton(bool yes)
     {
         Debug.Log("PRESS " + (yes ? "yes" : "no"));
@@ -572,6 +581,7 @@ public class DialogManager : MonoBehaviour
         buttonAnimator.SetBool("Button", false);
         canClick = true;
         Cursor.lockState = CursorLockMode.None; //we keep the mouse free when in dialog
+        muteNextDialog = true;
 
         switch (yes ? ch.typeYes : ch.typeNo)
         {
@@ -622,6 +632,7 @@ public class DialogManager : MonoBehaviour
         currentPNJ = null;
         _addItem_anim.SetBool("Show", false);
         dialogAnimator.SetBool("Open", false);
+        GameManager.instance.soundMng.EndTalk();
         GameManager.instance.cameraMng.UnSetSecondaryTarget();
         GameManager.instance.cameraMng.UnSetThirdariesTarget();
         //May need a delay here

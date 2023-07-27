@@ -37,21 +37,25 @@ public class SoundManager : MonoBehaviour
 
         inDialog = Mathf.Lerp(inDialog, (GameManager.instance.dialogMng.inDialog ? 1 : 0), Time.deltaTime);
 
-        ambientSea  .volume = (    (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog;
-        ambientMount.volume = (1 - (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog;
+        ambientSea  .volume = ((    (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog) * volumeAmbient;
+        ambientMount.volume = ((1 - (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog) * volumeAmbient;
                                                                                             
                                                                                             
         //if possible, lower that when seaX rise to high                                    
-        musicEggs   .volume =                                       1 - silencierFromDialog * inDialog;
-        musicBass   .volume = (1 - (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog;
-        musicCongo  .volume = (1 - (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog;
-        musicKalimba.volume = (    (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog;
+        musicEggs   .volume = (                                      1 - silencierFromDialog * inDialog) * volumeMusique;
+        musicBass   .volume = ((1 - (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog) * volumeMusique;
+        musicCongo  .volume = ((1 - (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog) * volumeMusique;
+        musicKalimba.volume = ((    (mountOrSeaLerp * mountOrSeaLerp)) - silencierFromDialog * inDialog) * volumeMusique;
     }
 
 
     [Header("UI fx")]
     [SerializeField] private AudioSource startTalk;
     [SerializeField] private AudioSource nextTalk;
+    [SerializeField] private List<AudioClip> nextTalk_clip;
+    private int nextTalk_lastIndex;
+    [SerializeField] private Vector2 nextTalk_pitchRange = new Vector2(.8f, 1.2f);
+    [SerializeField] private AudioSource endTalk;
     [SerializeField] private AudioSource buttonYes;
     [SerializeField] private AudioSource buttonNo;
     [SerializeField] private AudioSource getItem;
@@ -64,10 +68,18 @@ public class SoundManager : MonoBehaviour
     {
         startTalk.PlayOneShot(startTalk.clip);
     }
+
+    [Sirenix.OdinInspector.Button]
     public void NextTalk()
     {
-        if(nextTalk != null)
-            nextTalk.PlayOneShot(nextTalk.clip);
+        if(nextTalk != null && nextTalk_clip.Count != 0)
+        {
+            nextTalk.pitch = Random.Range(nextTalk_pitchRange.x, nextTalk_pitchRange.y);
+            nextTalk_lastIndex++;
+            if (nextTalk_lastIndex == nextTalk_clip.Count)
+                nextTalk_lastIndex = 0;
+            nextTalk.PlayOneShot(nextTalk_clip[nextTalk_lastIndex]);
+        }
     }
     public void ButtonYes()
     {
@@ -99,6 +111,10 @@ public class SoundManager : MonoBehaviour
     {
         suspens_loose.PlayOneShot(suspens_loose.clip);
     }
+    public void EndTalk()
+    {
+        endTalk.PlayOneShot(endTalk.clip);
+    }
 
 
     [Header("UI fx")]
@@ -123,7 +139,7 @@ public class SoundManager : MonoBehaviour
 
 
         //For now :
-        hurtGround_soft.volume = 1 - (1-power)*(1-power); //get quickly more sound
+        hurtGround_soft.volume = (1 - (1-power)*(1-power)) * hurtGroundVol; //get quickly more sound
         hurtGround_soft.PlayOneShot(hurtGround_soft.clip);
     }
 }
