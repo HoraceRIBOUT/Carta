@@ -653,9 +653,9 @@ MonoBehaviour:
   contacts: []
   emptyLookDistance: 0.5
   emptyLookRaycastDirections:
-  - {x: 0.2, y: 0, z: 0}
-  - {x: 0, y: -0.19, z: 0}
-  - {x: -0.2, y: 0, z: 0}
+  - {x: 0.15, y: 0, z: 0}
+  - {x: 0, y: -0.14, z: 0}
+  - {x: -0.15, y: 0, z: 0}
   emptyLookIntensity: 3
   talking: 0
   speedWhenInterupt: {x: 0, y: 0, z: 0}

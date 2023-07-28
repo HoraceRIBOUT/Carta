@@ -19,8 +19,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jump")]
     public float jumpForce = 10f;
+    public float jumpForce_FullJump = 10f;
     public AnimationCurve verticalBonusForHorizontalJump;
+    public float jumpTiming = 1f;
+    [ReadOnly] public float jumpTimer = 0f;
     [ReadOnly] public bool canJump = true;
+    [ReadOnly] public bool inJump = false;
+    [ReadOnly] public Vector3 jumpDirection;
     public float landingStress = 0f;
     public float landingIntensityMax = 20f;
     public float landingRecover = 4f;
@@ -31,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Other data")] [ReadOnly]
     public Vector3 lastUpVector = Vector3.up;
+    public Vector3 center { get => this.transform.position + 0.7f * 0.2f * Vector3.up; }
     [ReadOnly]
     public List<wallAndGround_Info> contacts = new List<wallAndGround_Info>();
 
@@ -148,6 +154,11 @@ public class PlayerMovement : MonoBehaviour
 
 
         _ContactSafety();
+
+        if (Input.GetKeyDown(KeyCode.K))
+            Application.targetFrameRate = 60;
+        if(Input.GetKeyDown (KeyCode.L))
+            Application.targetFrameRate = 10;
     }
 
 
@@ -190,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 groundRight = GameManager.instance.cameraMng.mainCamera.transform.right;
         Vector3 upVector = lastUpVector;
 
+
         //Decide which UpVector we are gonna use
         if (contacts.Count == 0)
         {
@@ -212,10 +224,11 @@ public class PlayerMovement : MonoBehaviour
             //ok, so, for now, just take the vector who is touch by joyLook.
             Vector3 direction = forwardCam_Gr * inputDir.y + groundRight * inputDir.x;
             upVector = SetVectorUpForMultipleElement(direction);
-            //Debug.DrawRay(this.transform.position, upVector, Color.red + Color.blue);
         }
 
-        
+
+        //Debug.DrawRay(center, upVector, Color.red);
+
 
         Vector3 groundForward = Vector3.ProjectOnPlane(forwardCam_Gr, upVector).normalized;
         //this is the ground forward 
@@ -224,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
         float clampedDotValue = Mathf.Clamp01(Vector3.Dot(upVector, Vector3.up));
 
         //debugValue = clampedDotValue;
-        //Debug.DrawRay(this.transform.position, groundForward, Color.white);
+        //Debug.DrawRay(center, groundForward, Color.white);
         groundRight = Vector3.Cross(upVector, groundForward).normalized;
         Vector3 wallRight = Vector3.Cross(upVector, wallForward).normalized;
 
@@ -233,8 +246,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 accelerationGround = inputDir.x * groundRight + inputDir.y * groundForward;
         Vector3 accelerationWall   = inputDir.x * wallRight   + inputDir.y * wallForward;
-        //Debug.DrawRay(this.transform.position, accelerationGround, Color.red);
-        //Debug.DrawRay(this.transform.position, accelerationWall, Color.yellow);
+        //Debug.DrawRay(center, accelerationGround, Color.red);
 
         //Ok, revoir the "grapple mode"
         if (!grapleMode_eff)
@@ -252,6 +264,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 acceleration = Vector3.Lerp(accelerationWall, accelerationGround, clampedDotValue);
+        Debug.DrawRay(center, acceleration, Color.red);
 
         acceleration += RayCastToFindAnythingInFrontOfUs(inputDir);
         acceleration *= speedGain * Time.deltaTime;
@@ -264,10 +277,10 @@ public class PlayerMovement : MonoBehaviour
         //we can now  make the drag here :
         _rgbd.velocity = _rgbd.velocity * Mathf.Pow(slowDownMultiplier, Time.deltaTime);
 
-        Debug.DrawRay(this.transform.position, _rgbd.velocity, Color.blue);
-        Debug.DrawRay(this.transform.position + _rgbd.velocity, acceleration, Color.green);
-        //Debug.DrawRay(this.transform.position, forwardCam, Color.yellow);
-        //Debug.DrawRay(this.transform.position, rightCam, Color.yellow / 2f);
+        ////////Debug.DrawRay(center, _rgbd.velocity, Color.blue);
+        ////////Debug.DrawRay(center + _rgbd.velocity, acceleration, Color.green);
+        //Debug.DrawRay(center, forwardCam, Color.yellow);
+        //Debug.DrawRay(center, rightCam, Color.yellow / 2f);
         lastSpeed = _rgbd.velocity;
 
 
@@ -276,36 +289,51 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+
+
     public Vector3 SetVectorUpForMultipleElement(Vector3 direction)
     {
-        //Debug.DrawRay(this.transform.position, direction.normalized * maxDist, Color.red);
-        if (Physics.Raycast(this.transform.position, direction, out RaycastHit raycastInfo, maxDist, layerMaskContact))
-        {
-            if (AlreadyInContact(raycastInfo.collider.gameObject))
-            {
-                //normallly, we goes directly by "'GetContact" then test if it's null or not, but get some bug where the simple "null test" return an error
-                wallAndGround_Info contactInfo = GetContact(raycastInfo.collider.gameObject);
-                return contactInfo.lastNormal;
-            }
-            //else, it is as if you touch nothing.
-        }
+        //Debug.DrawRay(center, direction.normalized * maxDist, Color.red);
+            Debug.DrawRay(center, direction, Color.cyan);
+        //////if (Physics.Raycast(center, direction, out RaycastHit raycastInfo, maxDist, layerMaskContact))
+        //////{
+        //////    if (AlreadyInContact(raycastInfo.collider.gameObject))
+        //////    {
+        //////        //normallly, we goes directly by "'GetContact" then test if it's null or not, but get some bug where the simple "null test" return an error
+        //////        wallAndGround_Info contactInfo = GetContact(raycastInfo.collider.gameObject);
+        //////        Debug.DrawRay(center, contactInfo.lastNormal, Color.yellow + Color.green);
+        //////        return contactInfo.lastNormal;
+        //////    }
+        //////    //else, it is as if you touch nothing.
+        //////}
         //if no vector touch, use the most vertical one ! (and if equality, try the Dot with the joylook ???)
         Vector3 upVector = lastUpVector;
-        float maxDot = -1;
+        //float maxDot = -1;
+        Vector3 newUpVector = Vector3.zero;
+        float dotSum = 0;
         foreach (wallAndGround_Info info in contacts)
         {
-            float newDot = Vector3.Dot(info.lastNormal, Vector3.up);
-            if (maxDot < newDot)
+            float newDot = Mathf.Clamp01(Vector3.Dot(info.lastNormal.normalized, -direction.normalized));
+            if(newDot > 0)
             {
-                maxDot = newDot;
-                upVector = info.lastNormal;
+                dotSum += 1;
+                newUpVector += info.lastNormal * 1;
             }
-            else if (maxDot == newDot)
-            {
-                //Mean ?
-                upVector = (info.lastNormal + upVector) / 2;//bad way to do it, but really few case where we touch more than 2 surface who are exactly the same dot
-            }
+            //if (maxDot < newDot)
+            //{
+            //    maxDot = newDot;
+            //    upVector = info.lastNormal;
+            //}
+            //else if (maxDot == newDot)
+            //{
+            //    //Mean ?
+            //    upVector = (info.lastNormal + upVector) / 2;//bad way to do it, but really few case where we touch more than 2 surface who are exactly the same dot
+            //}
         }
+        if (dotSum == 0)
+            return upVector;
+        upVector = newUpVector / dotSum;
+        Debug.DrawRay(center, upVector, Color.yellow);
         return upVector;
     }
 
@@ -316,14 +344,14 @@ public class PlayerMovement : MonoBehaviour
         Vector3 flatenedWallNorm = Vector3.ProjectOnPlane(-wallNormal, Vector3.up).normalized;
         Vector3 flatenedForwardV = Vector3.ProjectOnPlane(forwardCam, Vector3.up).normalized;
         float angle = Vector3.Angle(flatenedWallNorm, flatenedForwardV);
-        //Debug.DrawRay(this.transform.position, flatenedWallNorm, Color.cyan);
-        //Debug.DrawRay(this.transform.position, flatenedForwardV, Color.magenta);
+        //Debug.DrawRay(center, flatenedWallNorm, Color.cyan);
+        //Debug.DrawRay(center, flatenedForwardV, Color.magenta);
         angle *= Mathf.Sign(Vector3.Dot(Vector3.Cross(Vector3.up, flatenedWallNorm), flatenedForwardV));
         ///Ca va nous donner un angle.
         ///Cette angle, on va l'appliquer au UPVECTOR noirmalisé sur le mur 
         Vector3 wallUpVector = GetUpOfTheSurface(wallNormal);
-        //Debug.DrawRay(this.transform.position, wallUpVector, Color.grey);
-                    //if wallNormal is Vector3.up, it should be nullify in the global code
+        //Debug.DrawRay(center, wallUpVector, Color.grey);
+        //if wallNormal is Vector3.up, it should be nullify in the global code
 
         //// autour de l'axe wallNormal !
         Quaternion rotation = Quaternion.AngleAxis(angle, wallNormal); // - wallNormal ????
@@ -335,7 +363,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        //Debug.DrawRay(this.transform.position, res, Color.black);
+        //Debug.DrawRay(center, res, Color.black);
         return res;
     }
 
@@ -347,8 +375,8 @@ public class PlayerMovement : MonoBehaviour
         foreach (wallAndGround_Info info in contacts)
         {
             Vector3 direction = -info.lastNormal;
-            //Debug.DrawRay(this.transform.position, direction.normalized * maxDist, Color.red);
-            if (Physics.Raycast(this.transform.position, direction, out RaycastHit raycastInfo, maxDist, layerMaskContact))
+            //Debug.DrawRay(center, direction.normalized * maxDist, Color.red);
+            if (Physics.Raycast(center, direction, out RaycastHit raycastInfo, maxDist, layerMaskContact))
             {
                 if (raycastInfo.collider.gameObject == info)
                 {
@@ -398,10 +426,10 @@ public class PlayerMovement : MonoBehaviour
         ray = Vector3.ProjectOnPlane(ray, Vector3.up);
         ray = ray.normalized * emptyLookDistance;
         RaycastHit info;
-        //Debug.DrawRay(this.transform.position, ray, Color.yellow);
+        //Debug.DrawRay(centerOfCharacter, ray, Color.yellow);
         float distance = emptyLookDistance; 
 
-        if (Physics.Raycast(this.transform.position, ray, out info, distance, layerMaskContact))
+        if (Physics.Raycast(center, ray, out info, distance, layerMaskContact))
         {
             return Vector3.zero;
         }
@@ -409,13 +437,13 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 res = Vector3.zero;
             //Try to find other collision around, that we already touch too, and so, try to go away from them
-            Vector3 startPos = this.transform.position + ray;
+            Vector3 startPos = center + ray;
             Quaternion rotationToAdd = Quaternion.FromToRotation(Vector3.forward, ray.normalized);
             
             foreach (Vector3 dir in emptyLookRaycastDirections)
             {
                 Vector3 rotatedVector = rotationToAdd * dir;
-                //Debug.DrawRay(startPos, rotatedVector, Color.Lerp(Color.black, Color.white, (i++ * 1f / emptyLookRaycastDirections.Count)));
+                Debug.DrawRay(startPos, rotatedVector, Color.blue);
                 distance = rotatedVector.magnitude; //need to think about this distance : nextStep ? further ? far away ? half my size maybe ?
                 if (Physics.Raycast(startPos, rotatedVector, out info, distance, layerMaskContact))
                 {
@@ -429,7 +457,7 @@ public class PlayerMovement : MonoBehaviour
             res *= emptyLookIntensity;
             //if(res != Vector3.zero)
             //    Debug.Log("We offset (tota) !" + res);
-            //Debug.DrawRay(this.transform.position, res, Color.red);
+            //Debug.DrawRay(center, res, Color.red);
             return res;
         }
     }
@@ -441,13 +469,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void JumpManagement()
     {
+        if (inJump)
+        {
+            if (lastSpeed.y < 0)
+            {
+                inJump = false;
+            }
+            else if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
+            {
+                if (jumpTimer > 0)
+                {
+                    jumpTimer -= Time.deltaTime;
+                    if (jumpTimer < 0)
+                    {
+                        _rgbd.AddForce(jumpForce_FullJump * jumpDirection.normalized, ForceMode.Impulse);
+                        inJump = false;
+                    }
+                }
+            }
+            else
+            {
+                inJump = false;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
             if (canJump)
             {
                 _rgbd.velocity = PlayerMovement.HorizontalOnly(_rgbd.velocity);
                 //Will have to "incline" the jump toward : the koystock direction + the normal of the ground
-                Vector3 jumpDirection = lastUpVector;
+                Vector3 newJumpDirection = lastUpVector;
                 float value = Vector3.Dot(Vector3.up, lastUpVector.normalized);
                 //if the normal is the same as the Up : return zero
                 //if the normal is 0 with up : return a up
@@ -456,6 +508,9 @@ public class PlayerMovement : MonoBehaviour
                 jumpDirection += Vector3.up * value;
                 
                 _rgbd.AddForce(jumpForce * jumpDirection.normalized, ForceMode.Impulse);
+                inJump = true;
+                jumpDirection = newJumpDirection;
+                jumpTimer = jumpTiming;
                 canJump = false;
             }
         }
@@ -472,6 +527,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float dotAbs = Vector3.Dot(localUp, Vector3.up); //abs, so if roof, you fall
+
         float gravitySum = Mathf.Lerp(wallGravity, gravityIntensity * Mathf.Sign(dotAbs), Mathf.Abs(dotAbs));
         if (contacts.Count == 0 && _rgbd.velocity.y < 0)
             gravitySum += gravityIntensity_FallAdd;
@@ -547,7 +603,7 @@ public class PlayerMovement : MonoBehaviour
                     Debug.LogError("Alreday have " + collision.collider.gameObject.name);
                 }
 
-                //Reset Jump
+                //Landing if the collision is flat enough (reset jump, make a sound and launch animation)
                 if (Vector3.Dot(Vector3.down, impactNormal) <= 0)
                 {
                     float landingIntensity = Vector3.Dot(collision.impulse, Vector3.up) * collision.impulse.y;
@@ -566,12 +622,15 @@ public class PlayerMovement : MonoBehaviour
         contacts.Add(col);
         coyoteTimer = coyoteTiming;
 
+
+
+        
         Vector3 newUpVector = col.lastNormal;
 
         //Verify the true normal of that surface (and not the collision normal)
         //Debug.DrawRay(contact.point, -col.lastNormal, Color.blue,  5f);
-        //Debug.DrawRay(this.transform.position, -col.lastNormal, Color.cyan,  5f);
-        if (Physics.Raycast(this.transform.position, -col.lastNormal, out RaycastHit raycastInfo, maxDist, layerMaskContact))
+        //Debug.DrawRay(center, -col.lastNormal, Color.cyan,  5f);
+        if (Physics.Raycast(center, -col.lastNormal, out RaycastHit raycastInfo, maxDist, layerMaskContact))
         {
             if (col == raycastInfo.collider.gameObject)
             {
@@ -596,10 +655,11 @@ public class PlayerMovement : MonoBehaviour
         
 
         lastSpeed = newSpeed;
-        Debug.DrawRay(this.transform.position, _rgbd.velocity.normalized * maxDist, Color.red + Color.yellow, 5f);
+        //Debug.DrawRay(center, _rgbd.velocity.normalized * maxDist, Color.red + Color.yellow, 5f);
         _rgbd.velocity = newSpeed;
         //Debug.Log("_rgbd.velocity = " + lastSpeed + "newSpeed = " + newSpeed);
 
+        lastUpVector = newUpVector;
 
         
     }
@@ -608,9 +668,9 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 RaycastSpeedToSeekSurface(Vector3 collisionVector, Vector3 normal, ContactPoint contact)
     {
         //now, try to see how to change the speed :
-        Debug.DrawRay(this.transform.position, lastSpeed.normalized * maxDist, Color.red, 5f);
-        //Debug.DrawRay(this.transform.position, _rgbd.velocity.normalized * maxDist, Color.red + Color.yellow, 5f);
-        if (Physics.Raycast(this.transform.position, lastSpeed, out RaycastHit speedcastInfo, maxDist, layerMaskContact))
+        //Debug.DrawRay(center, lastSpeed.normalized * maxDist, Color.red, 5f);
+        //Debug.DrawRay(center, _rgbd.velocity.normalized * maxDist, Color.red + Color.yellow, 5f);
+        if (Physics.Raycast(center, lastSpeed, out RaycastHit speedcastInfo, maxDist, layerMaskContact))
         {
             if (AlreadyInContact(speedcastInfo.collider.gameObject))
             {
@@ -622,7 +682,7 @@ public class PlayerMovement : MonoBehaviour
 
         //if no surface touch (or surface not in contact)
         //seek how much we need one of the other
-        Vector3 collisionAngle = contact.point - this.transform.position;
+        Vector3 collisionAngle = contact.point - center;
         //can probably counter the stairs effect, with the distance of this ?
         float dotValue = Vector3.Dot(lastSpeed.normalized, collisionAngle.normalized);
 
@@ -631,11 +691,11 @@ public class PlayerMovement : MonoBehaviour
         float secondaryIntensity = Vector3.Dot(lastUpVector, Vector3.up);
         //Debug.Log("secondaryIntensity = "+ secondaryIntensity);
 
-        Debug.DrawRay(this.transform.position, normal         , Color.cyan, 5f);
-        Debug.DrawRay(this.transform.position, collisionVector, Color.blue, 5f);
-        Debug.DrawRay(this.transform.position + Vector3.up * 0.02f, Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity), Color.black, 5f);
+        Debug.DrawRay(center, normal         , Color.cyan, 5f);
+        Debug.DrawRay(center, collisionVector, Color.blue, 5f);
+        Debug.DrawRay(center + Vector3.up * 0.02f, Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity), Color.black, 5f);
         //Debug.Log("Ok so " + secondaryIntensity);
-        return Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity);
+        return Vector3.Lerp(normal, collisionVector, dotValue * secondaryIntensity).normalized;
 
     }
 
@@ -666,7 +726,7 @@ public class PlayerMovement : MonoBehaviour
         __safetyTimer = 0;
         //Debug.Log("Safety check");
 
-        Collider[] cols = Physics.OverlapSphere(this.transform.position, raycastDist * 2, layerMaskContact);
+        Collider[] cols = Physics.OverlapSphere(center, raycastDist * 2, layerMaskContact);
         List<GameObject> gOTouch = new List<GameObject>();
         foreach (Collider col in cols)
             gOTouch.Add(col.gameObject);
