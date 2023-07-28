@@ -88,35 +88,45 @@ public class DialogBox : MonoBehaviour
     {
         //Debug.Log("Print " + dialogueTextBox.name + " start.");
         int charIndex = 0;
+        float charProgress = 0;
 
         //do it better.
         float minDelay = 1f / 60f;
-        while (charIndex < originalText.Length)
+        while (charProgress - nbrIndxGrad < originalText.Length)
         {
-            if (originalText[charIndex] == ' ')
-            {
-                charIndex++;
-                continue;
-            }
+            charIndex = Mathf.FloorToInt(charProgress);
+            //if(charIndex < originalText.Length && originalText[charIndex] == ' ')
+            //{
+            //    charProgress++;
+            //    continue;
+            //}
             //Set text : 
             //Add a gradient
             {
-                string part1 = originalText.Substring(0, Mathf.Max(0, charIndex - nbrIndxGrad));
+                string part1 = originalText.Substring(0, Mathf.Max(0, charIndex - nbrIndxGrad));//a fiorcori , toujours à fond
                 string[] partList = new string[nbrIndxGrad];
                 for (int i = 0; i < nbrIndxGrad; i++)
                 {
                     int inv = nbrIndxGrad - i;
-                    partList[i] = originalText.Substring(Mathf.Max(0, charIndex - inv), charIndex - inv < 0 ? 0 : 1);
+                    int lenght = 1;
+                    if (charIndex - inv < 0)
+                        lenght = 0;
+                    else if (charIndex - inv >= originalText.Length)
+                        lenght = 0;
+                    partList[i] = originalText.Substring(Mathf.Clamp(charIndex - inv, 0, originalText.Length), lenght);
+
                 }
-                string partFinal = originalText.Substring(Mathf.Max(0, charIndex - 0), originalText.Length - charIndex);
+
+                string partFinal = originalText.Substring(Mathf.Clamp(charIndex - 0, 0, originalText.Length), Mathf.Max(0, originalText.Length - charIndex));
 
                 Color startCol = dialogueTextBox.color;
-                Color endCol = dialogueTextBox.color - Color.black;
+                Color endCol = dialogueTextBox.color - Color.black;//to have a transparent version
                 string[] colorList = new string[nbrIndxGrad];
                 for (int i = 0; i < nbrIndxGrad; i++)
                 {
-                    int inv = nbrIndxGrad - i;
-                    colorList[i] = ColorUtility.ToHtmlStringRGBA(Color.Lerp(startCol, endCol, i * (1f / (nbrIndxGrad + 1))));
+                    float lerpColValue = ((i+1) * (1f / nbrIndxGrad))  -  ((charProgress - charIndex)) * (1f / nbrIndxGrad);
+                    lerpColValue = Mathf.Clamp(lerpColValue, 0, 1);
+                    colorList[i] = ColorUtility.ToHtmlStringRGBA(Color.Lerp(startCol, endCol, lerpColValue));
                 }
                 string colorGradientFinal = ColorUtility.ToHtmlStringRGBA(endCol);
 
@@ -129,16 +139,8 @@ public class DialogBox : MonoBehaviour
                 dialogueTextBox.text = build.ToString();
             }
 
-            yield return new WaitForSeconds(Mathf.Max(minDelay, printDelay));
-            //Jump more char if delay is < than Mindelay
-            if (minDelay > printDelay)
-            {
-                charIndex += (int)(minDelay / printDelay);
-            }
-            else
-            {
-                charIndex++;
-            }
+            yield return 0;
+            charProgress += Time.deltaTime / printDelay;
         }
         Debug.Log("Print " + dialogueTextBox.name + " finish.");
         dialogueTextBox.text = originalText;
