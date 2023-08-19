@@ -5,6 +5,8 @@ using TMPro;
 
 public class UI_ItemNote : MonoBehaviour
 {
+    public CanvasGroup canvasGroup;
+
     public TMP_Text txt_title;
     public TMP_Text txt_desc;
     public TMP_InputField txt_desc_custom;
@@ -17,22 +19,34 @@ public class UI_ItemNote : MonoBehaviour
     {
         txt_title.SetText(item.nameDisplay);
         txt_desc.SetText(item.description_fixed);
+        txt_desc_custom.DeactivateInputField();
         txt_desc_custom.SetTextWithoutNotify(item.description_custom);
         txt_difficulty.SetText("<b>Difficulty :</b>\n" + item.difficulty + "/10");
-        txt_knowledge.SetText(GetTextFromEnum(item.GetCurrentKnowledgeState()));
+        txt_knowledge.SetText("<b>Connaissance :</b>\n" + GetTextFromEnum(item.GetCurrentKnowledgeState()));
+
+        currentItem = item;
     }
     
 
     //
-    public void OnDescriptionCustomChange()
+    public void OnDescriptionCustomChange(string updatedText)
     {
+        Debug.Log("change : " + updatedText);
+        GameManager.instance.mapAndPaper.currentEditText = txt_desc_custom;
         //save it 
-        currentItem.description_custom = txt_desc_custom.text;
+        currentItem.description_custom = updatedText;
+        //maybe : le limiter à un certains nombre de charactères ?
     }
-    //
+    public void OnStartDescriptionCustom()
+    {
+        Debug.Log("what did select that ???");
+        //start here
+        GameManager.instance.mapAndPaper.currentEditText = txt_desc_custom;
+    }
     public void OnFinishDescriptionCustom()
     {
         //finish here
+        GameManager.instance.mapAndPaper.currentEditText = null;
     }
 
     public static string GetTextFromEnum(Item.knowledgeState state)

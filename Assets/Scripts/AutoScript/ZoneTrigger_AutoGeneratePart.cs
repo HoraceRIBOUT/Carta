@@ -14,7 +14,7 @@ public class ZoneTrigger_AutoGeneratePart : MonoBehaviour {
 	     dialog,
 	     events,
 	     dialogandevents,
-	     dream,
+	     knowledgecheckzone,
 	     restaurant,
 	     flowershop,
 	}
@@ -32,7 +32,7 @@ public class ZoneTrigger_AutoGeneratePart : MonoBehaviour {
 	        case ZoneTriggerType.dialogandevents :
 	            mainComponent.EnterDialogAndEvents();
 	        break;
-	        case ZoneTriggerType.dream :
+	        case ZoneTriggerType.knowledgecheckzone :
 	            mainComponent.EnterKnowledgeCheckZone();
 	        break;
 	        case ZoneTriggerType.flowershop :

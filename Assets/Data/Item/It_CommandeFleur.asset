@@ -15,6 +15,11 @@ MonoBehaviour:
   id: 4
   nameDisplay: Commande de fleur
   icon: {fileID: 21300000, guid: 3119bac762755124a9a5c9796a726d59, type: 3}
+  description_fixed: "Commande de fleur adress\xE9 au fleuriste : Heloisa et Ahmed
+    Mansour. Chercher le b\xE2timent recouvert de fleur au milieu du village."
+  description_custom: 
+  difficulty: 1
+  defaultState: 0
   tags: 1
   targets:
   - pnj: 5

@@ -15,6 +15,10 @@ MonoBehaviour:
   id: 23
   nameDisplay: Demande de fleur
   icon: {fileID: 21300000, guid: d0c562437e8457842a2b726709e20212, type: 3}
+  description_fixed: 
+  description_custom: 
+  difficulty: 2
+  defaultState: 0
   tags: 0
   targets:
   - pnj: 5

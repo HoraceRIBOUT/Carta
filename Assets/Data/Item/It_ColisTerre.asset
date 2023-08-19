@@ -15,6 +15,11 @@ MonoBehaviour:
   id: 17
   nameDisplay: Carton remplie de terre
   icon: {fileID: 21300000, guid: 98b8a36c83d7c21468069afc0ab762d7, type: 3}
+  description_fixed: "Un carton rempli de terre. Le livrer \xE0 l'endroit habituel,
+    avec les autres cartons."
+  description_custom: 
+  difficulty: 3
+  defaultState: 0
   tags: 1
   targets:
   - pnj: 5

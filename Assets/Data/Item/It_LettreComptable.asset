@@ -15,6 +15,11 @@ MonoBehaviour:
   id: 24
   nameDisplay: "Lettre adress\xE9 \xE0 Villela"
   icon: {fileID: 21300000, guid: bd3a80b7530ef00459ad54ddc1f1b867, type: 3}
+  description_fixed: "Lettre de l'administration des communes proches \xE0 destination
+    de Villela. Y a qu'une seule Villela encore en ville."
+  description_custom: 
+  difficulty: 6
+  defaultState: 0
   tags: 1
   targets:
   - pnj: 7

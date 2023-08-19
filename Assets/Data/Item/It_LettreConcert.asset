@@ -15,6 +15,10 @@ MonoBehaviour:
   id: 25
   nameDisplay: Lettre pour Sabri
   icon: {fileID: 21300000, guid: 363a2742af7aba4458bb32ef7fe1498c, type: 3}
+  description_fixed: Lettre pour Sabri V.M. venant d'une salle de concert du continent.
+  description_custom: 
+  difficulty: 1
+  defaultState: 0
   tags: 17
   targets:
   - pnj: 1

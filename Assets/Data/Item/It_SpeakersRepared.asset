@@ -15,6 +15,10 @@ MonoBehaviour:
   id: 15
   nameDisplay: Casque audio
   icon: {fileID: 21300000, guid: bf370d4c591f0cf4fb125dc377327bdd, type: 3}
+  description_fixed: "Un casque r\xE9par\xE9 et recousue proprement."
+  description_custom: 
+  difficulty: 3
+  defaultState: 0
   tags: 0
   targets:
   - pnj: 1

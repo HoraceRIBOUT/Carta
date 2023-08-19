@@ -15,6 +15,11 @@ MonoBehaviour:
   id: 2
   nameDisplay: Colis pour Rat-commode
   icon: {fileID: 21300000, guid: ee99c245aba50fc4a9e22aad0693062e, type: 3}
+  description_fixed: "Un colis remplie de merde en tout genre, labell\xE9 \"pour
+    le Rat-commode\". "
+  description_custom: 
+  difficulty: 2
+  defaultState: 0
   tags: 1
   targets:
   - pnj: 1

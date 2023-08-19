@@ -15,6 +15,10 @@ MonoBehaviour:
   id: 27
   nameDisplay: "Lettre de l'universit\xE9"
   icon: {fileID: 21300000, guid: 3a20992f71d2d5747a8cef054987e92a, type: 3}
+  description_fixed: "Lettre venant de l'universit\xE9, pour Monsieur Mansour."
+  description_custom: 
+  difficulty: 7
+  defaultState: 0
   tags: 1
   targets:
   - pnj: 1

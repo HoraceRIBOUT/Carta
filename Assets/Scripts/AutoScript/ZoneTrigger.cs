@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 public class ZoneTrigger : MonoBehaviour
 {
@@ -14,21 +15,23 @@ public class ZoneTrigger : MonoBehaviour
     }
 
 
-    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialog || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
+    [ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialog || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
     public string balcony_id;
-    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialog || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
+    [ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialog || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
     public Dialog balconyDialog;
-    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialog || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
+    [ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialog || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
     public pnj balconyPNJ;
 
 
-    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.events || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
+    [ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.events || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
     public UnityEvent eventEnter;
-    [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.events || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
+    [ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.events || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
     public UnityEvent eventExit;
 
-    public Dialog knowledge_dialog;
-    public int knowledge_number;
+    [ShowIf("typeYes", ZoneTrigger_AutoGeneratePart.ZoneTriggerType.knowledgecheckzone)]
+    [SerializeField] Dialog knowledge_dialog;
+    [ShowIf("typeYes", ZoneTrigger_AutoGeneratePart.ZoneTriggerType.knowledgecheckzone)]
+    [SerializeField] int knowledge_number;
 
     public void EnterDialog()
     {

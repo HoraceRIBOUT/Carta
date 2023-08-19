@@ -15,6 +15,11 @@ MonoBehaviour:
   id: 26
   nameDisplay: Lettre de justice
   icon: {fileID: 21300000, guid: a376abb95f4b58440b988ac0985510bd, type: 3}
+  description_fixed: "Lettre de la Justice \xE0 destination de Gokul.\\nIl habite
+    dans la pente derri\xE8re la poste, en haut des \xE9chasses."
+  description_custom: 
+  difficulty: 2
+  defaultState: 0
   tags: 1
   targets:
   - pnj: 7

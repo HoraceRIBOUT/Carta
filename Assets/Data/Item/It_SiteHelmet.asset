@@ -15,6 +15,10 @@ MonoBehaviour:
   id: 14
   nameDisplay: Casque de chantier
   icon: {fileID: 21300000, guid: c54e941254fce064b93239cff9e4a3a8, type: 3}
+  description_fixed: 
+  description_custom: 
+  difficulty: 3
+  defaultState: 0
   tags: 0
   targets:
   - pnj: 5

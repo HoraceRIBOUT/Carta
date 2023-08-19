@@ -300,7 +300,7 @@ public class InputManager : MonoBehaviour
 
     void Try_StopEditingText()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
         {
             GameManager.instance.mapAndPaper.StopEditingText();
         }

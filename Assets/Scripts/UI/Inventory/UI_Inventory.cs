@@ -6,6 +6,7 @@ public class UI_Inventory : MonoBehaviour
 {
     public GameObject prefabItemBox;
     public List<Item> allItem = new List<Item>();
+    public UI_ItemNote itemNote;
 
     [Header("Deploy")]
     public bool inventoryDeployed = false;
@@ -26,6 +27,7 @@ public class UI_Inventory : MonoBehaviour
     public RectTransform boxParent;
 
     public int currentItemIndex = 0;
+    private int last_currentItemIndex = 0;
 
     [Header("Box Movement")]
     public float offsetBetweenBox = 500;
@@ -135,6 +137,13 @@ public class UI_Inventory : MonoBehaviour
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, transparencyGoal, Time.deltaTime * transparencySpeed);
         else
             deployPrompt.alpha = Mathf.Lerp(deployPrompt.alpha, 0, Time.deltaTime * transparencySpeed);
+
+
+        if (last_currentItemIndex != currentItemIndex)
+        {
+            itemNote.SetNote(currentDeployList[currentItemIndex]);
+            last_currentItemIndex = currentItemIndex;
+        }
     }
 
     public void IM_MoveUpDown(Vector2 direction)
@@ -231,6 +240,9 @@ public class UI_Inventory : MonoBehaviour
 
     public void SetAllItemDescCustom(List<itemID> id, List<string> desc)
     {
+        if (desc == null)
+            return;
+
         foreach (Item it in GameManager.instance.inventory.allItem)
         {
             int index = id.IndexOf(it.id);
@@ -500,6 +512,9 @@ public class UI_Inventory : MonoBehaviour
         mainRect.anchoredPosition = Vector2.zero;
 
         inventoryDeployed = true;
+        
+        itemNote.SetNote(currentDeployList[currentItemIndex]);
+        last_currentItemIndex = currentItemIndex;
 
         if (deployingRoutine != null)
             StopCoroutine(deployingRoutine);
@@ -552,6 +567,7 @@ public class UI_Inventory : MonoBehaviour
             deployLerp = Mathf.Clamp01(deployLerp);
 
             float effectifLerp = trnasitionCurve.Evaluate(deployLerp);
+            itemNote.canvasGroup.alpha = 1 - effectifLerp;
 
             mainRect.anchorMin = new Vector2(Mathf.Lerp(0.8f, 1.0f, effectifLerp), 0);
             mainRect.anchorMax = new Vector2(Mathf.Lerp(1.0f, 1.2f, effectifLerp), 1);
@@ -560,6 +576,9 @@ public class UI_Inventory : MonoBehaviour
             transparencyGoal = effectifLerp;
             yield return new WaitForSeconds(1f / 60f);
         }
+
+        itemNote.canvasGroup.interactable = deploy;
+        itemNote.canvasGroup.blocksRaycasts = deploy;
     }
 
     public void ChangePromptVisual()

@@ -15,6 +15,11 @@ MonoBehaviour:
   id: 21
   nameDisplay: Carton inconnue
   icon: {fileID: 21300000, guid: 21ea2273ff174bb4780ac2799e8f2503, type: 3}
+  description_fixed: "Si je savais ce que c'\xE9tait, je saurais \xE0 qui le livrer.
+    Demander \xE0 vendeuse de babiole si j'ai le temps."
+  description_custom: 
+  difficulty: 9
+  defaultState: 0
   tags: 1
   targets:
   - pnj: 7

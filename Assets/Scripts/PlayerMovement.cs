@@ -126,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GameManager.instance.mapAndPaper != null)
         {
-            if (GameManager.instance.mapAndPaper.mapOpen)
+            if (GameManager.instance.mapAndPaper.mapOpen || GameManager.instance.mapAndPaper.IsEditingText())
             {
                 return;
             }
