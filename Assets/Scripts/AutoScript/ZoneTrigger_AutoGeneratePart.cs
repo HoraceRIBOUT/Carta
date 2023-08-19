@@ -33,7 +33,7 @@ public class ZoneTrigger_AutoGeneratePart : MonoBehaviour {
 	            mainComponent.EnterDialogAndEvents();
 	        break;
 	        case ZoneTriggerType.dream :
-	            mainComponent.EnterDream();
+	            mainComponent.EnterKnowledgeCheckZone();
 	        break;
 	        case ZoneTriggerType.flowershop :
 	            mainComponent.EnterFlowerShop();

@@ -8,6 +8,30 @@ public class Item : ScriptableObject
     public itemID id;  
     public string nameDisplay = "";
     public Sprite icon;
+    public string description_fixed = "";
+    public string description_custom = "";
+    [Range(0,10)]
+    public int difficulty = 1;
+    //
+    public enum knowledgeState
+    {
+        zero = 0,
+        talkTo = 1,
+        firstInfo = 2,
+        fewInfo_elim = 3,
+        lotOfInfo = 8,
+        lotOfInfo_elim = 9,
+        all = 10,
+    }
+    public struct knowledgeTake
+    {
+        public Dialog dialog;
+        public int stepNumber;
+        public knowledgeState unlockState;
+    }
+    [SerializeField] knowledgeState defaultState = knowledgeState.zero;
+    [SerializeField] List<knowledgeTake> allKnowledge = new List<knowledgeTake>();
+
     public tag tags = 0;
     
     [System.Flags]
@@ -43,7 +67,44 @@ public class Item : ScriptableObject
             pnj_InGame = _pnj_InGame;
             finalTarget = _finalTarget;
         }
-    }                     
+    }             
+    
+    public knowledgeState GetCurrentKnowledgeState()
+    {
+        if (allKnowledge.Count == 0)
+            return defaultState;
+
+        knowledgeState res = defaultState;
+        bool allTrue = true;
+        foreach (knowledgeTake take in allKnowledge)
+        {
+            if(take.dialog != null && take.dialog.allSteps.Count < take.stepNumber)
+            {
+                if (take.dialog.allSteps[take.stepNumber].alreadyRead)
+                {
+                    //we only update the check if 
+                    if ((int)res < (int)take.unlockState)
+                        res = take.unlockState;
+                }
+                else
+                    allTrue = false;
+            }
+            else
+            {
+                if (take.dialog != null)
+                    Debug.LogError("Try to seek step " + take.stepNumber + " in " + take.dialog.name + " while it only have " + take.dialog.allSteps.Count + " steps.");
+                else
+                    Debug.LogError(this.name + " have a knowledge take which are link to no dialog. Please, delete it.");
+            }
+        }
+
+        //could be better if I could make different dialog ref to the same info in there
+        if (allTrue)
+            res = (knowledgeState)10;
+
+
+        return res;
+    }
 
     [Sirenix.OdinInspector.Button]
     public void SeeAllTarget() 

@@ -229,6 +229,22 @@ public class UI_Inventory : MonoBehaviour
         return null;
     }
 
+    public void SetAllItemDescCustom(List<itemID> id, List<string> desc)
+    {
+        foreach (Item it in GameManager.instance.inventory.allItem)
+        {
+            int index = id.IndexOf(it.id);
+            if (index != -1)
+            {
+                it.description_custom = desc[index];
+            }
+            else
+            {
+                it.description_custom = "";
+            }
+        }
+    }
+
     public void AddItem(Step.Step_AddItem data)
     {
         Item res = GetItem(data.itemId);

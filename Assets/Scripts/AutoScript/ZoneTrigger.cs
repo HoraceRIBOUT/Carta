@@ -27,6 +27,9 @@ public class ZoneTrigger : MonoBehaviour
     [Sirenix.OdinInspector.ShowIf("@this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.events || this.myType ==  ZoneTrigger_AutoGeneratePart.ZoneTriggerType.dialogandevents")]
     public UnityEvent eventExit;
 
+    public Dialog knowledge_dialog;
+    public int knowledge_number;
+
     public void EnterDialog()
     {
         Debug.Log("Balcony ! Yeah !");
@@ -59,9 +62,10 @@ public class ZoneTrigger : MonoBehaviour
         ExitEvents();
     }
 
-    public void EnterDream()
+    public void EnterKnowledgeCheckZone()
     {
-        Debug.Log("It'a dream ! ?");
+        Debug.Log("You unlock some knowledge.");
+        knowledge_dialog.allSteps[knowledge_number].alreadyRead = true;
     }
 
     public void ExitRestaurant()

@@ -469,29 +469,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void JumpManagement()
     {
-        if (inJump)
-        {
-            if (lastSpeed.y < 0)
-            {
-                inJump = false;
-            }
-            else if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
-            {
-                if (jumpTimer > 0)
-                {
-                    jumpTimer -= Time.deltaTime;
-                    if (jumpTimer < 0)
-                    {
-                        _rgbd.AddForce(jumpForce_FullJump * jumpDirection.normalized, ForceMode.Impulse);
-                        inJump = false;
-                    }
-                }
-            }
-            else
-            {
-                inJump = false;
-            }
-        }
+        //if (inJump)
+        //{
+        //    if (lastSpeed.y < 0)
+        //    {
+        //        inJump = false;
+        //    }
+        //    else if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
+        //    {
+        //        if (jumpTimer > 0)
+        //        {
+        //            jumpTimer -= Time.deltaTime;
+        //            Debug.Log("Add and add and add" + (jumpForce_FullJump * jumpDirection.normalized));
+        //            if (jumpTimer < 0)
+        //            {
+        //                inJump = false;
+        //            }
+        //            else
+        //                _rgbd.AddForce(jumpForce_FullJump * jumpDirection.normalized * jumpTimer / jumpTiming, ForceMode.Impulse);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        inJump = false;
+        //    }
+        //}
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
         {

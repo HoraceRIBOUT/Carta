@@ -18,6 +18,7 @@ public class SaveAndLoad : MonoBehaviour
     {
         //Character inventory :
         public List<itemID> inventory_all;
+        public List<string> inventory_allCustomDesc;
         public List<itemID> inventory_current;
 
         //Character position :
@@ -53,12 +54,13 @@ public class SaveAndLoad : MonoBehaviour
         public List<IconData.Icon_SaveData> iconsSave;
         public List<pnj.pnjID> pnjAlreadyMet;
 
-        public Global_SaveData(List<itemID> _inventory_all, List<itemID> _inventory_current, Vector3 _posWhenQuit, 
+        public Global_SaveData(List<itemID> _inventory_all, List<string> _inventory_allCustomDesc, List<itemID> _inventory_current, Vector3 _posWhenQuit, 
             float _timeOfTheDay, SerialazableDateTime _dateTime, Vector2 _progression,
             List<pnj.PNJ_SaveData> _pnjSave, PNJ_Manager.PNJ_Manager_Save _triggerSave, List<string> _allDialogName, List<int> _allDialogValue,
             List<UI_MaP_Paper.Paper_SaveData> _papersSave, List<int> _papersUnlock, List<IconData.Icon_SaveData> _iconsSave, List<pnj.pnjID> _pnjAlreadyMet)
         {
             inventory_all = _inventory_all;
+            inventory_allCustomDesc = _inventory_allCustomDesc;
             inventory_current = _inventory_current;
             posWhenQuit_x = _posWhenQuit.x;
             posWhenQuit_y = _posWhenQuit.y;
@@ -186,9 +188,11 @@ public class SaveAndLoad : MonoBehaviour
         //What do we save ? 
         // - item : delivered or not
         List<itemID> inventoryAll = new List<itemID>();
-        foreach(var item in GameManager.instance.inventory.inventory_all)
+        List<string> inventoryAll_Desc = new List<string>();
+        foreach (var item in GameManager.instance.inventory.inventory_all)
         {
             inventoryAll.Add(item.Key);
+            inventoryAll_Desc.Add(item.Value.description_custom);
         }
 
         List<itemID> inventory_current = new List<itemID>();
@@ -196,6 +200,8 @@ public class SaveAndLoad : MonoBehaviour
         {
             inventory_current.Add(item.Key);
         }
+        
+
         // - position ?
         // Maybe just a general position ?
         // - just test where the character is (zone) and load them there
@@ -243,7 +249,7 @@ public class SaveAndLoad : MonoBehaviour
         List<int> allDialogValues = GameManager.instance.dialogMng.GetSaveData_DialogStateValue();
 
         Global_SaveData data = new Global_SaveData(
-            inventoryAll, inventory_current,                            //Inventory 
+            inventoryAll, inventoryAll_Desc, inventory_current,         //Inventory 
             characterPos, timeOfTheDay, trueHourAndDay, progression,    //Global gameplay
             pnjSave, triggerSave, allDialogNames, allDialogValues,      //pnj and progression element
             papersList, papersUnlock, iconsSave, pnjAlreadyMet);        //ui and map and paper
@@ -273,6 +279,7 @@ public class SaveAndLoad : MonoBehaviour
             inventoryAll.Add(itemId, item);
         }
         GameManager.instance.inventory.inventory_all = inventoryAll;
+        GameManager.instance.inventory.SetAllItemDescCustom(data.inventory_all, data.inventory_allCustomDesc);
 
         Dictionary<itemID, Item> inventory_current = new Dictionary<itemID, Item>();
         foreach (var itemId in data.inventory_current)
