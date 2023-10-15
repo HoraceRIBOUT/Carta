@@ -15,14 +15,20 @@ public class UI_ItemNote : MonoBehaviour
 
     private Item currentItem;
 
-    public void SetNote(Item item)
+    public void SetNote(Item item, bool delivered)
     {
         txt_title.SetText(item.nameDisplay);
         txt_desc.SetText(item.description_fixed);
         txt_desc_custom.DeactivateInputField();
         txt_desc_custom.SetTextWithoutNotify(item.description_custom);
         txt_difficulty.SetText("<b>Difficulty :</b>\n" + item.difficulty + "/10");
-        txt_knowledge.SetText("<b>Connaissance :</b>\n" + GetTextFromEnum(item.GetCurrentKnowledgeState()));
+        string currentClueState = (!delivered ? GetTextFromEnum(item.GetCurrentKnowledgeState()) : "Livré.");
+        txt_knowledge.SetText("<b>Connaissance :</b>\n" + currentClueState);
+
+        if (delivered)
+        {
+            //Enable a big "DELIVRED" sprite above the text
+        }
 
         currentItem = item;
     }
@@ -57,6 +63,8 @@ public class UI_ItemNote : MonoBehaviour
                 return "Vous n'avez encore aucune information pour savoir où livrer ce colis.";
             case Item.knowledgeState.talkTo:
                 return "Parlez aux habitants pour découvrir où livrer ce colis.";
+            case Item.knowledgeState.enviro:
+                return "Observez l'environnement et les habitants pour découvrir où livrer ce colis.";
             case Item.knowledgeState.firstInfo:
                 return "Vous manquez d'informations, mais pouvez essayer de trouver le destinataire.";
             case Item.knowledgeState.fewInfo_elim:

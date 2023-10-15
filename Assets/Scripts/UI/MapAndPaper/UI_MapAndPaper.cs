@@ -72,6 +72,8 @@ public class UI_MapAndPaper : MonoBehaviour
             return;
 
         mapOpen = true;
+        wholeOpacity.interactable = true;
+        wholeOpacity.blocksRaycasts = true;
         SwitchPaper(index);
 
         openCloseCorout = StartCoroutine(OpenCloseMap());
@@ -262,6 +264,8 @@ public class UI_MapAndPaper : MonoBehaviour
             return;
 
         mapOpen = false;
+        wholeOpacity.interactable = false;
+        wholeOpacity.blocksRaycasts = false;
         openCloseCorout = StartCoroutine(OpenCloseMap());
 
         if(!GameManager.instance.dialogMng.inDialog && !GameManager.instance.inventory.inventoryDeployed)

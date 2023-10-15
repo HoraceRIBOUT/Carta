@@ -20,6 +20,10 @@ MonoBehaviour:
   description_custom: 
   difficulty: 9
   defaultState: 0
+  allClue:
+  - id: {fileID: 0}
+    necessary: 0
+    unlockState: 0
   tags: 1
   targets:
   - pnj: 7

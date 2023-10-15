@@ -19,6 +19,16 @@ MonoBehaviour:
   description_custom: 
   difficulty: 1
   defaultState: 0
+  allClue:
+  - id: {fileID: 11400000, guid: c390ea4bfc44def47b9dbb8043765778, type: 2}
+    necessary: 0
+    unlockState: 3
+  - id: {fileID: 11400000, guid: 24a0089e9eb4eaa49a7f2566400d70c2, type: 2}
+    necessary: 0
+    unlockState: 4
+  - id: {fileID: 11400000, guid: 7026ea91a456a66449b20fd667a940f0, type: 2}
+    necessary: 0
+    unlockState: 9
   tags: 17
   targets:
   - pnj: 1

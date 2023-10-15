@@ -147,7 +147,7 @@ MonoBehaviour:
     alreadyRead: 0
     type: 0
     dialog_Data:
-      text: "<Vous l'avez d\xE9j\xE0 scann\xE9. Appuyez sur 3 pour l'ouvrir.>"
+      text: "<Vous l'avez d\xE9j\xE0 scann\xE9. Appuyez sur 2 pour l'ouvrir.>"
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:

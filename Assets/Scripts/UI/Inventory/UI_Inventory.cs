@@ -41,6 +41,7 @@ public class UI_Inventory : MonoBehaviour
     public Dictionary<itemID, Item> inventory_all;
     public Dictionary<itemID, Item> inventory_current;
     public List<Item> currentDeployList = new List<Item>();
+    public List<Clue> currentClueList = new List<Clue>();
     public int indexOfNotInList = 0;
     [Tooltip("For debug purpose only")]
     public List<Item> startItem_Current = new List<Item>(); 
@@ -93,7 +94,6 @@ public class UI_Inventory : MonoBehaviour
         }
         indexOfNotInList = inventory_current.Count;
         Debug.Log("Finish  adding element" + currentDeployList.Count + " (bonus : " + indexOfNotInList + ")");
-
     }
 
     public void CreateBox()
@@ -141,7 +141,7 @@ public class UI_Inventory : MonoBehaviour
 
         if (last_currentItemIndex != currentItemIndex)
         {
-            itemNote.SetNote(currentDeployList[currentItemIndex]);
+            itemNote.SetNote(currentDeployList[currentItemIndex], currentItemIndex >= indexOfNotInList );
             last_currentItemIndex = currentItemIndex;
         }
     }
@@ -340,9 +340,6 @@ public class UI_Inventory : MonoBehaviour
             return;
         }
 
-
-        Debug.Log("Try to give : " + itemSelected.id);
-        Debug.Log("currentPNJ = " + currentPNJ.id + " and itemSelected "+ itemSelected.id);
         currentPNJ.SetItemHaveBeenGiven(itemSelected.id);
         giveCorout = StartCoroutine(Give_Suspens(currentPNJ, itemSelected));
     }
@@ -430,8 +427,7 @@ public class UI_Inventory : MonoBehaviour
         Item itemSelected = currentDeployList[currentItemIndex];
         pnj currentPNJ = GameManager.instance.dialogMng.currentPNJ;
 
-
-        Debug.Log("Try to show : " + itemSelected.id);
+        
         if (currentPNJ != null)
         {
             currentPNJ.SetItemHaveBeenShown(itemSelected.id);
@@ -462,14 +458,13 @@ public class UI_Inventory : MonoBehaviour
                         }
                         GameManager.instance.dialogMng.StartDialog(react.responseGive);
                     }
-                    Debug.Log("Show !!! " + itemSelected.id);
                     Retract();
                     return;
                 }
             }
             GameManager.instance.dialogMng.StartDialog(currentPNJ.showFail_Dial, true);
             Retract();
-            Debug.Log("Don't have it : " + itemSelected.id);
+            //Don't have it : " + itemSelected.id
         }
     }
 
@@ -512,8 +507,12 @@ public class UI_Inventory : MonoBehaviour
         mainRect.anchoredPosition = Vector2.zero;
 
         inventoryDeployed = true;
-        
-        itemNote.SetNote(currentDeployList[currentItemIndex]);
+
+        //update clue and item 
+        UpdateClueOfItem();
+
+
+        itemNote.SetNote(currentDeployList[currentItemIndex], indexOfNotInList == 0);
         last_currentItemIndex = currentItemIndex;
 
         if (deployingRoutine != null)
@@ -531,6 +530,29 @@ public class UI_Inventory : MonoBehaviour
         //else : no "give" AND show become "look" or info or remember 
 
         GameManager.instance.dialogMng.InventoryOrMapOpen();
+    }
+
+    private void UpdateClueOfItem()
+    {
+        currentClueList = new List<Clue>();
+        for (int i = 0; i < indexOfNotInList; i++)
+        {
+            foreach (var bundle in currentDeployList[i].allClue)
+            {
+                //here, use the save value and not a full reset. If he is saved to a "met" value, then, we can skip it.
+                bundle.SetState(false);
+
+                if (bundle.IsMet)
+                    continue;
+                if (currentClueList.Contains(bundle.id))
+                    continue;
+
+                
+                //test if in the  list string "clueSaved"
+                bundle.id.Test();
+                currentClueList.Add(bundle.id);
+            }
+        }
     }
 
     public void Retract()

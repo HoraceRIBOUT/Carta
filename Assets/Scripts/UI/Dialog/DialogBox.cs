@@ -142,7 +142,7 @@ public class DialogBox : MonoBehaviour
             yield return 0;
             charProgress += Time.deltaTime / printDelay;
         }
-        Debug.Log("Print " + dialogueTextBox.name + " finish.");
+        //Debug.Log("Print " + dialogueTextBox.name + " finish.");
         dialogueTextBox.text = originalText;
         FinishPrint();
     }

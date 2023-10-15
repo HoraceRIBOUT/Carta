@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Terminus !
@@ -78,8 +78,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 1
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Tout l'monde descend !
@@ -143,8 +143,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 2
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "... Bon il reste que toi. Tout va bien ? Pas trop dur de se r\xE9veiller
@@ -209,8 +209,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 3
+    alreadyRead: 1
     type: 13
     dialog_Data:
       text: 
@@ -276,8 +276,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 4
+    alreadyRead: 1
     type: 1
     dialog_Data:
       text: 
@@ -341,8 +341,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 5
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Enfin, j'ai dis \"se r\xE9veiller\", mais pour un robot, c'est pas plut\xF4t...
@@ -407,8 +407,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 6
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Tu es bien LE robot qui viens remplacer la factrice, hein ? Elle m'a
@@ -473,8 +473,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 7
+    alreadyRead: 1
     type: 1
     dialog_Data:
       text: 
@@ -538,8 +538,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 8
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Au fait, t'es plut\xF4t, genre... un automate d\xE9tective ? Ou un robot
@@ -604,8 +604,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 9
+    alreadyRead: 1
     type: 13
     dialog_Data:
       text: 
@@ -649,9 +649,9 @@ MonoBehaviour:
         text: Ah...
         color_override: {r: 0, g: 0, b: 0, a: 0}
         pnj_override: 0
-      redirectNumberIfYes: 0
-      redirectNumberStopYes: 0
-      redirectNumberAfterYes: -1
+      redirectNumberIfYes: 10
+      redirectNumberStopYes: 10
+      redirectNumberAfterYes: 12
       redirectYes:
         dialogToGo: {fileID: 0}
       typeNo: 0
@@ -659,9 +659,9 @@ MonoBehaviour:
         text: Ah...
         color_override: {r: 0, g: 0, b: 0, a: 0}
         pnj_override: 0
-      redirectNumberIfNo: 0
-      redirectNumberStopNo: 0
-      redirectNumberAfterNo: -1
+      redirectNumberIfNo: 11
+      redirectNumberStopNo: 11
+      redirectNumberAfterNo: 12
       redirectNo:
         dialogToGo: {fileID: 0}
     unlockpaper_Data:
@@ -669,8 +669,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 10
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "Tu peux r\xE9pondre que par \"oui\" ou par \"non\" en fait... J'aurais
@@ -735,7 +735,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
+  - index: 11
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -801,7 +801,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
+  - index: 12
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -866,8 +866,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 13
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: Moi c'est Sabri ! Si tu as des courrier pour moi, je devrai pas bouger
@@ -932,8 +932,8 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
-    alreadyRead: 0
+  - index: 14
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "<Appuyez sur 1 pour ouvrir vos notes. Sur le c\xF4t\xE9 droit, vous
@@ -998,7 +998,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
+  - index: 15
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -1064,7 +1064,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
+  - index: 16
     alreadyRead: 0
     type: 0
     dialog_Data:
@@ -1130,7 +1130,7 @@ MonoBehaviour:
     zonechange_Data:
       zoneName: 
       change: 0
-  - index: 0
+  - index: 17
     alreadyRead: 0
     type: 0
     dialog_Data:

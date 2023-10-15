@@ -2,35 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 [CreateAssetMenu(fileName = "It_", menuName = "Carta/Item", order = 2)]
 public class Item : ScriptableObject
 {
-    public itemID id;  
+    public itemID id;
     public string nameDisplay = "";
     public Sprite icon;
     public string description_fixed = "";
     public string description_custom = "";
-    [Range(0,10)]
+    [Range(0, 10)]
     public int difficulty = 1;
     //
     public enum knowledgeState
     {
         zero = 0,
         talkTo = 1,
-        firstInfo = 2,
-        fewInfo_elim = 3,
+        enviro = 2,
+        firstInfo = 3,
+        fewInfo_elim = 4,
         lotOfInfo = 8,
         lotOfInfo_elim = 9,
         all = 10,
     }
-    public struct knowledgeTake
+
+    [System.Serializable]
+    public struct ClueBundle
     {
-        public Dialog dialog;
-        public int stepNumber;
+        public Clue id;
+        public bool necessary;
         public knowledgeState unlockState;
+        
+        public bool IsMet { get => id.isMet; set => id.isMet = value; }
+        public void SetState(bool value)
+        {
+            id.isMet = value;
+        }
     }
     [SerializeField] knowledgeState defaultState = knowledgeState.zero;
-    [SerializeField] List<knowledgeTake> allKnowledge = new List<knowledgeTake>();
+    [SerializeField] knowledgeState finalState = knowledgeState.all;
+    public List<ClueBundle> allClue = new List<ClueBundle>();
 
     public tag tags = 0;
     
@@ -71,35 +83,38 @@ public class Item : ScriptableObject
     
     public knowledgeState GetCurrentKnowledgeState()
     {
-        if (allKnowledge.Count == 0)
+        if (allClue.Count == 0)
             return defaultState;
 
         knowledgeState res = defaultState;
-        bool allTrue = true;
-        foreach (knowledgeTake take in allKnowledge)
+        bool allMet = true;
+        bool necessaryAllMet = true;
+        bool didAnyNecessary = false;
+        foreach (ClueBundle clue in allClue)
         {
-            if(take.dialog != null && take.dialog.allSteps.Count < take.stepNumber)
+            if (clue.necessary)
+                didAnyNecessary = true;
+
+            if (clue.IsMet)
             {
-                if (take.dialog.allSteps[take.stepNumber].alreadyRead)
+                if ((int)res < (int)clue.unlockState)
                 {
-                    //we only update the check if 
-                    if ((int)res < (int)take.unlockState)
-                        res = take.unlockState;
+                    res = clue.unlockState;
                 }
-                else
-                    allTrue = false;
             }
             else
             {
-                if (take.dialog != null)
-                    Debug.LogError("Try to seek step " + take.stepNumber + " in " + take.dialog.name + " while it only have " + take.dialog.allSteps.Count + " steps.");
-                else
-                    Debug.LogError(this.name + " have a knowledge take which are link to no dialog. Please, delete it.");
+                allMet = false;
+                if (clue.necessary)
+                {
+                    necessaryAllMet = false;
+                }
             }
         }
-
-        //could be better if I could make different dialog ref to the same info in there
-        if (allTrue)
+        
+        if (didAnyNecessary && necessaryAllMet)
+            res = (knowledgeState)8;
+        if (allMet)
             res = (knowledgeState)10;
 
 
@@ -127,3 +142,6 @@ public class Item : ScriptableObject
     }
 
 }
+
+
+

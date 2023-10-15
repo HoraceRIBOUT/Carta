@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - index: 0
-    alreadyRead: 0
+    alreadyRead: 1
     type: 6
     dialog_Data:
       text: 
@@ -79,7 +79,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 1
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: <C'est une carte des environs.>
@@ -144,7 +144,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 2
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: <Vous la scannez.>
@@ -209,7 +209,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 3
-    alreadyRead: 0
+    alreadyRead: 1
     type: 14
     dialog_Data:
       text: 
@@ -274,10 +274,10 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 4
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
-      text: <Appuyez sur 3 pour ouvrir la carte.>
+      text: <Appuyez sur 2 pour ouvrir la carte.>
       color_override: {r: 0, g: 0, b: 0, a: 0}
       pnj_override: 0
     camera_Data:
@@ -339,7 +339,7 @@ MonoBehaviour:
       zoneName: 
       change: 0
   - index: 5
-    alreadyRead: 0
+    alreadyRead: 1
     type: 0
     dialog_Data:
       text: "<Vous pouvez glisser-d\xE9poser les photos des personnages rencontr\xE9s

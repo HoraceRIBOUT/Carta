@@ -200,8 +200,7 @@ public class DialogManager : MonoBehaviour
         currentStep = -1;
         choiceEmbranchement = Vector3.zero;
         NextStep();
-
-        Debug.Log("Came here");
+        
 
         if (closestPNJ != null)
         {
@@ -224,8 +223,7 @@ public class DialogManager : MonoBehaviour
         {
             return; //can't progress while waiting to see if give or not
         }
-
-        Debug.Log("Next step : process ( " + currentDialog.allSteps.Count + " == " + (currentStep + 1) + ")");
+        
         if (currentDialog.allSteps.Count == currentStep + 1)
         {
             FinishDialog();
@@ -236,11 +234,11 @@ public class DialogManager : MonoBehaviour
 
         if(choiceEmbranchement != Vector3.zero)
         {
-            if(choiceEmbranchement.y + 1 == currentStep)
+            if (choiceEmbranchement.y + 1 == currentStep)
             {
-                Debug.Log("Choice finish and redirect");
                 currentStep = (int)choiceEmbranchement.z;
-                
+
+                choiceEmbranchement = Vector3.zero;
                 if (currentDialog.allSteps.Count <= currentStep)
                 {
                     FinishDialog();
@@ -526,10 +524,8 @@ public class DialogManager : MonoBehaviour
             Debug.LogError("No pnj for " + data.targetID);
             return;
         }
-
-        Debug.Log("will set new default");
+        
         target.defaultDialog = data.newDefaultDial;
-        Debug.Log("new default !");
     }
     public void SetNextDialog(Step.Step_SetNextDialog data)
     {
