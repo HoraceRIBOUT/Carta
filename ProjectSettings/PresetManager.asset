@@ -1,24 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!1386491679 &1
-PresetManager:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_DefaultPresets:
-  - first:
-      m_NativeTypeID: 1006
-      m_ManagedTypePPtr: {fileID: 0}
-      m_ManagedTypeFallback: 
-    second:
-    - m_Preset: {fileID: 2655988077585873504, guid: 6e66f5973df1cb14a92f627af1bb5bfe, type: 2}
-      m_Filter: glob:"Visual/_PlaceHolder/Character_v0/**.png"
-      m_Disabled: 0
-    - m_Preset: {fileID: 2655988077585873504, guid: 6e66f5973df1cb14a92f627af1bb5bfe, type: 2}
-      m_Filter: glob:"Visual/Item/**.png"
-      m_Disabled: 0
-    - m_Preset: {fileID: 2655988077585873504, guid: 6e66f5973df1cb14a92f627af1bb5bfe, type: 2}
-      m_Filter: glob:"Visual/Icon/**.png"
-      m_Disabled: 0
-    - m_Preset: {fileID: 2655988077585873504, guid: 6e66f5973df1cb14a92f627af1bb5bfe, type: 2}
-      m_Filter: glob:"Visual/Icon/**.PNG"
-      m_Disabled: 0
+version https://git-lfs.github.com/spec/v1
+oid sha256:417aa35959d293b09486a9ea50adcc2a7965d04a65104ee4d6647e7318650c07
+size 909

@@ -1,36 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1cc426e39a61ca40b83530f74cd0377, type: 3}
-  m_Name: It_LettreJustice
-  m_EditorClassIdentifier: 
-  id: 26
-  nameDisplay: Lettre de justice
-  icon: {fileID: 21300000, guid: a376abb95f4b58440b988ac0985510bd, type: 3}
-  description_fixed: "Lettre de la Justice \xE0 destination de Gokul.\\nIl habite
-    dans la pente derri\xE8re la poste, en haut des \xE9chasses."
-  description_custom: 
-  difficulty: 2
-  defaultState: 0
-  tags: 1
-  targets:
-  - pnj: 7
-    pnj_InGame: {fileID: 0}
-    finalTarget: 1
-  - pnj: 1
-    pnj_InGame: {fileID: 0}
-    finalTarget: 0
-  - pnj: 4
-    pnj_InGame: {fileID: 0}
-    finalTarget: 0
-  - pnj: 2
-    pnj_InGame: {fileID: 0}
-    finalTarget: 0
+version https://git-lfs.github.com/spec/v1
+oid sha256:708619a8025bf51b4a79b16b8de53b80485ef1e2981277732466c0b1a92e970c
+size 981
